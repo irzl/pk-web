@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BAB 3 — Penyajian Laporan Keuangan</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #080f0f; --surface: #0e1818; --surface2: #162020; --surface3: #1c2a2a;
+  --accent: #2dd4bf; --accent2: #5eead4; --accent3: #0d9488;
+  --yellow: #fbbf24; --purple: #a78bfa; --red: #f87171; --blue: #60a5fa; --green: #4ade80;
+  --text: #f0fffe; --text2: #94b8b5; --muted: #4b6f6c; --border: rgba(45,212,191,0.1); --border2: rgba(255,255,255,0.06);
+}
+html { scroll-behavior: smooth; }
+body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; min-height: 100vh; }
+
+.chapter-header { background: linear-gradient(135deg, #080f0f 0%, #0c1a1a 50%, #080f0f 100%); border-bottom: 1px solid var(--border); padding: 2.5rem 2rem 2rem; position: relative; overflow: hidden; }
+.chapter-header::before { content: '3'; position: absolute; right: -0.5rem; top: -1rem; font-family: 'Playfair Display', serif; font-size: 12rem; font-weight: 900; color: rgba(45,212,191,0.04); line-height: 1; pointer-events: none; user-select: none; }
+.chapter-eyebrow { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent3); margin-bottom: 0.5rem; }
+.chapter-title { font-family: 'Playfair Display', serif; font-size: clamp(1.4rem, 3.5vw, 2.2rem); font-weight: 900; line-height: 1.15; background: linear-gradient(135deg, #2dd4bf, #5eead4); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 1.2rem; }
+.learning-goals { background: rgba(45,212,191,0.05); border: 1px solid var(--border); border-radius: 12px; padding: 1rem 1.2rem; max-width: 700px; }
+.learning-goals h3 { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.6rem; }
+.goals-list { list-style: none; display: flex; flex-direction: column; gap: 0.3rem; }
+.goals-list li { font-size: 0.78rem; color: var(--text2); display: flex; gap: 0.6rem; align-items: flex-start; }
+.goals-list li::before { content: '→'; color: var(--accent3); flex-shrink: 0; font-family: 'DM Mono', monospace; font-size: 0.7rem; margin-top: 0.05rem; }
+
+.page-body { display: grid; grid-template-columns: 220px 1fr; min-height: calc(100vh - 200px); }
+.toc { background: var(--surface); border-right: 1px solid var(--border2); padding: 1.5rem 0; position: sticky; top: 0; height: 100vh; overflow-y: auto; }
+.toc-label { font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); padding: 0 1rem; margin-bottom: 0.8rem; }
+.toc-link { display: block; padding: 0.45rem 1rem; font-size: 0.75rem; color: var(--muted); text-decoration: none; transition: all 0.15s; border-left: 2px solid transparent; line-height: 1.4; }
+.toc-link:hover { color: var(--text); background: rgba(45,212,191,0.04); }
+.toc-link.active { color: var(--accent); border-left-color: var(--accent); background: rgba(45,212,191,0.06); }
+.toc-link.sub { padding-left: 1.8rem; font-size: 0.7rem; }
+.toc-divider { height: 1px; background: var(--border2); margin: 0.6rem 1rem; }
+
+.main { padding: 2rem 2.5rem 4rem; max-width: 860px; }
+.section { margin-bottom: 3rem; scroll-margin-top: 1.5rem; }
+.section-header { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.2rem; padding-bottom: 0.7rem; border-bottom: 1px solid var(--border2); }
+.section-num { font-family: 'DM Mono', monospace; font-size: 0.65rem; font-weight: 700; background: var(--accent3); color: #fff; padding: 0.2rem 0.5rem; border-radius: 4px; flex-shrink: 0; }
+.section-title { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; color: var(--text); line-height: 1.3; }
+.subsection { margin-bottom: 1.5rem; scroll-margin-top: 1.5rem; }
+.subsection-title { font-size: 0.82rem; font-weight: 600; color: var(--accent2); font-family: 'DM Mono', monospace; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.6rem; }
+
+.card { background: var(--surface); border: 1px solid var(--border2); border-radius: 10px; padding: 1.1rem 1.2rem; margin-bottom: 0.8rem; }
+.card-title { font-size: 0.78rem; font-weight: 600; color: var(--accent); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem; }
+.card-title .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
+.card p, .card li { font-size: 0.8rem; color: var(--text2); line-height: 1.6; }
+.card ul, .card ol { padding-left: 1.1rem; margin-top: 0.4rem; display: flex; flex-direction: column; gap: 0.25rem; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; margin-bottom: 1rem; }
+.grid-3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 0.7rem; margin-bottom: 1rem; }
+.highlight { background: rgba(45,212,191,0.06); border: 1px solid rgba(45,212,191,0.2); border-left: 3px solid var(--accent); border-radius: 8px; padding: 0.9rem 1.1rem; margin-bottom: 1rem; }
+.highlight p { font-size: 0.8rem; color: var(--text2); line-height: 1.6; }
+.highlight strong { color: var(--accent); font-weight: 600; }
+.table-wrap { overflow-x: auto; margin-bottom: 1rem; border-radius: 10px; border: 1px solid var(--border2); }
+table { width: 100%; border-collapse: collapse; font-size: 0.76rem; }
+thead tr { background: var(--surface3); }
+th { padding: 0.7rem 0.9rem; text-align: left; font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); font-weight: 500; }
+td { padding: 0.6rem 0.9rem; border-top: 1px solid var(--border2); color: var(--text2); vertical-align: top; line-height: 1.5; }
+tbody tr:hover { background: rgba(255,255,255,0.02); }
+.tag { display: inline-block; font-family: 'DM Mono', monospace; font-size: 0.6rem; padding: 0.15rem 0.5rem; border-radius: 99px; font-weight: 500; letter-spacing: 0.04em; }
+.tag-teal { background: rgba(45,212,191,0.12); color: var(--accent); border: 1px solid rgba(45,212,191,0.25); }
+.tag-yellow { background: rgba(251,191,36,0.12); color: var(--yellow); border: 1px solid rgba(251,191,36,0.25); }
+.tag-red { background: rgba(248,113,113,0.12); color: var(--red); border: 1px solid rgba(248,113,113,0.25); }
+.tag-blue { background: rgba(96,165,250,0.12); color: var(--blue); border: 1px solid rgba(96,165,250,0.25); }
+.tag-purple { background: rgba(167,139,250,0.12); color: var(--purple); border: 1px solid rgba(167,139,250,0.25); }
+.tag-green { background: rgba(74,222,128,0.12); color: var(--green); border: 1px solid rgba(74,222,128,0.25); }
+
+/* PSAK reference pill */
+.psak-ref { display: inline-flex; align-items: center; gap: 0.35rem; font-family: 'DM Mono', monospace; font-size: 0.62rem; background: var(--surface3); border: 1px solid var(--border2); color: var(--text2); padding: 0.15rem 0.55rem; border-radius: 99px; margin-bottom: 0.5rem; }
+.psak-ref span { color: var(--accent); }
+
+/* Karakteristik umum */
+.karakter-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.6rem; margin-bottom: 1rem; }
+.karakter-card { background: var(--surface); border: 1px solid var(--border2); border-radius: 10px; padding: 0.8rem; border-top: 2px solid; text-align: center; }
+.karakter-num { font-family: 'DM Mono', monospace; font-size: 0.58rem; color: var(--muted); margin-bottom: 0.25rem; }
+.karakter-name { font-size: 0.75rem; font-weight: 700; color: var(--text); line-height: 1.3; }
+.karakter-card p { font-size: 0.65rem; color: var(--text2); line-height: 1.4; margin-top: 0.25rem; }
+
+/* Komponen LK */
+.komponen-list { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1rem; }
+.komponen-item { background: var(--surface); border: 1px solid var(--border2); border-radius: 8px; padding: 0.6rem 0.9rem; display: flex; gap: 0.7rem; align-items: center; font-size: 0.78rem; }
+.komponen-num { font-family: 'DM Mono', monospace; font-size: 0.6rem; font-weight: 700; background: var(--accent3); color: #fff; padding: 0.1rem 0.4rem; border-radius: 3px; flex-shrink: 0; }
+.komponen-item span { color: var(--text2); }
+.komponen-item strong { color: var(--text); }
+
+/* Perbandingan 3 konsep */
+.compare-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.7rem; margin-bottom: 1rem; }
+.compare-card { background: var(--surface); border: 1px solid var(--border2); border-radius: 10px; padding: 0.9rem 1rem; }
+.compare-label { font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.3rem; }
+.compare-name { font-size: 0.85rem; font-weight: 700; color: var(--text); margin-bottom: 0.4rem; }
+.compare-card p { font-size: 0.74rem; color: var(--text2); line-height: 1.5; }
+.compare-card ul { padding-left: 0; list-style: none; display: flex; flex-direction: column; gap: 0.2rem; margin-top: 0.35rem; }
+.compare-card li { font-size: 0.71rem; color: var(--text2); display: flex; gap: 0.4rem; }
+.compare-card li::before { content: '·'; flex-shrink: 0; }
+
+/* Mata Uang */
+.kurs-table-row td:first-child { font-weight: 600; color: var(--accent2); }
+
+/* LPS Diagram */
+.lps-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; margin-bottom: 1rem; }
+.lps-card { background: var(--surface); border: 1px solid var(--border2); border-radius: 10px; padding: 1rem; }
+.lps-type { font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.3rem; }
+.lps-name { font-size: 0.9rem; font-weight: 800; color: var(--text); margin-bottom: 0.4rem; }
+.lps-formula { background: var(--surface3); border-radius: 6px; padding: 0.5rem 0.7rem; font-family: 'DM Mono', monospace; font-size: 0.72rem; color: var(--accent2); margin-bottom: 0.4rem; line-height: 1.5; }
+.lps-card p { font-size: 0.74rem; color: var(--text2); line-height: 1.5; }
+
+/* Peristiwa cards */
+.peristiwa-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; margin-bottom: 1rem; }
+.peristiwa-card { background: var(--surface); border: 1px solid var(--border2); border-radius: 10px; padding: 1rem; }
+.peristiwa-label { font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.3rem; }
+.peristiwa-name { font-size: 0.85rem; font-weight: 700; margin-bottom: 0.4rem; }
+.peristiwa-card.penyesuai { border-top: 3px solid var(--green); }
+.peristiwa-card.penyesuai .peristiwa-label { color: var(--green); }
+.peristiwa-card.penyesuai .peristiwa-name { color: var(--green); }
+.peristiwa-card.non { border-top: 3px solid var(--yellow); }
+.peristiwa-card.non .peristiwa-label { color: var(--yellow); }
+.peristiwa-card.non .peristiwa-name { color: var(--yellow); }
+.peristiwa-card ul { list-style: none; display: flex; flex-direction: column; gap: 0.25rem; }
+.peristiwa-card li { font-size: 0.72rem; color: var(--text2); line-height: 1.4; display: flex; gap: 0.4rem; }
+.peristiwa-card li::before { content: '▸'; font-size: 0.6rem; flex-shrink: 0; margin-top: 0.1rem; }
+.peristiwa-card.penyesuai li::before { color: var(--green); }
+.peristiwa-card.non li::before { color: var(--yellow); }
+
+/* LATIHAN */
+.exercise-section { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; margin-bottom: 1.5rem; }
+.exercise-header { background: rgba(45,212,191,0.08); padding: 0.9rem 1.2rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 0.6rem; }
+.exercise-header h3 { font-family: 'DM Mono', monospace; font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); }
+.exercise-badge { font-family: 'DM Mono', monospace; font-size: 0.58rem; background: rgba(45,212,191,0.15); color: var(--accent); padding: 0.15rem 0.5rem; border-radius: 99px; }
+.mc-item { padding: 1rem 1.2rem; border-bottom: 1px solid var(--border2); }
+.mc-item:last-child { border-bottom: none; }
+.mc-question { font-size: 0.8rem; color: var(--text); font-weight: 500; margin-bottom: 0.6rem; line-height: 1.55; }
+.mc-options { display: flex; flex-direction: column; gap: 0.3rem; }
+.mc-option { display: flex; gap: 0.6rem; align-items: flex-start; padding: 0.4rem 0.6rem; border-radius: 6px; cursor: pointer; transition: background 0.15s; font-size: 0.76rem; color: var(--text2); line-height: 1.4; border: 1px solid transparent; }
+.mc-option:hover { background: rgba(255,255,255,0.03); border-color: var(--border2); }
+.mc-option.correct { background: rgba(45,212,191,0.1); color: var(--accent); border-color: rgba(45,212,191,0.3); }
+.mc-option.wrong { background: rgba(248,113,113,0.08); color: var(--red); border-color: rgba(248,113,113,0.2); }
+.mc-option.revealed { pointer-events: none; }
+.opt-letter { font-family: 'DM Mono', monospace; font-size: 0.65rem; font-weight: 700; background: var(--surface3); padding: 0.15rem 0.4rem; border-radius: 4px; flex-shrink: 0; margin-top: 0.05rem; }
+.mc-feedback { margin-top: 0.5rem; font-size: 0.72rem; color: var(--muted); display: none; padding: 0.4rem 0.6rem; background: var(--surface3); border-radius: 6px; line-height: 1.5; }
+.mc-feedback.show { display: block; }
+.mc-feedback .correct-ans { color: var(--accent); font-weight: 600; }
+.essay-item { padding: 1rem 1.2rem; border-bottom: 1px solid var(--border2); }
+.essay-item:last-child { border-bottom: none; }
+.essay-q { font-size: 0.8rem; color: var(--text); font-weight: 500; margin-bottom: 0.4rem; line-height: 1.55; }
+.essay-sub { font-size: 0.76rem; color: var(--text2); margin-bottom: 0.8rem; padding-left: 0.8rem; line-height: 1.6; }
+.essay-toggle { display: flex; align-items: center; gap: 0.5rem; font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent3); background: rgba(45,212,191,0.07); border: 1px solid rgba(45,212,191,0.2); padding: 0.4rem 0.8rem; border-radius: 6px; cursor: pointer; transition: all 0.15s; width: fit-content; }
+.essay-toggle:hover { background: rgba(45,212,191,0.12); color: var(--accent); }
+.essay-answer { margin-top: 0.8rem; display: none; background: var(--surface3); border-radius: 8px; padding: 0.9rem 1rem; }
+.essay-answer.show { display: block; }
+.essay-answer h5 { font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent3); margin-bottom: 0.6rem; }
+.essay-answer p, .essay-answer li { font-size: 0.77rem; color: var(--text2); line-height: 1.6; }
+.essay-answer ul { padding-left: 1rem; display: flex; flex-direction: column; gap: 0.25rem; margin-top: 0.3rem; }
+.answer-group { margin-bottom: 0.7rem; }
+.answer-group h6 { font-size: 0.74rem; font-weight: 600; color: var(--text); margin-bottom: 0.35rem; }
+
+/* AI */
+.ai-section { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; }
+.ai-header { background: rgba(96,165,250,0.07); padding: 0.9rem 1.2rem; border-bottom: 1px solid rgba(96,165,250,0.15); display: flex; align-items: center; gap: 0.6rem; }
+.ai-header h3 { font-family: 'DM Mono', monospace; font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--blue); }
+.ai-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--blue); }
+.ai-messages { padding: 1rem 1.2rem; min-height: 80px; max-height: 360px; overflow-y: auto; display: flex; flex-direction: column; gap: 0.7rem; }
+.ai-msg { display: flex; gap: 0.6rem; align-items: flex-start; font-size: 0.78rem; line-height: 1.6; animation: fadeUp 0.25s ease; }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+.ai-msg.user { flex-direction: row-reverse; }
+.ai-msg .avatar { width: 26px; height: 26px; border-radius: 6px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 0.65rem; font-weight: 700; margin-top: 0.1rem; }
+.ai-msg.ai .avatar { background: rgba(96,165,250,0.15); color: var(--blue); }
+.ai-msg.user .avatar { background: rgba(45,212,191,0.15); color: var(--accent); }
+.ai-bubble { padding: 0.6rem 0.85rem; border-radius: 10px; max-width: 85%; }
+.ai-msg.ai .ai-bubble { background: var(--surface3); color: var(--text2); }
+.ai-msg.user .ai-bubble { background: rgba(45,212,191,0.09); color: var(--text); text-align: right; }
+.ai-typing { display: flex; gap: 4px; align-items: center; padding: 0.6rem 0.85rem; background: var(--surface3); border-radius: 10px; width: fit-content; }
+.ai-typing span { width: 5px; height: 5px; border-radius: 50%; background: var(--blue); animation: typing 1.2s infinite; }
+.ai-typing span:nth-child(2) { animation-delay: 0.2s; }
+.ai-typing span:nth-child(3) { animation-delay: 0.4s; }
+@keyframes typing { 0%,60%,100% { opacity: 0.2; transform: scale(0.8); } 30% { opacity: 1; transform: scale(1); } }
+.ai-input-row { padding: 0.75rem 1.2rem; border-top: 1px solid var(--border2); display: flex; gap: 0.5rem; }
+.ai-input { flex: 1; background: var(--surface3); border: 1px solid var(--border2); border-radius: 8px; padding: 0.5rem 0.8rem; font-size: 0.78rem; color: var(--text); font-family: 'DM Sans', sans-serif; outline: none; resize: none; max-height: 100px; transition: border-color 0.2s; }
+.ai-input:focus { border-color: rgba(96,165,250,0.35); }
+.ai-input::placeholder { color: var(--muted); }
+.ai-send { background: rgba(96,165,250,0.15); border: 1px solid rgba(96,165,250,0.25); color: var(--blue); border-radius: 8px; padding: 0.5rem 0.9rem; font-size: 0.75rem; font-family: 'DM Mono', monospace; cursor: pointer; transition: all 0.15s; flex-shrink: 0; }
+.ai-send:hover { background: rgba(96,165,250,0.22); }
+.ai-send:disabled { opacity: 0.4; cursor: not-allowed; }
+.ai-suggestions { padding: 0 1.2rem 0.8rem; display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.ai-chip { font-size: 0.68rem; padding: 0.3rem 0.65rem; background: var(--surface3); border: 1px solid var(--border2); border-radius: 99px; color: var(--text2); cursor: pointer; transition: all 0.15s; }
+.ai-chip:hover { border-color: rgba(96,165,250,0.3); color: var(--blue); background: rgba(96,165,250,0.06); }
+
+@media (max-width: 768px) {
+  .page-body { grid-template-columns: 1fr; }
+  .toc { display: none; }
+  .main { padding: 1.5rem 1rem 3rem; }
+  .grid-2, .lps-grid, .peristiwa-grid { grid-template-columns: 1fr; }
+  .karakter-grid, .compare-grid, .grid-3 { grid-template-columns: 1fr 1fr; }
+}
+</style>
+</head>
+<body>
+
+<div class="chapter-header">
+  <div class="chapter-eyebrow">Pelaporan Korporat · CA Indonesia</div>
+  <h1 class="chapter-title">BAB 3 — Penyajian Laporan Keuangan</h1>
+  <div class="learning-goals">
+    <h3>🎯 Tujuan Pembelajaran</h3>
+    <ul class="goals-list">
+      <li>Menjelaskan penyajian laporan keuangan dari entitas berorientasi laba, lembaga keuangan, entitas nirlaba, dan program manfaat purnakarya</li>
+      <li>Mengevaluasi pemilihan dan penerapan kebijakan akuntansi dalam laporan keuangan</li>
+      <li>Menentukan dan menganalisis mata uang fungsional dan penyajian</li>
+      <li>Menjelaskan laporan keuangan interim</li>
+      <li>Menjelaskan dan menerapkan pengungkapan pihak-pihak berelasi</li>
+      <li>Menerapkan laba per saham dasar dan dilusian</li>
+      <li>Menjelaskan dan menerapkan peristiwa setelah periode pelaporan</li>
+    </ul>
+  </div>
+</div>
+
+<div class="page-body">
+  <nav class="toc" id="toc">
+    <div class="toc-label">Daftar Isi</div>
+    <a href="#s31" class="toc-link">3.1 Ketentuan Penyajian LK</a>
+    <a href="#s31a" class="toc-link sub">Komponen LK</a>
+    <a href="#s31b" class="toc-link sub">Karakteristik Umum</a>
+    <a href="#s31c" class="toc-link sub">Struktur LK</a>
+    <a href="#s32" class="toc-link">3.2 Kebijakan Akuntansi</a>
+    <a href="#s33" class="toc-link">3.3 Estimasi Akuntansi</a>
+    <a href="#s34" class="toc-link">3.4 Kesalahan Periode Lalu</a>
+    <a href="#s35" class="toc-link">3.5 Mata Uang Fungsional</a>
+    <a href="#s36" class="toc-link">3.6 Pihak-Pihak Berelasi</a>
+    <a href="#s37" class="toc-link">3.7 Laba Per Saham</a>
+    <a href="#s38" class="toc-link">3.8 Peristiwa Setelah Pelaporan</a>
+    <a href="#s39" class="toc-link">3.9 Laporan Keuangan Interim</a>
+    <div class="toc-divider"></div>
+    <a href="#latihan" class="toc-link">📝 Latihan Soal</a>
+    <a href="#ai" class="toc-link">🤖 Tanya AI</a>
+  </nav>
+
+  <main class="main">
+
+    <!-- 3.1 -->
+    <section class="section" id="s31">
+      <div class="section-header">
+        <span class="section-num">3.1</span>
+        <h2 class="section-title">Ketentuan Penyajian Laporan Keuangan</h2>
+      </div>
+      <div class="psak-ref"><span>PSAK 1</span> Penyajian Laporan Keuangan — disahkan 2013, efektif 1 Januari 2015</div>
+
+      <div class="subsection" id="s31a">
+        <div class="subsection-title">Komponen Laporan Keuangan Lengkap</div>
+        <div class="komponen-list">
+          <div class="komponen-item"><div class="komponen-num">1</div><span><strong>Laporan Posisi Keuangan</strong> pada akhir periode</span></div>
+          <div class="komponen-item"><div class="komponen-num">2</div><span><strong>Laporan Laba Rugi dan Penghasilan Komprehensif Lain</strong> selama periode</span></div>
+          <div class="komponen-item"><div class="komponen-num">3</div><span><strong>Laporan Perubahan Ekuitas</strong> selama periode</span></div>
+          <div class="komponen-item"><div class="komponen-num">4</div><span><strong>Laporan Arus Kas</strong> selama periode</span></div>
+          <div class="komponen-item"><div class="komponen-num">5</div><span><strong>Catatan Atas Laporan Keuangan</strong> — ringkasan kebijakan akuntansi signifikan dan informasi penjelasan lain</span></div>
+          <div class="komponen-item"><div class="komponen-num">6</div><span><strong>Informasi komparatif</strong> periode terdekat sebelumnya</span></div>
+          <div class="komponen-item"><div class="komponen-num">7</div><span><strong>Laporan Posisi Keuangan awal periode terdekat</strong> — jika ada penerapan retrospektif atau reklasifikasi material</span></div>
+        </div>
+      </div>
+
+      <div class="subsection" id="s31b">
+        <div class="subsection-title">8 Karakteristik Umum Penyajian Laporan Keuangan</div>
+        <div class="karakter-grid">
+          <div class="karakter-card" style="border-top-color: var(--accent)">
+            <div class="karakter-num">01</div>
+            <div class="karakter-name">Penyajian Wajar & Kepatuhan PSAK</div>
+            <p>Laporan keuangan harus menyajikan secara wajar posisi keuangan, kinerja, dan arus kas.</p>
+          </div>
+          <div class="karakter-card" style="border-top-color: var(--green)">
+            <div class="karakter-num">02</div>
+            <div class="karakter-name">Kelangsungan Usaha</div>
+            <p>Laporan disusun berdasarkan asumsi going concern kecuali ada intensi untuk melikuidasi.</p>
+          </div>
+          <div class="karakter-card" style="border-top-color: var(--blue)">
+            <div class="karakter-num">03</div>
+            <div class="karakter-name">Dasar Akrual</div>
+            <p>Disusun atas dasar akrual, kecuali laporan arus kas.</p>
+          </div>
+          <div class="karakter-card" style="border-top-color: var(--yellow)">
+            <div class="karakter-num">04</div>
+            <div class="karakter-name">Materialitas & Penggabungan</div>
+            <p>Setiap kelas pos serupa yang material disajikan tersendiri.</p>
+          </div>
+          <div class="karakter-card" style="border-top-color: var(--red)">
+            <div class="karakter-num">05</div>
+            <div class="karakter-name">Saling Hapus</div>
+            <p>Tidak melakukan saling hapus aset & liabilitas atau penghasilan & beban, kecuali diizinkan PSAK.</p>
+          </div>
+          <div class="karakter-card" style="border-top-color: var(--purple)">
+            <div class="karakter-num">06</div>
+            <div class="karakter-name">Frekuensi Pelaporan</div>
+            <p>Laporan keuangan lengkap disajikan secara tahunan.</p>
+          </div>
+          <div class="karakter-card" style="border-top-color: var(--accent2)">
+            <div class="karakter-num">07</div>
+            <div class="karakter-name">Informasi Komparatif</div>
+            <p>Entitas menyajikan informasi komparatif periode terdekat sebelumnya untuk seluruh jumlah.</p>
+          </div>
+          <div class="karakter-card" style="border-top-color: #f472b6">
+            <div class="karakter-num">08</div>
+            <div class="karakter-name">Konsistensi Penyajian</div>
+            <p>Penyajian dan klasifikasi pos dilakukan secara konsisten antar periode, kecuali ada alasan valid.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="subsection" id="s31c">
+        <div class="subsection-title">Struktur Laporan Keuangan — Minimum Line Items</div>
+        <div class="grid-2">
+          <div class="card">
+            <div class="card-title"><span class="dot"></span>Laporan Posisi Keuangan (17 item)</div>
+            <ul>
+              <li>Aset tetap, properti investasi, aset tidak berwujud</li>
+              <li>Aset keuangan, investasi metode ekuitas, persediaan</li>
+              <li>Piutang dagang, kas dan setara kas</li>
+              <li>Aset untuk dijual (PSAK 58)</li>
+              <li>Utang dagang, provisi, liabilitas keuangan</li>
+              <li>Liabilitas & aset pajak kini dan tangguhan (PSAK 46)</li>
+              <li>Kepentingan non-pengendali, modal saham dan cadangan</li>
+            </ul>
+          </div>
+          <div class="card">
+            <div class="card-title"><span class="dot"></span>Laporan Laba Rugi & OCI (6 item)</div>
+            <ul>
+              <li>Pendapatan</li>
+              <li>Biaya keuangan</li>
+              <li>Bagian laba rugi entitas asosiasi & joint ventures (metode ekuitas)</li>
+              <li>Beban pajak</li>
+              <li>Laba rugi operasi dihentikan (setelah pajak)</li>
+              <li>Komponen OCI: selisih revaluasi aset tetap, pengukuran kembali program imbalan pasti, laba rugi penjabaran LK, perubahan nilai AFS, lindung nilai arus kas, OCI asosiasi</li>
+            </ul>
+          </div>
+        </div>
+        <div class="highlight">
+          <p><strong>Tiga Laporan Posisi Keuangan</strong> disajikan jika: (1) entitas menerapkan kebijakan akuntansi secara retrospektif, (2) membuat penyajian kembali retrospektif atas pos-pos, atau (3) mereklasifikasi pos-pos yang berdampak material → disajikan pada akhir periode berjalan, akhir periode sebelumnya, dan <strong>awal periode sebelumnya</strong>.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3.2 -->
+    <section class="section" id="s32">
+      <div class="section-header">
+        <span class="section-num">3.2</span>
+        <h2 class="section-title">Kebijakan Akuntansi</h2>
+      </div>
+      <div class="psak-ref"><span>PSAK 25</span> Kebijakan Akuntansi, Perubahan Estimasi Akuntansi, dan Kesalahan</div>
+      <div class="highlight">
+        <p>Kebijakan akuntansi adalah <strong>prinsip, dasar, konvensi, peraturan, dan praktik spesifik</strong> yang diterapkan entitas dalam menyusun dan menyajikan laporan keuangan. Harus menghasilkan informasi yang <strong>relevan dan andal</strong>.</p>
+      </div>
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-title"><span class="dot"></span>Hirarki sumber kebijakan akuntansi</div>
+          <ul>
+            <li><span class="tag tag-teal">1</span> Persyaratan dan panduan dalam PSAK yang berhubungan dengan masalah serupa</li>
+            <li><span class="tag tag-yellow">2</span> Definisi, kriteria pengakuan, dan konsep pengukuran dalam Kerangka Dasar</li>
+            <li><span class="tag tag-blue">3</span> Standar akuntansi terkini badan penyusun lain (kerangka dasar sama)</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="dot"></span>Perubahan kebijakan akuntansi diperbolehkan jika</div>
+          <ul>
+            <li>Dipersyaratkan oleh suatu PSAK; <strong>atau</strong></li>
+            <li>Menghasilkan informasi yang lebih andal dan lebih relevan</li>
+          </ul>
+          <p style="margin-top:0.5rem">Perubahan diterapkan secara <strong>retrospektif</strong> — saldo awal disesuaikan seolah kebijakan baru selalu diterapkan.</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title"><span class="dot"></span>Bukan merupakan perubahan kebijakan akuntansi</div>
+        <ul>
+          <li>Penerapan kebijakan akuntansi untuk transaksi yang secara substansi berbeda dari yang terjadi sebelumnya</li>
+          <li>Penerapan kebijakan akuntansi baru untuk transaksi yang tidak pernah terjadi sebelumnya atau tidak material</li>
+          <li>Penerapan dini PSAK</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 3.3 -->
+    <section class="section" id="s33">
+      <div class="section-header">
+        <span class="section-num">3.3</span>
+        <h2 class="section-title">Estimasi Akuntansi</h2>
+      </div>
+      <div class="highlight">
+        <p>Estimasi diperlukan karena ketidakpastian yang melekat dalam aktivitas bisnis. Revisi estimasi <strong>tidak terkait dengan periode lalu</strong> dan bukan koreksi kesalahan. Perubahan dasar pengukuran = perubahan kebijakan akuntansi.</p>
+      </div>
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-title"><span class="dot"></span>Contoh estimasi akuntansi</div>
+          <ul>
+            <li>Piutang tidak tertagih</li>
+            <li>Persediaan yang rusak/usang</li>
+            <li>Nilai wajar aset keuangan atau liabilitas keuangan</li>
+            <li>Umur manfaat aset yang disusutkan</li>
+            <li>Liabilitas garansi</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="dot"></span>Pengakuan dampak perubahan estimasi</div>
+          <p>Diakui secara <strong>prospektif</strong> dalam Laporan Laba Rugi dan OCI:</p>
+          <ul>
+            <li>Periode perubahan — jika dampak hanya pada periode itu</li>
+            <li>Periode perubahan DAN mendatang — jika perubahan berdampak keduanya</li>
+          </ul>
+          <p style="margin-top:0.5rem">Ketika sulit membedakan perubahan kebijakan vs estimasi → perlakukan sebagai <strong>perubahan estimasi</strong>.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3.4 -->
+    <section class="section" id="s34">
+      <div class="section-header">
+        <span class="section-num">3.4</span>
+        <h2 class="section-title">Kesalahan Periode Sebelumnya</h2>
+      </div>
+      <div class="compare-grid">
+        <div class="compare-card">
+          <div class="compare-label" style="color:var(--accent)">Metode Koreksi</div>
+          <div class="compare-name">Retrospektif</div>
+          <p>Kesalahan material dikoreksi dengan menyajikan kembali informasi komparatif secara retrospektif pada laporan keuangan pertama setelah ditemukannya.</p>
+        </div>
+        <div class="compare-card">
+          <div class="compare-label" style="color:var(--yellow)">Letak Koreksi</div>
+          <div class="compare-name">Bukan di Laba Rugi</div>
+          <p>Koreksi kesalahan periode lalu <strong>tidak termasuk</strong> dalam Laporan Laba Rugi dan OCI periode ditemukannya — langsung ke ekuitas/saldo pembuka.</p>
+        </div>
+        <div class="compare-card">
+          <div class="compare-label" style="color:var(--blue)">Jika Tidak Praktis</div>
+          <div class="compare-name">Prospektif</div>
+          <p>Jika tidak praktis menentukan dampak kumulatif — entitas menyajikan kembali komparatif secara prospektif sejak tanggal paling awal yang praktis.</p>
+        </div>
+      </div>
+      <div class="highlight">
+        <p><strong>Ilustrasi Perbedaan:</strong> PT XYZ memiliki gedung (Aset Tetap). Pada 20X9 ditemukan bahwa depresiasi tahun 20X8 belum dicatat → koreksi kesalahan (retrospektif). Perubahan pengukuran dari biaya historis ke nilai wajar = perubahan kebijakan akuntansi. Perubahan masa manfaat dari 10 ke 15 tahun = perubahan estimasi akuntansi.</p>
+      </div>
+    </section>
+
+    <!-- 3.5 -->
+    <section class="section" id="s35">
+      <div class="section-header">
+        <span class="section-num">3.5</span>
+        <h2 class="section-title">Mata Uang Fungsional dan Penyajian</h2>
+      </div>
+      <div class="psak-ref"><span>PSAK 10</span> Pengaruh Perubahan Kurs pada Valuta Asing</div>
+      <div class="card">
+        <div class="card-title"><span class="dot"></span>Faktor Penentu Mata Uang Fungsional</div>
+        <ul>
+          <li>Mata uang yang paling mempengaruhi <strong>harga jual</strong> barang dan jasa</li>
+          <li>Mata uang dari negara yang kekuatan persaingan dan peraturannya menentukan harga jual entitas</li>
+          <li>Mata uang yang paling mempengaruhi <strong>biaya tenaga kerja, bahan baku, dan biaya lain</strong></li>
+        </ul>
+        <p style="margin-top:0.5rem"><em>Bukan</em> termasuk faktor: mata uang di mana perusahaan atau induk beroperasi.</p>
+      </div>
+      <div class="subsection-title">Penjabaran Pos Valuta Asing</div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Jenis Pos</th><th>Kurs yang Digunakan</th></tr></thead>
+          <tbody class="kurs-table-row">
+            <tr><td>Pengakuan awal transaksi VA</td><td>Kurs spot tanggal transaksi</td></tr>
+            <tr><td>Pos moneter akhir periode</td><td>Kurs penutup</td></tr>
+            <tr><td>Pos non-moneter — biaya historis</td><td>Kurs historis tanggal transaksi</td></tr>
+            <tr><td>Pos non-moneter — nilai wajar</td><td>Kurs tanggal nilai wajar diukur</td></tr>
+            <tr><td>Selisih kurs pos moneter</td><td>Diakui dalam <strong>laba rugi</strong> periode saat terjadi</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 3.6 -->
+    <section class="section" id="s36">
+      <div class="section-header">
+        <span class="section-num">3.6</span>
+        <h2 class="section-title">Pengungkapan Pihak-Pihak Berelasi</h2>
+      </div>
+      <div class="psak-ref"><span>PSAK 7</span> Pengungkapan Pihak-Pihak Berelasi</div>
+      <div class="highlight">
+        <p>Tujuan: menjamin transaksi menggunakan prinsip <strong>arms length transaction</strong>. Pihak berelasi = orang/entitas yang terkait dengan entitas pelapor.</p>
+      </div>
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-title"><span class="dot"></span>Orang adalah pihak berelasi jika (diri/keluarga dekat)</div>
+          <ul>
+            <li>Memiliki pengendalian atau pengendalian bersama atas entitas pelapor</li>
+            <li>Memiliki pengaruh signifikan atas entitas pelapor</li>
+            <li>Merupakan personil manajemen kunci entitas pelapor atau entitas induk</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="dot"></span>Entitas adalah pihak berelasi jika</div>
+          <ul>
+            <li>Anggota kelompok usaha yang sama (induk, anak, sesama anak)</li>
+            <li>Entitas asosiasi atau ventura bersama dari entitas lain</li>
+            <li>Ventura bersama dari pihak ketiga yang sama</li>
+            <li>Program imbalan pasca kerja entitas pelapor atau entitas terkait</li>
+            <li>Dikendalikan/dipengaruhi secara signifikan oleh orang dalam huruf (a)</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title"><span class="dot"></span>Pengungkapan minimum jika ada transaksi pihak berelasi</div>
+        <ul>
+          <li>Sifat dari hubungan dengan pihak berelasi</li>
+          <li>Nilai transaksi</li>
+          <li>Jumlah saldo termasuk komitmen</li>
+          <li>Penyisihan piutang ragu-ragu terkait saldo tersebut</li>
+          <li>Beban piutang ragu-ragu/penghapusan periode berjalan</li>
+          <li>Kompensasi manajemen kunci (per kategori: jangka pendek, pasca kerja, jangka panjang lain, pemutusan, berbasis saham)</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 3.7 -->
+    <section class="section" id="s37">
+      <div class="section-header">
+        <span class="section-num">3.7</span>
+        <h2 class="section-title">Laba Per Saham</h2>
+      </div>
+      <div class="psak-ref"><span>PSAK 56</span> Laba Per Saham</div>
+      <div class="lps-grid">
+        <div class="lps-card">
+          <div class="lps-type">LPS Dasar</div>
+          <div class="lps-name">Basic EPS</div>
+          <div class="lps-formula">LPS Dasar = Laba (Rugi) yang diatribusikan ke pemegang saham biasa entitas induk ÷ Rata-rata tertimbang saham biasa beredar</div>
+          <p>Dihitung atas laba/rugi yang dapat diatribusikan kepada pemegang saham biasa entitas induk. Wajib disajikan meskipun negatif.</p>
+        </div>
+        <div class="lps-card">
+          <div class="lps-type">LPS Dilusian</div>
+          <div class="lps-name">Diluted EPS</div>
+          <div class="lps-formula">LPS Dilusian = (Laba + penyesuaian) ÷ (Rata-rata tertimbang saham + efek dilutif)</div>
+          <p>Terdilusi jika perusahaan memiliki efek berpotensi saham: opsi, waran, obligasi konversi, saham preferen konversi, dividen saham, dll.</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title"><span class="dot"></span>Pengungkapan wajib LPS</div>
+        <ul>
+          <li>Jumlah laba (rugi) sebagai pembilang LPS dasar dan dilusian, dan rekonsiliasinya dengan laba (rugi) periode bersangkutan</li>
+          <li>Rata-rata tertimbang saham beredar sebagai penyebut LPS dasar dan dilusian, dan rekonsiliasi penyebut satu dengan lainnya</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 3.8 -->
+    <section class="section" id="s38">
+      <div class="section-header">
+        <span class="section-num">3.8</span>
+        <h2 class="section-title">Peristiwa Setelah Periode Pelaporan</h2>
+      </div>
+      <div class="psak-ref"><span>PSAK 8</span> Peristiwa Setelah Periode Pelaporan</div>
+      <div class="highlight">
+        <p>Peristiwa setelah periode pelaporan = peristiwa yang terjadi antara <strong>akhir periode pelaporan</strong> dan <strong>tanggal laporan keuangan diotorisasi untuk terbit</strong>, baik menguntungkan maupun tidak.</p>
+      </div>
+      <div class="peristiwa-grid">
+        <div class="peristiwa-card penyesuai">
+          <div class="peristiwa-label">Perlakuan: Sesuaikan LK</div>
+          <div class="peristiwa-name">Peristiwa Penyesuai</div>
+          <p style="font-size:0.74rem;color:var(--text2);margin-bottom:0.5rem">Memberikan bukti atas kondisi yang <em>sudah ada</em> pada akhir periode pelaporan.</p>
+          <ul>
+            <li>Penyelesaian kasus pengadilan yang mengonfirmasi kewajiban kini pada akhir periode</li>
+            <li>Kebangkrutan pelanggan — mengonfirmasi kerugian piutang pada akhir periode</li>
+            <li>Penjualan persediaan — bukti nilai realisasi neto akhir periode</li>
+            <li>Penentuan biaya perolehan aset atau hasil penjualan aset sebelum akhir periode</li>
+            <li>Penentuan bonus/laba yang menjadi kewajiban hukum/konstruktif</li>
+            <li>Penemuan kecurangan atau kesalahan yang menunjukkan laporan tidak benar</li>
+          </ul>
+        </div>
+        <div class="peristiwa-card non">
+          <div class="peristiwa-label">Perlakuan: Ungkapkan (jika material)</div>
+          <div class="peristiwa-name">Peristiwa Non-Penyesuai</div>
+          <p style="font-size:0.74rem;color:var(--text2);margin-bottom:0.5rem">Mengindikasikan kondisi yang <em>timbul setelah</em> periode pelaporan.</p>
+          <ul>
+            <li>Kombinasi bisnis signifikan / pelepasan entitas anak</li>
+            <li>Pengumuman menghentikan operasi</li>
+            <li>Pembelian aset signifikan / aset dimiliki untuk dijual</li>
+            <li>Kerusakan pabrik produksi akibat kebakaran</li>
+            <li>Pengumuman/dimulainya restrukturisasi signifikan</li>
+            <li>Transaksi saham biasa potensial yang signifikan</li>
+            <li>Perubahan besar harga aset atau kurs valuta asing</li>
+            <li>Perubahan tarif pajak yang diumumkan setelah periode</li>
+            <li>Pemberian komitmen / jaminan signifikan</li>
+            <li>Dimulainya proses tuntutan hukum signifikan</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3.9 -->
+    <section class="section" id="s39">
+      <div class="section-header">
+        <span class="section-num">3.9</span>
+        <h2 class="section-title">Penyajian Laporan Keuangan Interim</h2>
+      </div>
+      <div class="psak-ref"><span>PSAK 3</span> Laporan Keuangan Interim</div>
+      <div class="highlight">
+        <p>Laporan keuangan interim = laporan keuangan untuk <strong>periode lebih pendek dari satu tahun buku penuh</strong>. Perusahaan publik wajib menyampaikan LK interim <strong>3 bulanan (kuartalan)</strong>.</p>
+      </div>
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-title"><span class="dot"></span>Komponen minimum LK Interim</div>
+          <ul>
+            <li>Laporan posisi keuangan ringkas</li>
+            <li>Laporan laba rugi dan OCI ringkas</li>
+            <li>Laporan perubahan ekuitas ringkas</li>
+            <li>Laporan arus kas ringkas</li>
+            <li>Catatan penjelasan tertentu</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="dot"></span>Prinsip penyajian LK Interim</div>
+          <ul>
+            <li>Kebijakan akuntansi sama dengan laporan keuangan tahunan</li>
+            <li>Pengukuran dibuat atas dasar <strong>awal tahun buku sampai tanggal pelaporan</strong> (year-to-date)</li>
+            <li>Frekuensi pelaporan tidak mempengaruhi pengukuran hasil tahunan</li>
+            <li>Dapat disajikan dalam bentuk LK Lengkap atau LK Ringkas</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- LATIHAN SOAL -->
+    <section class="section" id="latihan">
+      <div class="section-header">
+        <span class="section-num" style="background:var(--yellow);color:#000">📝</span>
+        <h2 class="section-title">Latihan Soal</h2>
+      </div>
+
+      <div class="exercise-section">
+        <div class="exercise-header">
+          <h3>Pilihan Ganda</h3>
+          <span class="exercise-badge">10 Soal</span>
+        </div>
+
+        <div class="mc-item">
+          <div class="mc-question">1. Yang <strong>tidak termasuk</strong> dalam minimum line item yang harus disajikan dalam Laporan Posisi Keuangan adalah…</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',1)"><span class="opt-letter">A</span>Properti investasi</div>
+            <div class="mc-option" onclick="checkMC(this,'b',1)"><span class="opt-letter">B</span>Aset yang diklasifikasikan sebagai aset yang dimiliki untuk dijual</div>
+            <div class="mc-option" onclick="checkMC(this,'c',1)"><span class="opt-letter">C</span>Provisi</div>
+            <div class="mc-option" onclick="checkMC(this,'d',1)"><span class="opt-letter">D</span>Liabilitas Kontinjensi</div>
+          </div>
+          <div class="mc-feedback" id="fb1"><span class="correct-ans">Jawaban: D</span> — Liabilitas Kontinjensi bukan minimum line item Laporan Posisi Keuangan. Properti investasi (A), aset dimiliki untuk dijual (B), dan provisi (C) semuanya termasuk dalam daftar 17 minimum line item PSAK 1.</div>
+        </div>
+
+        <div class="mc-item">
+          <div class="mc-question">2. Komponen yang <strong>tidak termasuk</strong> penghasilan komprehensif lainnya adalah…</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',2)"><span class="opt-letter">A</span>Selisih revaluasi aset tetap</div>
+            <div class="mc-option" onclick="checkMC(this,'b',2)"><span class="opt-letter">B</span>Selisih kurs</div>
+            <div class="mc-option" onclick="checkMC(this,'c',2)"><span class="opt-letter">C</span>Pengukuran kembali program imbalan pasti</div>
+            <div class="mc-option" onclick="checkMC(this,'d',2)"><span class="opt-letter">D</span>Bagian efektif dari keuntungan lindung nilai arus kas</div>
+          </div>
+          <div class="mc-feedback" id="fb2"><span class="correct-ans">Jawaban: C</span> — Salah — sebenarnya jawaban yang benar adalah B. Selisih kurs atas pos moneter yang ditransaksikan dalam mata uang asing diakui dalam <strong>laba rugi</strong>, bukan OCI. Komponen OCI mencakup: selisih revaluasi aset tetap, pengukuran kembali imbalan pasti, laba rugi penjabaran LK operasi luar negeri, perubahan nilai AFS, dan lindung nilai arus kas.</div>
+        </div>
+
+        <div class="mc-item">
+          <div class="mc-question">3. Pernyataan yang <strong>benar</strong> terkait perubahan kebijakan akuntansi, estimasi akuntansi, dan kesalahan adalah…</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',3)"><span class="opt-letter">A</span>Dampak perubahan estimasi akuntansi, diakui secara retrospektif dalam Laporan Laba Rugi dan Penghasilan Komprehensif Lain.</div>
+            <div class="mc-option" onclick="checkMC(this,'b',3)"><span class="opt-letter">B</span>Perubahan kebijakan akuntansi yang dilakukan untuk menghasilkan laporan keuangan yang memberikan informasi lebih andal dan relevan, dilakukan secara retrospektif.</div>
+            <div class="mc-option" onclick="checkMC(this,'c',3)"><span class="opt-letter">C</span>Kesalahan periode lalu dikoreksi dengan penyajian kembali secara prospektif dengan mengkoreksi saldo akun yang bersangkutan sejak tanggal ditemukannya kesalahan.</div>
+            <div class="mc-option" onclick="checkMC(this,'d',3)"><span class="opt-letter">D</span>Entitas mengubah kebijakan akuntansi untuk penerapan awal suatu PSAK yang tidak mengatur ketentuan transisi, diterapkan secara prospektif.</div>
+          </div>
+          <div class="mc-feedback" id="fb3"><span class="correct-ans">Jawaban: C (salah) → Jawaban benar: B</span> — Perubahan kebijakan akuntansi untuk menghasilkan informasi lebih andal/relevan = retrospektif (B = benar). A salah: perubahan estimasi diakui prospektif. C salah: koreksi kesalahan = retrospektif. D salah: PSAK tanpa ketentuan transisi = retrospektif.</div>
+        </div>
+
+        <div class="mc-item">
+          <div class="mc-question">4. Berikut adalah faktor yang menjadi pertimbangan entitas dalam menentukan mata uang fungsionalnya…</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',4)"><span class="opt-letter">A</span>Mata uang yang paling mempengaruhi harga jual barang dan jasa.</div>
+            <div class="mc-option" onclick="checkMC(this,'b',4)"><span class="opt-letter">B</span>Mata uang dari negara yang kekuatan persaingan dan peraturannya sebagian besar menentukan harga jual barang dan jasa entitas.</div>
+            <div class="mc-option" onclick="checkMC(this,'c',4)"><span class="opt-letter">C</span>Mata uang dimana perusahaan atau induk perusahaan beroperasi.</div>
+            <div class="mc-option" onclick="checkMC(this,'d',4)"><span class="opt-letter">D</span>Mata uang yang paling mempengaruhi biaya tenaga kerja, bahan baku, dan biaya lain dari pengadaan barang atau jasa.</div>
+          </div>
+          <div class="mc-feedback" id="fb4"><span class="correct-ans">Jawaban: A</span> — Semua A, B, D adalah faktor valid untuk menentukan mata uang fungsional. C (mata uang di mana perusahaan/induk beroperasi) bukan merupakan faktor penentu mata uang fungsional menurut PSAK 10.</div>
+        </div>
+
+        <div class="mc-item">
+          <div class="mc-question">5. Apabila perusahaan melakukan transaksi dengan mata uang asing, berikut adalah perlakuan akuntansi yang sesuai, <strong>kecuali</strong>…</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',5)"><span class="opt-letter">A</span>Pada saat pengakuan awal, transaksi valuta asing dicatat dalam mata uang fungsional dengan kurs spot.</div>
+            <div class="mc-option" onclick="checkMC(this,'b',5)"><span class="opt-letter">B</span>Pada akhir setiap periode, pos moneter valuta asing dijabarkan menggunakan kurs penutup.</div>
+            <div class="mc-option" onclick="checkMC(this,'c',5)"><span class="opt-letter">C</span>Pada akhir setiap periode, pos non moneter yang diukur dalam biaya historis dalam valuta asing dijabarkan menggunakan kurs historis tanggal transaksi dan yang diukur dalam nilai wajar menggunakan kurs pada tanggal ketika nilai wajar diukur.</div>
+            <div class="mc-option" onclick="checkMC(this,'d',5)"><span class="opt-letter">D</span>Selisih kurs yang timbul pada penyelesaian pos moneter diakui dalam laba rugi komprehensif lain pada periode saat terjadinya.</div>
+          </div>
+          <div class="mc-feedback" id="fb5"><span class="correct-ans">Jawaban: B (soal menyatakan D)</span> — D salah karena selisih kurs yang timbul pada penyelesaian pos moneter diakui dalam <strong>laba rugi</strong> (bukan OCI). A, B, C semuanya benar.</div>
+        </div>
+
+        <div class="mc-item">
+          <div class="mc-question">6. Berdasarkan PSAK 7, suatu entitas berelasi dengan entitas pelapor jika memenuhi salah satu hal berikut, <strong>kecuali</strong>…</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',6)"><span class="opt-letter">A</span>Entitas dan entitas pelapor adalah anggota dari kelompok usaha yang sama.</div>
+            <div class="mc-option" onclick="checkMC(this,'b',6)"><span class="opt-letter">B</span>Satu entitas adalah entitas asosiasi atau ventura bersama dari entitas lain.</div>
+            <div class="mc-option" onclick="checkMC(this,'c',6)"><span class="opt-letter">C</span>Kedua entitas tersebut adalah ventura bersama dari pihak ketiga yang sama.</div>
+            <div class="mc-option" onclick="checkMC(this,'d',6)"><span class="opt-letter">D</span>Kedua entitas memiliki nasabah sama yang memberikan kontribusi signifikan bagi perusahaan.</div>
+          </div>
+          <div class="mc-feedback" id="fb6"><span class="correct-ans">Jawaban: D</span> — Memiliki nasabah yang sama bukan merupakan kriteria pihak berelasi menurut PSAK 7. Hubungan berelasi timbul dari hubungan kepemilikan, pengendalian, atau pengaruh signifikan.</div>
+        </div>
+
+        <div class="mc-item">
+          <div class="mc-question">7. Berikut adalah contoh dari <strong>peristiwa non penyesuai</strong>…</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',7)"><span class="opt-letter">A</span>Penyelesaian kasus pengadilan setelah periode pelaporan yang memutuskan bahwa entitas memiliki kewajiban kini pada akhir periode pelaporan.</div>
+            <div class="mc-option" onclick="checkMC(this,'b',7)"><span class="opt-letter">B</span>Penerimaan informasi setelah periode pelaporan yang mengindikasikan adanya penurunan nilai aset pada akhir periode pelaporan.</div>
+            <div class="mc-option" onclick="checkMC(this,'c',7)"><span class="opt-letter">C</span>Kombinasi bisnis signifikan setelah periode pelaporan atau pelepasan entitas anak yang signifikan.</div>
+            <div class="mc-option" onclick="checkMC(this,'d',7)"><span class="opt-letter">D</span>Penentuan jumlah pembayaran bagi laba atau bonus setelah periode pelaporan, jika entitas memiliki kewajiban hukum atau kewajiban konstruktif kini pada akhir periode pelaporan.</div>
+          </div>
+          <div class="mc-feedback" id="fb7"><span class="correct-ans">Jawaban: D (soal menyatakan C)</span> — C adalah contoh peristiwa non penyesuai yang benar. A, B, D semuanya merupakan peristiwa penyesuai karena memberikan bukti atas kondisi yang sudah ada pada akhir periode pelaporan.</div>
+        </div>
+
+        <div class="mc-item">
+          <div class="mc-question">8. Berikut adalah contoh peristiwa nonpenyesuai setelah periode pelaporan yang umumnya dibuat pengungkapan, <strong>kecuali</strong>…</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',8)"><span class="opt-letter">A</span>Pembelian aset yang signifikan, pengklasifikasian aset sebagai aset dimiliki untuk dijual.</div>
+            <div class="mc-option" onclick="checkMC(this,'b',8)"><span class="opt-letter">B</span>Diketahuinya informasi kebangkrutan pelanggan yang terjadi setelah periode pelaporan.</div>
+            <div class="mc-option" onclick="checkMC(this,'c',8)"><span class="opt-letter">C</span>Kerusakan pabrik produksi yang signifikan akibat kebakaran setelah periode pelaporan.</div>
+            <div class="mc-option" onclick="checkMC(this,'d',8)"><span class="opt-letter">D</span>Transaksi saham biasa dan transaksi saham biasa potensial yang signifikan setelah periode pelaporan.</div>
+          </div>
+          <div class="mc-feedback" id="fb8"><span class="correct-ans">Jawaban: D (soal menyatakan D)</span> — B adalah peristiwa penyesuai (kebangkrutan pelanggan mengonfirmasi kerugian piutang yang sudah ada pada akhir periode), bukan non-penyesuai. A, C, D adalah peristiwa non-penyesuai.</div>
+        </div>
+
+        <div class="mc-item">
+          <div class="mc-question">9. Laporan keuangan interim minimum mencakup komponen berikut, <strong>kecuali</strong>…</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',9)"><span class="opt-letter">A</span>Laporan posisi keuangan ringkas</div>
+            <div class="mc-option" onclick="checkMC(this,'b',9)"><span class="opt-letter">B</span>Laporan laba rugi dan penghasilan komprehensif lain ringkas</div>
+            <div class="mc-option" onclick="checkMC(this,'c',9)"><span class="opt-letter">C</span>Laporan arus kas ringkas</div>
+            <div class="mc-option" onclick="checkMC(this,'d',9)"><span class="opt-letter">D</span>Catatan atas laporan keuangan (CaLK)</div>
+          </div>
+          <div class="mc-feedback" id="fb9"><span class="correct-ans">Jawaban: D</span> — LK Interim minimum memuat: laporan posisi keuangan ringkas, laporan laba rugi & OCI ringkas, laporan perubahan ekuitas ringkas, laporan arus kas ringkas, dan <strong>catatan penjelasan tertentu</strong> — bukan CaLK lengkap seperti dalam laporan tahunan.</div>
+        </div>
+
+        <div class="mc-item">
+          <div class="mc-question">10. Berikut yang <strong>tidak termasuk</strong> Laporan Keuangan lengkap adalah…</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',10)"><span class="opt-letter">A</span>Laporan Posisi Keuangan pada akhir periode</div>
+            <div class="mc-option" onclick="checkMC(this,'b',10)"><span class="opt-letter">B</span>Laporan Laba Rugi dan Penghasilan Komprehensif Lain selama periode</div>
+            <div class="mc-option" onclick="checkMC(this,'c',10)"><span class="opt-letter">C</span>Laporan Realisasi Anggaran selama periode</div>
+            <div class="mc-option" onclick="checkMC(this,'d',10)"><span class="opt-letter">D</span>Laporan Perubahan Ekuitas selama periode</div>
+          </div>
+          <div class="mc-feedback" id="fb10"><span class="correct-ans">Jawaban: C</span> — Laporan Realisasi Anggaran adalah komponen laporan keuangan pemerintah (SAP), bukan laporan keuangan entitas privat berdasarkan SAK/PSAK 1. Komponen LK lengkap SAK: posisi keuangan, laba rugi & OCI, perubahan ekuitas, arus kas, dan CaLK.</div>
+        </div>
+      </div>
+
+      <div class="exercise-section">
+        <div class="exercise-header">
+          <h3>Esai</h3>
+          <span class="exercise-badge">2 Soal</span>
+        </div>
+        <div class="essay-item">
+          <div class="essay-q">1. Berkaitan dengan Laba Per Saham Dilusian, jelaskan:</div>
+          <div class="essay-sub">
+            a. Apa yang dimaksud dengan Laba Per Saham Dilusian?<br>
+            b. Instrumen apa yang menyebabkan terjadinya dilusi? (berikan paling tidak 5 contoh)<br>
+            c. Bagaimana menghitung Laba Per Saham Dasar dan Dilusian?
+          </div>
+          <button class="essay-toggle" onclick="toggleEssay('e1')">▶ Lihat Jawaban</button>
+          <div class="essay-answer" id="e1">
+            <h5>Kunci Jawaban</h5>
+            <div class="answer-group">
+              <h6>a. Pengertian LPS Dilusian:</h6>
+              <p>Laba Per Saham Dilusian adalah nilai LPS yang memiliki potensi terdilusi. LPS akan memiliki potensi terdilusi apabila perusahaan memiliki efek yang berpotensi saham seperti opsi, waran, obligasi konversi, dll.</p>
+            </div>
+            <div class="answer-group">
+              <h6>b. Instrumen penyebab dilusi (minimal 5):</h6>
+              <ul>
+                <li>Opsi saham (stock option)</li>
+                <li>Waran (warrant)</li>
+                <li>Obligasi Konversi (convertible bond)</li>
+                <li>Saham preferen yang dapat dikonversikan menjadi saham biasa</li>
+                <li>Dividen saham (stock dividend)</li>
+                <li>Hak memesan efek terlebih dahulu (rights issue)</li>
+              </ul>
+            </div>
+            <div class="answer-group">
+              <h6>c. Cara menghitung LPS Dasar dan Dilusian:</h6>
+              <ul>
+                <li><strong>LPS Dasar:</strong> Laba (rugi) yang dapat diatribusikan kepada pemegang saham biasa entitas induk (pembilang) ÷ Jumlah rata-rata tertimbang saham biasa yang beredar (penyebut) dalam suatu periode.</li>
+                <li><strong>LPS Dilusian:</strong> Entitas melakukan penyesuaian terhadap laba atau rugi yang dapat diatribusikan kepada pemegang saham biasa entitas induk <strong>dan</strong> jumlah rata-rata tertimbang saham yang beredar, atas dampak dari semua efek yang mempunyai potensi saham biasa yang bersifat dilutif.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="essay-item">
+          <div class="essay-q">2. Bagaimana perlakuan akuntansi dari suatu peristiwa yang terjadi pada tanggal sebelum laporan diotorisasi untuk terbit?</div>
+          <button class="essay-toggle" onclick="toggleEssay('e2')">▶ Lihat Jawaban</button>
+          <div class="essay-answer" id="e2">
+            <h5>Kunci Jawaban</h5>
+            <p>Peristiwa setelah periode pelaporan adalah peristiwa yang terjadi antara akhir periode pelaporan dan tanggal laporan keuangan diotorisasi untuk terbit, baik peristiwa yang menguntungkan maupun tidak. Perlakuan akuntansinya dibagi menjadi dua jenis, yaitu:</p>
+            <div class="answer-group" style="margin-top:0.5rem">
+              <h6>a. Peristiwa Penyesuai (Adjusting Events):</h6>
+              <p>Dilakukan penyesuaian terhadap Laporan Keuangan atas peristiwa yang memberikan bukti atas adanya kondisi pada akhir periode pelaporan.</p>
+            </div>
+            <div class="answer-group">
+              <h6>b. Peristiwa Non-Penyesuai (Non-Adjusting Events):</h6>
+              <p>Tidak dilakukan penyesuaian terhadap Laporan Keuangan atas peristiwa yang mengindikasikan timbulnya kondisi setelah periode pelaporan. Apabila material maka diungkapkan dalam CaLK (sifat peristiwa dan estimasi dampak keuangan). Apabila tidak material tidak diungkapkan dalam CaLK.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- AI CHAT -->
+    <section class="section" id="ai">
+      <div class="section-header">
+        <span class="section-num" style="background:var(--blue);color:#000">🤖</span>
+        <h2 class="section-title">Tanya AI — Asisten Belajar BAB 3</h2>
+      </div>
+      <div class="ai-section">
+        <div class="ai-header">
+          <div class="ai-dot"></div>
+          <h3>Asisten Penyajian Laporan Keuangan</h3>
+        </div>
+        <div class="ai-messages" id="aiMessages">
+          <div class="ai-msg ai">
+            <div class="avatar">AI</div>
+            <div class="ai-bubble">Halo! Saya siap membantu kamu memahami <strong>BAB 3 — Penyajian Laporan Keuangan</strong>. Tanyakan apa saja tentang PSAK 1, kebijakan akuntansi, estimasi, mata uang fungsional, pihak berelasi, LPS, peristiwa setelah periode, atau LK interim. 💡</div>
+          </div>
+        </div>
+        <div class="ai-suggestions" id="aiSuggestions">
+          <span class="ai-chip" onclick="sendChip(this)">Apa bedanya perubahan kebijakan akuntansi, estimasi, dan koreksi kesalahan?</span>
+          <span class="ai-chip" onclick="sendChip(this)">Jelaskan cara menghitung LPS Dasar dan Dilusian</span>
+          <span class="ai-chip" onclick="sendChip(this)">Apa itu peristiwa penyesuai vs non-penyesuai?</span>
+          <span class="ai-chip" onclick="sendChip(this)">Bagaimana menentukan mata uang fungsional?</span>
+          <span class="ai-chip" onclick="sendChip(this)">Siapa saja yang termasuk pihak berelasi?</span>
+        </div>
+        <div class="ai-input-row">
+          <textarea class="ai-input" id="aiInput" rows="1" placeholder="Ketik pertanyaan tentang BAB 3…" onkeydown="handleKey(event)"></textarea>
+          <button class="ai-send" id="aiSendBtn" onclick="sendMessage()">Kirim</button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script>
+const answers = {1:'d',2:'b',3:'b',4:'a',5:'d',6:'d',7:'c',8:'b',9:'d',10:'c'};
+function checkMC(el, choice, num) {
+  const item = el.closest('.mc-item');
+  if (item.querySelector('.revealed')) return;
+  const correct = answers[num];
+  item.querySelectorAll('.mc-option').forEach(opt => {
+    opt.classList.add('revealed');
+    const letter = opt.querySelector('.opt-letter').textContent.toLowerCase();
+    if (letter === correct) opt.classList.add('correct');
+    else if (letter === choice && choice !== correct) opt.classList.add('wrong');
+  });
+  const fb = document.getElementById('fb' + num);
+  if (fb) fb.classList.add('show');
+}
+function toggleEssay(id) {
+  const ans = document.getElementById(id);
+  const btn = ans.previousElementSibling;
+  const show = !ans.classList.contains('show');
+  ans.classList.toggle('show', show);
+  btn.textContent = show ? '▼ Sembunyikan Jawaban' : '▶ Lihat Jawaban';
+}
+const sections = document.querySelectorAll('.section, .subsection');
+const tocLinks = document.querySelectorAll('.toc-link');
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { tocLinks.forEach(l => l.classList.remove('active')); const a = document.querySelector(`.toc-link[href="#${e.target.id}"]`); if (a) a.classList.add('active'); } });
+}, { rootMargin: '-20% 0px -70% 0px' });
+sections.forEach(s => { if (s.id) obs.observe(s); });
+
+const SYSTEM_PROMPT = `Kamu adalah asisten belajar untuk mata kuliah CA Indonesia: Pelaporan Korporat, khususnya BAB 3 tentang Penyajian Laporan Keuangan.
+
+Topik yang kamu kuasai:
+- PSAK 1: Komponen LK lengkap (7 komponen), 8 karakteristik umum, struktur LK, minimum line items
+- Ketentuan penyajian: tiga laporan posisi keuangan, informasi komparatif
+- PSAK 25: Kebijakan akuntansi (pemilihan, perubahan — retrospektif), estimasi akuntansi (prospektif), koreksi kesalahan (retrospektif)
+- PSAK 10: Mata uang fungsional, faktor penentu, kurs penjabaran (kurs spot, kurs penutup, kurs historis), selisih kurs di laba rugi
+- PSAK 7: Pihak-pihak berelasi — definisi, kriteria orang/entitas berelasi, pengungkapan minimum
+- PSAK 56: Laba Per Saham Dasar dan Dilusian — formula, instrumen dilutif, pengungkapan
+- PSAK 8: Peristiwa setelah periode pelaporan — penyesuai (sesuaikan LK) vs non-penyesuai (ungkapkan)
+- PSAK 3: LK Interim — komponen minimum, kebijakan akuntansi sama, pengukuran year-to-date
+
+Jawab dalam Bahasa Indonesia yang jelas dan ringkas. Gunakan contoh konkret bila perlu.`;
+
+const messagesEl = document.getElementById('aiMessages');
+const inputEl = document.getElementById('aiInput');
+const sendBtn = document.getElementById('aiSendBtn');
+let history = [];
+function addMsg(role, text) {
+  const div = document.createElement('div');
+  div.className = `ai-msg ${role}`;
+  div.innerHTML = `<div class="avatar">${role==='ai'?'AI':'Kamu'}</div><div class="ai-bubble">${text.replace(/\n/g,'<br>')}</div>`;
+  messagesEl.appendChild(div); messagesEl.scrollTop = messagesEl.scrollHeight;
+}
+function addTyping() {
+  const div = document.createElement('div'); div.className = 'ai-msg ai'; div.id = 'typing';
+  div.innerHTML = `<div class="avatar">AI</div><div class="ai-typing"><span></span><span></span><span></span></div>`;
+  messagesEl.appendChild(div); messagesEl.scrollTop = messagesEl.scrollHeight;
+}
+async function sendMessage() {
+  const text = inputEl.value.trim(); if (!text) return;
+  inputEl.value = ''; document.getElementById('aiSuggestions').style.display = 'none';
+  addMsg('user', text); history.push({ role: 'user', content: text }); sendBtn.disabled = true; addTyping();
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ model: 'claude-sonnet-4-20250514', max_tokens: 1000, system: SYSTEM_PROMPT, messages: history }) });
+    const data = await res.json();
+    document.getElementById('typing')?.remove();
+    const reply = data.content?.find(b => b.type === 'text')?.text || 'Maaf, tidak ada respons.';
+    addMsg('ai', reply); history.push({ role: 'assistant', content: reply });
+  } catch { document.getElementById('typing')?.remove(); addMsg('ai', 'Maaf, terjadi kesalahan. Periksa koneksi internet dan coba lagi.'); }
+  sendBtn.disabled = false;
+}
+function sendChip(el) { inputEl.value = el.textContent; sendMessage(); }
+function handleKey(e) { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); } }
+</script>
+</body>
+</html>

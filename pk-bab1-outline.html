@@ -1,0 +1,1474 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BAB 1 — Standar Pelaporan Keuangan</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #0a0f0a;
+  --surface: #111811;
+  --surface2: #1a231a;
+  --surface3: #1f2b1f;
+  --accent: #6ee7b7;
+  --accent2: #34d399;
+  --accent3: #059669;
+  --yellow: #e8c547;
+  --blue: #58a6ff;
+  --red: #ff6b6b;
+  --purple: #a78bfa;
+  --text: #f0fff4;
+  --text2: #a7c4b0;
+  --muted: #5a7060;
+  --border: rgba(110,231,183,0.1);
+  --border2: rgba(255,255,255,0.06);
+}
+
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+/* ── HEADER ── */
+.chapter-header {
+  background: linear-gradient(135deg, #0a1a0f 0%, #0d1f14 50%, #0a1510 100%);
+  border-bottom: 1px solid var(--border);
+  padding: 2.5rem 2rem 2rem;
+  position: relative;
+  overflow: hidden;
+}
+.chapter-header::before {
+  content: '1';
+  position: absolute;
+  right: -0.5rem;
+  top: -1rem;
+  font-family: 'Playfair Display', serif;
+  font-size: 12rem;
+  font-weight: 900;
+  color: rgba(110,231,183,0.04);
+  line-height: 1;
+  pointer-events: none;
+  user-select: none;
+}
+.chapter-eyebrow {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent3);
+  margin-bottom: 0.5rem;
+}
+.chapter-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.4rem, 3.5vw, 2.2rem);
+  font-weight: 900;
+  line-height: 1.15;
+  background: linear-gradient(135deg, #6ee7b7, #34d399);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 1.2rem;
+}
+.learning-goals {
+  background: rgba(110,231,183,0.05);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1rem 1.2rem;
+  max-width: 700px;
+}
+.learning-goals h3 {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 0.6rem;
+}
+.goals-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+.goals-list li {
+  font-size: 0.78rem;
+  color: var(--text2);
+  display: flex;
+  gap: 0.6rem;
+  align-items: flex-start;
+}
+.goals-list li::before {
+  content: '→';
+  color: var(--accent3);
+  flex-shrink: 0;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.7rem;
+  margin-top: 0.05rem;
+}
+
+/* ── LAYOUT ── */
+.page-body {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  min-height: calc(100vh - 200px);
+}
+
+/* ── TOC SIDEBAR ── */
+.toc {
+  background: var(--surface);
+  border-right: 1px solid var(--border2);
+  padding: 1.5rem 0;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+}
+.toc-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding: 0 1rem;
+  margin-bottom: 0.8rem;
+}
+.toc-link {
+  display: block;
+  padding: 0.45rem 1rem;
+  font-size: 0.75rem;
+  color: var(--muted);
+  text-decoration: none;
+  transition: all 0.15s;
+  border-left: 2px solid transparent;
+  line-height: 1.4;
+}
+.toc-link:hover { color: var(--text); background: rgba(110,231,183,0.04); }
+.toc-link.active { color: var(--accent); border-left-color: var(--accent); background: rgba(110,231,183,0.06); }
+.toc-link.sub { padding-left: 1.8rem; font-size: 0.7rem; }
+.toc-divider {
+  height: 1px;
+  background: var(--border2);
+  margin: 0.6rem 1rem;
+}
+
+/* ── MAIN CONTENT ── */
+.main {
+  padding: 2rem 2.5rem 4rem;
+  max-width: 860px;
+}
+
+/* ── SECTION ── */
+.section {
+  margin-bottom: 3rem;
+  scroll-margin-top: 1.5rem;
+}
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.2rem;
+  padding-bottom: 0.7rem;
+  border-bottom: 1px solid var(--border2);
+}
+.section-num {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.65rem;
+  font-weight: 700;
+  background: var(--accent3);
+  color: #000;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.3;
+}
+
+/* ── SUBSECTION ── */
+.subsection {
+  margin-bottom: 1.5rem;
+  scroll-margin-top: 1.5rem;
+}
+.subsection-title {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--accent2);
+  font-family: 'DM Mono', monospace;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 0.6rem;
+}
+
+/* ── CONTENT CARDS ── */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  border-radius: 10px;
+  padding: 1.1rem 1.2rem;
+  margin-bottom: 0.8rem;
+}
+.card-title {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--accent);
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.card-title .dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  flex-shrink: 0;
+}
+.card p, .card li {
+  font-size: 0.8rem;
+  color: var(--text2);
+  line-height: 1.6;
+}
+.card ul, .card ol {
+  padding-left: 1.1rem;
+  margin-top: 0.4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+/* ── GRID CARDS ── */
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.8rem;
+  margin-bottom: 1rem;
+}
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.7rem;
+  margin-bottom: 1rem;
+}
+
+/* ── HIGHLIGHT BOX ── */
+.highlight {
+  background: rgba(110,231,183,0.06);
+  border: 1px solid rgba(110,231,183,0.2);
+  border-left: 3px solid var(--accent);
+  border-radius: 8px;
+  padding: 0.9rem 1.1rem;
+  margin-bottom: 1rem;
+}
+.highlight p {
+  font-size: 0.8rem;
+  color: var(--text2);
+  line-height: 1.6;
+}
+.highlight strong { color: var(--accent); font-weight: 600; }
+
+/* ── TABLE ── */
+.table-wrap {
+  overflow-x: auto;
+  margin-bottom: 1rem;
+  border-radius: 10px;
+  border: 1px solid var(--border2);
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.76rem;
+}
+thead tr {
+  background: var(--surface3);
+}
+th {
+  padding: 0.7rem 0.9rem;
+  text-align: left;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 500;
+}
+td {
+  padding: 0.6rem 0.9rem;
+  border-top: 1px solid var(--border2);
+  color: var(--text2);
+  vertical-align: top;
+  line-height: 1.5;
+}
+tbody tr:hover { background: rgba(255,255,255,0.02); }
+
+/* ── TAG BADGES ── */
+.tag {
+  display: inline-block;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.6rem;
+  padding: 0.15rem 0.5rem;
+  border-radius: 99px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+}
+.tag-green { background: rgba(110,231,183,0.12); color: var(--accent); border: 1px solid rgba(110,231,183,0.25); }
+.tag-yellow { background: rgba(232,197,71,0.12); color: var(--yellow); border: 1px solid rgba(232,197,71,0.25); }
+.tag-blue { background: rgba(88,166,255,0.12); color: var(--blue); border: 1px solid rgba(88,166,255,0.25); }
+.tag-purple { background: rgba(167,139,250,0.12); color: var(--purple); border: 1px solid rgba(167,139,250,0.25); }
+.tag-red { background: rgba(255,107,107,0.12); color: var(--red); border: 1px solid rgba(255,107,107,0.25); }
+
+/* ── TREE / HIERARCHY ── */
+.tree { margin: 0.5rem 0 1rem; }
+.tree-root {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text);
+  padding: 0.5rem 0.8rem;
+  background: var(--surface3);
+  border-radius: 6px;
+  display: inline-block;
+  margin-bottom: 0.6rem;
+}
+.tree-children {
+  margin-left: 1.5rem;
+  border-left: 2px solid var(--border);
+  padding-left: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+.tree-item {
+  font-size: 0.76rem;
+  color: var(--text2);
+  padding: 0.35rem 0.7rem;
+  background: var(--surface);
+  border-radius: 6px;
+  border: 1px solid var(--border2);
+  position: relative;
+}
+.tree-item::before {
+  content: '';
+  position: absolute;
+  left: -1.1rem;
+  top: 50%;
+  width: 0.8rem;
+  height: 1px;
+  background: var(--border);
+}
+
+/* ── KARAKTERISTIK BOXES ── */
+.kual-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.7rem;
+  margin-bottom: 1rem;
+}
+.kual-card {
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  border-radius: 10px;
+  padding: 0.9rem 1rem;
+}
+.kual-card.fundamental { border-top: 2px solid var(--accent); }
+.kual-card.enhancing { border-top: 2px solid var(--blue); }
+.kual-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.58rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 0.3rem;
+}
+.kual-name {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 0.4rem;
+}
+.kual-card p {
+  font-size: 0.75rem;
+  color: var(--text2);
+  line-height: 1.5;
+}
+
+/* ── PENGUKURAN SECTION ── */
+.pengukuran-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.7rem;
+  margin-bottom: 1rem;
+}
+.peng-card {
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  border-radius: 10px;
+  padding: 0.9rem 1rem;
+}
+.peng-name {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--yellow);
+  margin-bottom: 0.4rem;
+}
+.peng-card p { font-size: 0.74rem; color: var(--text2); line-height: 1.5; }
+.peng-sub {
+  margin-top: 0.5rem;
+  padding-left: 0.7rem;
+  border-left: 2px solid rgba(232,197,71,0.2);
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+.peng-sub span {
+  font-size: 0.7rem;
+  color: var(--muted);
+  line-height: 1.4;
+}
+.peng-sub span b { color: var(--text2); }
+
+/* ── ISU TERKINI ── */
+.isu-card {
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  border-radius: 10px;
+  padding: 1rem 1.2rem;
+  margin-bottom: 0.7rem;
+  display: flex;
+  gap: 0.9rem;
+  align-items: flex-start;
+}
+.isu-num {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #000;
+  background: var(--red);
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  flex-shrink: 0;
+  margin-top: 0.1rem;
+}
+.isu-content h4 {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 0.3rem;
+}
+.isu-content p { font-size: 0.76rem; color: var(--text2); line-height: 1.55; }
+
+/* ── LATIHAN SOAL ── */
+.exercise-section {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+  margin-bottom: 1.5rem;
+}
+.exercise-header {
+  background: rgba(110,231,183,0.08);
+  padding: 0.9rem 1.2rem;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+.exercise-header h3 {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.exercise-badge {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.58rem;
+  background: rgba(110,231,183,0.15);
+  color: var(--accent);
+  padding: 0.15rem 0.5rem;
+  border-radius: 99px;
+}
+
+/* Multiple Choice */
+.mc-item {
+  padding: 1rem 1.2rem;
+  border-bottom: 1px solid var(--border2);
+}
+.mc-item:last-child { border-bottom: none; }
+.mc-question {
+  font-size: 0.8rem;
+  color: var(--text);
+  font-weight: 500;
+  margin-bottom: 0.6rem;
+  line-height: 1.55;
+}
+.mc-options {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+.mc-option {
+  display: flex;
+  gap: 0.6rem;
+  align-items: flex-start;
+  padding: 0.4rem 0.6rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.15s;
+  font-size: 0.76rem;
+  color: var(--text2);
+  line-height: 1.4;
+  border: 1px solid transparent;
+}
+.mc-option:hover { background: rgba(255,255,255,0.03); border-color: var(--border2); }
+.mc-option.correct { background: rgba(110,231,183,0.1); color: var(--accent); border-color: rgba(110,231,183,0.3); }
+.mc-option.wrong { background: rgba(255,107,107,0.08); color: var(--red); border-color: rgba(255,107,107,0.2); }
+.mc-option.revealed { pointer-events: none; }
+.opt-letter {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.65rem;
+  font-weight: 700;
+  background: var(--surface3);
+  padding: 0.15rem 0.4rem;
+  border-radius: 4px;
+  flex-shrink: 0;
+  margin-top: 0.05rem;
+}
+.mc-feedback {
+  margin-top: 0.5rem;
+  font-size: 0.72rem;
+  color: var(--muted);
+  display: none;
+  padding: 0.4rem 0.6rem;
+  background: var(--surface3);
+  border-radius: 6px;
+  line-height: 1.5;
+}
+.mc-feedback.show { display: block; }
+.mc-feedback .correct-ans { color: var(--accent); font-weight: 600; }
+
+/* Essay */
+.essay-item {
+  padding: 1rem 1.2rem;
+  border-bottom: 1px solid var(--border2);
+}
+.essay-item:last-child { border-bottom: none; }
+.essay-q {
+  font-size: 0.8rem;
+  color: var(--text);
+  font-weight: 500;
+  margin-bottom: 0.8rem;
+  line-height: 1.55;
+}
+.essay-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent3);
+  background: rgba(110,231,183,0.07);
+  border: 1px solid rgba(110,231,183,0.2);
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.15s;
+  width: fit-content;
+}
+.essay-toggle:hover { background: rgba(110,231,183,0.12); color: var(--accent); }
+.essay-answer {
+  margin-top: 0.8rem;
+  display: none;
+  background: var(--surface3);
+  border-radius: 8px;
+  padding: 0.9rem 1rem;
+}
+.essay-answer.show { display: block; }
+.essay-answer h5 {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent3);
+  margin-bottom: 0.6rem;
+}
+.essay-answer p, .essay-answer li {
+  font-size: 0.77rem;
+  color: var(--text2);
+  line-height: 1.6;
+}
+.essay-answer ul { padding-left: 1rem; display: flex; flex-direction: column; gap: 0.25rem; margin-top: 0.3rem; }
+.answer-group { margin-bottom: 0.7rem; }
+.answer-group h6 {
+  font-size: 0.74rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 0.35rem;
+}
+
+/* ── AI CHAT ── */
+.ai-section {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+}
+.ai-header {
+  background: rgba(88,166,255,0.07);
+  padding: 0.9rem 1.2rem;
+  border-bottom: 1px solid rgba(88,166,255,0.15);
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+.ai-header h3 {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--blue);
+}
+.ai-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--blue); }
+.ai-messages {
+  padding: 1rem 1.2rem;
+  min-height: 80px;
+  max-height: 360px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+.ai-msg {
+  display: flex;
+  gap: 0.6rem;
+  align-items: flex-start;
+  font-size: 0.78rem;
+  line-height: 1.6;
+  animation: fadeUp 0.25s ease;
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.ai-msg.user { flex-direction: row-reverse; }
+.ai-msg .avatar {
+  width: 26px; height: 26px;
+  border-radius: 6px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.65rem;
+  font-weight: 700;
+  margin-top: 0.1rem;
+}
+.ai-msg.ai .avatar { background: rgba(88,166,255,0.15); color: var(--blue); }
+.ai-msg.user .avatar { background: rgba(110,231,183,0.15); color: var(--accent); }
+.ai-bubble {
+  padding: 0.6rem 0.85rem;
+  border-radius: 10px;
+  max-width: 85%;
+}
+.ai-msg.ai .ai-bubble { background: var(--surface3); color: var(--text2); }
+.ai-msg.user .ai-bubble { background: rgba(110,231,183,0.09); color: var(--text); text-align: right; }
+.ai-typing { display: flex; gap: 4px; align-items: center; padding: 0.6rem 0.85rem; background: var(--surface3); border-radius: 10px; width: fit-content; }
+.ai-typing span { width: 5px; height: 5px; border-radius: 50%; background: var(--blue); animation: typing 1.2s infinite; }
+.ai-typing span:nth-child(2) { animation-delay: 0.2s; }
+.ai-typing span:nth-child(3) { animation-delay: 0.4s; }
+@keyframes typing { 0%,60%,100% { opacity: 0.2; transform: scale(0.8); } 30% { opacity: 1; transform: scale(1); } }
+
+.ai-input-row {
+  padding: 0.75rem 1.2rem;
+  border-top: 1px solid var(--border2);
+  display: flex;
+  gap: 0.5rem;
+}
+.ai-input {
+  flex: 1;
+  background: var(--surface3);
+  border: 1px solid var(--border2);
+  border-radius: 8px;
+  padding: 0.5rem 0.8rem;
+  font-size: 0.78rem;
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  outline: none;
+  resize: none;
+  max-height: 100px;
+  transition: border-color 0.2s;
+}
+.ai-input:focus { border-color: rgba(88,166,255,0.35); }
+.ai-input::placeholder { color: var(--muted); }
+.ai-send {
+  background: rgba(88,166,255,0.15);
+  border: 1px solid rgba(88,166,255,0.25);
+  color: var(--blue);
+  border-radius: 8px;
+  padding: 0.5rem 0.9rem;
+  font-size: 0.75rem;
+  font-family: 'DM Mono', monospace;
+  cursor: pointer;
+  transition: all 0.15s;
+  flex-shrink: 0;
+}
+.ai-send:hover { background: rgba(88,166,255,0.22); }
+.ai-send:disabled { opacity: 0.4; cursor: not-allowed; }
+.ai-suggestions {
+  padding: 0 1.2rem 0.8rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+.ai-chip {
+  font-size: 0.68rem;
+  padding: 0.3rem 0.65rem;
+  background: var(--surface3);
+  border: 1px solid var(--border2);
+  border-radius: 99px;
+  color: var(--text2);
+  cursor: pointer;
+  transition: all 0.15s;
+  font-family: 'DM Sans', sans-serif;
+}
+.ai-chip:hover { border-color: rgba(88,166,255,0.3); color: var(--blue); background: rgba(88,166,255,0.06); }
+
+@media (max-width: 768px) {
+  .page-body { grid-template-columns: 1fr; }
+  .toc { display: none; }
+  .main { padding: 1.5rem 1rem 3rem; }
+  .grid-2, .kual-grid, .pengukuran-grid { grid-template-columns: 1fr; }
+  .grid-3 { grid-template-columns: 1fr 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="chapter-header">
+  <div class="chapter-eyebrow">Pelaporan Korporat · CA Indonesia</div>
+  <h1 class="chapter-title">BAB 1 — Standar Pelaporan Keuangan</h1>
+  <div class="learning-goals">
+    <h3>🎯 Tujuan Pembelajaran</h3>
+    <ul class="goals-list">
+      <li>Menjelaskan pengertian pelaporan korporat dan pelaporan keuangan</li>
+      <li>Menjelaskan jenis-jenis standar akuntansi di Indonesia</li>
+      <li>Menjelaskan konvergensi standar akuntansi keuangan internasional</li>
+      <li>Menerapkan pengaturan dalam Kerangka Konseptual Pelaporan Keuangan</li>
+      <li>Menjelaskan isu terkini dari standar pelaporan keuangan</li>
+      <li>Mengevaluasi dampak perubahan dari standar pelaporan keuangan</li>
+    </ul>
+  </div>
+</div>
+
+<div class="page-body">
+
+  <!-- TOC -->
+  <nav class="toc" id="toc">
+    <div class="toc-label">Daftar Isi</div>
+    <a href="#s1" class="toc-link">1.1 Pelaporan Korporat & Keuangan</a>
+    <a href="#s2" class="toc-link">1.2 Standar Akuntansi Indonesia</a>
+    <a href="#s2a" class="toc-link sub">SAK ETAP</a>
+    <a href="#s2b" class="toc-link sub">SAK EMKM</a>
+    <a href="#s2c" class="toc-link sub">SAK Syariah</a>
+    <a href="#s3" class="toc-link">1.3 Konvergensi IFRS</a>
+    <a href="#s4" class="toc-link">1.4 Kerangka Konseptual</a>
+    <a href="#s4a" class="toc-link sub">Tujuan & Kegunaan</a>
+    <a href="#s4b" class="toc-link sub">Karakteristik Kualitatif</a>
+    <a href="#s4c" class="toc-link sub">Unsur Laporan Keuangan</a>
+    <a href="#s4d" class="toc-link sub">Pengakuan & Pengukuran</a>
+    <a href="#s5" class="toc-link">1.5 Isu Terkini</a>
+    <div class="toc-divider"></div>
+    <a href="#latihan" class="toc-link">📝 Latihan Soal</a>
+    <a href="#ai" class="toc-link">🤖 Tanya AI</a>
+  </nav>
+
+  <!-- MAIN -->
+  <main class="main">
+
+    <!-- 1.1 -->
+    <section class="section" id="s1">
+      <div class="section-header">
+        <span class="section-num">1.1</span>
+        <h2 class="section-title">Pengertian Pelaporan Korporat dan Pelaporan Keuangan</h2>
+      </div>
+
+      <div class="highlight">
+        <p><strong>Pelaporan korporat</strong> adalah cara manajemen berkomunikasi tentang kondisi dan kinerja kepada para pemangku kepentingan. Berbeda dengan laporan manajemen, pelaporan korporat ditujukan kepada <em>pemangku kepentingan perusahaan</em>.</p>
+      </div>
+
+      <div class="subsection-title">Jenis Pelaporan Korporat</div>
+      <div class="grid-3">
+        <div class="card"><div class="card-title"><span class="dot"></span>Laporan Keuangan</div><p>Informasi posisi & kinerja keuangan</p></div>
+        <div class="card"><div class="card-title"><span class="dot"></span>Laporan Tahunan</div><p>Ringkasan kinerja setahun penuh</p></div>
+        <div class="card"><div class="card-title"><span class="dot"></span>Laporan Tata Kelola</div><p>GCG dan struktur pengawasan</p></div>
+        <div class="card"><div class="card-title"><span class="dot"></span>Laporan CSR</div><p>Tanggung jawab sosial perusahaan</p></div>
+        <div class="card"><div class="card-title"><span class="dot"></span>Laporan Keberlanjutan</div><p><em>Sustainability report</em></p></div>
+        <div class="card"><div class="card-title"><span class="dot"></span>Laporan Terintegrasi</div><p><em>Integrated reporting</em></p></div>
+      </div>
+
+      <div class="subsection-title">Tujuan Laporan Keuangan (IASB)</div>
+      <div class="highlight">
+        <p>"Memberikan informasi tentang <strong>posisi keuangan, kinerja, dan perubahan posisi keuangan</strong> suatu perusahaan yang berguna bagi berbagai pengguna dalam membuat keputusan ekonomi."</p>
+      </div>
+      <div class="card">
+        <div class="card-title"><span class="dot"></span>Pengguna utama laporan keuangan</div>
+        <ul>
+          <li>Manajemen — perencanaan, analisis, benchmarking, pengambilan keputusan</li>
+          <li>Investor & kreditor — keputusan investasi dan kredit yang rasional</li>
+          <li>Pemegang saham & publik — informasi berbagai aspek organisasi</li>
+          <li>Auditor & penegak hukum — asurans dan investigasi</li>
+          <li>Karyawan, serikat pekerja, pemerintah — kesejahteraan sosial</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 1.2 -->
+    <section class="section" id="s2">
+      <div class="section-header">
+        <span class="section-num">1.2</span>
+        <h2 class="section-title">Standar Akuntansi di Indonesia</h2>
+      </div>
+
+      <div class="tree">
+        <div class="tree-root">Standar Akuntansi Indonesia</div>
+        <div class="tree-children">
+          <div class="tree-item"><strong>SAP</strong> — Standar Akuntansi Pemerintahan (entitas pemerintah, diterbitkan KSAP)</div>
+          <div class="tree-item">
+            <strong>SAK</strong> — Standar Akuntansi Keuangan (entitas privat, diterbitkan IAI / DSAK-IAI)
+            <div class="tree-children" style="margin-top:0.4rem;">
+              <div class="tree-item"><span class="tag tag-green">SAK Umum</span> — berbasis IFRS, untuk entitas wajib laporan keuangan publik</div>
+              <div class="tree-item"><span class="tag tag-yellow">SAK ETAP</span> — Entitas Tanpa Akuntabilitas Publik</div>
+              <div class="tree-item"><span class="tag tag-blue">SAK EMKM</span> — Entitas Mikro, Kecil, dan Menengah</div>
+              <div class="tree-item"><span class="tag tag-purple">SAK Syariah</span> — transaksi berbasis syariah</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="subsection" id="s2a">
+        <div class="subsection-title">SAK ETAP</div>
+        <div class="grid-2">
+          <div class="card">
+            <div class="card-title"><span class="dot"></span>Karakteristik</div>
+            <ul>
+              <li>Untuk entitas tanpa akuntabilitas publik signifikan</li>
+              <li>Hanya dapat dipakai jika tidak diwajibkan atau diizinkan regulator</li>
+              <li>Efektif 1 Januari 2011, diterbitkan IAI Mei 2009</li>
+              <li>Memuat 30 Bab, kurang dari 200 halaman</li>
+              <li>Lebih sederhana dari IFRS for SME</li>
+            </ul>
+          </div>
+          <div class="card">
+            <div class="card-title"><span class="dot"></span>Entitas yang TIDAK bisa pakai SAK ETAP</div>
+            <ul>
+              <li>Terdaftar di pasar modal</li>
+              <li>Bank umum, asuransi, pialang efek, dana pensiun, reksa dana</li>
+              <li>Entitas yang menguasai aset fidusia untuk banyak masyarakat</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="subsection" id="s2b">
+        <div class="subsection-title">SAK EMKM</div>
+        <div class="card">
+          <div class="card-title"><span class="dot"></span>Laporan Keuangan minimal menurut SAK EMKM</div>
+          <ul>
+            <li>Laporan posisi keuangan (neraca)</li>
+            <li>Laporan laba rugi</li>
+            <li>Catatan atas laporan keuangan</li>
+          </ul>
+          <p style="margin-top:0.5rem">Disajikan dua periode/dua tahun (minimum) untuk dapat dibandingkan.</p>
+        </div>
+      </div>
+
+      <div class="subsection" id="s2c">
+        <div class="subsection-title">SAK Transaksi Syariah</div>
+        <div class="highlight">
+          <p>Berlaku untuk <strong>semua entitas</strong> (syariah maupun konvensional) sepanjang melakukan transaksi dengan skema syariah. Entitas syariah menggunakan SAK Umum/ETAP/EMKM sebagai dasar + SAK Syariah untuk transaksi syariah.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 1.3 -->
+    <section class="section" id="s3">
+      <div class="section-header">
+        <span class="section-num">1.3</span>
+        <h2 class="section-title">Konvergensi IFRS</h2>
+      </div>
+
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-title"><span class="dot"></span>Big Bang Strategy</div>
+          <p>Adopsi penuh IFRS sekaligus, tanpa tahapan. Digunakan negara-negara maju.</p>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="dot"></span>Gradual Strategy</div>
+          <p>Adopsi IFRS secara bertahap. Digunakan Indonesia dan negara berkembang lainnya.</p>
+        </div>
+      </div>
+
+      <div class="subsection-title">Fase Konvergensi Indonesia</div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Fase</th>
+              <th>Periode</th>
+              <th>Deskripsi</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="tag tag-yellow">Fase 1</span></td>
+              <td>2008–2012</td>
+              <td>Komitmen publik konvergensi IFRS (8 Desember 2008). Target: standar berbasis IFRS efektif 2012.</td>
+            </tr>
+            <tr>
+              <td><span class="tag tag-green">Fase 2</span></td>
+              <td>2012–2015</td>
+              <td>Konvergensi lebih menyeluruh. Banyak PSAK baru, namun gap masih cukup besar.</td>
+            </tr>
+            <tr>
+              <td><span class="tag tag-blue">Fase 3</span></td>
+              <td>2015–sekarang</td>
+              <td>IAI berkomitmen menjaga gap hanya 1 tahun. Standar IASB efektif 2018 → Indonesia 2019.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 1.4 -->
+    <section class="section" id="s4">
+      <div class="section-header">
+        <span class="section-num">1.4</span>
+        <h2 class="section-title">Kerangka Konseptual Pelaporan Keuangan (KKPK)</h2>
+      </div>
+
+      <div class="highlight">
+        <p>KKPK disahkan DSAK-IAI pada <strong>26 Juni 2019</strong>, menggantikan KKPK 2016 dan KDPPLK 2014. Efektif <strong>1 Januari 2020</strong> (penerapan dini diperkenankan). Bukan merupakan standar — jika ada pertentangan, <strong>SAK mengungguli KKPK</strong>.</p>
+      </div>
+
+      <!-- 1.4.1 -->
+      <div class="subsection" id="s4a">
+        <div class="subsection-title">1. Tujuan, Kegunaan & Keterbatasan Laporan Keuangan Bertujuan Umum</div>
+        <div class="card">
+          <div class="card-title"><span class="dot"></span>Pengguna Utama & Keputusan yang Dibuat</div>
+          <ul>
+            <li>Investor saat ini dan potensial, pemberi pinjaman, dan kreditor lainnya</li>
+            <li>Keputusan: pembelian/penjualan instrumen ekuitas & utang; penyediaan atau penyelesaian pinjaman</li>
+            <li>Informasi mengenai <em>sumber daya ekonomik entitas</em> dan <em>klaim</em> terhadap entitas</li>
+          </ul>
+        </div>
+        <div class="grid-2">
+          <div class="card">
+            <div class="card-title"><span class="dot"></span>Kinerja via Akuntansi Akrual</div>
+            <p>Dampak transaksi diakui pada periode saat dampak terjadi, bukan saat kas diterima/dibayarkan. Memberikan dasar lebih baik untuk menilai kinerja masa lalu dan masa depan.</p>
+          </div>
+          <div class="card">
+            <div class="card-title"><span class="dot"></span>Kinerja via Arus Kas Masa Lalu</div>
+            <p>Informasi arus kas membantu menilai kemampuan menghasilkan kas di masa depan, likuiditas, solvabilitas, dan penatagunaan sumber daya ekonomik.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 1.4.2 -->
+      <div class="subsection" id="s4b">
+        <div class="subsection-title">2. Karakteristik Kualitatif Laporan Keuangan</div>
+        <div class="kual-grid">
+          <div class="kual-card fundamental">
+            <div class="kual-label">Fundamental</div>
+            <div class="kual-name">Relevansi</div>
+            <p>Informasi mampu membuat perbedaan dalam keputusan. Memiliki <strong>nilai prediktif</strong> dan/atau <strong>nilai konfirmasi</strong>. Dipengaruhi materialitas.</p>
+          </div>
+          <div class="kual-card fundamental">
+            <div class="kual-label">Fundamental</div>
+            <div class="kual-name">Representasi Tepat</div>
+            <p>Lengkap, netral, dan bebas dari kesalahan. Memastikan <em>faithful representation</em> dari fenomena ekonomi.</p>
+          </div>
+          <div class="kual-card enhancing">
+            <div class="kual-label">Peningkat</div>
+            <div class="kual-name">Keterbandingan</div>
+            <p>Memungkinkan identifikasi persamaan & perbedaan antar entitas atau antar periode. Memerlukan minimal dua pos.</p>
+          </div>
+          <div class="kual-card enhancing">
+            <div class="kual-label">Peningkat</div>
+            <div class="kual-name">Keterverifikasian</div>
+            <p>Pengamat independen dapat mencapai konsensus bahwa representasi tertentu adalah tepat.</p>
+          </div>
+          <div class="kual-card enhancing">
+            <div class="kual-label">Peningkat</div>
+            <div class="kual-name">Ketepatwaktuan</div>
+            <p>Informasi tersedia tepat waktu sehingga dapat mempengaruhi keputusan. Semakin lawas, semakin kurang berguna.</p>
+          </div>
+          <div class="kual-card enhancing">
+            <div class="kual-label">Peningkat</div>
+            <div class="kual-name">Keterpahaman</div>
+            <p>Informasi diklasifikasikan, dikarakteristikkan, dan disajikan secara jelas dan ringkas agar mudah dipahami.</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="dot"></span>Kendala: Biaya Pelaporan</div>
+          <p>Biaya merupakan kendala utama. Biaya pelaporan harus dapat dijustifikasi melalui manfaat informasi tersebut bagi pengguna.</p>
+        </div>
+      </div>
+
+      <!-- 1.4.3 -->
+      <div class="subsection" id="s4c">
+        <div class="subsection-title">3 & 4. Laporan Keuangan dan Entitas Pelapor + Unsur-Unsurnya</div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>Unsur</th><th>Definisi</th><th>Laporan</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><strong>Aset</strong></td><td>Sumber daya dikuasai entitas, manfaat ekonomi masa depan mengalir ke entitas</td><td>Posisi Keuangan</td></tr>
+              <tr><td><strong>Liabilitas</strong></td><td>Kewajiban kini yang penyelesaiannya mengakibatkan arus keluar sumber daya</td><td>Posisi Keuangan</td></tr>
+              <tr><td><strong>Ekuitas</strong></td><td>Hak residual atas aset setelah dikurangi seluruh liabilitas</td><td>Posisi Keuangan</td></tr>
+              <tr><td><strong>Penghasilan</strong></td><td>Kenaikan manfaat ekonomi → kenaikan aset atau penurunan liabilitas → kenaikan ekuitas (bukan dari kontribusi pemilik)</td><td>Laba Rugi</td></tr>
+              <tr><td><strong>Beban</strong></td><td>Penurunan manfaat ekonomi → penurunan aset atau kenaikan liabilitas → penurunan ekuitas (bukan distribusi ke pemilik)</td><td>Laba Rugi</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- 1.4.4 Pengakuan & Pengukuran -->
+      <div class="subsection" id="s4d">
+        <div class="subsection-title">5. Pengakuan Unsur Laporan Keuangan</div>
+        <div class="grid-2">
+          <div class="card">
+            <div class="card-title"><span class="dot"></span>Syarat Pengakuan Aset</div>
+            <p>Kemungkinan besar manfaat ekonomi masa depan mengalir ke entitas <strong>DAN</strong> biaya/nilai dapat diukur dengan andal.</p>
+          </div>
+          <div class="card">
+            <div class="card-title"><span class="dot"></span>Syarat Pengakuan Liabilitas</div>
+            <p>Kemungkinan besar pengeluaran sumber daya yang mengandung manfaat ekonomi terjadi <strong>DAN</strong> jumlah dapat diukur dengan andal.</p>
+          </div>
+          <div class="card">
+            <div class="card-title"><span class="dot"></span>Pengakuan Penghasilan</div>
+            <p>Kenaikan aset atau penurunan liabilitas telah terjadi dan dapat diukur dengan andal. Terjadi bersamaan dengan pengakuan kenaikan aset/penurunan liabilitas.</p>
+          </div>
+          <div class="card">
+            <div class="card-title"><span class="dot"></span>Pengakuan Beban</div>
+            <p>Penurunan aset atau kenaikan liabilitas telah terjadi. Prinsip <em>matching of costs with revenues</em> berlaku — namun tidak memperkenankan pos yang tidak memenuhi definisi aset/liabilitas.</p>
+          </div>
+        </div>
+
+        <div class="subsection-title" style="margin-top:1.2rem">6. Pengukuran Unsur Laporan Keuangan</div>
+        <div class="pengukuran-grid">
+          <div class="peng-card">
+            <div class="peng-name">Biaya Historis (Historical Cost)</div>
+            <p>Nilai dari harga transaksi atau peristiwa asal. Tidak mencerminkan perubahan nilai kecuali penurunan nilai.</p>
+          </div>
+          <div class="peng-card">
+            <div class="peng-name">Nilai Kini (Current Value)</div>
+            <p>Mencerminkan kondisi terkini pada tanggal pengukuran.</p>
+            <div class="peng-sub">
+              <span><b>Nilai wajar</b> — harga keluar di pasar</span>
+              <span><b>Nilai pakai/pemenuhan</b> — present value arus kas</span>
+              <span><b>Biaya kini</b> — harga masuk terkini</span>
+            </div>
+          </div>
+          <div class="peng-card">
+            <div class="peng-name">Nilai Terealisasi / Penyelesaian</div>
+            <p>Aset: kas yang diperoleh jika dijual sekarang. Liabilitas: jumlah kas tidak didiskontokan untuk memenuhi kewajiban.</p>
+          </div>
+          <div class="peng-card">
+            <div class="peng-name">Nilai Sekarang (Present Value)</div>
+            <p>Aset: arus kas masuk neto masa depan didiskontokan. Liabilitas: arus kas keluar neto masa depan didiskontokan.</p>
+          </div>
+        </div>
+
+        <div class="subsection-title">7. Konsep Modal dan Pemeliharaan Modal</div>
+        <div class="grid-2">
+          <div class="card">
+            <div class="card-title"><span class="dot"></span>Modal Keuangan (Financial Capital)</div>
+            <p>Modal = aset neto/ekuitas. Laba = kenaikan aset neto finansial periode berjalan di luar distribusi/kontribusi pemilik. Diukur dalam satuan moneter nominal atau daya beli konstan.</p>
+          </div>
+          <div class="card">
+            <div class="card-title"><span class="dot"></span>Modal Fisik (Physical Capital)</div>
+            <p>Modal = kapasitas produktif fisik entitas. Laba = kenaikan kapasitas produktif fisik periode berjalan. Seluruh perubahan harga aset diperlakukan sebagai penyesuaian pemeliharaan modal (bukan laba).</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 1.5 -->
+    <section class="section" id="s5">
+      <div class="section-header">
+        <span class="section-num">1.5</span>
+        <h2 class="section-title">Isu Terkini dari Standar Pelaporan Keuangan</h2>
+      </div>
+
+      <div class="isu-card">
+        <div class="isu-num">01</div>
+        <div class="isu-content">
+          <h4>Besarnya Pertimbangan Manajerial (Managerial Judgement)</h4>
+          <p>IFRS bersifat <em>principle based</em>. Tidak ada pengaturan kaku — perusahaan memerlukan pertimbangan manajerial. Di satu sisi menghasilkan nilai ekonomis yang sesungguhnya; di sisi lain membuka ruang <em>earnings management</em>.</p>
+        </div>
+      </div>
+      <div class="isu-card">
+        <div class="isu-num">02</div>
+        <div class="isu-content">
+          <h4>Penggunaan Nilai Wajar yang Semakin Umum</h4>
+          <p>IFRS mengedepankan pengukuran dengan nilai wajar untuk meningkatkan relevansi. Namun penentuan nilai wajar sering sulit, terutama karena ketersediaan data di semua jenis industri.</p>
+        </div>
+      </div>
+      <div class="isu-card">
+        <div class="isu-num">03</div>
+        <div class="isu-content">
+          <h4>Cepatnya Perubahan Standar Akuntansi</h4>
+          <p>Standar akuntansi berubah sangat cepat. Perusahaan harus terus menyesuaikan praktik dan menginvestasikan sumber daya. Beberapa standar kritis efektif 1 Januari 2020: <span class="tag tag-blue">PSAK 71</span> Instrumen Keuangan, <span class="tag tag-green">PSAK 72</span> Pendapatan, <span class="tag tag-purple">PSAK 73</span> Sewa.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- LATIHAN SOAL -->
+    <section class="section" id="latihan">
+      <div class="section-header">
+        <span class="section-num" style="background:var(--yellow);color:#000">📝</span>
+        <h2 class="section-title">Latihan Soal</h2>
+      </div>
+
+      <!-- PILIHAN GANDA -->
+      <div class="exercise-section">
+        <div class="exercise-header">
+          <h3>Pilihan Ganda</h3>
+          <span class="exercise-badge">10 Soal</span>
+        </div>
+
+        <div class="mc-item">
+          <div class="mc-question">1. Pernyataan yang tepat terkait Laporan Korporat dan Laporan Keuangan adalah…</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',1)"><span class="opt-letter">A</span>Laporan keuangan ditujukan kepada manajemen; laporan korporat kepada pemegang saham.</div>
+            <div class="mc-option" onclick="checkMC(this,'b',1)"><span class="opt-letter">B</span>Laporan Keuangan mencakup Laporan Korporat.</div>
+            <div class="mc-option" onclick="checkMC(this,'c',1)"><span class="opt-letter">C</span>Laporan Keuangan bertujuan memberikan informasi posisi &amp; kinerja keuangan; Laporan Korporat memberikan informasi berbagai aspek perusahaan kepada pemangku kepentingan.</div>
+            <div class="mc-option" onclick="checkMC(this,'d',1)"><span class="opt-letter">D</span>Pelaporan Keberlanjutan merupakan jenis paling umum dari pelaporan korporat.</div>
+          </div>
+          <div class="mc-feedback" id="fb1"><span class="correct-ans">Jawaban: C</span> — Laporan Keuangan adalah subset dari pelaporan korporat, bukan sebaliknya. Laporan korporat mencakup laporan keuangan, tahunan, tata kelola, CSR, keberlanjutan, dan terintegrasi.</div>
+        </div>
+
+        <div class="mc-item">
+          <div class="mc-question">2. Yang termasuk dalam standar akuntansi di Indonesia, <strong>kecuali</strong>…</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',2)"><span class="opt-letter">A</span>Standar Akuntansi Keuangan (SAK)</div>
+            <div class="mc-option" onclick="checkMC(this,'b',2)"><span class="opt-letter">B</span>Standar Akuntansi Syariah (SAS)</div>
+            <div class="mc-option" onclick="checkMC(this,'c',2)"><span class="opt-letter">C</span>Standar Akuntansi Usaha Kecil dan Menengah (SAUKM)</div>
+            <div class="mc-option" onclick="checkMC(this,'d',2)"><span class="opt-letter">D</span>Standar Akuntansi Pemerintahan (SAP)</div>
+          </div>
+          <div class="mc-feedback" id="fb2"><span class="correct-ans">Jawaban: C</span> — Yang ada adalah SAK EMKM (bukan SAUKM). Standar di Indonesia: SAP, SAK Umum, SAK ETAP, SAK EMKM, SAK Syariah.</div>
+        </div>
+
+        <div class="mc-item">
+          <div class="mc-question">3. Proses konvergensi di Indonesia dilakukan dengan pendekatan…</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',3)"><span class="opt-letter">A</span>Big Bang strategy yang mengadopsi IFRS pada tahun 2015</div>
+            <div class="mc-option" onclick="checkMC(this,'b',3)"><span class="opt-letter">B</span>Gradual strategy yang mengadopsi penuh IFRS pada tahun 2012</div>
+            <div class="mc-option" onclick="checkMC(this,'c',3)"><span class="opt-letter">C</span>Gradual strategy dengan dua fase mengadopsi penuh IFRS pada tahun 2015</div>
+            <div class="mc-option" onclick="checkMC(this,'d',3)"><span class="opt-letter">D</span>Gradual strategy dengan dua fase; pada 2015 gap hanya 1 tahun dengan IFRS</div>
+          </div>
+          <div class="mc-feedback" id="fb3"><span class="correct-ans">Jawaban: D</span> — Indonesia menggunakan gradual strategy. Setelah fase 2, IAI berkomitmen menjaga gap antara IFRS dan PSAK hanya 1 tahun.</div>
+        </div>
+
+        <div class="mc-item">
+          <div class="mc-question">4. Yang termasuk karakteristik kualitatif <strong>fundamental</strong> dalam laporan keuangan adalah…</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',4)"><span class="opt-letter">A</span>Relevansi dan Representasi Tepat</div>
+            <div class="mc-option" onclick="checkMC(this,'b',4)"><span class="opt-letter">B</span>Relevansi dan Keterbandingan</div>
+            <div class="mc-option" onclick="checkMC(this,'c',4)"><span class="opt-letter">C</span>Keterbandingan dan Keterverifikasian</div>
+            <div class="mc-option" onclick="checkMC(this,'d',4)"><span class="opt-letter">D</span>Kelangsungan usaha dan Keterpahaman</div>
+          </div>
+          <div class="mc-feedback" id="fb4"><span class="correct-ans">Jawaban: A</span> — Fundamental: Relevansi + Representasi Tepat. Peningkat: Keterbandingan, Keterverifikasian, Ketepatwaktuan, Keterpahaman.</div>
+        </div>
+
+        <div class="mc-item">
+          <div class="mc-question">5. Berdasarkan pernyataan berikut, mana yang tepat sesuai Kerangka Konseptual? (i) Materialitas adalah ambang batas; (ii) Informasi andal jika dapat mempengaruhi keputusan; (iii) Keterbandingan memerlukan minimal dua pos; (iv) Keterverifikasian = konsensus pengamat independen.</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',5)"><span class="opt-letter">A</span>Pernyataan i, ii, dan iii</div>
+            <div class="mc-option" onclick="checkMC(this,'b',5)"><span class="opt-letter">B</span>Pernyataan i, iii, dan iv</div>
+            <div class="mc-option" onclick="checkMC(this,'c',5)"><span class="opt-letter">C</span>Pernyataan ii, iii, dan iv</div>
+            <div class="mc-option" onclick="checkMC(this,'d',5)"><span class="opt-letter">D</span>Pernyataan i, ii, dan iv</div>
+          </div>
+          <div class="mc-feedback" id="fb5"><span class="correct-ans">Jawaban: B</span> — Pernyataan ii tidak tepat: informasi "andal" bila merepresentasikan tepat, bukan sekedar mempengaruhi keputusan (itu definisi relevansi). Pernyataan i, iii, iv sesuai KKPK.</div>
+        </div>
+
+        <div class="mc-item">
+          <div class="mc-question">6. Agar informasi keuangan menjadi berguna, informasi tersebut harus…</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',6)"><span class="opt-letter">A</span>Dapat dibandingkan</div>
+            <div class="mc-option" onclick="checkMC(this,'b',6)"><span class="opt-letter">B</span>Terverifikasi</div>
+            <div class="mc-option" onclick="checkMC(this,'c',6)"><span class="opt-letter">C</span>Relevan</div>
+            <div class="mc-option" onclick="checkMC(this,'d',6)"><span class="opt-letter">D</span>Tepat waktu</div>
+          </div>
+          <div class="mc-feedback" id="fb6"><span class="correct-ans">Jawaban: C</span> — Agar berguna, informasi harus relevan dan merepresentasikan secara tepat (dua karakteristik fundamental). A, B, D adalah karakteristik peningkat.</div>
+        </div>
+
+        <div class="mc-item">
+          <div class="mc-question">7. Berikut merupakan pengukuran dari <strong>nilai kini</strong>, kecuali…</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',7)"><span class="opt-letter">A</span>Nilai wajar</div>
+            <div class="mc-option" onclick="checkMC(this,'b',7)"><span class="opt-letter">B</span>Nilai pakai dan nilai pemenuhan</div>
+            <div class="mc-option" onclick="checkMC(this,'c',7)"><span class="opt-letter">C</span>Biaya kini</div>
+            <div class="mc-option" onclick="checkMC(this,'d',7)"><span class="opt-letter">D</span>Biaya pembelian</div>
+          </div>
+          <div class="mc-feedback" id="fb7"><span class="correct-ans">Jawaban: D</span> — Nilai kini mencakup: nilai wajar, nilai pakai/pemenuhan, dan biaya kini. Biaya pembelian termasuk biaya historis (historical cost).</div>
+        </div>
+
+        <div class="mc-item">
+          <div class="mc-question">8. Berikut ini adalah karakteristik kualitatif <strong>peningkat</strong>, kecuali…</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',8)"><span class="opt-letter">A</span>Keterbandingan</div>
+            <div class="mc-option" onclick="checkMC(this,'b',8)"><span class="opt-letter">B</span>Ketepatan Representasi</div>
+            <div class="mc-option" onclick="checkMC(this,'c',8)"><span class="opt-letter">C</span>Keterverifikasian</div>
+            <div class="mc-option" onclick="checkMC(this,'d',8)"><span class="opt-letter">D</span>Keterpahaman</div>
+          </div>
+          <div class="mc-feedback" id="fb8"><span class="correct-ans">Jawaban: B</span> — Ketepatan Representasi (Representasi Tepat) adalah karakteristik kualitatif <em>fundamental</em>, bukan peningkat.</div>
+        </div>
+
+        <div class="mc-item">
+          <div class="mc-question">9. Berikut ini adalah karakteristik yang harus dimiliki agar dapat menunjukkan representasi tepat dengan sempurna, kecuali…</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',9)"><span class="opt-letter">A</span>Lengkap</div>
+            <div class="mc-option" onclick="checkMC(this,'b',9)"><span class="opt-letter">B</span>Netral</div>
+            <div class="mc-option" onclick="checkMC(this,'c',9)"><span class="opt-letter">C</span>Dapat dipahami</div>
+            <div class="mc-option" onclick="checkMC(this,'d',9)"><span class="opt-letter">D</span>Bebas dari kesalahan</div>
+          </div>
+          <div class="mc-feedback" id="fb9"><span class="correct-ans">Jawaban: C</span> — Representasi tepat memerlukan: lengkap, netral, bebas dari kesalahan. "Dapat dipahami" adalah karakteristik peningkat (Keterpahaman).</div>
+        </div>
+
+        <div class="mc-item">
+          <div class="mc-question">10. Kalimat yang <strong>tidak tepat</strong> terkait biaya historis adalah…</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',10)"><span class="opt-letter">A</span>Biaya historis aset ketika diperoleh adalah imbalan yang dibayarkan ditambah biaya transaksi.</div>
+            <div class="mc-option" onclick="checkMC(this,'b',10)"><span class="opt-letter">B</span>Biaya historis dari liabilitas adalah imbalan yang diterima untuk menanggung liabilitas dikurangi biaya transaksi.</div>
+            <div class="mc-option" onclick="checkMC(this,'c',10)"><span class="opt-letter">C</span>Biaya historis tidak perlu dimutakhirkan karena merepresentasikan harga perolehan masa lalu.</div>
+            <div class="mc-option" onclick="checkMC(this,'d',10)"><span class="opt-letter">D</span>Salah satu cara menerapkan biaya historis terhadap aset keuangan dan liabilitas keuangan adalah dengan mengukurnya pada biaya pemakaian.</div>
+          </div>
+          <div class="mc-feedback" id="fb10"><span class="correct-ans">Jawaban: C</span> — Pernyataan ini tidak tepat. Biaya historis dapat mengalami penyesuaian (misal: penurunan nilai/impairment). Selain itu, untuk instrumen keuangan biaya historis menggunakan metode bunga efektif yang dimutakhirkan setiap periode.</div>
+        </div>
+      </div>
+
+      <!-- ESAI -->
+      <div class="exercise-section">
+        <div class="exercise-header">
+          <h3>Esai</h3>
+          <span class="exercise-badge">2 Soal</span>
+        </div>
+
+        <div class="essay-item">
+          <div class="essay-q">1. Konvergensi IFRS telah membawa dampak yang signifikan pada praktik pelaporan keuangan perusahaan. Jelaskan <strong>biaya dan manfaat</strong> bagi perusahaan apabila Standar Akuntansi Keuangan berkonvergensi menuju standar internasional (IFRS).</div>
+          <button class="essay-toggle" onclick="toggleEssay('e1')">▶ Lihat Jawaban</button>
+          <div class="essay-answer" id="e1">
+            <h5>Kunci Jawaban</h5>
+            <div class="answer-group">
+              <h6>Biaya (Disadvantage):</h6>
+              <ul>
+                <li>Biaya implementasi tinggi — perubahan sistem akuntansi sesuai IFRS</li>
+                <li>Penggunaan <em>principle based</em> membuka ruang <em>management judgement</em> yang kurang tepat</li>
+                <li><em>Complex and costly</em>, terutama untuk perusahaan yang tidak terlalu besar</li>
+                <li>Membutuhkan investasi sumber daya memadai: sistem akuntansi, SDM, pelatihan</li>
+                <li>Adanya perbedaan antara standar IFRS dengan regulasi lokal</li>
+              </ul>
+            </div>
+            <div class="answer-group">
+              <h6>Manfaat (Advantage):</h6>
+              <ul>
+                <li>IFRS fokus pada kebutuhan investor → keputusan investasi lebih baik</li>
+                <li>Keterbandingan lebih tinggi — laporan akuntansi lebih mudah dibandingkan antarnegara</li>
+                <li>Meningkatkan transparansi dan konsistensi dalam pelaporan keuangan</li>
+                <li>Meningkatkan akses terhadap <em>foreign capital market</em> dan investasi</li>
+                <li>Meningkatkan relevansi laporan keuangan yang dihasilkan</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="essay-item">
+          <div class="essay-q">2. Jelaskan karakteristik kualitatif <strong>fundamental</strong> dan <strong>peningkat</strong> yang dapat memastikan Laporan Keuangan yang berkualitas berdasarkan SAK.</div>
+          <button class="essay-toggle" onclick="toggleEssay('e2')">▶ Lihat Jawaban</button>
+          <div class="essay-answer" id="e2">
+            <h5>Kunci Jawaban</h5>
+            <div class="answer-group">
+              <h6>Karakteristik Kualitatif Fundamental:</h6>
+              <ul>
+                <li><strong>Relevansi</strong> — Informasi mampu membuat perbedaan dalam keputusan. Memiliki nilai prediktif dan/atau nilai konfirmasi. Dipengaruhi materialitas.</li>
+                <li><strong>Representasi Tepat</strong> — Laporan keuangan harus bersifat: <em>lengkap</em> (seluruh informasi yang diperlukan), <em>netral</em> (tanpa bias pemilihan), dan <em>bebas dari kesalahan</em> (tidak ada kesalahan dalam deskripsi fenomena).</li>
+              </ul>
+            </div>
+            <div class="answer-group">
+              <h6>Karakteristik Kualitatif Peningkat:</h6>
+              <ul>
+                <li><strong>Keterbandingan</strong> — Memungkinkan pengguna mengidentifikasi persamaan dan perbedaan antar pos, antar entitas, atau antar periode.</li>
+                <li><strong>Keterverifikasian</strong> — Pengamat independen dengan pengetahuan berbeda dapat mencapai konsensus bahwa representasi tertentu adalah tepat.</li>
+                <li><strong>Ketepatwaktuan</strong> — Informasi tersedia tepat waktu sehingga dapat mempengaruhi keputusan.</li>
+                <li><strong>Keterpahaman</strong> — Mengklasifikasikan dan menyajikan informasi secara jelas dan ringkas.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- AI CHAT -->
+    <section class="section" id="ai">
+      <div class="section-header">
+        <span class="section-num" style="background:var(--blue);color:#000">🤖</span>
+        <h2 class="section-title">Tanya AI — Asisten Belajar BAB 1</h2>
+      </div>
+
+      <div class="ai-section">
+        <div class="ai-header">
+          <div class="ai-dot"></div>
+          <h3>Asisten Pelaporan Korporat</h3>
+        </div>
+        <div class="ai-messages" id="aiMessages">
+          <div class="ai-msg ai">
+            <div class="avatar">AI</div>
+            <div class="ai-bubble">Halo! Saya siap membantu kamu memahami <strong>BAB 1 — Standar Pelaporan Keuangan</strong>. Tanyakan apa saja tentang KKPK, SAK, konvergensi IFRS, atau karakteristik kualitatif. 💡</div>
+          </div>
+        </div>
+        <div class="ai-suggestions" id="aiSuggestions">
+          <span class="ai-chip" onclick="sendChip(this)">Apa bedanya SAK ETAP dan SAK EMKM?</span>
+          <span class="ai-chip" onclick="sendChip(this)">Jelaskan karakteristik kualitatif fundamental</span>
+          <span class="ai-chip" onclick="sendChip(this)">Apa itu gradual strategy konvergensi IFRS?</span>
+          <span class="ai-chip" onclick="sendChip(this)">Bedakan biaya historis dan nilai wajar</span>
+          <span class="ai-chip" onclick="sendChip(this)">Apa syarat pengakuan aset dan liabilitas?</span>
+        </div>
+        <div class="ai-input-row">
+          <textarea class="ai-input" id="aiInput" rows="1" placeholder="Ketik pertanyaan tentang BAB 1…" onkeydown="handleKey(event)"></textarea>
+          <button class="ai-send" id="aiSendBtn" onclick="sendMessage()">Kirim</button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script>
+// ── MC QUIZ ──
+const answers = {1:'c',2:'c',3:'d',4:'a',5:'b',6:'c',7:'d',8:'b',9:'c',10:'c'};
+function checkMC(el, choice, num) {
+  const item = el.closest('.mc-item');
+  if (item.querySelector('.revealed')) return;
+  const correct = answers[num];
+  const options = item.querySelectorAll('.mc-option');
+  options.forEach(opt => {
+    opt.classList.add('revealed');
+    const letter = opt.querySelector('.opt-letter').textContent.toLowerCase();
+    if (letter === correct) opt.classList.add('correct');
+    else if (letter === choice && choice !== correct) opt.classList.add('wrong');
+  });
+  const fb = document.getElementById('fb' + num);
+  if (fb) fb.classList.add('show');
+}
+
+// ── ESSAY TOGGLE ──
+function toggleEssay(id) {
+  const ans = document.getElementById(id);
+  const btn = ans.previousElementSibling;
+  const show = !ans.classList.contains('show');
+  ans.classList.toggle('show', show);
+  btn.textContent = show ? '▼ Sembunyikan Jawaban' : '▶ Lihat Jawaban';
+}
+
+// ── TOC ACTIVE STATE ──
+const sections = document.querySelectorAll('.section, .subsection');
+const tocLinks = document.querySelectorAll('.toc-link');
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      tocLinks.forEach(l => l.classList.remove('active'));
+      const active = document.querySelector(`.toc-link[href="#${e.target.id}"]`);
+      if (active) active.classList.add('active');
+    }
+  });
+}, { rootMargin: '-20% 0px -70% 0px' });
+sections.forEach(s => { if (s.id) obs.observe(s); });
+
+// ── AI CHAT ──
+const SYSTEM_PROMPT = `Kamu adalah asisten belajar untuk mata kuliah CA Indonesia: Pelaporan Korporat, khususnya BAB 1 tentang Standar Pelaporan Keuangan. 
+
+Topik yang kamu kuasai:
+- Pengertian pelaporan korporat vs laporan keuangan
+- Standar Akuntansi di Indonesia: SAP, SAK Umum, SAK ETAP, SAK EMKM, SAK Syariah
+- Konvergensi IFRS: big bang strategy vs gradual strategy, fase konvergensi Indonesia
+- Kerangka Konseptual Pelaporan Keuangan (KKPK): tujuan, karakteristik kualitatif fundamental & peningkat, unsur laporan keuangan, pengakuan, pengukuran, konsep modal
+- Isu terkini: managerial judgement, nilai wajar, perubahan standar (PSAK 71, 72, 73)
+
+Jawab dalam Bahasa Indonesia yang jelas dan ringkas. Gunakan contoh konkret bila perlu. Jika ada angka atau daftar, sajikan secara terstruktur.`;
+
+const messagesEl = document.getElementById('aiMessages');
+const inputEl = document.getElementById('aiInput');
+const sendBtn = document.getElementById('aiSendBtn');
+let history = [];
+
+function addMsg(role, text) {
+  const div = document.createElement('div');
+  div.className = `ai-msg ${role}`;
+  div.innerHTML = `<div class="avatar">${role==='ai'?'AI':'Kamu'}</div><div class="ai-bubble">${text.replace(/\n/g,'<br>')}</div>`;
+  messagesEl.appendChild(div);
+  messagesEl.scrollTop = messagesEl.scrollHeight;
+}
+
+function addTyping() {
+  const div = document.createElement('div');
+  div.className = 'ai-msg ai'; div.id = 'typing';
+  div.innerHTML = `<div class="avatar">AI</div><div class="ai-typing"><span></span><span></span><span></span></div>`;
+  messagesEl.appendChild(div);
+  messagesEl.scrollTop = messagesEl.scrollHeight;
+}
+
+async function sendMessage() {
+  const text = inputEl.value.trim();
+  if (!text) return;
+  inputEl.value = '';
+  document.getElementById('aiSuggestions').style.display = 'none';
+  addMsg('user', text);
+  history.push({ role: 'user', content: text });
+  sendBtn.disabled = true;
+  addTyping();
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 1000,
+        system: SYSTEM_PROMPT,
+        messages: history
+      })
+    });
+    const data = await res.json();
+    document.getElementById('typing')?.remove();
+    const reply = data.content?.find(b => b.type === 'text')?.text || 'Maaf, tidak ada respons.';
+    addMsg('ai', reply);
+    history.push({ role: 'assistant', content: reply });
+  } catch (err) {
+    document.getElementById('typing')?.remove();
+    addMsg('ai', 'Maaf, terjadi kesalahan. Periksa koneksi internet dan coba lagi.');
+  }
+  sendBtn.disabled = false;
+}
+
+function sendChip(el) {
+  inputEl.value = el.textContent;
+  sendMessage();
+}
+
+function handleKey(e) {
+  if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); }
+}
+</script>
+</body>
+</html>

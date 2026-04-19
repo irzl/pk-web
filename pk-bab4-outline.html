@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BAB 4 — Aset Lancar</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #0f0a08; --surface: #1a1208; --surface2: #241a0a; --surface3: #2e2010;
+  --accent: #fb923c; --accent2: #fdba74; --accent3: #ea580c;
+  --yellow: #fbbf24; --green: #4ade80; --teal: #2dd4bf; --blue: #60a5fa; --purple: #a78bfa; --red: #f87171;
+  --text: #fff7ed; --text2: #c4a882; --muted: #6b5a45; --border: rgba(251,146,60,0.1); --border2: rgba(255,255,255,0.06);
+}
+html { scroll-behavior: smooth; }
+body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; min-height: 100vh; }
+
+.chapter-header { background: linear-gradient(135deg, #0f0a08 0%, #1a1208 50%, #0f0a08 100%); border-bottom: 1px solid var(--border); padding: 2.5rem 2rem 2rem; position: relative; overflow: hidden; }
+.chapter-header::before { content: '4'; position: absolute; right: -0.5rem; top: -1rem; font-family: 'Playfair Display', serif; font-size: 12rem; font-weight: 900; color: rgba(251,146,60,0.04); line-height: 1; pointer-events: none; user-select: none; }
+.chapter-eyebrow { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent3); margin-bottom: 0.5rem; }
+.chapter-title { font-family: 'Playfair Display', serif; font-size: clamp(1.4rem, 3.5vw, 2.2rem); font-weight: 900; line-height: 1.15; background: linear-gradient(135deg, #fb923c, #fdba74); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 1.2rem; }
+.learning-goals { background: rgba(251,146,60,0.05); border: 1px solid var(--border); border-radius: 12px; padding: 1rem 1.2rem; max-width: 700px; }
+.learning-goals h3 { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.6rem; }
+.goals-list { list-style: none; display: flex; flex-direction: column; gap: 0.3rem; }
+.goals-list li { font-size: 0.78rem; color: var(--text2); display: flex; gap: 0.6rem; align-items: flex-start; }
+.goals-list li::before { content: '→'; color: var(--accent3); flex-shrink: 0; font-family: 'DM Mono', monospace; font-size: 0.7rem; margin-top: 0.05rem; }
+
+.page-body { display: grid; grid-template-columns: 220px 1fr; min-height: calc(100vh - 200px); }
+.toc { background: var(--surface); border-right: 1px solid var(--border2); padding: 1.5rem 0; position: sticky; top: 0; height: 100vh; overflow-y: auto; }
+.toc-label { font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); padding: 0 1rem; margin-bottom: 0.8rem; }
+.toc-link { display: block; padding: 0.45rem 1rem; font-size: 0.75rem; color: var(--muted); text-decoration: none; transition: all 0.15s; border-left: 2px solid transparent; line-height: 1.4; }
+.toc-link:hover { color: var(--text); background: rgba(251,146,60,0.04); }
+.toc-link.active { color: var(--accent); border-left-color: var(--accent); background: rgba(251,146,60,0.06); }
+.toc-link.sub { padding-left: 1.8rem; font-size: 0.7rem; }
+.toc-divider { height: 1px; background: var(--border2); margin: 0.6rem 1rem; }
+.main { padding: 2rem 2.5rem 4rem; max-width: 860px; }
+.section { margin-bottom: 3rem; scroll-margin-top: 1.5rem; }
+.section-header { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.2rem; padding-bottom: 0.7rem; border-bottom: 1px solid var(--border2); }
+.section-num { font-family: 'DM Mono', monospace; font-size: 0.65rem; font-weight: 700; background: var(--accent3); color: #fff; padding: 0.2rem 0.5rem; border-radius: 4px; flex-shrink: 0; }
+.section-title { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; color: var(--text); line-height: 1.3; }
+.subsection { margin-bottom: 1.5rem; scroll-margin-top: 1.5rem; }
+.subsection-title { font-size: 0.82rem; font-weight: 600; color: var(--accent2); font-family: 'DM Mono', monospace; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.6rem; }
+
+.card { background: var(--surface); border: 1px solid var(--border2); border-radius: 10px; padding: 1.1rem 1.2rem; margin-bottom: 0.8rem; }
+.card-title { font-size: 0.78rem; font-weight: 600; color: var(--accent); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem; }
+.card-title .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
+.card p, .card li { font-size: 0.8rem; color: var(--text2); line-height: 1.6; }
+.card ul, .card ol { padding-left: 1.1rem; margin-top: 0.4rem; display: flex; flex-direction: column; gap: 0.25rem; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; margin-bottom: 1rem; }
+.grid-3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 0.7rem; margin-bottom: 1rem; }
+.highlight { background: rgba(251,146,60,0.06); border: 1px solid rgba(251,146,60,0.2); border-left: 3px solid var(--accent); border-radius: 8px; padding: 0.9rem 1.1rem; margin-bottom: 1rem; }
+.highlight p { font-size: 0.8rem; color: var(--text2); line-height: 1.6; }
+.highlight strong { color: var(--accent); font-weight: 600; }
+.table-wrap { overflow-x: auto; margin-bottom: 1rem; border-radius: 10px; border: 1px solid var(--border2); }
+table { width: 100%; border-collapse: collapse; font-size: 0.76rem; }
+thead tr { background: var(--surface3); }
+th { padding: 0.7rem 0.9rem; text-align: left; font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); font-weight: 500; }
+td { padding: 0.6rem 0.9rem; border-top: 1px solid var(--border2); color: var(--text2); vertical-align: top; line-height: 1.5; }
+tbody tr:hover { background: rgba(255,255,255,0.02); }
+.tag { display: inline-block; font-family: 'DM Mono', monospace; font-size: 0.6rem; padding: 0.15rem 0.5rem; border-radius: 99px; font-weight: 500; }
+.tag-orange { background: rgba(251,146,60,0.12); color: var(--accent); border: 1px solid rgba(251,146,60,0.25); }
+.tag-yellow { background: rgba(251,191,36,0.12); color: var(--yellow); border: 1px solid rgba(251,191,36,0.25); }
+.tag-green { background: rgba(74,222,128,0.12); color: var(--green); border: 1px solid rgba(74,222,128,0.25); }
+.tag-blue { background: rgba(96,165,250,0.12); color: var(--blue); border: 1px solid rgba(96,165,250,0.25); }
+.tag-red { background: rgba(248,113,113,0.12); color: var(--red); border: 1px solid rgba(248,113,113,0.25); }
+.psak-ref { display: inline-flex; align-items: center; gap: 0.35rem; font-family: 'DM Mono', monospace; font-size: 0.62rem; background: var(--surface3); border: 1px solid var(--border2); color: var(--text2); padding: 0.15rem 0.55rem; border-radius: 99px; margin-bottom: 0.5rem; }
+.psak-ref span { color: var(--accent); }
+
+/* Kriteria Aset Lancar */
+.kriteria-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 0.55rem; margin-bottom: 1rem; }
+.kriteria-card { background: var(--surface); border: 1px solid var(--border2); border-radius: 10px; padding: 0.8rem; border-top: 2px solid var(--accent); }
+.kriteria-num { font-family: 'DM Mono', monospace; font-size: 0.6rem; color: var(--accent); margin-bottom: 0.3rem; font-weight: 700; }
+.kriteria-card p { font-size: 0.72rem; color: var(--text2); line-height: 1.45; }
+
+/* Persediaan jenis */
+.jenis-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 0.7rem; margin-bottom: 1rem; }
+.jenis-card { background: var(--surface); border: 1px solid var(--border2); border-radius: 10px; padding: 0.9rem 1rem; text-align: center; border-top: 2px solid; }
+.jenis-icon { font-size: 1.4rem; margin-bottom: 0.4rem; }
+.jenis-name { font-size: 0.78rem; font-weight: 700; color: var(--text); margin-bottom: 0.25rem; }
+.jenis-card p { font-size: 0.68rem; color: var(--text2); line-height: 1.4; }
+
+/* Biaya persediaan */
+.biaya-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.7rem; margin-bottom: 1rem; }
+.biaya-card { background: var(--surface); border: 1px solid var(--border2); border-radius: 10px; padding: 0.9rem 1rem; }
+.biaya-label { font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.25rem; }
+.biaya-name { font-size: 0.82rem; font-weight: 700; color: var(--accent2); margin-bottom: 0.4rem; }
+.biaya-card ul { list-style: none; display: flex; flex-direction: column; gap: 0.2rem; }
+.biaya-card li { font-size: 0.72rem; color: var(--text2); display: flex; gap: 0.4rem; }
+.biaya-card li::before { content: '▸'; color: var(--accent); flex-shrink: 0; font-size: 0.6rem; margin-top: 0.1rem; }
+
+/* HPP Formula */
+.hpp-formula { background: var(--surface3); border: 1px solid var(--border2); border-radius: 10px; padding: 1rem 1.2rem; margin-bottom: 1rem; font-family: 'DM Mono', monospace; font-size: 0.75rem; line-height: 1.9; }
+.hpp-formula .row { display: flex; justify-content: space-between; color: var(--text2); }
+.hpp-formula .row.bold { color: var(--text); font-weight: 700; border-top: 1px solid var(--border2); margin-top: 0.3rem; padding-top: 0.3rem; }
+.hpp-formula .plus { color: var(--green); }
+.hpp-formula .minus { color: var(--red); }
+
+/* Rumus Biaya table */
+.rumus-compare { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.7rem; margin-bottom: 1rem; }
+.rumus-card { background: var(--surface); border: 1px solid var(--border2); border-radius: 10px; padding: 0.9rem 1rem; }
+.rumus-name { font-size: 0.82rem; font-weight: 700; margin-bottom: 0.3rem; }
+.rumus-en { font-family: 'DM Mono', monospace; font-size: 0.62rem; color: var(--muted); margin-bottom: 0.4rem; }
+.rumus-card p { font-size: 0.72rem; color: var(--text2); line-height: 1.5; }
+.rumus-result { margin-top: 0.5rem; background: var(--surface3); border-radius: 6px; padding: 0.4rem 0.6rem; font-family: 'DM Mono', monospace; font-size: 0.68rem; }
+
+/* LCNRV */
+.lcnrv-box { background: var(--surface3); border: 1px solid rgba(251,191,36,0.2); border-radius: 10px; padding: 1rem 1.2rem; margin-bottom: 1rem; }
+.lcnrv-title { font-family: 'DM Mono', monospace; font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--yellow); margin-bottom: 0.5rem; }
+.lcnrv-formula { font-family: 'DM Mono', monospace; font-size: 0.8rem; color: var(--text); margin-bottom: 0.5rem; text-align: center; }
+.lcnrv-box p { font-size: 0.76rem; color: var(--text2); line-height: 1.55; }
+
+/* ATUD */
+.atud-flow { display: grid; grid-template-columns: 1fr 1fr; gap: 0.7rem; margin-bottom: 1rem; }
+.atud-card { background: var(--surface); border: 1px solid var(--border2); border-radius: 10px; padding: 0.9rem 1rem; }
+.atud-num { font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.3rem; }
+.atud-name { font-size: 0.85rem; font-weight: 700; margin-bottom: 0.4rem; }
+.atud-card ul { list-style: none; display: flex; flex-direction: column; gap: 0.2rem; }
+.atud-card li { font-size: 0.72rem; color: var(--text2); display: flex; gap: 0.4rem; line-height: 1.4; }
+.atud-card li::before { content: '·'; font-size: 1rem; flex-shrink: 0; line-height: 1.2; }
+
+/* Case boxes */
+.case-box { background: var(--surface); border: 1px solid var(--border2); border-radius: 10px; padding: 0.9rem 1rem; margin-bottom: 0.6rem; }
+.case-header { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.4rem; }
+.case-label { font-family: 'DM Mono', monospace; font-size: 0.62rem; font-weight: 700; padding: 0.15rem 0.5rem; border-radius: 4px; flex-shrink: 0; }
+.case-title { font-size: 0.8rem; font-weight: 600; color: var(--text); }
+.case-analysis { margin-top: 0.4rem; font-size: 0.75rem; color: var(--text2); line-height: 1.55; }
+.case-analysis strong { color: var(--accent); }
+
+/* Latihan */
+.exercise-section { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; margin-bottom: 1.5rem; }
+.exercise-header { background: rgba(251,146,60,0.08); padding: 0.9rem 1.2rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 0.6rem; }
+.exercise-header h3 { font-family: 'DM Mono', monospace; font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); }
+.exercise-badge { font-family: 'DM Mono', monospace; font-size: 0.58rem; background: rgba(251,146,60,0.15); color: var(--accent); padding: 0.15rem 0.5rem; border-radius: 99px; }
+.mc-item { padding: 1rem 1.2rem; border-bottom: 1px solid var(--border2); }
+.mc-item:last-child { border-bottom: none; }
+.mc-question { font-size: 0.8rem; color: var(--text); font-weight: 500; margin-bottom: 0.6rem; line-height: 1.55; }
+.mc-options { display: flex; flex-direction: column; gap: 0.3rem; }
+.mc-option { display: flex; gap: 0.6rem; align-items: flex-start; padding: 0.4rem 0.6rem; border-radius: 6px; cursor: pointer; transition: background 0.15s; font-size: 0.76rem; color: var(--text2); line-height: 1.4; border: 1px solid transparent; }
+.mc-option:hover { background: rgba(255,255,255,0.03); border-color: var(--border2); }
+.mc-option.correct { background: rgba(74,222,128,0.1); color: var(--green); border-color: rgba(74,222,128,0.3); }
+.mc-option.wrong { background: rgba(248,113,113,0.08); color: var(--red); border-color: rgba(248,113,113,0.2); }
+.mc-option.revealed { pointer-events: none; }
+.opt-letter { font-family: 'DM Mono', monospace; font-size: 0.65rem; font-weight: 700; background: var(--surface3); padding: 0.15rem 0.4rem; border-radius: 4px; flex-shrink: 0; margin-top: 0.05rem; }
+.mc-feedback { margin-top: 0.5rem; font-size: 0.72rem; color: var(--muted); display: none; padding: 0.4rem 0.6rem; background: var(--surface3); border-radius: 6px; line-height: 1.5; }
+.mc-feedback.show { display: block; }
+.mc-feedback .correct-ans { color: var(--green); font-weight: 600; }
+.essay-item { padding: 1rem 1.2rem; border-bottom: 1px solid var(--border2); }
+.essay-item:last-child { border-bottom: none; }
+.essay-q { font-size: 0.8rem; color: var(--text); font-weight: 500; margin-bottom: 0.8rem; line-height: 1.55; }
+.essay-toggle { display: flex; align-items: center; gap: 0.5rem; font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent3); background: rgba(251,146,60,0.07); border: 1px solid rgba(251,146,60,0.2); padding: 0.4rem 0.8rem; border-radius: 6px; cursor: pointer; transition: all 0.15s; width: fit-content; }
+.essay-toggle:hover { background: rgba(251,146,60,0.12); color: var(--accent); }
+.essay-answer { margin-top: 0.8rem; display: none; background: var(--surface3); border-radius: 8px; padding: 0.9rem 1rem; }
+.essay-answer.show { display: block; }
+.essay-answer h5 { font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent3); margin-bottom: 0.6rem; }
+.essay-answer p, .essay-answer li { font-size: 0.77rem; color: var(--text2); line-height: 1.6; }
+.essay-answer ul { padding-left: 0; list-style: none; display: flex; flex-direction: column; gap: 0.3rem; margin-top: 0.3rem; }
+.essay-answer li { display: flex; gap: 0.5rem; }
+.essay-answer li::before { content: '▸'; color: var(--accent); flex-shrink: 0; font-size: 0.6rem; margin-top: 0.1rem; }
+.answer-group { margin-bottom: 0.7rem; }
+.answer-group h6 { font-size: 0.74rem; font-weight: 600; color: var(--text); margin-bottom: 0.35rem; }
+.calc-table { width: 100%; font-size: 0.73rem; border-collapse: collapse; margin-top: 0.5rem; }
+.calc-table th { background: var(--surface2); padding: 0.4rem 0.6rem; text-align: center; color: var(--accent2); font-weight: 600; border: 1px solid var(--border2); }
+.calc-table td { padding: 0.35rem 0.6rem; border: 1px solid var(--border2); text-align: right; color: var(--text2); }
+.calc-table td:first-child { text-align: left; }
+.calc-table tr.total td { background: var(--surface2); color: var(--accent); font-weight: 700; }
+
+/* AI */
+.ai-section { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; }
+.ai-header { background: rgba(96,165,250,0.07); padding: 0.9rem 1.2rem; border-bottom: 1px solid rgba(96,165,250,0.15); display: flex; align-items: center; gap: 0.6rem; }
+.ai-header h3 { font-family: 'DM Mono', monospace; font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--blue); }
+.ai-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--blue); }
+.ai-messages { padding: 1rem 1.2rem; min-height: 80px; max-height: 360px; overflow-y: auto; display: flex; flex-direction: column; gap: 0.7rem; }
+.ai-msg { display: flex; gap: 0.6rem; align-items: flex-start; font-size: 0.78rem; line-height: 1.6; animation: fadeUp 0.25s ease; }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+.ai-msg.user { flex-direction: row-reverse; }
+.ai-msg .avatar { width: 26px; height: 26px; border-radius: 6px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 0.65rem; font-weight: 700; margin-top: 0.1rem; }
+.ai-msg.ai .avatar { background: rgba(96,165,250,0.15); color: var(--blue); }
+.ai-msg.user .avatar { background: rgba(251,146,60,0.15); color: var(--accent); }
+.ai-bubble { padding: 0.6rem 0.85rem; border-radius: 10px; max-width: 85%; }
+.ai-msg.ai .ai-bubble { background: var(--surface3); color: var(--text2); }
+.ai-msg.user .ai-bubble { background: rgba(251,146,60,0.09); color: var(--text); text-align: right; }
+.ai-typing { display: flex; gap: 4px; align-items: center; padding: 0.6rem 0.85rem; background: var(--surface3); border-radius: 10px; width: fit-content; }
+.ai-typing span { width: 5px; height: 5px; border-radius: 50%; background: var(--blue); animation: typing 1.2s infinite; }
+.ai-typing span:nth-child(2) { animation-delay: 0.2s; }
+.ai-typing span:nth-child(3) { animation-delay: 0.4s; }
+@keyframes typing { 0%,60%,100% { opacity: 0.2; transform: scale(0.8); } 30% { opacity: 1; transform: scale(1); } }
+.ai-input-row { padding: 0.75rem 1.2rem; border-top: 1px solid var(--border2); display: flex; gap: 0.5rem; }
+.ai-input { flex: 1; background: var(--surface3); border: 1px solid var(--border2); border-radius: 8px; padding: 0.5rem 0.8rem; font-size: 0.78rem; color: var(--text); font-family: 'DM Sans', sans-serif; outline: none; resize: none; max-height: 100px; transition: border-color 0.2s; }
+.ai-input:focus { border-color: rgba(96,165,250,0.35); }
+.ai-input::placeholder { color: var(--muted); }
+.ai-send { background: rgba(96,165,250,0.15); border: 1px solid rgba(96,165,250,0.25); color: var(--blue); border-radius: 8px; padding: 0.5rem 0.9rem; font-size: 0.75rem; font-family: 'DM Mono', monospace; cursor: pointer; transition: all 0.15s; flex-shrink: 0; }
+.ai-send:hover { background: rgba(96,165,250,0.22); }
+.ai-send:disabled { opacity: 0.4; cursor: not-allowed; }
+.ai-suggestions { padding: 0 1.2rem 0.8rem; display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.ai-chip { font-size: 0.68rem; padding: 0.3rem 0.65rem; background: var(--surface3); border: 1px solid var(--border2); border-radius: 99px; color: var(--text2); cursor: pointer; transition: all 0.15s; }
+.ai-chip:hover { border-color: rgba(96,165,250,0.3); color: var(--blue); background: rgba(96,165,250,0.06); }
+
+@media (max-width: 768px) {
+  .page-body { grid-template-columns: 1fr; }
+  .toc { display: none; }
+  .main { padding: 1.5rem 1rem 3rem; }
+  .kriteria-grid, .rumus-compare { grid-template-columns: 1fr 1fr; }
+  .grid-2, .biaya-grid, .atud-flow { grid-template-columns: 1fr; }
+  .jenis-grid, .grid-3 { grid-template-columns: 1fr 1fr; }
+}
+</style>
+</head>
+<body>
+
+<div class="chapter-header">
+  <div class="chapter-eyebrow">Pelaporan Korporat · CA Indonesia</div>
+  <h1 class="chapter-title">BAB 4 — Aset Lancar</h1>
+  <div class="learning-goals">
+    <h3>🎯 Tujuan Pembelajaran</h3>
+    <ul class="goals-list">
+      <li>Menjelaskan kriteria dan cakupan aset lancar</li>
+      <li>Menerapkan dan menganalisis akuntansi persediaan di perusahaan manufaktur</li>
+      <li>Menerapkan akuntansi untuk persediaan yang berasal dari aset biologik</li>
+      <li>Mengevaluasi kebijakan akuntansi persediaan yang diterapkan oleh perusahaan</li>
+      <li>Mengevaluasi penerapan akuntansi aset dikuasai untuk dijual</li>
+    </ul>
+  </div>
+</div>
+
+<div class="page-body">
+  <nav class="toc" id="toc">
+    <div class="toc-label">Daftar Isi</div>
+    <a href="#s41" class="toc-link">4.1 Pengertian Aset Lancar</a>
+    <a href="#s42" class="toc-link">4.2 Persediaan</a>
+    <a href="#s421" class="toc-link sub">Definisi & Jenis</a>
+    <a href="#s422" class="toc-link sub">Biaya Perolehan</a>
+    <a href="#s423" class="toc-link sub">Metode Pencatatan</a>
+    <a href="#s424" class="toc-link sub">Rumus Biaya</a>
+    <a href="#s425" class="toc-link sub">Perusahaan Manufaktur</a>
+    <a href="#s426" class="toc-link sub">Perusahaan Agrikultur</a>
+    <a href="#s427" class="toc-link sub">LCNRV</a>
+    <a href="#s43" class="toc-link">4.3 ATUD</a>
+    <a href="#s431" class="toc-link sub">Kriteria ATUD</a>
+    <a href="#s432" class="toc-link sub">Pengukuran ATUD</a>
+    <a href="#s433" class="toc-link sub">Perubahan Rencana</a>
+    <div class="toc-divider"></div>
+    <a href="#latihan" class="toc-link">📝 Latihan Soal</a>
+    <a href="#ai" class="toc-link">🤖 Tanya AI</a>
+  </nav>
+
+  <main class="main">
+
+    <!-- 4.1 -->
+    <section class="section" id="s41">
+      <div class="section-header">
+        <span class="section-num">4.1</span>
+        <h2 class="section-title">Pengertian Aset Lancar</h2>
+      </div>
+      <div class="psak-ref"><span>PSAK 1</span> Penyajian Laporan Keuangan — kriteria aset lancar</div>
+      <div class="highlight">
+        <p>Aset lancar adalah kas dan aset lain yang diperkirakan akan dikonversi menjadi kas, atau dijual, atau digunakan perusahaan dalam <strong>satu tahun atau satu siklus operasi normal</strong>, mana yang lebih panjang. Siklus operasi = periode dari perolehan persediaan hingga penerimaan kas dari penjualan.</p>
+      </div>
+      <div class="subsection-title">4 Kriteria Aset Lancar (cukup salah satu)</div>
+      <div class="kriteria-grid">
+        <div class="kriteria-card">
+          <div class="kriteria-num">01</div>
+          <p>Diperkirakan akan <strong>direalisasikan</strong>, atau terdapat intensi untuk dijual/digunakan dalam <strong>siklus operasi normal</strong></p>
+        </div>
+        <div class="kriteria-card">
+          <div class="kriteria-num">02</div>
+          <p>Dimiliki untuk tujuan <strong>diperdagangkan</strong></p>
+        </div>
+        <div class="kriteria-card">
+          <div class="kriteria-num">03</div>
+          <p>Diperkirakan akan direalisasikan dalam jangka waktu <strong>dua belas bulan</strong> setelah periode pelaporan</p>
+        </div>
+        <div class="kriteria-card">
+          <div class="kriteria-num">04</div>
+          <p>Merupakan <strong>kas atau setara kas</strong>, kecuali dibatasi penggunaannya untuk penyelesaian liabilitas ≥ 12 bulan</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title"><span class="dot"></span>Urutan penyajian aset lancar berdasarkan likuiditas</div>
+        <p>Kas dan setara kas → Investasi jangka pendek → Piutang → Persediaan → Biaya dibayar di muka</p>
+        <p style="margin-top:0.4rem;font-size:0.75rem;color:var(--muted)">⚠️ Biaya dibayar di muka = aset lancar karena tanpa membayar di muka, perusahaan akan mengeluarkan kas dalam tahun mendatang/siklus normal.</p>
+      </div>
+    </section>
+
+    <!-- 4.2 PERSEDIAAN -->
+    <section class="section" id="s42">
+      <div class="section-header">
+        <span class="section-num">4.2</span>
+        <h2 class="section-title">Persediaan</h2>
+      </div>
+
+      <div class="subsection" id="s421">
+        <div class="subsection-title">4.2.1 Definisi dan Jenis Persediaan</div>
+        <div class="psak-ref"><span>PSAK 14</span> Persediaan</div>
+        <div class="highlight">
+          <p>Persediaan adalah aset yang: (i) tersedia untuk dijual dalam kegiatan usaha biasa; (ii) dalam proses produksi untuk penjualan tersebut; atau (iii) dalam bentuk bahan atau perlengkapan untuk digunakan dalam proses produksi atau pemberian jasa.</p>
+        </div>
+        <div class="jenis-grid">
+          <div class="jenis-card" style="border-top-color:var(--blue)">
+            <div class="jenis-icon">🏪</div>
+            <div class="jenis-name">Perusahaan Dagang</div>
+            <p><strong>1 akun:</strong> Persediaan Barang Dagang<br>Barang sudah siap dijual</p>
+          </div>
+          <div class="jenis-card" style="border-top-color:var(--accent)">
+            <div class="jenis-icon">🏭</div>
+            <div class="jenis-name">Perusahaan Manufaktur</div>
+            <p><strong>3 akun:</strong> Persediaan Bahan Baku, Persediaan Dalam Proses (WIP), Persediaan Barang Jadi</p>
+          </div>
+          <div class="jenis-card" style="border-top-color:var(--green)">
+            <div class="jenis-icon">🌾</div>
+            <div class="jenis-name">Perusahaan Agrikultur</div>
+            <p>Produk agrikultur yang telah dipanen dari aset biologis (aset tetap/hayati)</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="subsection" id="s422">
+        <div class="subsection-title">4.2.2 Biaya Perolehan Persediaan</div>
+        <div class="biaya-grid">
+          <div class="biaya-card">
+            <div class="biaya-label">Komponen 1</div>
+            <div class="biaya-name">Biaya Pembelian</div>
+            <ul>
+              <li>Harga beli, bea impor, pajak lainnya</li>
+              <li>Biaya pengangkutan dan penanganan</li>
+              <li>Biaya yang secara langsung diatribusikan ke perolehan</li>
+              <li><span style="color:var(--red)">−</span> Diskon dagang, rabat, dan hal serupa</li>
+            </ul>
+          </div>
+          <div class="biaya-card">
+            <div class="biaya-label">Komponen 2</div>
+            <div class="biaya-name">Biaya Konversi</div>
+            <ul>
+              <li>Biaya tenaga kerja langsung</li>
+              <li>Overhead produksi tetap (penyusutan bangunan pabrik, pemeliharaan)</li>
+              <li>Overhead produksi variabel (bahan tidak langsung, TK tidak langsung)</li>
+            </ul>
+          </div>
+          <div class="biaya-card">
+            <div class="biaya-label">Komponen 3</div>
+            <div class="biaya-name">Biaya Lain-lain</div>
+            <ul>
+              <li>Overhead nonproduksi yang diperlukan agar persediaan berada dalam kondisi dan lokasi saat ini</li>
+              <li>Biaya perancangan produk untuk pelanggan tertentu</li>
+            </ul>
+          </div>
+          <div class="biaya-card">
+            <div class="biaya-label">Bukan Biaya Persediaan</div>
+            <div class="biaya-name" style="color:var(--red)">Dibebankan Periode Berjalan</div>
+            <ul>
+              <li>Pemborosan bahan, tenaga kerja, atau biaya produksi</li>
+              <li>Biaya penyimpanan (kecuali diperlukan dalam proses)</li>
+              <li>Biaya administrasi umum</li>
+              <li>Biaya penjualan</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="subsection" id="s423">
+        <div class="subsection-title">4.2.3 Metode Pencatatan Persediaan</div>
+        <div class="grid-2">
+          <div class="card">
+            <div class="card-title"><span class="dot"></span>Metode Perpetual</div>
+            <p>Mencatat perubahan persediaan secara terus menerus — nilai persediaan selalu termutakhirkan. Persediaan akhir dan HPP tercermin dalam buku besar setiap saat.</p>
+          </div>
+          <div class="card">
+            <div class="card-title"><span class="dot"></span>Metode Periodik</div>
+            <p>Menentukan kuantitas persediaan akhir secara periodik (fisik) dan menghitung HPP di akhir periode. Menggunakan rumus HPP periodik.</p>
+          </div>
+        </div>
+        <div class="subsection-title">Rumus HPP — Metode Periodik</div>
+        <div class="hpp-formula">
+          <div class="row"><span>Persediaan awal</span><span>XXX</span></div>
+          <div class="row"><span class="plus">(+) Pembelian</span><span>XXX</span></div>
+          <div class="row"><span class="plus">(+) Beban Angkut Pembelian</span><span>XXX</span></div>
+          <div class="row"><span class="minus">(−) Retur Pembelian</span><span>(XXX)</span></div>
+          <div class="row"><span class="minus">(−) Potongan Pembelian</span><span>(XXX)</span></div>
+          <div class="row"><span class="minus">(−) Persediaan akhir</span><span>(XXX)</span></div>
+          <div class="row bold"><span>Harga Pokok Penjualan</span><span>XXX</span></div>
+        </div>
+      </div>
+
+      <div class="subsection" id="s424">
+        <div class="subsection-title">4.2.4 Rumus Biaya</div>
+        <div class="rumus-compare">
+          <div class="rumus-card">
+            <div class="rumus-name" style="color:var(--blue)">Identifikasi Khusus</div>
+            <div class="rumus-en">Specific Identification</div>
+            <p>Biaya tertentu diatribusikan ke unit yang telah diidentifikasi. Cocok untuk persediaan unik — lukisan, perhiasan, mobil mewah.</p>
+            <div class="rumus-result"><span style="color:var(--text2)">HPP = biaya aktual unit terjual yang diidentifikasi</span></div>
+          </div>
+          <div class="rumus-card">
+            <div class="rumus-name" style="color:var(--accent)">MPKP / FIFO</div>
+            <div class="rumus-en">First In First Out</div>
+            <p>Unit yang dibeli pertama dijual terlebih dahulu. Persediaan akhir = unit yang dibeli paling baru.</p>
+            <div class="rumus-result">
+              <span style="color:var(--accent2)">Data ilustrasi:</span><br>
+              <span style="color:var(--text2)">HPP = Rp125.000 | Persediaan Akhir = Rp89.000</span>
+            </div>
+          </div>
+          <div class="rumus-card">
+            <div class="rumus-name" style="color:var(--green)">Rata-rata Tertimbang</div>
+            <div class="rumus-en">Weighted Average</div>
+            <p>Biaya per unit = rata-rata tertimbang dari unit serupa yang tersedia. Semua unit terjual dikalikan rata-rata.</p>
+            <div class="rumus-result">
+              <span style="color:var(--accent2)">Data ilustrasi:</span><br>
+              <span style="color:var(--text2)">HPP = Rp133.750 | Persediaan Akhir = Rp80.250</span>
+            </div>
+          </div>
+        </div>
+        <div class="highlight">
+          <p><strong>Catatan:</strong> Berdasarkan PSAK 14, metode <strong>LIFO tidak diperbolehkan</strong>. Rumus biaya yang sama harus digunakan untuk semua persediaan dengan sifat dan kegunaan yang sama. Persediaan dengan sifat berbeda boleh menggunakan rumus berbeda.</p>
+        </div>
+      </div>
+
+      <div class="subsection" id="s425">
+        <div class="subsection-title">4.2.5 Pengukuran Persediaan Perusahaan Manufaktur</div>
+        <div class="card">
+          <div class="card-title"><span class="dot"></span>Alur biaya manufaktur (Contoh PT Creative — produksi sepeda)</div>
+          <div style="display:flex;gap:0.5rem;align-items:center;flex-wrap:wrap;margin-top:0.5rem;font-size:0.73rem;color:var(--text2)">
+            <span style="background:var(--surface3);padding:0.3rem 0.6rem;border-radius:6px">Bahan Baku<br><span style="color:var(--accent2);font-family:'DM Mono',monospace;font-size:0.65rem">Rp264.000</span></span>
+            <span style="color:var(--muted)">+</span>
+            <span style="background:var(--surface3);padding:0.3rem 0.6rem;border-radius:6px">Biaya Konversi<br><span style="color:var(--accent2);font-family:'DM Mono',monospace;font-size:0.65rem">Rp330.000</span></span>
+            <span style="color:var(--muted)">+</span>
+            <span style="background:var(--surface3);padding:0.3rem 0.6rem;border-radius:6px">WIP Awal<br><span style="color:var(--accent2);font-family:'DM Mono',monospace;font-size:0.65rem">Rp19.000</span></span>
+            <span style="color:var(--muted)">−</span>
+            <span style="background:var(--surface3);padding:0.3rem 0.6rem;border-radius:6px">WIP Akhir<br><span style="color:var(--accent2);font-family:'DM Mono',monospace;font-size:0.65rem">Rp43.000</span></span>
+            <span style="color:var(--muted)">=</span>
+            <span style="background:rgba(251,146,60,0.1);border:1px solid rgba(251,146,60,0.3);padding:0.3rem 0.6rem;border-radius:6px;color:var(--accent)">Biaya Manufaktur<br><span style="font-family:'DM Mono',monospace;font-size:0.65rem">Rp570.000</span></span>
+          </div>
+        </div>
+        <div class="card" style="margin-top:0.5rem">
+          <div class="card-title"><span class="dot"></span>HPP Manufaktur</div>
+          <div style="font-family:'DM Mono',monospace;font-size:0.73rem;color:var(--text2);line-height:1.8">
+            Persediaan Barang Jadi Awal: Rp69.000<br>
+            <span style="color:var(--green)">(+) Biaya Manufaktur Periode: Rp570.000</span><br>
+            = Total Barang Jadi Tersedia: Rp639.000<br>
+            <span style="color:var(--red)">(−) Persediaan Barang Jadi Akhir: Rp66.000</span><br>
+            <span style="color:var(--accent);font-weight:700">= HPP: Rp573.000</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="subsection" id="s426">
+        <div class="subsection-title">4.2.6 Pengukuran Persediaan Perusahaan Agrikultur</div>
+        <div class="highlight">
+          <p>Persediaan produk agrikultur yang dipanen dari aset biologis diukur pada <strong>nilai wajar dikurangi biaya untuk menjual</strong> pada <strong>titik panen</strong> (nilai realisasi neto). Nilai ini menjadi biaya perolehan pada pengakuan awal. Selanjutnya, perlakuan akuntansi mengikuti persediaan pada umumnya.</p>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="dot"></span>Contoh: Peternakan XYZ (susu perahan dari sapi)</div>
+          <p>Pada titik panen, nilai realisasi neto susu perahan = Rp360.000. Jurnal:</p>
+          <div style="font-family:'DM Mono',monospace;font-size:0.73rem;color:var(--text2);margin-top:0.4rem;background:var(--surface3);padding:0.5rem 0.7rem;border-radius:6px;line-height:1.7">
+            Dr. Persediaan susu perahan &nbsp;&nbsp;&nbsp;Rp360.000<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;Cr. Keuntungan belum direalisasi–L/R &nbsp;Rp360.000
+          </div>
+        </div>
+      </div>
+
+      <div class="subsection" id="s427">
+        <div class="subsection-title">4.2.7 Lower Cost of Net Realizable Value (LCNRV)</div>
+        <div class="lcnrv-box">
+          <div class="lcnrv-title">Prinsip LCNRV</div>
+          <div class="lcnrv-formula">Persediaan diukur = min(Biaya Perolehan, Nilai Realisasi Neto)</div>
+          <p><strong>Nilai Realisasi Neto (NRV)</strong> = Estimasi harga jual − estimasi biaya penyelesaian − estimasi biaya untuk membuat penjualan.</p>
+          <p style="margin-top:0.4rem">Jika biaya perolehan > NRV → diturunkan ke NRV. Selisihnya = beban periode terjadinya penurunan. Jika NRV pulih di periode berikutnya → pembalikan diakui, tapi tidak melebihi penurunan nilai awal.</p>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="dot"></span>Ilustrasi LCNRV — PT ProSell (Produk A)</div>
+          <div style="font-size:0.75rem;color:var(--text2);line-height:1.8">
+            Biaya perolehan (FIFO): <span style="font-family:'DM Mono',monospace">Rp89.000</span><br>
+            NRV = Rp100.000 − Rp10.000 − Rp15.000 = <span style="font-family:'DM Mono',monospace">Rp75.000</span><br>
+            <span style="color:var(--red)">Biaya perolehan > NRV → turunkan ke Rp75.000</span><br>
+            Kerugian penurunan nilai = Rp89.000 − Rp75.000 = <span style="font-family:'DM Mono',monospace;color:var(--red)">Rp14.000</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4.3 ATUD -->
+    <section class="section" id="s43">
+      <div class="section-header">
+        <span class="section-num">4.3</span>
+        <h2 class="section-title">Aset Tidak Lancar Dikuasai untuk Dijual (ATUD)</h2>
+      </div>
+      <div class="psak-ref"><span>PSAK 58</span> Aset Tidak Lancar yang Dimiliki untuk Dijual dan Operasi yang Dihentikan</div>
+      <div class="highlight">
+        <p>Aset tidak lancar dapat direklasifikasi menjadi <strong>aset lancar</strong> jika nilainya akan dipulihkan melalui <strong>penjualan</strong> (bukan pemakaian). ATUD harus memenuhi <strong>dua kriteria</strong> secara bersama-sama.</p>
+      </div>
+
+      <div class="subsection" id="s431">
+        <div class="subsection-title">Dua Kriteria ATUD (keduanya harus terpenuhi)</div>
+        <div class="atud-flow">
+          <div class="atud-card">
+            <div class="atud-num" style="color:var(--accent)">Kriteria A</div>
+            <div class="atud-name" style="color:var(--accent)">Segera dapat dijual</div>
+            <p style="font-size:0.73rem;color:var(--text2);margin-bottom:0.5rem">Aset berada dalam keadaan <em>segera dapat dijual</em> dengan syarat-syarat yang biasa dan umum untuk penjualan aset semacam itu.</p>
+            <ul>
+              <li>Pemindahan ke pembeli dapat dilakukan segera tanpa penundaan signifikan yang ditentukan oleh penjual</li>
+              <li>Kebutuhan kosongkan/bersihkan terlebih dahulu = hal yang biasa dan umum → tetap memenuhi syarat</li>
+            </ul>
+          </div>
+          <div class="atud-card">
+            <div class="atud-num" style="color:var(--blue)">Kriteria B</div>
+            <div class="atud-name" style="color:var(--blue)">Penjualan sangat mungkin terjadi</div>
+            <p style="font-size:0.73rem;color:var(--text2);margin-bottom:0.5rem">Manajemen berkomitmen terhadap rencana penjualan.</p>
+            <ul>
+              <li>Manajemen berkomitmen terhadap rencana penjualan</li>
+              <li>Program aktif mencari pembeli dan menyelesaikan rencana</li>
+              <li>Aset dipasarkan aktif pada harga yang pantas (nilai wajar kininya)</li>
+              <li>Penjualan diharapkan selesai dalam <strong>1 tahun</strong> dari klasifikasi</li>
+              <li>Tidak ada perubahan signifikan atau pembatalan rencana</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="subsection-title">Contoh Kasus ATUD</div>
+        <div class="case-box">
+          <div class="case-header">
+            <span class="case-label" style="background:rgba(74,222,128,0.15);color:var(--green)">✓ ATUD</span>
+            <div class="case-title">Contoh 4.1 — PT Idea (gedung dikosongkan dulu)</div>
+          </div>
+          <div class="case-analysis">Rencana menjual gedung, diperlukan pengosongan terlebih dahulu. <strong>Analisis:</strong> Kriteria segera dapat dijual terpenuhi karena mengosonggkan gedung merupakan hal biasa dan umum untuk penjualan aset semacam itu.</div>
+        </div>
+        <div class="case-box">
+          <div class="case-header">
+            <span class="case-label" style="background:rgba(248,113,113,0.15);color:var(--red)">✗ Bukan ATUD</span>
+            <div class="case-title">Contoh 4.2 — PT Idea (gedung masih digunakan sampai konstruksi baru selesai)</div>
+          </div>
+          <div class="case-analysis">Perusahaan akan terus menggunakan gedung sampai selesainya konstruksi gedung baru — penundaan pengalihan ditentukan oleh penjual sendiri. <strong>Analisis:</strong> Kriteria segera dapat dijual tidak terpenuhi — gedung tidak tersedia untuk segera dijual.</div>
+        </div>
+        <div class="case-box">
+          <div class="case-header">
+            <span class="case-label" style="background:rgba(74,222,128,0.15);color:var(--green)">✓ ATUD</span>
+            <div class="case-title">Contoh 4.3 — PT Solution (fasilitas + pesanan belum selesai)</div>
+          </div>
+          <div class="case-analysis">Pada tanggal penjualan, fasilitas akan dialihkan beserta pesanan yang belum diselesaikan. <strong>Analisis:</strong> Kriteria segera dapat dijual terpenuhi karena pengalihan pada tanggal penjualan tidak ditunda.</div>
+        </div>
+
+        <div class="subsection-title" style="margin-top:1rem">Pengecualian Syarat 1 Tahun</div>
+        <div class="card">
+          <div class="card-title"><span class="dot"></span>Tetap ATUD walaupun > 1 tahun jika memenuhi 3 syarat:</div>
+          <ul>
+            <li>Penundaan disebabkan oleh peristiwa/keadaan di luar kendali entitas</li>
+            <li>Tindakan yang diperlukan untuk merespons kondisi tersebut telah/tidak bisa dilakukan sebelum komitmen kuat pembelian didapatkan</li>
+            <li>Komitmen kuat pembelian kemungkinan besar terjadi dalam 1 tahun</li>
+          </ul>
+        </div>
+
+        <div class="subsection-title">Pemenuhan Kriteria ATUD Setelah Periode Pelaporan</div>
+        <div class="highlight">
+          <p>Jika kriteria ATUD terpenuhi <em>setelah</em> periode pelaporan: entitas <strong>tidak boleh</strong> mengklasifikasikan sebagai ATUD dalam laporan keuangan yang diterbitkan, namun harus <strong>mengungkapkan</strong> informasi dalam CaLK: uraian aset, fakta penjualan, cara dan waktu pelepasan.</p>
+        </div>
+      </div>
+
+      <div class="subsection" id="s432">
+        <div class="subsection-title">Pengukuran ATUD</div>
+        <div class="grid-2">
+          <div class="card">
+            <div class="card-title"><span class="dot"></span>Pengukuran Awal ATUD</div>
+            <p style="font-family:'DM Mono',monospace;font-size:0.75rem;color:var(--accent2);text-align:center;margin:0.5rem 0">ATUD = min(Jumlah Tercatat, Nilai Wajar − Biaya untuk Menjual)</p>
+            <p>Selisih antara jumlah tercatat dengan nilai wajar dikurangi biaya untuk menjual = <strong>rugi penurunan nilai awal</strong>.</p>
+          </div>
+          <div class="card">
+            <div class="card-title"><span class="dot"></span>Pengukuran Selanjutnya ATUD</div>
+            <ul>
+              <li>Aset ATUD <strong>tidak boleh</strong> disusutkan atau diamortisasi</li>
+              <li>Review secara periodik: jika jumlah tercatat > nilai wajar − biaya untuk menjual → akui rugi penurunan nilai</li>
+              <li>Pemulihan penurunan nilai diakui tetapi <strong>tidak boleh melebihi</strong> akumulasi rugi penurunan nilai sejak klasifikasi ATUD</li>
+            </ul>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="dot"></span>Ilustrasi PT Solution (Mesin)</div>
+          <div style="font-size:0.74rem;color:var(--text2);line-height:1.9">
+            <strong>Data Mesin:</strong> Biaya perolehan Rp10.000.000 | UL 4 tahun | Tanggal ATUD: 1 April 2019<br>
+            Akumulasi depresiasi (3 tahun 3 bulan): 3 × Rp2.500.000 + 3/12 × Rp2.500.000 = <span style="font-family:'DM Mono',monospace">Rp8.125.000</span><br>
+            Jumlah tercatat 1 April 2019: Rp10.000.000 − Rp8.125.000 = <span style="font-family:'DM Mono',monospace">Rp1.875.000</span><br>
+            Nilai wajar − biaya untuk menjual: Rp3.000.000 − Rp1.500.000 = <span style="font-family:'DM Mono',monospace">Rp1.500.000</span><br>
+            <span style="color:var(--red)">Rugi penurunan nilai awal = Rp1.875.000 − Rp1.500.000 = <span style="font-family:'DM Mono',monospace">Rp375.000</span></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="subsection" id="s433">
+        <div class="subsection-title">Perubahan Rencana Penjualan & Penjajian ATUD</div>
+        <div class="grid-2">
+          <div class="card">
+            <div class="card-title"><span class="dot"></span>Jika rencana dijual dibatalkan</div>
+            <p>Aset ATUD diklasifikasikan kembali menjadi aset tidak lancar. Diukur pada nilai yang lebih rendah antara:</p>
+            <ul>
+              <li>Jumlah tercatat aset jika tidak pernah diklasifikasikan ATUD, <strong>atau</strong></li>
+              <li>Jumlah terpulihkan</li>
+            </ul>
+          </div>
+          <div class="card">
+            <div class="card-title"><span class="dot"></span>Penyajian & Pengungkapan ATUD</div>
+            <ul>
+              <li>Disajikan secara <strong>terpisah</strong> dari aset lainnya dalam laporan posisi keuangan</li>
+              <li>Liabilitas kelompok lepasan juga disajikan terpisah</li>
+              <li>Aset dan liabilitas <strong>tidak boleh saling hapus</strong></li>
+              <li>OCI terkait ATUD disajikan terpisah</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- LATIHAN SOAL -->
+    <section class="section" id="latihan">
+      <div class="section-header">
+        <span class="section-num" style="background:var(--yellow);color:#000">📝</span>
+        <h2 class="section-title">Latihan Soal</h2>
+      </div>
+
+      <div class="exercise-section">
+        <div class="exercise-header">
+          <h3>Pilihan Ganda</h3>
+          <span class="exercise-badge">10 Soal</span>
+        </div>
+
+        <div class="mc-item">
+          <div class="mc-question">1. Manakah dari contoh berikut yang <strong>bukan</strong> merupakan jenis persediaan?</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',1)"><span class="opt-letter">A</span>Persediaan bahan baku</div>
+            <div class="mc-option" onclick="checkMC(this,'b',1)"><span class="opt-letter">B</span>Kendaraan dinas</div>
+            <div class="mc-option" onclick="checkMC(this,'c',1)"><span class="opt-letter">C</span>Unit apartemen yang dijual</div>
+            <div class="mc-option" onclick="checkMC(this,'d',1)"><span class="opt-letter">D</span>Kendaraan yang dijual oleh dealer</div>
+          </div>
+          <div class="mc-feedback" id="fb1"><span class="correct-ans">Jawaban: B</span> — Kendaraan dinas digunakan untuk operasional perusahaan, bukan untuk dijual — termasuk aset tetap. Bahan baku (A), unit apartemen yang dijual oleh developer (C), dan kendaraan yang dijual oleh dealer (D) semuanya merupakan persediaan.</div>
+        </div>
+
+        <div class="mc-item">
+          <div class="mc-question">2. Biaya yang tersedia untuk dijual harus dialokasikan menggunakan rumus biaya untuk menghitung nilai…</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',2)"><span class="opt-letter">A</span>Persediaan awal dan persediaan akhir</div>
+            <div class="mc-option" onclick="checkMC(this,'b',2)"><span class="opt-letter">B</span>Pembelian dan harga pokok penjualan</div>
+            <div class="mc-option" onclick="checkMC(this,'c',2)"><span class="opt-letter">C</span>Persediaan akhir dan harga pokok penjualan</div>
+            <div class="mc-option" onclick="checkMC(this,'d',2)"><span class="opt-letter">D</span>Persediaan dan pembelian</div>
+          </div>
+          <div class="mc-feedback" id="fb2"><span class="correct-ans">Jawaban: C</span> — Rumus biaya (FIFO, rata-rata, identifikasi khusus) digunakan untuk mengalokasikan biaya persediaan yang tersedia untuk dijual antara persediaan akhir (neraca) dan HPP (laporan laba rugi).</div>
+        </div>
+
+        <div class="mc-item">
+          <div class="mc-question">3. PT YOBEBEE menjual pakaian dengan sistem perpetual. Pada 31 Desember 2019, nilai persediaan menurut perpetual = Rp6.400.000 namun perhitungan fisik = Rp6.200.000. Bagaimana dampaknya?</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',3)"><span class="opt-letter">A</span>Persediaan berkurang dan harga pokok penjualan berkurang sebesar Rp200.000</div>
+            <div class="mc-option" onclick="checkMC(this,'b',3)"><span class="opt-letter">B</span>Persediaan meningkat dan harga pokok penjualan berkurang sebesar Rp200.000</div>
+            <div class="mc-option" onclick="checkMC(this,'c',3)"><span class="opt-letter">C</span>Persediaan meningkat dan harga pokok penjualan meningkat sebesar Rp200.000</div>
+            <div class="mc-option" onclick="checkMC(this,'d',3)"><span class="opt-letter">D</span>Persediaan berkurang dan harga pokok penjualan meningkat sebesar Rp200.000</div>
+          </div>
+          <div class="mc-feedback" id="fb3"><span class="correct-ans">Jawaban: D</span> — Nilai fisik (Rp6.200.000) < perpetual (Rp6.400.000) → persediaan harus diturunkan Rp200.000 (berkurang). Jurnal: Dr. Kerugian Persediaan/HPP Rp200.000 | Cr. Persediaan Rp200.000 → HPP meningkat, persediaan berkurang.</div>
+        </div>
+
+        <div class="mc-item">
+          <div class="mc-question">4. PT JEWELRY memasukkan nilai perhiasan titipan (konsinyasi) dari supplier goldstar sebesar Rp3.500.000 dalam perhitungan persediaan akhirnya. Manakah pernyataan yang tepat?</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',4)"><span class="opt-letter">A</span>Persediaan akhir dinilai terlalu rendah sebesar Rp3.500.000</div>
+            <div class="mc-option" onclick="checkMC(this,'b',4)"><span class="opt-letter">B</span>Saldo laba dinilai terlalu tinggi sebesar Rp3.500.000</div>
+            <div class="mc-option" onclick="checkMC(this,'c',4)"><span class="opt-letter">C</span>Harga pokok penjualan dinilai terlalu tinggi sebesar Rp3.500.000</div>
+            <div class="mc-option" onclick="checkMC(this,'d',4)"><span class="opt-letter">D</span>Laporan keuangan sudah disajikan secara benar</div>
+          </div>
+          <div class="mc-feedback" id="fb4"><span class="correct-ans">Jawaban: B</span> — Persediaan konsinyasi bukan milik PT JEWELRY (masih milik supplier) → tidak boleh dimasukkan ke persediaan. Karena persediaan akhir dilebihkan Rp3.500.000, maka HPP terlalu rendah → laba terlalu tinggi → saldo laba terlalu tinggi Rp3.500.000.</div>
+        </div>
+
+        <div class="mc-item">
+          <div class="mc-question">5. PT GERAI: persediaan awal 10 unit @ Rp200.000. Pembelian 1 Feb: 80 unit @ Rp210.000. Penjualan 20 Feb: 45 unit @ Rp300.000. Menggunakan metode FIFO, berapa HPP dan persediaan akhir?</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',5)"><span class="opt-letter">A</span>HPP Rp9.350.000 dan persediaan akhir Rp9.450.000</div>
+            <div class="mc-option" onclick="checkMC(this,'b',5)"><span class="opt-letter">B</span>HPP Rp9.450.000 dan persediaan akhir Rp9.350.000</div>
+            <div class="mc-option" onclick="checkMC(this,'c',5)"><span class="opt-letter">C</span>HPP Rp13.500.000 dan persediaan akhir Rp5.300.000</div>
+            <div class="mc-option" onclick="checkMC(this,'d',5)"><span class="opt-letter">D</span>HPP Rp13.500.000 dan persediaan akhir Rp18.800.000</div>
+          </div>
+          <div class="mc-feedback" id="fb5"><span class="correct-ans">Jawaban: A</span> — FIFO: 45 unit terjual = 10 unit @Rp200.000 + 35 unit @Rp210.000. HPP = Rp2.000.000 + Rp7.350.000 = Rp9.350.000. Persediaan akhir = 45 unit @Rp210.000 = Rp9.450.000.</div>
+        </div>
+
+        <div class="mc-item">
+          <div class="mc-question">6. Manakah pernyataan yang tepat terkait persediaan perusahaan agrikultur?</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',6)"><span class="opt-letter">A</span>Susu yang dihasilkan oleh sapi perah diukur pada nilai wajar</div>
+            <div class="mc-option" onclick="checkMC(this,'b',6)"><span class="opt-letter">B</span>Sapi perah diukur pada biaya perolehan</div>
+            <div class="mc-option" onclick="checkMC(this,'c',6)"><span class="opt-letter">C</span>Getah karet yang dihasilkan pohon karet diukur pada nilai wajar dikurangi biaya untuk menjual pada titik panen</div>
+            <div class="mc-option" onclick="checkMC(this,'d',6)"><span class="opt-letter">D</span>Pohon jati diukur pada nilai wajar</div>
+          </div>
+          <div class="mc-feedback" id="fb6"><span class="correct-ans">Jawaban: C</span> — Produk agrikultur (getah karet, susu) diukur pada nilai wajar dikurangi biaya untuk menjual pada titik panen. Sapi perah = aset biologis (PSAK 69), bukan persediaan. Pohon jati = aset biologis, diukur nilai wajar dikurangi biaya untuk menjual.</div>
+        </div>
+
+        <div class="mc-item">
+          <div class="mc-question">7. Aset tidak lancar yang dikuasai untuk dijual dapat berasal dari aset berikut, <strong>kecuali</strong>…</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',7)"><span class="opt-letter">A</span>Persediaan</div>
+            <div class="mc-option" onclick="checkMC(this,'b',7)"><span class="opt-letter">B</span>Aset tetap</div>
+            <div class="mc-option" onclick="checkMC(this,'c',7)"><span class="opt-letter">C</span>Properti investasi</div>
+            <div class="mc-option" onclick="checkMC(this,'d',7)"><span class="opt-letter">D</span>Investasi pada anak perusahaan</div>
+          </div>
+          <div class="mc-feedback" id="fb7"><span class="correct-ans">Jawaban: A</span> — Persediaan sudah merupakan aset lancar dan diatur di PSAK 14. ATUD (PSAK 58) hanya berlaku untuk aset tidak lancar seperti aset tetap (B), properti investasi (C), investasi pada anak perusahaan (D), dan aset takberwujud.</div>
+        </div>
+
+        <div class="mc-item">
+          <div class="mc-question">8. PT READY: mesin biaya perolehan Rp10.000.000, akumulasi depresiasi Rp4.000.000, nilai wajar Rp9.000.000, biaya untuk menjual Rp2.000.000. Syarat ATUD terpenuhi 31 Juli 2019. ATUD diakui sebesar?</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',8)"><span class="opt-letter">A</span>Rp10.000.000</div>
+            <div class="mc-option" onclick="checkMC(this,'b',8)"><span class="opt-letter">B</span>Rp6.000.000</div>
+            <div class="mc-option" onclick="checkMC(this,'c',8)"><span class="opt-letter">C</span>Rp9.000.000</div>
+            <div class="mc-option" onclick="checkMC(this,'d',8)"><span class="opt-letter">D</span>Rp7.000.000</div>
+          </div>
+          <div class="mc-feedback" id="fb8"><span class="correct-ans">Jawaban: B</span> — Jumlah tercatat = Rp10.000.000 − Rp4.000.000 = Rp6.000.000. Nilai wajar dikurangi biaya untuk menjual = Rp9.000.000 − Rp2.000.000 = Rp7.000.000. ATUD = min(Rp6.000.000, Rp7.000.000) = Rp6.000.000.</div>
+        </div>
+
+        <div class="mc-item">
+          <div class="mc-question">9. PT TOPFIVE rencana menjual mesin pada 31 Des 2018. Syarat ATUD terpenuhi pada 28 Feb 2019 (setelah periode). Tanggal otorisasi LK = 31 Maret 2019. Pernyataan yang tepat?</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',9)"><span class="opt-letter">A</span>Mengklasifikasikan dan mengungkapkan sebagai ATUD pada LK 2018 karena rencana terjadi 31 Des 2018</div>
+            <div class="mc-option" onclick="checkMC(this,'b',9)"><span class="opt-letter">B</span>Mengklasifikasikan dan mengungkapkan sebagai ATUD pada LK 2018 karena syarat terpenuhi sebelum tanggal otorisasi LK</div>
+            <div class="mc-option" onclick="checkMC(this,'c',9)"><span class="opt-letter">C</span>Tidak mengklasifikasikan dan tidak mengungkapkan pada LK 2018 karena syarat terpenuhi setelah periode pelaporan</div>
+            <div class="mc-option" onclick="checkMC(this,'d',9)"><span class="opt-letter">D</span>Tidak mengklasifikasikan namun mengungkapkan sebagai ATUD pada LK 2018 karena syarat terpenuhi setelah periode pelaporan</div>
+          </div>
+          <div class="mc-feedback" id="fb9"><span class="correct-ans">Jawaban: D</span> — Syarat ATUD terpenuhi setelah periode pelaporan (28 Feb 2019 > 31 Des 2018) → tidak boleh diklasifikasikan sebagai ATUD di LK 2018, namun harus diungkapkan dalam CaLK karena terpenuhi sebelum tanggal otorisasi LK.</div>
+        </div>
+
+        <div class="mc-item">
+          <div class="mc-question">10. Suatu aset tidak lancar (kelompok lepasan) dapat diklasifikasikan sebagai ATUD jika…</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',10)"><span class="opt-letter">A</span>Harus berada dalam keadaan yang dapat segera dijual <strong>atau</strong> penjualannya harus sangat mungkin terjadi</div>
+            <div class="mc-option" onclick="checkMC(this,'b',10)"><span class="opt-letter">B</span>Harus berada dalam keadaan yang dapat segera dijual <strong>namun</strong> penjualannya sulit terjadi</div>
+            <div class="mc-option" onclick="checkMC(this,'c',10)"><span class="opt-letter">C</span>Tidak berada dalam keadaan yang dapat segera dijual <strong>namun</strong> penjualannya harus sangat mungkin terjadi</div>
+            <div class="mc-option" onclick="checkMC(this,'d',10)"><span class="opt-letter">D</span>Harus berada dalam keadaan yang dapat segera dijual <strong>dan</strong> penjualannya harus sangat mungkin terjadi</div>
+          </div>
+          <div class="mc-feedback" id="fb10"><span class="correct-ans">Jawaban: D</span> — Kedua kriteria ATUD harus terpenuhi secara bersamaan: (1) berada dalam keadaan segera dapat dijual, DAN (2) penjualannya sangat mungkin terjadi. Keduanya bersifat kumulatif, bukan alternatif.</div>
+        </div>
+      </div>
+
+      <div class="exercise-section">
+        <div class="exercise-header">
+          <h3>Esai</h3>
+          <span class="exercise-badge">2 Soal</span>
+        </div>
+
+        <div class="essay-item">
+          <div class="essay-q">1. Data persediaan PT SAHAJA akhir tahun 2019 (menggunakan LCNRV per produk):</div>
+          <div style="overflow-x:auto;margin-bottom:0.8rem">
+            <table class="calc-table">
+              <thead><tr><th>Produk</th><th>Unit</th><th>Harga/unit</th><th>Est. Harga Jual/unit</th><th>Est. Biaya Penyelesaian & Penjualan</th></tr></thead>
+              <tbody>
+                <tr><td>A</td><td>1.000</td><td>100</td><td>120</td><td>10</td></tr>
+                <tr><td>B</td><td>500</td><td>110</td><td>110</td><td>5</td></tr>
+                <tr><td>C</td><td>800</td><td>120</td><td>100</td><td>6</td></tr>
+                <tr><td>D</td><td>1.000</td><td>120</td><td>125</td><td>10</td></tr>
+                <tr><td>E</td><td>300</td><td>130</td><td>150</td><td>20</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p style="font-size:0.78rem;color:var(--text2);margin-bottom:0.8rem">Tentukan jumlah nilai persediaan akhir yang disajikan di Laporan Posisi Keuangan 31 Desember 2019 dan penurunan nilai (jika ada).</p>
+          <button class="essay-toggle" onclick="toggleEssay('e1')">▶ Lihat Jawaban</button>
+          <div class="essay-answer" id="e1">
+            <h5>Kunci Jawaban</h5>
+            <p>Nilai persediaan akhir = <strong>Rp381.700</strong> dan penurunan nilai = <strong>Rp28.300</strong></p>
+            <div style="overflow-x:auto;margin-top:0.5rem">
+              <table class="calc-table">
+                <thead><tr><th>Produk</th><th>Unit</th><th>H/Unit</th><th>Total Cost</th><th>Est. HJ</th><th>Biaya</th><th>NRV/Unit</th><th>Total NRV</th><th>LCoNRV</th><th>Penurunan</th></tr></thead>
+                <tbody>
+                  <tr><td>A</td><td>1.000</td><td>100</td><td>100.000</td><td>120</td><td>10</td><td>110</td><td>110.000</td><td>100.000</td><td>—</td></tr>
+                  <tr><td>B</td><td>500</td><td>110</td><td>55.000</td><td>110</td><td>5</td><td>105</td><td>52.500</td><td>52.500</td><td>(2.500)</td></tr>
+                  <tr><td>C</td><td>800</td><td>120</td><td>96.000</td><td>100</td><td>6</td><td>94</td><td>75.200</td><td>75.200</td><td>(20.800)</td></tr>
+                  <tr><td>D</td><td>1.000</td><td>120</td><td>120.000</td><td>125</td><td>10</td><td>115</td><td>115.000</td><td>115.000</td><td>(5.000)</td></tr>
+                  <tr><td>E</td><td>300</td><td>130</td><td>39.000</td><td>150</td><td>20</td><td>130</td><td>39.000</td><td>39.000</td><td>—</td></tr>
+                  <tr class="total"><td colspan="3">Total</td><td>410.000</td><td></td><td></td><td></td><td></td><td>381.700</td><td>(28.300)</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <div class="essay-item">
+          <div class="essay-q">2. Perusahaan manufaktur memiliki dua bangunan (Gedung A: gudang, biaya Rp400.000.000, UL 20 tahun, diperoleh 1 Jan 2011; Gedung B: kantor pusat, biaya Rp720.000.000, UL 20 tahun, diperoleh 1 Jan 2009). Pada 30 Sep 2019, manajemen memutuskan menjual Gedung B. Pada 31 Des 2019, Gedung B dikosongkan, DK setuju, ada pembeli potensial, yakin terjual dalam 9 bulan. Tentukan klasifikasi dan nilai kedua gedung pada 31 Des 2018 dan 31 Des 2019.</div>
+          <button class="essay-toggle" onclick="toggleEssay('e2')">▶ Lihat Jawaban</button>
+          <div class="essay-answer" id="e2">
+            <h5>Kunci Jawaban</h5>
+            <div class="answer-group">
+              <h6>31 Desember 2018:</h6>
+              <ul>
+                <li><strong>Gedung A:</strong> Klasifikasi Aset Tetap. Nilai tercatat = Rp400.000.000 − (8 × Rp20.000.000) = <strong>Rp240.000.000</strong></li>
+                <li><strong>Gedung B:</strong> Klasifikasi Aset Tetap (syarat ATUD belum terpenuhi). Nilai tercatat = Rp720.000.000 − (10 × Rp36.000.000) = <strong>Rp360.000.000</strong></li>
+              </ul>
+            </div>
+            <div class="answer-group">
+              <h6>31 Desember 2019:</h6>
+              <ul>
+                <li><strong>Gedung A:</strong> Klasifikasi Aset Tetap. Nilai tercatat = Rp400.000.000 − (9 × Rp20.000.000) = <strong>Rp220.000.000</strong></li>
+                <li><strong>Gedung B:</strong> Direklasifikasi menjadi <strong>ATUD</strong> karena kedua syarat terpenuhi pada 31 Des 2019 (dikosongkan, DK setuju, ada pembeli, yakin terjual &lt;1 tahun). Jumlah tercatat = Rp720.000.000 − (11 × Rp36.000.000) = Rp324.000.000. Nilai wajar − biaya untuk menjual = Rp300.000.000 − Rp10.000.000 = Rp290.000.000. ATUD = min(Rp324.000.000, Rp290.000.000) = <strong>Rp290.000.000</strong>. Rugi penurunan nilai = Rp34.000.000.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- AI CHAT -->
+    <section class="section" id="ai">
+      <div class="section-header">
+        <span class="section-num" style="background:var(--blue);color:#000">🤖</span>
+        <h2 class="section-title">Tanya AI — Asisten Belajar BAB 4</h2>
+      </div>
+      <div class="ai-section">
+        <div class="ai-header">
+          <div class="ai-dot"></div>
+          <h3>Asisten Aset Lancar & Persediaan</h3>
+        </div>
+        <div class="ai-messages" id="aiMessages">
+          <div class="ai-msg ai">
+            <div class="avatar">AI</div>
+            <div class="ai-bubble">Halo! Saya siap membantu kamu memahami <strong>BAB 4 — Aset Lancar</strong>. Tanyakan apa saja tentang kriteria aset lancar, metode pencatatan persediaan, rumus biaya (FIFO/rata-rata), LCNRV, persediaan agrikultur, atau ATUD. 💡</div>
+          </div>
+        </div>
+        <div class="ai-suggestions" id="aiSuggestions">
+          <span class="ai-chip" onclick="sendChip(this)">Apa bedanya metode perpetual dan periodik?</span>
+          <span class="ai-chip" onclick="sendChip(this)">Jelaskan FIFO vs Rata-rata tertimbang</span>
+          <span class="ai-chip" onclick="sendChip(this)">Bagaimana menghitung LCNRV persediaan?</span>
+          <span class="ai-chip" onclick="sendChip(this)">Apa kriteria ATUD dan bagaimana pengukurannya?</span>
+          <span class="ai-chip" onclick="sendChip(this)">Mengapa persediaan agrikultur diukur nilai wajar?</span>
+        </div>
+        <div class="ai-input-row">
+          <textarea class="ai-input" id="aiInput" rows="1" placeholder="Ketik pertanyaan tentang BAB 4…" onkeydown="handleKey(event)"></textarea>
+          <button class="ai-send" id="aiSendBtn" onclick="sendMessage()">Kirim</button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script>
+const answers = {1:'b',2:'c',3:'d',4:'b',5:'a',6:'c',7:'a',8:'b',9:'d',10:'d'};
+function checkMC(el, choice, num) {
+  const item = el.closest('.mc-item');
+  if (item.querySelector('.revealed')) return;
+  const correct = answers[num];
+  item.querySelectorAll('.mc-option').forEach(opt => {
+    opt.classList.add('revealed');
+    const letter = opt.querySelector('.opt-letter').textContent.toLowerCase();
+    if (letter === correct) opt.classList.add('correct');
+    else if (letter === choice && choice !== correct) opt.classList.add('wrong');
+  });
+  const fb = document.getElementById('fb' + num);
+  if (fb) fb.classList.add('show');
+}
+function toggleEssay(id) {
+  const ans = document.getElementById(id);
+  const btn = ans.previousElementSibling;
+  const show = !ans.classList.contains('show');
+  ans.classList.toggle('show', show);
+  btn.textContent = show ? '▼ Sembunyikan Jawaban' : '▶ Lihat Jawaban';
+}
+const sections = document.querySelectorAll('.section, .subsection');
+const tocLinks = document.querySelectorAll('.toc-link');
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { tocLinks.forEach(l => l.classList.remove('active')); const a = document.querySelector(`.toc-link[href="#${e.target.id}"]`); if (a) a.classList.add('active'); } });
+}, { rootMargin: '-20% 0px -70% 0px' });
+sections.forEach(s => { if (s.id) obs.observe(s); });
+
+const SYSTEM_PROMPT = `Kamu adalah asisten belajar untuk mata kuliah CA Indonesia: Pelaporan Korporat, khususnya BAB 4 tentang Aset Lancar.
+
+Topik yang kamu kuasai:
+- Pengertian aset lancar: definisi, 4 kriteria (PSAK 1), urutan penyajian berdasarkan likuiditas
+- PSAK 14: Persediaan — definisi, jenis (dagang/manufaktur/agrikultur/jasa), biaya perolehan (pembelian, konversi, lain-lain), biaya yang bukan persediaan
+- Metode pencatatan: perpetual vs periodik, rumus HPP periodik
+- Rumus biaya: identifikasi khusus, MPKP/FIFO, rata-rata tertimbang (LIFO tidak diperbolehkan)
+- Persediaan manufaktur: 3 akun persediaan, alur biaya (bahan baku → WIP → barang jadi), perhitungan biaya manufaktur
+- Persediaan agrikultur: produk agrikultur diukur nilai wajar dikurangi biaya untuk menjual pada titik panen
+- LCNRV: prinsip pengukuran min(biaya perolehan, NRV), penurunan nilai, pembalikan penurunan nilai
+- PSAK 58: ATUD — definisi, 2 kriteria (segera dapat dijual + sangat mungkin terjadi), pengecualian 1 tahun, pengukuran awal (min jumlah tercatat dan nilai wajar dikurangi biaya untuk menjual), pengukuran selanjutnya, perubahan rencana penjualan, penyajian dan pengungkapan
+
+Jawab dalam Bahasa Indonesia yang jelas dan ringkas. Gunakan contoh angka konkret bila relevan.`;
+
+const messagesEl = document.getElementById('aiMessages');
+const inputEl = document.getElementById('aiInput');
+const sendBtn = document.getElementById('aiSendBtn');
+let history = [];
+function addMsg(role, text) {
+  const div = document.createElement('div');
+  div.className = `ai-msg ${role}`;
+  div.innerHTML = `<div class="avatar">${role==='ai'?'AI':'Kamu'}</div><div class="ai-bubble">${text.replace(/\n/g,'<br>')}</div>`;
+  messagesEl.appendChild(div); messagesEl.scrollTop = messagesEl.scrollHeight;
+}
+function addTyping() {
+  const div = document.createElement('div'); div.className = 'ai-msg ai'; div.id = 'typing';
+  div.innerHTML = `<div class="avatar">AI</div><div class="ai-typing"><span></span><span></span><span></span></div>`;
+  messagesEl.appendChild(div); messagesEl.scrollTop = messagesEl.scrollHeight;
+}
+async function sendMessage() {
+  const text = inputEl.value.trim(); if (!text) return;
+  inputEl.value = ''; document.getElementById('aiSuggestions').style.display = 'none';
+  addMsg('user', text); history.push({ role: 'user', content: text }); sendBtn.disabled = true; addTyping();
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ model: 'claude-sonnet-4-20250514', max_tokens: 1000, system: SYSTEM_PROMPT, messages: history }) });
+    const data = await res.json();
+    document.getElementById('typing')?.remove();
+    const reply = data.content?.find(b => b.type === 'text')?.text || 'Maaf, tidak ada respons.';
+    addMsg('ai', reply); history.push({ role: 'assistant', content: reply });
+  } catch { document.getElementById('typing')?.remove(); addMsg('ai', 'Maaf, terjadi kesalahan. Periksa koneksi internet dan coba lagi.'); }
+  sendBtn.disabled = false;
+}
+function sendChip(el) { inputEl.value = el.textContent; sendMessage(); }
+function handleKey(e) { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); } }
+</script>
+</body>
+</html>

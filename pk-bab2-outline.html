@@ -1,0 +1,1064 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BAB 2 — Etika dan Tata Kelola</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #0a0a0f;
+  --surface: #111118;
+  --surface2: #1a1a26;
+  --surface3: #1f1f30;
+  --accent: #818cf8;
+  --accent2: #a78bfa;
+  --accent3: #6366f1;
+  --yellow: #fbbf24;
+  --green: #34d399;
+  --red: #f87171;
+  --blue: #60a5fa;
+  --text: #f0f0ff;
+  --text2: #a5b4c8;
+  --muted: #4b5563;
+  --border: rgba(129,140,248,0.1);
+  --border2: rgba(255,255,255,0.06);
+}
+
+html { scroll-behavior: smooth; }
+body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; min-height: 100vh; }
+
+/* HEADER */
+.chapter-header {
+  background: linear-gradient(135deg, #0a0a14 0%, #0f0f1e 50%, #0a0a14 100%);
+  border-bottom: 1px solid var(--border);
+  padding: 2.5rem 2rem 2rem;
+  position: relative;
+  overflow: hidden;
+}
+.chapter-header::before {
+  content: '2';
+  position: absolute; right: -0.5rem; top: -1rem;
+  font-family: 'Playfair Display', serif; font-size: 12rem; font-weight: 900;
+  color: rgba(129,140,248,0.04); line-height: 1; pointer-events: none; user-select: none;
+}
+.chapter-eyebrow { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent3); margin-bottom: 0.5rem; }
+.chapter-title {
+  font-family: 'Playfair Display', serif; font-size: clamp(1.4rem, 3.5vw, 2.2rem); font-weight: 900; line-height: 1.15;
+  background: linear-gradient(135deg, #818cf8, #a78bfa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 1.2rem;
+}
+.learning-goals { background: rgba(129,140,248,0.05); border: 1px solid var(--border); border-radius: 12px; padding: 1rem 1.2rem; max-width: 700px; }
+.learning-goals h3 { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.6rem; }
+.goals-list { list-style: none; display: flex; flex-direction: column; gap: 0.3rem; }
+.goals-list li { font-size: 0.78rem; color: var(--text2); display: flex; gap: 0.6rem; align-items: flex-start; }
+.goals-list li::before { content: '→'; color: var(--accent3); flex-shrink: 0; font-family: 'DM Mono', monospace; font-size: 0.7rem; margin-top: 0.05rem; }
+
+/* LAYOUT */
+.page-body { display: grid; grid-template-columns: 220px 1fr; min-height: calc(100vh - 200px); }
+
+/* TOC */
+.toc { background: var(--surface); border-right: 1px solid var(--border2); padding: 1.5rem 0; position: sticky; top: 0; height: 100vh; overflow-y: auto; }
+.toc-label { font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); padding: 0 1rem; margin-bottom: 0.8rem; }
+.toc-link { display: block; padding: 0.45rem 1rem; font-size: 0.75rem; color: var(--muted); text-decoration: none; transition: all 0.15s; border-left: 2px solid transparent; line-height: 1.4; }
+.toc-link:hover { color: var(--text); background: rgba(129,140,248,0.04); }
+.toc-link.active { color: var(--accent); border-left-color: var(--accent); background: rgba(129,140,248,0.06); }
+.toc-link.sub { padding-left: 1.8rem; font-size: 0.7rem; }
+.toc-divider { height: 1px; background: var(--border2); margin: 0.6rem 1rem; }
+
+/* MAIN */
+.main { padding: 2rem 2.5rem 4rem; max-width: 860px; }
+
+/* SECTION */
+.section { margin-bottom: 3rem; scroll-margin-top: 1.5rem; }
+.section-header { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.2rem; padding-bottom: 0.7rem; border-bottom: 1px solid var(--border2); }
+.section-num { font-family: 'DM Mono', monospace; font-size: 0.65rem; font-weight: 700; background: var(--accent3); color: #fff; padding: 0.2rem 0.5rem; border-radius: 4px; flex-shrink: 0; }
+.section-title { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; color: var(--text); line-height: 1.3; }
+.subsection { margin-bottom: 1.5rem; scroll-margin-top: 1.5rem; }
+.subsection-title { font-size: 0.82rem; font-weight: 600; color: var(--accent2); font-family: 'DM Mono', monospace; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.6rem; }
+
+/* CARDS */
+.card { background: var(--surface); border: 1px solid var(--border2); border-radius: 10px; padding: 1.1rem 1.2rem; margin-bottom: 0.8rem; }
+.card-title { font-size: 0.78rem; font-weight: 600; color: var(--accent); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem; }
+.card-title .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
+.card p, .card li { font-size: 0.8rem; color: var(--text2); line-height: 1.6; }
+.card ul, .card ol { padding-left: 1.1rem; margin-top: 0.4rem; display: flex; flex-direction: column; gap: 0.25rem; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; margin-bottom: 1rem; }
+.grid-3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 0.7rem; margin-bottom: 1rem; }
+
+.highlight { background: rgba(129,140,248,0.06); border: 1px solid rgba(129,140,248,0.2); border-left: 3px solid var(--accent); border-radius: 8px; padding: 0.9rem 1.1rem; margin-bottom: 1rem; }
+.highlight p { font-size: 0.8rem; color: var(--text2); line-height: 1.6; }
+.highlight strong { color: var(--accent); font-weight: 600; }
+
+.table-wrap { overflow-x: auto; margin-bottom: 1rem; border-radius: 10px; border: 1px solid var(--border2); }
+table { width: 100%; border-collapse: collapse; font-size: 0.76rem; }
+thead tr { background: var(--surface3); }
+th { padding: 0.7rem 0.9rem; text-align: left; font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); font-weight: 500; }
+td { padding: 0.6rem 0.9rem; border-top: 1px solid var(--border2); color: var(--text2); vertical-align: top; line-height: 1.5; }
+tbody tr:hover { background: rgba(255,255,255,0.02); }
+
+.tag { display: inline-block; font-family: 'DM Mono', monospace; font-size: 0.6rem; padding: 0.15rem 0.5rem; border-radius: 99px; font-weight: 500; letter-spacing: 0.04em; }
+.tag-purple { background: rgba(129,140,248,0.12); color: var(--accent); border: 1px solid rgba(129,140,248,0.25); }
+.tag-yellow { background: rgba(251,191,36,0.12); color: var(--yellow); border: 1px solid rgba(251,191,36,0.25); }
+.tag-green { background: rgba(52,211,153,0.12); color: var(--green); border: 1px solid rgba(52,211,153,0.25); }
+.tag-red { background: rgba(248,113,113,0.12); color: var(--red); border: 1px solid rgba(248,113,113,0.25); }
+.tag-blue { background: rgba(96,165,250,0.12); color: var(--blue); border: 1px solid rgba(96,165,250,0.25); }
+
+/* TEORI ETIKA */
+.teori-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.7rem; margin-bottom: 1rem; }
+.teori-card { background: var(--surface); border: 1px solid var(--border2); border-radius: 10px; padding: 0.9rem 1rem; border-top: 2px solid; }
+.teori-card:nth-child(1) { border-top-color: var(--accent); }
+.teori-card:nth-child(2) { border-top-color: var(--yellow); }
+.teori-card:nth-child(3) { border-top-color: var(--green); }
+.teori-card:nth-child(4) { border-top-color: var(--red); }
+.teori-card:nth-child(5) { border-top-color: var(--blue); }
+.teori-card:nth-child(6) { border-top-color: #f472b6; }
+.teori-name { font-size: 0.82rem; font-weight: 700; color: var(--text); margin-bottom: 0.3rem; }
+.teori-en { font-size: 0.68rem; font-family: 'DM Mono', monospace; color: var(--muted); margin-bottom: 0.4rem; }
+.teori-card p { font-size: 0.74rem; color: var(--text2); line-height: 1.5; }
+
+/* ANCAMAN CARDS */
+.ancaman-list { display: flex; flex-direction: column; gap: 0.6rem; margin-bottom: 1rem; }
+.ancaman-item { background: var(--surface); border: 1px solid var(--border2); border-radius: 10px; padding: 0.85rem 1rem; display: flex; gap: 0.85rem; align-items: flex-start; }
+.ancaman-num { font-family: 'DM Mono', monospace; font-size: 0.65rem; font-weight: 700; background: var(--red); color: #fff; padding: 0.18rem 0.45rem; border-radius: 4px; flex-shrink: 0; margin-top: 0.1rem; }
+.ancaman-content h4 { font-size: 0.8rem; font-weight: 600; color: var(--text); margin-bottom: 0.2rem; }
+.ancaman-content p { font-size: 0.74rem; color: var(--text2); line-height: 1.5; }
+
+/* PRINSIP ETIKA */
+.prinsip-grid { display: grid; grid-template-columns: repeat(5,1fr); gap: 0.55rem; margin-bottom: 1rem; }
+.prinsip-card { background: var(--surface); border: 1px solid var(--border2); border-radius: 10px; padding: 0.75rem 0.8rem; text-align: center; }
+.prinsip-icon { font-size: 1.2rem; margin-bottom: 0.3rem; }
+.prinsip-name { font-size: 0.72rem; font-weight: 700; color: var(--text); margin-bottom: 0.25rem; }
+.prinsip-card p { font-size: 0.65rem; color: var(--text2); line-height: 1.4; }
+
+/* GCG PRINSIP OECD */
+.oecd-list { display: flex; flex-direction: column; gap: 0.65rem; margin-bottom: 1rem; }
+.oecd-item { background: var(--surface); border: 1px solid var(--border2); border-radius: 10px; padding: 0.9rem 1rem; display: flex; gap: 0.85rem; align-items: flex-start; }
+.oecd-num { font-family: 'DM Mono', monospace; font-size: 0.65rem; font-weight: 700; background: var(--accent3); color: #fff; padding: 0.18rem 0.5rem; border-radius: 4px; flex-shrink: 0; width: 26px; text-align: center; margin-top: 0.1rem; }
+.oecd-content h4 { font-size: 0.8rem; font-weight: 600; color: var(--accent2); margin-bottom: 0.2rem; font-style: italic; }
+.oecd-content p { font-size: 0.74rem; color: var(--text2); line-height: 1.5; }
+
+/* ASAS GCG */
+.asas-grid { display: grid; grid-template-columns: repeat(5,1fr); gap: 0.55rem; margin-bottom: 1rem; }
+.asas-card { background: var(--surface); border: 1px solid var(--border2); border-radius: 10px; padding: 0.75rem 0.8rem; text-align: center; border-top: 2px solid; }
+.asas-card:nth-child(1) { border-top-color: var(--blue); }
+.asas-card:nth-child(2) { border-top-color: var(--green); }
+.asas-card:nth-child(3) { border-top-color: var(--yellow); }
+.asas-card:nth-child(4) { border-top-color: var(--accent); }
+.asas-card:nth-child(5) { border-top-color: #f472b6; }
+.asas-name { font-size: 0.75rem; font-weight: 700; color: var(--text); margin-bottom: 0.25rem; }
+.asas-card p { font-size: 0.65rem; color: var(--text2); line-height: 1.4; }
+
+/* ORGAN PERUSAHAAN */
+.organ-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 0.7rem; margin-bottom: 1rem; }
+.organ-card { background: var(--surface); border: 1px solid var(--border2); border-radius: 10px; padding: 0.9rem 1rem; }
+.organ-name { font-size: 0.8rem; font-weight: 700; color: var(--text); margin-bottom: 0.5rem; padding-bottom: 0.4rem; border-bottom: 1px solid var(--border2); }
+.organ-card ul { list-style: none; display: flex; flex-direction: column; gap: 0.25rem; }
+.organ-card li { font-size: 0.72rem; color: var(--text2); line-height: 1.4; display: flex; gap: 0.4rem; }
+.organ-card li::before { content: '·'; color: var(--accent); flex-shrink: 0; }
+
+/* ICFR */
+.icfr-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.7rem; margin-bottom: 1rem; }
+.icfr-card { background: var(--surface); border: 1px solid var(--border2); border-radius: 10px; padding: 0.9rem 1rem; }
+.icfr-label { font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.3rem; }
+.icfr-name { font-size: 0.8rem; font-weight: 700; color: var(--green); margin-bottom: 0.4rem; }
+.icfr-card p { font-size: 0.74rem; color: var(--text2); line-height: 1.5; }
+.icfr-card ul { padding-left: 0; list-style: none; display: flex; flex-direction: column; gap: 0.2rem; margin-top: 0.35rem; }
+.icfr-card li { font-size: 0.72rem; color: var(--text2); display: flex; gap: 0.4rem; }
+.icfr-card li::before { content: '▸'; color: var(--green); flex-shrink: 0; font-size: 0.6rem; margin-top: 0.1rem; }
+
+/* SCORECARD */
+.scorecard-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; margin-bottom: 1rem; }
+.scorecard-card { background: var(--surface); border: 1px solid var(--border2); border-radius: 10px; padding: 1rem; }
+.scorecard-title { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent2); margin-bottom: 0.7rem; }
+.scorecard-row { display: flex; justify-content: space-between; align-items: center; padding: 0.3rem 0; border-bottom: 1px solid var(--border2); font-size: 0.72rem; color: var(--text2); }
+.scorecard-row:last-child { border-bottom: none; }
+.scorecard-row .lbl { flex: 1; font-style: italic; }
+.scorecard-row .val { font-family: 'DM Mono', monospace; font-size: 0.65rem; }
+.val-high { color: var(--accent); }
+.val-med { color: var(--yellow); }
+
+/* LATIHAN */
+.exercise-section { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; margin-bottom: 1.5rem; }
+.exercise-header { background: rgba(129,140,248,0.08); padding: 0.9rem 1.2rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 0.6rem; }
+.exercise-header h3 { font-family: 'DM Mono', monospace; font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); }
+.exercise-badge { font-family: 'DM Mono', monospace; font-size: 0.58rem; background: rgba(129,140,248,0.15); color: var(--accent); padding: 0.15rem 0.5rem; border-radius: 99px; }
+.mc-item { padding: 1rem 1.2rem; border-bottom: 1px solid var(--border2); }
+.mc-item:last-child { border-bottom: none; }
+.mc-question { font-size: 0.8rem; color: var(--text); font-weight: 500; margin-bottom: 0.6rem; line-height: 1.55; }
+.mc-options { display: flex; flex-direction: column; gap: 0.3rem; }
+.mc-option { display: flex; gap: 0.6rem; align-items: flex-start; padding: 0.4rem 0.6rem; border-radius: 6px; cursor: pointer; transition: background 0.15s; font-size: 0.76rem; color: var(--text2); line-height: 1.4; border: 1px solid transparent; }
+.mc-option:hover { background: rgba(255,255,255,0.03); border-color: var(--border2); }
+.mc-option.correct { background: rgba(52,211,153,0.1); color: var(--green); border-color: rgba(52,211,153,0.3); }
+.mc-option.wrong { background: rgba(248,113,113,0.08); color: var(--red); border-color: rgba(248,113,113,0.2); }
+.mc-option.revealed { pointer-events: none; }
+.opt-letter { font-family: 'DM Mono', monospace; font-size: 0.65rem; font-weight: 700; background: var(--surface3); padding: 0.15rem 0.4rem; border-radius: 4px; flex-shrink: 0; margin-top: 0.05rem; }
+.mc-feedback { margin-top: 0.5rem; font-size: 0.72rem; color: var(--muted); display: none; padding: 0.4rem 0.6rem; background: var(--surface3); border-radius: 6px; line-height: 1.5; }
+.mc-feedback.show { display: block; }
+.mc-feedback .correct-ans { color: var(--green); font-weight: 600; }
+.essay-item { padding: 1rem 1.2rem; border-bottom: 1px solid var(--border2); }
+.essay-item:last-child { border-bottom: none; }
+.essay-q { font-size: 0.8rem; color: var(--text); font-weight: 500; margin-bottom: 0.8rem; line-height: 1.55; }
+.essay-toggle { display: flex; align-items: center; gap: 0.5rem; font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent3); background: rgba(129,140,248,0.07); border: 1px solid rgba(129,140,248,0.2); padding: 0.4rem 0.8rem; border-radius: 6px; cursor: pointer; transition: all 0.15s; width: fit-content; }
+.essay-toggle:hover { background: rgba(129,140,248,0.12); color: var(--accent); }
+.essay-answer { margin-top: 0.8rem; display: none; background: var(--surface3); border-radius: 8px; padding: 0.9rem 1rem; }
+.essay-answer.show { display: block; }
+.essay-answer h5 { font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent3); margin-bottom: 0.6rem; }
+.essay-answer p, .essay-answer li { font-size: 0.77rem; color: var(--text2); line-height: 1.6; }
+.essay-answer ul { padding-left: 1rem; display: flex; flex-direction: column; gap: 0.25rem; margin-top: 0.3rem; }
+.answer-group { margin-bottom: 0.7rem; }
+.answer-group h6 { font-size: 0.74rem; font-weight: 600; color: var(--text); margin-bottom: 0.35rem; }
+
+/* AI CHAT */
+.ai-section { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; }
+.ai-header { background: rgba(96,165,250,0.07); padding: 0.9rem 1.2rem; border-bottom: 1px solid rgba(96,165,250,0.15); display: flex; align-items: center; gap: 0.6rem; }
+.ai-header h3 { font-family: 'DM Mono', monospace; font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--blue); }
+.ai-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--blue); }
+.ai-messages { padding: 1rem 1.2rem; min-height: 80px; max-height: 360px; overflow-y: auto; display: flex; flex-direction: column; gap: 0.7rem; }
+.ai-msg { display: flex; gap: 0.6rem; align-items: flex-start; font-size: 0.78rem; line-height: 1.6; animation: fadeUp 0.25s ease; }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+.ai-msg.user { flex-direction: row-reverse; }
+.ai-msg .avatar { width: 26px; height: 26px; border-radius: 6px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 0.65rem; font-weight: 700; margin-top: 0.1rem; }
+.ai-msg.ai .avatar { background: rgba(96,165,250,0.15); color: var(--blue); }
+.ai-msg.user .avatar { background: rgba(129,140,248,0.15); color: var(--accent); }
+.ai-bubble { padding: 0.6rem 0.85rem; border-radius: 10px; max-width: 85%; }
+.ai-msg.ai .ai-bubble { background: var(--surface3); color: var(--text2); }
+.ai-msg.user .ai-bubble { background: rgba(129,140,248,0.09); color: var(--text); text-align: right; }
+.ai-typing { display: flex; gap: 4px; align-items: center; padding: 0.6rem 0.85rem; background: var(--surface3); border-radius: 10px; width: fit-content; }
+.ai-typing span { width: 5px; height: 5px; border-radius: 50%; background: var(--blue); animation: typing 1.2s infinite; }
+.ai-typing span:nth-child(2) { animation-delay: 0.2s; }
+.ai-typing span:nth-child(3) { animation-delay: 0.4s; }
+@keyframes typing { 0%,60%,100% { opacity: 0.2; transform: scale(0.8); } 30% { opacity: 1; transform: scale(1); } }
+.ai-input-row { padding: 0.75rem 1.2rem; border-top: 1px solid var(--border2); display: flex; gap: 0.5rem; }
+.ai-input { flex: 1; background: var(--surface3); border: 1px solid var(--border2); border-radius: 8px; padding: 0.5rem 0.8rem; font-size: 0.78rem; color: var(--text); font-family: 'DM Sans', sans-serif; outline: none; resize: none; max-height: 100px; transition: border-color 0.2s; }
+.ai-input:focus { border-color: rgba(96,165,250,0.35); }
+.ai-input::placeholder { color: var(--muted); }
+.ai-send { background: rgba(96,165,250,0.15); border: 1px solid rgba(96,165,250,0.25); color: var(--blue); border-radius: 8px; padding: 0.5rem 0.9rem; font-size: 0.75rem; font-family: 'DM Mono', monospace; cursor: pointer; transition: all 0.15s; flex-shrink: 0; }
+.ai-send:hover { background: rgba(96,165,250,0.22); }
+.ai-send:disabled { opacity: 0.4; cursor: not-allowed; }
+.ai-suggestions { padding: 0 1.2rem 0.8rem; display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.ai-chip { font-size: 0.68rem; padding: 0.3rem 0.65rem; background: var(--surface3); border: 1px solid var(--border2); border-radius: 99px; color: var(--text2); cursor: pointer; transition: all 0.15s; }
+.ai-chip:hover { border-color: rgba(96,165,250,0.3); color: var(--blue); background: rgba(96,165,250,0.06); }
+
+@media (max-width: 768px) {
+  .page-body { grid-template-columns: 1fr; }
+  .toc { display: none; }
+  .main { padding: 1.5rem 1rem 3rem; }
+  .grid-2, .teori-grid, .icfr-grid, .scorecard-wrap { grid-template-columns: 1fr; }
+  .prinsip-grid, .asas-grid { grid-template-columns: repeat(2,1fr); }
+  .organ-grid, .grid-3 { grid-template-columns: 1fr 1fr; }
+}
+</style>
+</head>
+<body>
+
+<div class="chapter-header">
+  <div class="chapter-eyebrow">Pelaporan Korporat · CA Indonesia</div>
+  <h1 class="chapter-title">BAB 2 — Etika dan Tata Kelola</h1>
+  <div class="learning-goals">
+    <h3>🎯 Tujuan Pembelajaran</h3>
+    <ul class="goals-list">
+      <li>Mengidentifikasi isu etika dalam pelaporan korporat</li>
+      <li>Merancang dan mengevaluasi perlindungan untuk memitigasi ancaman etika</li>
+      <li>Menjelaskan prinsip-prinsip tata kelola korporat</li>
+      <li>Menjelaskan sifat, dampak tata kelola, dan mekanisme akuntabilitas</li>
+      <li>Menjelaskan hak dan tanggung jawab pengurus terkait penyusunan laporan keuangan</li>
+      <li>Menjelaskan dan mengevaluasi aturan tata kelola serta pengungkapan kepatuhan</li>
+      <li>Mengevaluasi kecukupan mekanisme tata kelola korporat</li>
+    </ul>
+  </div>
+</div>
+
+<div class="page-body">
+  <nav class="toc" id="toc">
+    <div class="toc-label">Daftar Isi</div>
+    <a href="#s21" class="toc-link">2.1 Etika</a>
+    <a href="#s211" class="toc-link sub">Pengertian Etika</a>
+    <a href="#s212" class="toc-link sub">Kode Etik Akuntan</a>
+    <a href="#s213" class="toc-link sub">Etika dalam Pelaporan</a>
+    <a href="#s214" class="toc-link sub">Mitigasi Permasalahan</a>
+    <a href="#s22" class="toc-link">2.2 Tata Kelola Perusahaan</a>
+    <a href="#s221" class="toc-link sub">Pengertian GCG</a>
+    <a href="#s222" class="toc-link sub">Prinsip OECD</a>
+    <a href="#s223" class="toc-link sub">Tanggung Jawab Dewan</a>
+    <a href="#s224" class="toc-link sub">Pengungkapan & Transparansi</a>
+    <a href="#s225" class="toc-link sub">Evaluasi Mekanisme GCG</a>
+    <div class="toc-divider"></div>
+    <a href="#latihan" class="toc-link">📝 Latihan Soal</a>
+    <a href="#ai" class="toc-link">🤖 Tanya AI</a>
+  </nav>
+
+  <main class="main">
+
+    <!-- 2.1 ETIKA -->
+    <section class="section" id="s21">
+      <div class="section-header">
+        <span class="section-num">2.1</span>
+        <h2 class="section-title">Etika</h2>
+      </div>
+
+      <!-- 2.1.1 Pengertian -->
+      <div class="subsection" id="s211">
+        <div class="subsection-title">2.1.1 Pengertian Etika</div>
+        <div class="highlight">
+          <p>Etika berasal dari kata Yunani <em>"ethikos"</em> dan <em>"ethos"</em> — bermakna adat/kebiasaan atau sesuatu yang lazim dilakukan. Etika adalah <strong>prinsip filosofis kolektif</strong> yang mencakup konsep definisi, argumen, serta rekomendasi tentang perilaku yang dianggap baik dan buruk.</p>
+        </div>
+        <div class="subsection-title" style="margin-top:1rem">Teori-Teori Etika</div>
+        <div class="teori-grid">
+          <div class="teori-card">
+            <div class="teori-name">Relativitas</div>
+            <div class="teori-en">Relativism Theory</div>
+            <p>Etis/tidaknya suatu perilaku bergantung pada lingkungan/lokasi tindakan tersebut dilakukan.</p>
+          </div>
+          <div class="teori-card">
+            <div class="teori-name">Utilitarianisme</div>
+            <div class="teori-en">Utilitarianism Theory (Consequentialist)</div>
+            <p>Perilaku etis adalah yang memberikan manfaat kepada lebih banyak pihak/orang.</p>
+          </div>
+          <div class="teori-card">
+            <div class="teori-name">Egoisme</div>
+            <div class="teori-en">Egoism Theory (Consequentialist)</div>
+            <p>Baik/buruknya perilaku dinilai berdasarkan besarnya manfaat bagi pelaku/pengambil keputusan sendiri.</p>
+          </div>
+          <div class="teori-card">
+            <div class="teori-name">Deontologi</div>
+            <div class="teori-en">Deontology Theory</div>
+            <p>Ada pernyataan universal tentang benar dan salah. Tidak memperhatikan dampak dalam menilai etis/tidaknya — perilaku dinilai dari kesesuaiannya dengan aturan universal.</p>
+          </div>
+          <div class="teori-card">
+            <div class="teori-name">Perintah Tuhan</div>
+            <div class="teori-en">Divine Command Theory</div>
+            <p>Menilai etis atau tidaknya tindakan berdasarkan kesesuaiannya dengan perintah Tuhan.</p>
+          </div>
+          <div class="teori-card">
+            <div class="teori-name">Etika Kebajikan</div>
+            <div class="teori-en">Virtue Ethics Theory</div>
+            <p>Fokus pada nilai-nilai yang harus dimiliki oleh seorang yang baik (pelaku), bukan hanya perilakunya.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2.1.2 Kode Etik -->
+      <div class="subsection" id="s212">
+        <div class="subsection-title">2.1.2 Kode Etik Akuntan Indonesia</div>
+        <div class="highlight">
+          <p>Kode Etik Akuntan Indonesia disahkan <strong>18 November 2019</strong>, berlaku efektif <strong>1 Juli 2020</strong>. Merupakan adopsi dari <em>Handbook of the Code of Ethics for Professional Accountants 2018 Edition</em> (IESBA-IFAC). Diterbitkan oleh IAI bersama IAPI dan IAMI.</p>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="dot"></span>Struktur Kode Etik Akuntan Profesional (5 Bagian)</div>
+          <ul>
+            <li><span class="tag tag-purple">Bagian 1</span> Kepatuhan Terhadap Kode Etik — prinsip dasar + kerangka konseptual</li>
+            <li><span class="tag tag-yellow">Bagian 2</span> Akuntan yang Bekerja di Bisnis</li>
+            <li><span class="tag tag-green">Bagian 3</span> Akuntan yang Berpraktik Melayani Publik</li>
+            <li><span class="tag tag-blue">Bagian 4A</span> Independensi — Perikatan Audit dan Reviu</li>
+            <li><span class="tag tag-red">Bagian 4B</span> Independensi — Perikatan Asurans Selain Audit & Reviu</li>
+          </ul>
+        </div>
+        <div class="subsection-title">5 Prinsip Dasar Etika Profesional</div>
+        <div class="prinsip-grid">
+          <div class="prinsip-card">
+            <div class="prinsip-icon">⚖️</div>
+            <div class="prinsip-name">Integritas</div>
+            <p>Bersikap lugas dan jujur dalam semua hubungan profesional dan bisnis.</p>
+          </div>
+          <div class="prinsip-card">
+            <div class="prinsip-icon">🎯</div>
+            <div class="prinsip-name">Objektivitas</div>
+            <p>Tidak membiarkan bias, benturan kepentingan, atau pengaruh pihak lain mengesampingkan pertimbangan profesional.</p>
+          </div>
+          <div class="prinsip-card">
+            <div class="prinsip-icon">🎓</div>
+            <div class="prinsip-name">Kompetensi & Kehati-hatian</div>
+            <p>Menjaga pengetahuan dan keahlian pada tingkat yang dibutuhkan; bertindak sungguh-sungguh sesuai standar.</p>
+          </div>
+          <div class="prinsip-card">
+            <div class="prinsip-icon">🔒</div>
+            <div class="prinsip-name">Kerahasiaan</div>
+            <p>Menghormati kerahasiaan informasi dari hubungan profesional; tidak mengungkapkan ke pihak ketiga tanpa kewenangan.</p>
+          </div>
+          <div class="prinsip-card">
+            <div class="prinsip-icon">📋</div>
+            <div class="prinsip-name">Perilaku Profesional</div>
+            <p>Mematuhi hukum dan peraturan; menghindari perilaku yang mengurangi kepercayaan pada profesi.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2.1.3 Etika dalam Pelaporan -->
+      <div class="subsection" id="s213">
+        <div class="subsection-title">2.1.3 Etika dalam Pelaporan Korporat</div>
+        <div class="highlight">
+          <p>Akuntan Profesional di Bisnis (Seksi 320.2) harus meyakini bahwa laporan keuangan disajikan sesuai standar akuntansi keuangan yang berlaku. Mereka bertanggung jawab atas penyusunan dan pelaporan informasi keuangan.</p>
+        </div>
+        <div class="subsection-title">5 Ancaman terhadap Kepatuhan Prinsip Etika</div>
+        <div class="ancaman-list">
+          <div class="ancaman-item">
+            <div class="ancaman-num">1</div>
+            <div class="ancaman-content">
+              <h4>Ancaman Kepentingan Pribadi <span class="tag tag-red" style="margin-left:0.3rem">Self-Interest</span></h4>
+              <p>Contoh: bonus kinerja akuntan dikaitkan dengan kinerja keuangan → mendorong pelaporan keuangan yang tinggi untuk memperoleh bonus, walaupun tidak sesuai kenyataan.</p>
+            </div>
+          </div>
+          <div class="ancaman-item">
+            <div class="ancaman-num">2</div>
+            <div class="ancaman-content">
+              <h4>Ancaman Telaah Pribadi <span class="tag tag-yellow" style="margin-left:0.3rem">Self-Review</span></h4>
+              <p>Contoh: penggabungan fungsi penyusunan pengendalian internal untuk pelaporan keuangan dengan audit internal → auditor internal mereviu pekerjaan rekannya sendiri.</p>
+            </div>
+          </div>
+          <div class="ancaman-item">
+            <div class="ancaman-num">3</div>
+            <div class="ancaman-content">
+              <h4>Ancaman Advokasi <span class="tag tag-blue" style="margin-left:0.3rem">Advocacy</span></h4>
+              <p>Contoh: laporan korporat menjadi komponen penting rencana aksi korporasi → akuntan mungkin menyajikan informasi positif dan menyembunyikan informasi negatif.</p>
+            </div>
+          </div>
+          <div class="ancaman-item">
+            <div class="ancaman-num">4</div>
+            <div class="ancaman-content">
+              <h4>Ancaman Kedekatan <span class="tag tag-purple" style="margin-left:0.3rem">Familiarity</span></h4>
+              <p>Contoh: hubungan keluarga/kekerabatan antara akuntan yang mereviu dan yang menyusun laporan → akuntan yang mereviu terlalu mudah menerima hasil pekerjaan.</p>
+            </div>
+          </div>
+          <div class="ancaman-item">
+            <div class="ancaman-num">5</div>
+            <div class="ancaman-content">
+              <h4>Ancaman Intimidasi <span class="tag tag-green" style="margin-left:0.3rem">Intimidation</span></h4>
+              <p>Contoh: kepala divisi pelaporan keuangan mendapat ancaman pemecatan dari direktur keuangan jika menampilkan informasi yang sesungguhnya.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2.1.4 Mitigasi -->
+      <div class="subsection" id="s214">
+        <div class="subsection-title">2.1.4 Mitigasi Permasalahan Etika dalam Pelaporan Korporat</div>
+        <div class="grid-2">
+          <div class="card">
+            <div class="card-title"><span class="dot"></span>Langkah Akuntan Profesional di Bisnis</div>
+            <ul>
+              <li>Menolak dikaitkan dengan informasi yang dianggap menyesatkan jika tidak bisa memitigasi ancaman</li>
+              <li>Segera ambil langkah agar tidak dikaitkan dengan informasi menyesatkan begitu menyadarinya</li>
+              <li>Pertimbangkan memperoleh nasihat hukum dan mengundurkan diri</li>
+            </ul>
+          </div>
+          <div class="card">
+            <div class="card-title"><span class="dot"></span>Perlindungan terhadap Ancaman Kepentingan Keuangan</div>
+            <ul>
+              <li>Kebijakan komite independen dalam menentukan remunerasi manajemen senior</li>
+              <li>Mengungkapkan semua kepentingan yang relevan dari program pemberian/perdagangan saham</li>
+              <li>Berkonsultasi dengan atasan dalam organisasi</li>
+              <li>Berkonsultasi dengan pihak tata kelola atau IAI</li>
+              <li>Prosedur audit internal dan eksternal</li>
+              <li>Memutakhirkan pendidikan atas persoalan etika dan insider trading</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2.2 TATA KELOLA -->
+    <section class="section" id="s22">
+      <div class="section-header">
+        <span class="section-num">2.2</span>
+        <h2 class="section-title">Tata Kelola Perusahaan</h2>
+      </div>
+
+      <!-- 2.2.1 Pengertian GCG -->
+      <div class="subsection" id="s221">
+        <div class="subsection-title">2.2.1 Pengertian Tata Kelola Perusahaan</div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Sumber</th><th>Definisi GCG</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Cadbury Committee (1992)</strong></td><td>Sistem yang mengarahkan dan mengelola perusahaan</td></tr>
+              <tr><td><strong>IFC (2010)</strong></td><td>Struktur dan proses untuk mengarahkan dan mengendalikan perusahaan</td></tr>
+              <tr><td><strong>OECD (2015)</strong></td><td>Serangkaian hubungan antara manajemen, dewan, pemegang saham, dan pemangku kepentingan; menyediakan struktur untuk menetapkan dan memantau tujuan perusahaan</td></tr>
+              <tr><td><strong>Kep BUMN Indonesia (KEP-117/M-MBU/2002)</strong></td><td>Proses dan struktur yang digunakan organ BUMN untuk meningkatkan keberhasilan usaha dan akuntabilitas perusahaan</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="dot"></span>5 Aspek Utama GCG (berdasarkan berbagai definisi)</div>
+          <ul>
+            <li>CG merupakan <strong>sistem (struktur dan proses/mekanisme)</strong> pengelolaan perusahaan</li>
+            <li>Melibatkan manajemen (eksekutif), dewan pengawas, pemegang saham, dan pemangku kepentingan</li>
+            <li>Berupaya mewujudkan <strong>keseimbangan kewenangan</strong> antar organ</li>
+            <li>Tunduk pada peraturan perundang-undangan dan etika berusaha</li>
+            <li>Tujuan: mewujudkan <strong>nilai bagi pemegang saham</strong> dengan tetap memperhatikan kepentingan pemangku kepentingan lainnya</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 2.2.2 Prinsip OECD -->
+      <div class="subsection" id="s222">
+        <div class="subsection-title">2.2.2 Prinsip Tata Kelola Perusahaan (G20/OECD 2015)</div>
+        <div class="oecd-list">
+          <div class="oecd-item">
+            <div class="oecd-num">1</div>
+            <div class="oecd-content">
+              <h4>Ensuring the basis for an effective corporate governance framework</h4>
+              <p>Kerangka tata kelola harus mendorong pasar yang transparan dan wajar, serta alokasi sumber daya yang efisien. Konsisten dengan peraturan perundang-undangan dan mendukung sistem pengawasan serta penegakan hukum yang efektif.</p>
+            </div>
+          </div>
+          <div class="oecd-item">
+            <div class="oecd-num">2</div>
+            <div class="oecd-content">
+              <h4>The rights and equitable treatment of shareholders and key ownership functions</h4>
+              <p>Melindungi dan memfasilitasi pelaksanaan hak-hak pemegang saham serta memastikan perlakuan adil bagi semua kelompok, termasuk pemegang saham minoritas dan asing. Hak dasar: pendaftaran kepemilikan, transfer saham, informasi material, RUPS, memilih dewan, dan bagian atas laba.</p>
+            </div>
+          </div>
+          <div class="oecd-item">
+            <div class="oecd-num">3</div>
+            <div class="oecd-content">
+              <h4>Institutional investors, stock markets, and other intermediaries</h4>
+              <p>Memberikan insentif efektif di seluruh rantai investasi. Investor institusional (fidusia) harus mengungkapkan tata kelola dan kebijakan pemungutan suara. Perdagangan orang dalam dan manipulasi pasar harus dilarang.</p>
+            </div>
+          </div>
+          <div class="oecd-item">
+            <div class="oecd-num">4</div>
+            <div class="oecd-content">
+              <h4>The role of stakeholders in corporate governance</h4>
+              <p>Mengakui hak-hak pemangku kepentingan yang ditetapkan hukum dan mendorong kerjasama aktif antara perusahaan dan pemangku kepentingan dalam menciptakan kemakmuran dan keberlanjutan perusahaan.</p>
+            </div>
+          </div>
+          <div class="oecd-item">
+            <div class="oecd-num">5</div>
+            <div class="oecd-content">
+              <h4>Disclosure and transparency</h4>
+              <p>Pengungkapan tepat waktu dan akurat atas semua hal material — kondisi keuangan, kinerja, kepemilikan, dan tata kelola. Informasi harus disiapkan sesuai standar berkualitas tinggi. Audit oleh auditor independen dan kompeten.</p>
+            </div>
+          </div>
+          <div class="oecd-item">
+            <div class="oecd-num">6</div>
+            <div class="oecd-content">
+              <h4>The responsibility of the board</h4>
+              <p>Memastikan pedoman strategis perusahaan, pengawasan manajemen oleh dewan yang efektif, serta pertanggungjawaban dewan kepada perusahaan dan pemegang saham. Dewan menjalankan <em>duty of care</em> dan <em>duty of loyalty</em>.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="subsection-title">Asas GCG Indonesia (Pedoman KNKG, 2006)</div>
+        <div class="asas-grid">
+          <div class="asas-card">
+            <div class="asas-name">Transparansi</div>
+            <p>Penyediaan informasi material dan relevan; mudah diakses pemangku kepentingan.</p>
+          </div>
+          <div class="asas-card">
+            <div class="asas-name">Akuntabilitas</div>
+            <p>Pertanggungjawaban kinerja secara transparan dan wajar; pengelolaan sesuai kepentingan perusahaan.</p>
+          </div>
+          <div class="asas-card">
+            <div class="asas-name">Responsibilitas</div>
+            <p>Patuh pada peraturan perundang-undangan; tanggung jawab kepada masyarakat dan lingkungan.</p>
+          </div>
+          <div class="asas-card">
+            <div class="asas-name">Independensi</div>
+            <p>Pengelolaan perusahaan secara independen; masing-masing organ tidak saling mendominasi.</p>
+          </div>
+          <div class="asas-card">
+            <div class="asas-name">Kewajaran & Kesetaraan</div>
+            <p>Perhatian terhadap kepentingan pemegang saham dan pemangku kepentingan berdasarkan asas kewajaran.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2.2.3 Tanggung Jawab Dewan -->
+      <div class="subsection" id="s223">
+        <div class="subsection-title">2.2.3 Tanggung Jawab Dewan</div>
+        <div class="grid-2">
+          <div class="card">
+            <div class="card-title"><span class="dot"></span>One-tier vs Two-tier Board</div>
+            <p><strong>One-tier:</strong> board of directors merangkap pengawasan (negara-negara Barat umumnya).<br><br><strong>Two-tier:</strong> Dewan Komisaris (pengawas) + Direksi (eksekutif). Digunakan Indonesia.</p>
+          </div>
+          <div class="card">
+            <div class="card-title"><span class="dot"></span>Duty of Care vs Duty of Loyalty</div>
+            <p><strong>Duty of Care:</strong> tindakan/keputusan dewan berdasarkan informasi memadai, itikad baik, kehati-hatian profesional.<br><br><strong>Duty of Loyalty:</strong> loyalitas kepada perusahaan dan seluruh pemegang saham, bukan kelompok tertentu.</p>
+          </div>
+        </div>
+        <div class="organ-grid">
+          <div class="organ-card">
+            <div class="organ-name">🏛️ RUPS</div>
+            <ul>
+              <li>Wadah pemegang saham mengambil keputusan penting modal</li>
+              <li>Keputusan berdasarkan kepentingan jangka panjang</li>
+              <li>Tidak dapat intervensi tugas Dewan Komisaris & Direksi</li>
+            </ul>
+          </div>
+          <div class="organ-card">
+            <div class="organ-name">👁️ Dewan Komisaris</div>
+            <ul>
+              <li>Pengawasan dan pemberian nasihat kepada Direksi</li>
+              <li>Tidak turut serta dalam keputusan operasional</li>
+              <li>Komposisi memungkinkan keputusan efektif dan independen</li>
+              <li>Wajib membentuk Komite Audit</li>
+            </ul>
+          </div>
+          <div class="organ-card">
+            <div class="organ-name">⚙️ Direksi</div>
+            <ul>
+              <li>Mengelola perusahaan secara kolegial</li>
+              <li>Tanggung renteng atas kerugian akibat kesalahan/kelalaian</li>
+              <li>Wajib menyelenggarakan RUPS tahunan</li>
+              <li>Bertanggung jawab atas keberlangsungan usaha</li>
+            </ul>
+          </div>
+        </div>
+        <div class="highlight">
+          <p>Peran dewan dalam tata kelola pelaporan korporat: memastikan <strong>integritas sistem akuntansi dan pelaporan keuangan</strong>, termasuk audit independen dan sistem pengendalian yang sesuai — khususnya untuk manajemen risiko, pengendalian keuangan & operasional, serta kepatuhan hukum dan standar.</p>
+        </div>
+        <div class="subsection-title">Tugas Komite Audit terkait Pelaporan Korporat (POJK 55/POJK.04/2015)</div>
+        <div class="card">
+          <ul>
+            <li>Memberikan pendapat independen jika terjadi perbedaan pendapat antara manajemen dan akuntan</li>
+            <li>Memberikan rekomendasi kepada dewan komisaris mengenai penunjukan Akuntan (KAP)</li>
+            <li>Melakukan penelaahan atas pelaksanaan audit internal dan tindak lanjut temuan</li>
+            <li>Menelaah pengaduan yang berkaitan dengan proses akuntansi dan pelaporan keuangan</li>
+            <li>Memantau manajemen risiko dan benturan kepentingan yang berdampak pada pelaporan keuangan</li>
+          </ul>
+        </div>
+
+        <div class="subsection-title">Internal Control over Financial Reporting (ICFR)</div>
+        <div class="icfr-grid">
+          <div class="icfr-card">
+            <div class="icfr-label">Komponen ICFR (COSO)</div>
+            <div class="icfr-name">1. Lingkungan Pengendalian</div>
+            <p>Pernyataan dan sikap dewan & manajemen puncak; penerbitan dan penegakan kode perilaku; program pelatihan identifikasi isu etika.</p>
+          </div>
+          <div class="icfr-card">
+            <div class="icfr-label">Komponen ICFR (COSO)</div>
+            <div class="icfr-name">2. Aktivitas Pengendalian</div>
+            <ul>
+              <li><strong>Pemisahan tugas</strong> — pisahkan akses fisik dengan pencatatan</li>
+              <li><strong>Preventif & Detektif</strong> — otorisasi pembayaran, rekonsiliasi</li>
+              <li><strong>Level Entitas & Proses</strong> — komite audit, review anggaran vs realisasi</li>
+            </ul>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="dot"></span>Konsep Dasar Tata Kelola Pelaporan Korporat</div>
+          <ul>
+            <li>Keberadaan dan kepatuhan terhadap standar/pedoman berkualitas tinggi</li>
+            <li>Prosedur baku dalam seluruh proses pelaporan korporat</li>
+            <li>Penilaian risiko dan pengendalian internal atas risiko tersebut</li>
+            <li>Kompetensi SDM yang terlibat dalam proses pelaporan</li>
+            <li>Dukungan sistem dan teknologi informasi</li>
+            <li>Struktur organisasi dan sistem pengawasan (business process owner, audit internal, dewan komisaris/komite audit, auditor eksternal)</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 2.2.4 Pengungkapan -->
+      <div class="subsection" id="s224">
+        <div class="subsection-title">2.2.4 Pengungkapan dan Transparansi</div>
+        <div class="highlight">
+          <p>Pengungkapan dan transparansi bermanfaat untuk <strong>menurunkan informasi asimetris</strong> antara pengurus perusahaan dan pemangku kepentingan. Penelitian empiris membuktikan hubungan negatif antara tingkat pengungkapan sukarela dengan biaya modal ekuitas (Khlif, Samaha, Azzam, 2015).</p>
+        </div>
+        <div class="grid-2">
+          <div class="card">
+            <div class="card-title"><span class="dot"></span>Aspek Pengungkapan OECD</div>
+            <ul>
+              <li><strong>Jenis informasi:</strong> kondisi keuangan, kinerja, kepemilikan, tata kelola, faktor risiko, remunerasi dewan, transaksi pihak berelasi</li>
+              <li><strong>Kualitas informasi:</strong> akurasi, ketepatwaktuan, keandalan (diperkuat auditor independen)</li>
+              <li><strong>Sarana penyampaian:</strong> kemudahan akses, kecepatan, kesetaraan, efisiensi biaya</li>
+            </ul>
+          </div>
+          <div class="card">
+            <div class="card-title"><span class="dot"></span>Pedoman Transparansi GCG Indonesia (KNKG 2006)</div>
+            <ul>
+              <li>Informasi tepat waktu, memadai, jelas, akurat, dan dapat diperbandingkan</li>
+              <li>Wajib diungkapkan: visi, misi, kondisi keuangan, susunan pengurus, kepemilikan, sistem manajemen risiko, sistem pengendalian, penerapan GCG</li>
+              <li>Prinsip keterbukaan tidak mengurangi kewajiban kerahasiaan</li>
+              <li>Kebijakan perusahaan harus tertulis dan proporsional dikomunikasikan</li>
+            </ul>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="dot"></span>Kewajiban Pengungkapan UU PT No. 40/2007 (Pasal 66)</div>
+          <ul>
+            <li>Laporan keuangan</li>
+            <li>Laporan mengenai kegiatan Perseroan</li>
+            <li>Laporan pelaksanaan tanggung jawab sosial dan lingkungan</li>
+            <li>Rincian masalah yang timbul selama tahun buku</li>
+            <li>Laporan pengawasan dewan komisaris</li>
+            <li>Nama anggota direksi dan dewan komisaris</li>
+            <li>Gaji, tunjangan, honorarium anggota direksi dan dewan komisaris</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 2.2.5 Evaluasi -->
+      <div class="subsection" id="s225">
+        <div class="subsection-title">2.2.5 Evaluasi Mekanisme Tata Kelola Perusahaan</div>
+        <div class="highlight">
+          <p>Tata kelola mengandung unsur <strong>struktur dan mekanisme</strong> yang dapat berubah karena perubahan proses bisnis internal atau faktor eksternal. Evaluasi harus dilakukan secara <strong>periodik</strong> untuk menjaga pelaksanaan GCG yang berkelanjutan.</p>
+        </div>
+        <div class="scorecard-wrap">
+          <div class="scorecard-card">
+            <div class="scorecard-title">ASEAN CG Scorecard (Level 1)</div>
+            <div class="scorecard-row">
+              <span class="lbl">A. Right of Shareholders</span>
+              <span class="val val-med">25 ind · bobot 10</span>
+            </div>
+            <div class="scorecard-row">
+              <span class="lbl">B. Equitable Treatment of Shareholders</span>
+              <span class="val val-med">18 ind · bobot 15</span>
+            </div>
+            <div class="scorecard-row">
+              <span class="lbl">C. Role of Stakeholders</span>
+              <span class="val val-med">21 ind · bobot 10</span>
+            </div>
+            <div class="scorecard-row">
+              <span class="lbl">D. Disclosure and Transparency</span>
+              <span class="val val-high">41 ind · bobot 25</span>
+            </div>
+            <div class="scorecard-row">
+              <span class="lbl">E. Responsibilities of the Board</span>
+              <span class="val val-high">74 ind · bobot 40</span>
+            </div>
+          </div>
+          <div class="scorecard-card">
+            <div class="scorecard-title">Penilaian GCG BUMN (SK-16/S.MBU/2012)</div>
+            <div class="scorecard-row">
+              <span class="lbl">I. Komitmen penerapan GCG</span>
+              <span class="val">bobot 7</span>
+            </div>
+            <div class="scorecard-row">
+              <span class="lbl">II. Pemegang saham dan RUPS</span>
+              <span class="val">bobot 9</span>
+            </div>
+            <div class="scorecard-row">
+              <span class="lbl">III. Dewan Komisaris/Pengawas</span>
+              <span class="val val-high">bobot 35</span>
+            </div>
+            <div class="scorecard-row">
+              <span class="lbl">IV. Direksi</span>
+              <span class="val val-high">bobot 35</span>
+            </div>
+            <div class="scorecard-row">
+              <span class="lbl">V. Pengungkapan informasi</span>
+              <span class="val">bobot 9</span>
+            </div>
+            <div class="scorecard-row">
+              <span class="lbl">VI. Aspek lainnya</span>
+              <span class="val">bobot 5</span>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="dot"></span>Metode Evaluasi GCG</div>
+          <ul>
+            <li>Dilakukan oleh perusahaan sendiri atau menggunakan pihak independen</li>
+            <li><em>Self-assessment</em> oleh masing-masing organ atau oleh organ lain</li>
+            <li>Instrumen: reviu dokumen publik/internal, checklist self-assessment, kuesioner, observasi, wawancara</li>
+            <li>Dianjurkan menggunakan <strong>gabungan beberapa instrumen</strong> untuk penilaian yang lebih komprehensif</li>
+            <li>Hasil penilaian diungkapkan dalam laporan tahunan dan dilaporkan dalam RUPS tahunan</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- LATIHAN SOAL -->
+    <section class="section" id="latihan">
+      <div class="section-header">
+        <span class="section-num" style="background:var(--yellow);color:#000">📝</span>
+        <h2 class="section-title">Latihan Soal</h2>
+      </div>
+
+      <div class="exercise-section">
+        <div class="exercise-header">
+          <h3>Pilihan Ganda</h3>
+          <span class="exercise-badge">10 Soal</span>
+        </div>
+
+        <div class="mc-item">
+          <div class="mc-question">1. Berikut keputusan ketika menghadapi dilema etika. Manakah yang menunjukkan pengambilan keputusan berdasarkan <strong>teori deontologi</strong>?</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',1)"><span class="opt-letter">A</span>Manajemen memilih metode akuntansi lebih agresif agar perusahaan terhindar dari debt covenant, karena mempertimbangkan kemampuan memenuhi kewajiban kepada kreditur.</div>
+            <div class="mc-option" onclick="checkMC(this,'b',1)"><span class="opt-letter">B</span>Perusahaan memutuskan untuk mengungkapkan potensi penarikan produk dalam laporan tahunan, walaupun belum ada keluhan dari publik.</div>
+            <div class="mc-option" onclick="checkMC(this,'c',1)"><span class="opt-letter">C</span>Kantor akuntan publik berpegang teguh pada nilai independensi sehingga menolak memberikan jasa konsultasi kepada klien auditnya.</div>
+            <div class="mc-option" onclick="checkMC(this,'d',1)"><span class="opt-letter">D</span>Seorang staf akuntan mengungkapkan informasi rahasia tentang fraud, dengan pertimbangan pembebasan dari tuntutan jika bersedia mengungkapkan kepada kepolisian.</div>
+          </div>
+          <div class="mc-feedback" id="fb1"><span class="correct-ans">Jawaban: B</span> — Teori deontologi: ada pernyataan universal tentang benar/salah, tidak memperhatikan dampak. Mengungkapkan potensi masalah walaupun belum ada keluhan adalah tindakan berdasarkan kewajiban universal, bukan konsekuensi. A = consequentialist-utilitarian, C = Virtue, D = Consequentialist-egoism.</div>
+        </div>
+
+        <div class="mc-item">
+          <div class="mc-question">2. Manakah dari pernyataan berikut yang merupakan kombinasi jenis ancaman dan contoh yang sesuai?</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',2)"><span class="opt-letter">A</span>Ancaman kepentingan pribadi – anggota Komite Audit direkomendasikan oleh Partner KAP yang melakukan audit atas perusahaan tersebut.</div>
+            <div class="mc-option" onclick="checkMC(this,'b',2)"><span class="opt-letter">B</span>Ancaman advokasi – seorang analis menyampaikan analisis kinerja perusahaan dimana analis tersebut memiliki saham perusahaan tersebut.</div>
+            <div class="mc-option" onclick="checkMC(this,'c',2)"><span class="opt-letter">C</span>Ancaman telaah pribadi – anggota komisaris yang sebelumnya direktur SDM perusahaan melakukan reviu atas sistem remunerasi perusahaan.</div>
+            <div class="mc-option" onclick="checkMC(this,'d',2)"><span class="opt-letter">D</span>Ancaman intimidasi – konsultan yang menyusun proposal pendanaan suatu rumah sakit mempromosikan kualitas layanan rumah sakit.</div>
+          </div>
+          <div class="mc-feedback" id="fb2"><span class="correct-ans">Jawaban: C</span> — Ancaman telaah pribadi terjadi ketika seseorang mereviu pekerjaan yang sebelumnya pernah dilakukannya/terkait. Mantan Direktur SDM mereviu sistem remunerasi yang ia pernah susun sebelumnya adalah contoh tepat.</div>
+        </div>
+
+        <div class="mc-item">
+          <div class="mc-question">3. Berikut adalah tindakan yang harus dilakukan oleh Akuntan Profesional jika mengidentifikasi pelanggaran terhadap kode etik, <strong>kecuali</strong>…</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',3)"><span class="opt-letter">A</span>Meminta pihak independen untuk melakukan investigasi dan penilaian apakah pelanggaran terhadap kode etik telah terjadi.</div>
+            <div class="mc-option" onclick="checkMC(this,'b',3)"><span class="opt-letter">B</span>Mengevaluasi signifikansi pelanggaran dan dampaknya terhadap kepatuhan akan prinsip dasar etik.</div>
+            <div class="mc-option" onclick="checkMC(this,'c',3)"><span class="opt-letter">C</span>Mengambil tindakan untuk mengatasi dampak pelanggaran.</div>
+            <div class="mc-option" onclick="checkMC(this,'d',3)"><span class="opt-letter">D</span>Menentukan perlu tidaknya melaporkan pelanggaran.</div>
+          </div>
+          <div class="mc-feedback" id="fb3"><span class="correct-ans">Jawaban: A</span> — Keterlibatan pihak independen belum tentu diperlukan sebagai langkah pertama. Langkah yang tepat adalah: mengevaluasi signifikansi, mengambil tindakan, dan menentukan perlu tidaknya melapor.</div>
+        </div>
+
+        <div class="mc-item">
+          <div class="mc-question">4. Audit internal melakukan pengawasan terhadap jajaran direksi. Berikut adalah upaya perlindungan untuk menurunkan ancaman pelanggaran etika yang dilakukan oleh audit internal, <strong>kecuali</strong>…</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',4)"><span class="opt-letter">A</span>Audit internal memiliki jalur komunikasi langsung dengan komite audit.</div>
+            <div class="mc-option" onclick="checkMC(this,'b',4)"><span class="opt-letter">B</span>Pengangkatan dan pemberhentian kepala audit internal harus memperoleh rekomendasi dari komite audit.</div>
+            <div class="mc-option" onclick="checkMC(this,'c',4)"><span class="opt-letter">C</span>Kepala audit internal bertanggung jawab secara langsung kepada direktur utama.</div>
+            <div class="mc-option" onclick="checkMC(this,'d',4)"><span class="opt-letter">D</span>Kepala audit internal harus memiliki sertifikasi profesi di bidang audit internal.</div>
+          </div>
+          <div class="mc-feedback" id="fb4"><span class="correct-ans">Jawaban: D</span> — Sertifikasi profesi tidak dapat menurunkan ancaman yang dihadapi audit internal ketika mengaudit jajaran direksi. Perlindungan yang efektif adalah struktur pelaporan dan wewenang yang independen dari direksi.</div>
+        </div>
+
+        <div class="mc-item">
+          <div class="mc-question">5. Berikut adalah contoh penerapan dari asas <strong>transparansi</strong>…</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',5)"><span class="opt-letter">A</span>Perusahaan mengungkapkan anggaran pengembangan produk baru di laporan tahunan.</div>
+            <div class="mc-option" onclick="checkMC(this,'b',5)"><span class="opt-letter">B</span>Perusahaan menyajikan laporan keuangan sesuai dengan standar akuntansi yang berlaku.</div>
+            <div class="mc-option" onclick="checkMC(this,'c',5)"><span class="opt-letter">C</span>Perusahaan mengungkapkan informasi tentang ultimate owner walaupun tidak diwajibkan dalam regulasi yang berlaku saat ini.</div>
+            <div class="mc-option" onclick="checkMC(this,'d',5)"><span class="opt-letter">D</span>Perusahaan menerapkan dan memastikan pengendalian internal atas laporan keuangan berjalan dengan baik.</div>
+          </div>
+          <div class="mc-feedback" id="fb5"><span class="correct-ans">Jawaban: C</span> — Transparansi mencakup pengungkapan wajib dan sukarela. Mengungkapkan informasi ultimate owner secara sukarela (melebihi kewajiban regulasi) adalah contoh terbaik penerapan asas transparansi.</div>
+        </div>
+
+        <div class="mc-item">
+          <div class="mc-question">6. Berikut ini merupakan fungsi-fungsi kunci yang harus dilakukan oleh dewan pengawas, <strong>kecuali</strong>…</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',6)"><span class="opt-letter">A</span>Menyusun strategi perusahaan, rencana aksi utama, kebijakan dan prosedur manajemen risiko, anggaran tahunan dan rencana kerja.</div>
+            <div class="mc-option" onclick="checkMC(this,'b',6)"><span class="opt-letter">B</span>Memantau efektivitas praktik tata kelola perusahaan.</div>
+            <div class="mc-option" onclick="checkMC(this,'c',6)"><span class="opt-letter">C</span>Memastikan proses nominasi dan pemilihan dewan berjalan normal dan transparan.</div>
+            <div class="mc-option" onclick="checkMC(this,'d',6)"><span class="opt-letter">D</span>Menyelaraskan remunerasi manajemen kunci dan dewan dengan kepentingan jangka panjang perusahaan.</div>
+          </div>
+          <div class="mc-feedback" id="fb6"><span class="correct-ans">Jawaban: A</span> — Dewan tidak menyusun strategi, melainkan mereviu dan mengarahkan. Penyusunan strategi adalah tugas direksi/manajemen. Dewan pengawas bertugas mengawasi dan memastikan, bukan menyusun.</div>
+        </div>
+
+        <div class="mc-item">
+          <div class="mc-question">7. Berikut ini <strong>bukan</strong> merupakan peran dewan pengawas dalam tata kelola pelaporan korporat…</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',7)"><span class="opt-letter">A</span>Memastikan bahwa manajemen telah memiliki sistem/mekanisme pengawasan yang memadai.</div>
+            <div class="mc-option" onclick="checkMC(this,'b',7)"><span class="opt-letter">B</span>Memastikan terdapat jalur komunikasi langsung antara audit internal dengan dewan pengawas atau komite audit.</div>
+            <div class="mc-option" onclick="checkMC(this,'c',7)"><span class="opt-letter">C</span>Memastikan komite audit menyusun kebijakan akuntansi perusahaan yang menjadi dasar pelaporan keuangan.</div>
+            <div class="mc-option" onclick="checkMC(this,'d',7)"><span class="opt-letter">D</span>Memastikan perusahaan telah memiliki dan melaksanakan pengendalian internal yang efektif.</div>
+          </div>
+          <div class="mc-feedback" id="fb7"><span class="correct-ans">Jawaban: C</span> — Komite audit tidak bertugas menyusun kebijakan akuntansi, melainkan hanya mereviu dan mengawasi. Kebijakan akuntansi disusun oleh manajemen.</div>
+        </div>
+
+        <div class="mc-item">
+          <div class="mc-question">8. Penerapan tata kelola pada Perusahaan Terbuka di Indonesia termasuk kategori…</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',8)"><span class="opt-letter">A</span>Mandatory</div>
+            <div class="mc-option" onclick="checkMC(this,'b',8)"><span class="opt-letter">B</span>Voluntary</div>
+            <div class="mc-option" onclick="checkMC(this,'c',8)"><span class="opt-letter">C</span>Comply and explain</div>
+            <div class="mc-option" onclick="checkMC(this,'d',8)"><span class="opt-letter">D</span>Optional</div>
+          </div>
+          <div class="mc-feedback" id="fb8"><span class="correct-ans">Jawaban: C</span> — Dalam POJK terdapat kewajiban untuk menerapkan dan menjelaskan (comply and explain) jika ada yang belum diterapkan beserta alasannya. Bukan mandatory penuh karena ada fleksibilitas, tapi bukan voluntary karena ada kewajiban pengungkapan.</div>
+        </div>
+
+        <div class="mc-item">
+          <div class="mc-question">9. Manakah pernyataan yang paling tepat terkait penilaian praktik tata kelola untuk Perusahaan Terbuka?</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',9)"><span class="opt-letter">A</span>Penilaian praktik tata kelola perusahaan bersifat sukarela.</div>
+            <div class="mc-option" onclick="checkMC(this,'b',9)"><span class="opt-letter">B</span>Penilaian praktik tata kelola perusahaan wajib diungkapkan dalam laporan tahunan.</div>
+            <div class="mc-option" onclick="checkMC(this,'c',9)"><span class="opt-letter">C</span>Penilaian praktik tata kelola perusahaan wajib menggunakan pihak independen.</div>
+            <div class="mc-option" onclick="checkMC(this,'d',9)"><span class="opt-letter">D</span>Penilaian praktik tata kelola perusahaan dilakukan minimum dua tahun sekali.</div>
+          </div>
+          <div class="mc-feedback" id="fb9"><span class="correct-ans">Jawaban: B</span> — POJK Nomor 21/POJK.04/2015 mewajibkan Perusahaan Terbuka mengungkapkan tingkat penerapan Pedoman Tata Kelola dalam laporan tahunan perusahaan. Evaluasi tahunan, tidak harus menggunakan pihak independen.</div>
+        </div>
+
+        <div class="mc-item">
+          <div class="mc-question">10. Manakah dari penggabungan peran di bawah ini yang masih dapat diterima dalam rangka tata kelola perusahaan yang baik pada perusahaan di Indonesia?</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',10)"><span class="opt-letter">A</span>Direktur Utama merangkap sebagai Komisaris Utama.</div>
+            <div class="mc-option" onclick="checkMC(this,'b',10)"><span class="opt-letter">B</span>Kepala Audit Internal merangkap sebagai Kepala Satuan Manajemen Risiko.</div>
+            <div class="mc-option" onclick="checkMC(this,'c',10)"><span class="opt-letter">C</span>Manajer Keuangan merangkap sebagai Manajer Pengadaan.</div>
+            <div class="mc-option" onclick="checkMC(this,'d',10)"><span class="opt-letter">D</span>Komite Audit merangkap sebagai Komite Manajemen Risiko.</div>
+          </div>
+          <div class="mc-feedback" id="fb10"><span class="correct-ans">Jawaban: D</span> — Jika tidak ada komite lain, pengawasan manajemen risiko juga merupakan area dari komite audit. Penggabungan ini masih dapat diterima. A dan B menciptakan benturan kepentingan yang tidak dapat diterima.</div>
+        </div>
+      </div>
+
+      <div class="exercise-section">
+        <div class="exercise-header">
+          <h3>Esai</h3>
+          <span class="exercise-badge">2 Soal</span>
+        </div>
+
+        <div class="essay-item">
+          <div class="essay-q">1. Jelaskan mengapa prinsip transparansi dan pengungkapan sangat penting dalam mewujudkan tata kelola perusahaan yang baik!</div>
+          <button class="essay-toggle" onclick="toggleEssay('e1')">▶ Lihat Jawaban</button>
+          <div class="essay-answer" id="e1">
+            <h5>Kunci Jawaban</h5>
+            <div class="answer-group">
+              <p>Prinsip transparansi dan pengungkapan penting dalam mewujudkan tata kelola perusahaan yang baik, karena:</p>
+              <ul>
+                <li>Transparansi dan pengungkapan mengurai <strong>informasi asimetris</strong> antara manajemen dan pemangku kepentingan, sehingga pemangku kepentingan dapat lebih efektif dalam melakukan pengawasan, termasuk <em>market control</em>.</li>
+                <li>Transparansi dan pengungkapan informasi akan mengarahkan manajemen untuk bertindak lebih berhati-hati dan profesional dalam konteks kepentingan perusahaan dan pemangku kepentingan, karena dampak dari perilakunya akan diungkapkan kepada publik.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="essay-item">
+          <div class="essay-q">2. Jelaskan peran komite audit dalam meningkatkan kualitas laporan keuangan perusahaan!</div>
+          <button class="essay-toggle" onclick="toggleEssay('e2')">▶ Lihat Jawaban</button>
+          <div class="essay-answer" id="e2">
+            <h5>Kunci Jawaban</h5>
+            <p>Peran komite audit dalam meningkatkan kualitas laporan keuangan perusahaan adalah:</p>
+            <ul>
+              <li>Memastikan perusahaan menerapkan standar akuntansi keuangan yang berlaku</li>
+              <li>Memastikan SOP pelaporan keuangan dan pengendalian internal atas pelaporan keuangan berjalan dengan benar</li>
+              <li>Memastikan perusahaan memiliki sistem informasi pelaporan keuangan yang mendukung</li>
+              <li>Memastikan SDM di bidang akuntansi dan keuangan memiliki kompetensi yang tinggi dan jumlah yang memadai</li>
+              <li>Memastikan struktur dan mekanisme pengawasan dari audit internal berjalan dengan efektif</li>
+              <li>Memilih KAP yang independen dan kompeten</li>
+              <li>Mengawasi kinerja KAP dan menindaklanjuti rekomendasi KAP</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- AI CHAT -->
+    <section class="section" id="ai">
+      <div class="section-header">
+        <span class="section-num" style="background:var(--blue);color:#000">🤖</span>
+        <h2 class="section-title">Tanya AI — Asisten Belajar BAB 2</h2>
+      </div>
+      <div class="ai-section">
+        <div class="ai-header">
+          <div class="ai-dot"></div>
+          <h3>Asisten Etika & Tata Kelola</h3>
+        </div>
+        <div class="ai-messages" id="aiMessages">
+          <div class="ai-msg ai">
+            <div class="avatar">AI</div>
+            <div class="ai-bubble">Halo! Saya siap membantu kamu memahami <strong>BAB 2 — Etika dan Tata Kelola</strong>. Tanyakan apa saja tentang teori etika, kode etik akuntan, prinsip GCG OECD, peran dewan, ICFR, atau mekanisme evaluasi tata kelola. 💡</div>
+          </div>
+        </div>
+        <div class="ai-suggestions" id="aiSuggestions">
+          <span class="ai-chip" onclick="sendChip(this)">Apa bedanya teori deontologi dan utilitarianisme?</span>
+          <span class="ai-chip" onclick="sendChip(this)">Jelaskan 5 ancaman terhadap prinsip etika akuntan</span>
+          <span class="ai-chip" onclick="sendChip(this)">Apa itu ICFR dan komponen COSO-nya?</span>
+          <span class="ai-chip" onclick="sendChip(this)">Jelaskan 6 prinsip GCG OECD secara ringkas</span>
+          <span class="ai-chip" onclick="sendChip(this)">Apa peran komite audit dalam pelaporan korporat?</span>
+        </div>
+        <div class="ai-input-row">
+          <textarea class="ai-input" id="aiInput" rows="1" placeholder="Ketik pertanyaan tentang BAB 2…" onkeydown="handleKey(event)"></textarea>
+          <button class="ai-send" id="aiSendBtn" onclick="sendMessage()">Kirim</button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script>
+const answers = {1:'b',2:'c',3:'a',4:'d',5:'c',6:'a',7:'c',8:'c',9:'b',10:'d'};
+function checkMC(el, choice, num) {
+  const item = el.closest('.mc-item');
+  if (item.querySelector('.revealed')) return;
+  const correct = answers[num];
+  item.querySelectorAll('.mc-option').forEach(opt => {
+    opt.classList.add('revealed');
+    const letter = opt.querySelector('.opt-letter').textContent.toLowerCase();
+    if (letter === correct) opt.classList.add('correct');
+    else if (letter === choice && choice !== correct) opt.classList.add('wrong');
+  });
+  const fb = document.getElementById('fb' + num);
+  if (fb) fb.classList.add('show');
+}
+function toggleEssay(id) {
+  const ans = document.getElementById(id);
+  const btn = ans.previousElementSibling;
+  const show = !ans.classList.contains('show');
+  ans.classList.toggle('show', show);
+  btn.textContent = show ? '▼ Sembunyikan Jawaban' : '▶ Lihat Jawaban';
+}
+
+const sections = document.querySelectorAll('.section, .subsection');
+const tocLinks = document.querySelectorAll('.toc-link');
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      tocLinks.forEach(l => l.classList.remove('active'));
+      const active = document.querySelector(`.toc-link[href="#${e.target.id}"]`);
+      if (active) active.classList.add('active');
+    }
+  });
+}, { rootMargin: '-20% 0px -70% 0px' });
+sections.forEach(s => { if (s.id) obs.observe(s); });
+
+const SYSTEM_PROMPT = `Kamu adalah asisten belajar untuk mata kuliah CA Indonesia: Pelaporan Korporat, khususnya BAB 2 tentang Etika dan Tata Kelola Perusahaan.
+
+Topik yang kamu kuasai:
+- Teori etika: relativitas, utilitarianisme, egoisme, deontologi, perintah Tuhan, etika kebajikan
+- Kode Etik Akuntan Indonesia (adopsi IESBA-IFAC 2018), 5 prinsip dasar etika profesional
+- 5 ancaman etika: kepentingan pribadi, telaah pribadi, advokasi, kedekatan, intimidasi
+- Mitigasi permasalahan etika dalam pelaporan korporat
+- Pengertian GCG dari berbagai sumber (Cadbury, IFC, OECD, Indonesia)
+- 6 Prinsip GCG G20/OECD 2015
+- 5 Asas GCG Indonesia: transparansi, akuntabilitas, responsibilitas, independensi, kewajaran & kesetaraan
+- Tanggung jawab dewan: one-tier vs two-tier, duty of care vs duty of loyalty, RUPS, Dewan Komisaris, Direksi
+- Komite Audit dan perannya dalam tata kelola pelaporan korporat
+- ICFR (Internal Control over Financial Reporting) dan komponen COSO
+- Pengungkapan dan transparansi: OECD, KNKG, UU PT, regulasi OJK
+- Evaluasi mekanisme GCG: ASEAN CG Scorecard, penilaian GCG BUMN
+
+Jawab dalam Bahasa Indonesia yang jelas dan ringkas. Gunakan contoh konkret bila perlu.`;
+
+const messagesEl = document.getElementById('aiMessages');
+const inputEl = document.getElementById('aiInput');
+const sendBtn = document.getElementById('aiSendBtn');
+let history = [];
+
+function addMsg(role, text) {
+  const div = document.createElement('div');
+  div.className = `ai-msg ${role}`;
+  div.innerHTML = `<div class="avatar">${role==='ai'?'AI':'Kamu'}</div><div class="ai-bubble">${text.replace(/\n/g,'<br>')}</div>`;
+  messagesEl.appendChild(div);
+  messagesEl.scrollTop = messagesEl.scrollHeight;
+}
+function addTyping() {
+  const div = document.createElement('div');
+  div.className = 'ai-msg ai'; div.id = 'typing';
+  div.innerHTML = `<div class="avatar">AI</div><div class="ai-typing"><span></span><span></span><span></span></div>`;
+  messagesEl.appendChild(div);
+  messagesEl.scrollTop = messagesEl.scrollHeight;
+}
+async function sendMessage() {
+  const text = inputEl.value.trim();
+  if (!text) return;
+  inputEl.value = '';
+  document.getElementById('aiSuggestions').style.display = 'none';
+  addMsg('user', text);
+  history.push({ role: 'user', content: text });
+  sendBtn.disabled = true;
+  addTyping();
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ model: 'claude-sonnet-4-20250514', max_tokens: 1000, system: SYSTEM_PROMPT, messages: history })
+    });
+    const data = await res.json();
+    document.getElementById('typing')?.remove();
+    const reply = data.content?.find(b => b.type === 'text')?.text || 'Maaf, tidak ada respons.';
+    addMsg('ai', reply);
+    history.push({ role: 'assistant', content: reply });
+  } catch {
+    document.getElementById('typing')?.remove();
+    addMsg('ai', 'Maaf, terjadi kesalahan. Periksa koneksi internet dan coba lagi.');
+  }
+  sendBtn.disabled = false;
+}
+function sendChip(el) { inputEl.value = el.textContent; sendMessage(); }
+function handleKey(e) { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); } }
+</script>
+</body>
+</html>

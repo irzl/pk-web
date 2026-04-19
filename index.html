@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PK — Pelaporan Korporat</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0a0f0a;
+    --surface: #111811;
+    --surface2: #1a231a;
+    --accent: #6ee7b7;
+    --accent2: #34d399;
+    --text: #f0fff4;
+    --muted: #6b7280;
+    --border: rgba(255,255,255,0.08);
+    --sidebar-w: 290px;
+  }
+
+  html, body { height: 100%; overflow: hidden; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ── TOP NAV ── */
+  .topnav {
+    height: 52px;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    padding: 0 1.2rem;
+    gap: 1rem;
+    flex-shrink: 0;
+    z-index: 100;
+  }
+
+  .hamburger {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--muted);
+    padding: 0.3rem;
+    display: flex;
+    align-items: center;
+    transition: color 0.2s;
+    flex-shrink: 0;
+  }
+  .hamburger:hover { color: var(--text); }
+
+  .topnav-title {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    color: var(--accent);
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  .topnav-bab {
+    font-size: 0.82rem;
+    color: var(--muted);
+    margin-left: auto;
+    font-style: italic;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 340px;
+  }
+
+  /* ── LAYOUT ── */
+  .layout {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+  }
+
+  /* ── SIDEBAR ── */
+  .sidebar {
+    width: var(--sidebar-w);
+    background: var(--surface);
+    border-right: 1px solid var(--border);
+    overflow-y: auto;
+    flex-shrink: 0;
+    transition: transform 0.3s ease, width 0.3s ease;
+    display: flex;
+    flex-direction: column;
+  }
+  .sidebar.collapsed {
+    transform: translateX(calc(-1 * var(--sidebar-w)));
+    width: 0;
+  }
+
+  .sidebar-header {
+    padding: 1.2rem 1.2rem 0.8rem;
+    border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
+  }
+  .sidebar-header h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem;
+    font-weight: 900;
+    color: var(--text);
+    margin-bottom: 0.15rem;
+    line-height: 1.3;
+  }
+  .sidebar-header p {
+    font-size: 0.68rem;
+    color: var(--muted);
+    font-family: 'DM Mono', monospace;
+  }
+
+  .sidebar-search {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
+  }
+  .sidebar-search input {
+    width: 100%;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.45rem 0.75rem;
+    font-size: 0.77rem;
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .sidebar-search input:focus { border-color: rgba(110,231,183,0.4); }
+  .sidebar-search input::placeholder { color: var(--muted); }
+
+  .nav-list { list-style: none; padding: 0.5rem 0; flex: 1; }
+
+  .nav-btn {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.7rem;
+    padding: 0.55rem 1rem;
+    width: 100%;
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    transition: background 0.15s;
+    position: relative;
+  }
+  .nav-btn:hover { background: rgba(255,255,255,0.035); }
+  .nav-btn.active { background: rgba(110,231,183,0.09); }
+  .nav-btn.active::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 3px;
+    background: var(--accent);
+    border-radius: 0 2px 2px 0;
+  }
+
+  .nav-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.58rem;
+    font-weight: 700;
+    color: #000;
+    padding: 0.17rem 0.42rem;
+    border-radius: 4px;
+    flex-shrink: 0;
+    margin-top: 0.15rem;
+    white-space: nowrap;
+    line-height: 1.4;
+  }
+
+  .nav-text { flex: 1; }
+  .nav-title {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--muted);
+    line-height: 1.35;
+    transition: color 0.15s;
+  }
+  .nav-btn.active .nav-title, .nav-btn:hover .nav-title { color: var(--text); }
+  .nav-btn.active .nav-title { color: var(--accent); }
+
+  .nav-locked {
+    font-size: 0.63rem;
+    color: rgba(107,114,128,0.6);
+    margin-top: 0.08rem;
+    font-family: 'DM Mono', monospace;
+  }
+
+  /* ── CONTENT ── */
+  .content {
+    flex: 1;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+  .content iframe {
+    width: 100%; flex: 1; border: none; display: none;
+  }
+  .content iframe.active { display: block; }
+
+  /* ── WELCOME SCREEN ── */
+  .welcome {
+    position: absolute; inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 2rem;
+    background: var(--bg);
+    z-index: 10;
+    transition: opacity 0.3s;
+    overflow-y: auto;
+  }
+  .welcome.hidden { opacity: 0; pointer-events: none; }
+
+  .welcome-logo {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    border: 1px solid rgba(110,231,183,0.3);
+    padding: 0.3rem 1rem;
+    border-radius: 99px;
+    margin-bottom: 1.5rem;
+  }
+  .welcome h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.7rem, 4.5vw, 2.8rem);
+    font-weight: 900;
+    line-height: 1.1;
+    margin-bottom: 0.8rem;
+    background: linear-gradient(135deg, #6ee7b7, #34d399, #059669);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .welcome p {
+    font-size: 0.88rem;
+    color: var(--muted);
+    max-width: 500px;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+  }
+
+  .chapter-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 0.6rem;
+    max-width: 780px;
+    width: 100%;
+  }
+  .chapter-chip {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 0.75rem 0.85rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: left;
+  }
+  .chapter-chip:hover {
+    border-color: rgba(110,231,183,0.35);
+    background: rgba(110,231,183,0.06);
+    transform: translateY(-2px);
+  }
+  .chapter-chip.locked {
+    opacity: 0.45;
+    cursor: not-allowed;
+  }
+  .chapter-chip.locked:hover {
+    transform: none;
+    border-color: var(--border);
+    background: var(--surface);
+  }
+
+  .chip-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 0.35rem;
+  }
+  .chip-title {
+    font-size: 0.72rem;
+    font-weight: 500;
+    color: var(--text);
+    line-height: 1.35;
+    margin-bottom: 0.4rem;
+  }
+  .chip-badge {
+    font-size: 0.6rem;
+    color: var(--accent2);
+    font-family: 'DM Mono', monospace;
+  }
+  .locked-badge { color: var(--muted) !important; }
+
+  /* ── MOBILE OVERLAY ── */
+  .mobile-overlay {
+    display: none;
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 50;
+  }
+  .mobile-overlay.active { display: block; }
+
+  @media (max-width: 640px) {
+    .sidebar { position: fixed; top: 52px; left: 0; bottom: 0; z-index: 60; }
+    .sidebar.collapsed { transform: translateX(-100%); width: var(--sidebar-w); }
+    .topnav-bab { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <button class="hamburger" id="hamburgerBtn" title="Toggle sidebar">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+      <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
+    </svg>
+  </button>
+  <span class="topnav-title">PK · Pelaporan Korporat</span>
+  <span class="topnav-bab" id="currentBabLabel">Pilih bab untuk mulai belajar</span>
+</nav>
+
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <h2>Pelaporan Korporat</h2>
+      <p>CA INDONESIA · 14 BAB</p>
+    </div>
+    <div class="sidebar-search">
+      <input type="text" id="searchInput" placeholder="Cari bab…" autocomplete="off">
+    </div>
+    <ul class="nav-list" id="navList"></ul>
+  </aside>
+
+  <div class="mobile-overlay" id="mobileOverlay"></div>
+
+  <main class="content" id="contentArea">
+    <div class="welcome" id="welcomeScreen">
+      <div class="welcome-logo">PK · Outline Materi</div>
+      <h1>Pelaporan<br>Korporat</h1>
+      <p>14 bab materi kuliah CA Indonesia dalam satu portal. Pilih bab di sidebar kiri atau klik salah satu di bawah untuk mulai belajar.</p>
+      <div class="chapter-grid" id="chapterGrid">
+        <!-- Chapter chips inserted by JS -->
+      </div>
+    </div>
+  </main>
+</div>
+
+<script>
+  const chapters = [
+    {
+      id: 1,
+      file: 'pk-bab1-outline.html',
+      num: 'BAB 1',
+      title: 'Standar Pelaporan Keuangan',
+      color: '#e8c547',
+      available: true
+    },
+    {
+      id: 2,
+      file: 'pk-bab2-outline.html',
+      num: 'BAB 2',
+      title: 'Etika dan Tata Kelola',
+      color: '#58a6ff',
+      available: true
+    },
+    {
+      id: 3,
+      file: 'pk-bab3-outline.html',
+      num: 'BAB 3',
+      title: 'Penyajian Laporan Keuangan',
+      color: '#4ecdc4',
+      available: false
+    },
+    {
+      id: 4,
+      file: 'pk-bab4-outline.html',
+      num: 'BAB 4',
+      title: 'Aset Lancar',
+      color: '#ff6b6b',
+      available: false
+    },
+    {
+      id: 5,
+      file: 'pk-bab5-outline.html',
+      num: 'BAB 5',
+      title: 'Aset Tidak Lancar',
+      color: '#a78bfa',
+      available: false
+    },
+    {
+      id: 6,
+      file: 'pk-bab6-outline.html',
+      num: 'BAB 6',
+      title: 'Sewa',
+      color: '#f59e0b',
+      available: false
+    },
+    {
+      id: 7,
+      file: 'pk-bab7-outline.html',
+      num: 'BAB 7',
+      title: 'Instrumen Keuangan',
+      color: '#38bdf8',
+      available: false
+    },
+    {
+      id: 8,
+      file: 'pk-bab8-outline.html',
+      num: 'BAB 8',
+      title: 'Imbalan Kerja, Provisi, dan Kontinjensi',
+      color: '#34d399',
+      available: false
+    },
+    {
+      id: 9,
+      file: 'pk-bab9-outline.html',
+      num: 'BAB 9',
+      title: 'Pajak Penghasilan',
+      color: '#fb923c',
+      available: false
+    },
+    {
+      id: 10,
+      file: 'pk-bab10-outline.html',
+      num: 'BAB 10',
+      title: 'Kombinasi Bisnis dan Konsolidasi',
+      color: '#e879f9',
+      available: false
+    },
+    {
+      id: 11,
+      file: 'pk-bab11-outline.html',
+      num: 'BAB 11',
+      title: 'Investasi pada Entitas Lain',
+      color: '#2dd4bf',
+      available: false
+    },
+    {
+      id: 12,
+      file: 'pk-bab12-outline.html',
+      num: 'BAB 12',
+      title: 'Pendapatan',
+      color: '#818cf8',
+      available: false
+    },
+    {
+      id: 13,
+      file: 'pk-bab13-outline.html',
+      num: 'BAB 13',
+      title: 'Analisis Laporan Keuangan: Financial Shenanigans & Fraud',
+      color: '#2dd4bf',
+      available: false
+    },
+    {
+      id: 14,
+      file: 'pk-bab14-outline.html',
+      num: 'BAB 14',
+      title: 'Pelaporan Berkelanjutan dan Pelaporan Terintegrasi',
+      color: '#f472b6',
+      available: false
+    }
+  ];
+
+  let activeId = null;
+  const iframes = {};
+
+  // Build sidebar nav
+  const navList = document.getElementById('navList');
+  chapters.forEach(ch => {
+    const li = document.createElement('li');
+    li.className = 'nav-item';
+    li.dataset.id = ch.id;
+    li.dataset.title = (ch.num + ' ' + ch.title).toLowerCase();
+    li.innerHTML = `
+      <button class="nav-btn" onclick="loadChapter(${ch.id})" ${!ch.available ? 'disabled style="opacity:0.45;cursor:not-allowed;"' : ''}>
+        <span class="nav-num" style="background:${ch.color}">${ch.num}</span>
+        <div class="nav-text">
+          <div class="nav-title">${ch.title}</div>
+          ${!ch.available ? '<div class="nav-locked">⏳ Segera hadir</div>' : ''}
+        </div>
+      </button>`;
+    navList.appendChild(li);
+  });
+
+  // Build chapter chips
+  const grid = document.getElementById('chapterGrid');
+  chapters.forEach(ch => {
+    const div = document.createElement('div');
+    div.className = 'chapter-chip' + (ch.available ? '' : ' locked');
+    if (ch.available) div.onclick = () => loadChapter(ch.id);
+    div.innerHTML = `
+      <div class="chip-num" style="color:${ch.color}">${ch.num}</div>
+      <div class="chip-title">${ch.title}</div>
+      <div class="chip-badge ${ch.available ? '' : 'locked-badge'}">${ch.available ? '✓ Tersedia' : '⏳ Segera'}</div>`;
+    grid.appendChild(div);
+  });
+
+  function loadChapter(id) {
+    const ch = chapters.find(c => c.id === id);
+    if (!ch || !ch.available) return;
+
+    document.getElementById('welcomeScreen').classList.add('hidden');
+    Object.values(iframes).forEach(f => f.classList.remove('active'));
+    document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+
+    const navBtn = document.querySelector(`.nav-item[data-id="${id}"] .nav-btn`);
+    if (navBtn) navBtn.classList.add('active');
+
+    document.getElementById('currentBabLabel').textContent = `${ch.num} — ${ch.title}`;
+
+    if (!iframes[id]) {
+      const iframe = document.createElement('iframe');
+      iframe.src = ch.file;
+      iframe.title = ch.title;
+      iframe.loading = 'lazy';
+      document.getElementById('contentArea').appendChild(iframe);
+      iframes[id] = iframe;
+    }
+    iframes[id].classList.add('active');
+    activeId = id;
+
+    if (window.innerWidth <= 640) closeSidebar();
+  }
+
+  const sidebar = document.getElementById('sidebar');
+  const overlay = document.getElementById('mobileOverlay');
+
+  document.getElementById('hamburgerBtn').addEventListener('click', () => {
+    if (sidebar.classList.contains('collapsed')) {
+      sidebar.classList.remove('collapsed');
+      overlay.classList.add('active');
+    } else {
+      closeSidebar();
+    }
+  });
+
+  overlay.addEventListener('click', closeSidebar);
+
+  function closeSidebar() {
+    sidebar.classList.add('collapsed');
+    overlay.classList.remove('active');
+  }
+
+  document.getElementById('searchInput').addEventListener('input', function() {
+    const q = this.value.toLowerCase().trim();
+    document.querySelectorAll('.nav-item').forEach(item => {
+      item.style.display = (!q || item.dataset.title.includes(q)) ? '' : 'none';
+    });
+  });
+</script>
+</body>
+</html>
