@@ -1,0 +1,1110 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BAB 7 — Instrumen Keuangan</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #0f0a08; --surface: #1a1208; --surface2: #241a0a; --surface3: #2e2010;
+  --accent: #fb923c; --accent2: #fdba74; --accent3: #ea580c;
+  --yellow: #fbbf24; --green: #4ade80; --teal: #2dd4bf; --blue: #60a5fa; --purple: #a78bfa; --red: #f87171;
+  --text: #fff7ed; --text2: #c4a882; --muted: #6b5a45; --border: rgba(251,146,60,0.1); --border2: rgba(255,255,255,0.06);
+}
+html { scroll-behavior: smooth; }
+body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; min-height: 100vh; }
+
+.chapter-header { background: linear-gradient(135deg, #0f0a08 0%, #1a1208 50%, #0f0a08 100%); border-bottom: 1px solid var(--border); padding: 2.5rem 2rem 2rem; position: relative; overflow: hidden; }
+.chapter-header::before { content: '7'; position: absolute; right: -0.5rem; top: -1rem; font-family: 'Playfair Display', serif; font-size: 12rem; font-weight: 900; color: rgba(251,146,60,0.04); line-height: 1; pointer-events: none; user-select: none; }
+.chapter-eyebrow { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent3); margin-bottom: 0.5rem; }
+.chapter-title { font-family: 'Playfair Display', serif; font-size: clamp(1.4rem, 3.5vw, 2.2rem); font-weight: 900; line-height: 1.15; background: linear-gradient(135deg, #fb923c, #fdba74); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 1.2rem; }
+.learning-goals { background: rgba(251,146,60,0.05); border: 1px solid var(--border); border-radius: 12px; padding: 1rem 1.2rem; max-width: 700px; }
+.learning-goals h3 { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.6rem; }
+.goals-list { list-style: none; display: flex; flex-direction: column; gap: 0.3rem; }
+.goals-list li { font-size: 0.78rem; color: var(--text2); display: flex; gap: 0.6rem; align-items: flex-start; }
+.goals-list li::before { content: '→'; color: var(--accent3); flex-shrink: 0; font-family: 'DM Mono', monospace; font-size: 0.7rem; margin-top: 0.05rem; }
+
+.page-body { display: grid; grid-template-columns: 220px 1fr; min-height: calc(100vh - 200px); }
+.toc { background: var(--surface); border-right: 1px solid var(--border2); padding: 1.5rem 0; position: sticky; top: 0; height: 100vh; overflow-y: auto; }
+.toc-label { font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); padding: 0 1rem; margin-bottom: 0.8rem; }
+.toc-link { display: block; padding: 0.45rem 1rem; font-size: 0.75rem; color: var(--muted); text-decoration: none; transition: all 0.15s; border-left: 2px solid transparent; line-height: 1.4; }
+.toc-link:hover { color: var(--text); background: rgba(251,146,60,0.04); }
+.toc-link.active { color: var(--accent); border-left-color: var(--accent); background: rgba(251,146,60,0.06); }
+.toc-link.sub { padding-left: 1.8rem; font-size: 0.7rem; }
+.toc-divider { height: 1px; background: var(--border2); margin: 0.6rem 1rem; }
+.main { padding: 2rem 2.5rem 4rem; max-width: 860px; }
+.section { margin-bottom: 3rem; scroll-margin-top: 1.5rem; }
+.section-header { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.2rem; padding-bottom: 0.7rem; border-bottom: 1px solid var(--border2); }
+.section-num { font-family: 'DM Mono', monospace; font-size: 0.65rem; font-weight: 700; background: var(--accent3); color: #fff; padding: 0.2rem 0.5rem; border-radius: 4px; flex-shrink: 0; }
+.section-title { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; color: var(--text); line-height: 1.3; }
+.subsection { margin-bottom: 1.5rem; scroll-margin-top: 1.5rem; }
+.subsection-title { font-size: 0.82rem; font-weight: 600; color: var(--accent2); font-family: 'DM Mono', monospace; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.6rem; }
+
+.card { background: var(--surface); border: 1px solid var(--border2); border-radius: 10px; padding: 1.1rem 1.2rem; margin-bottom: 0.8rem; }
+.card-title { font-size: 0.78rem; font-weight: 600; color: var(--accent); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem; }
+.card-title .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
+.card p, .card li { font-size: 0.8rem; color: var(--text2); line-height: 1.6; }
+.card ul, .card ol { padding-left: 1.1rem; margin-top: 0.4rem; display: flex; flex-direction: column; gap: 0.25rem; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; margin-bottom: 1rem; }
+.grid-3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 0.7rem; margin-bottom: 1rem; }
+.highlight { background: rgba(251,146,60,0.06); border: 1px solid rgba(251,146,60,0.2); border-left: 3px solid var(--accent); border-radius: 8px; padding: 0.9rem 1.1rem; margin-bottom: 1rem; }
+.highlight p { font-size: 0.8rem; color: var(--text2); line-height: 1.6; }
+.highlight strong { color: var(--accent); font-weight: 600; }
+.highlight-blue { background: rgba(96,165,250,0.06); border: 1px solid rgba(96,165,250,0.2); border-left: 3px solid var(--blue); border-radius: 8px; padding: 0.9rem 1.1rem; margin-bottom: 1rem; }
+.highlight-blue p { font-size: 0.8rem; color: var(--text2); line-height: 1.6; }
+.highlight-blue strong { color: var(--blue); }
+.highlight-green { background: rgba(74,222,128,0.06); border: 1px solid rgba(74,222,128,0.2); border-left: 3px solid var(--green); border-radius: 8px; padding: 0.9rem 1.1rem; margin-bottom: 1rem; }
+.highlight-green p { font-size: 0.8rem; color: var(--text2); line-height: 1.6; }
+.highlight-green strong { color: var(--green); }
+.highlight-purple { background: rgba(167,139,250,0.06); border: 1px solid rgba(167,139,250,0.2); border-left: 3px solid var(--purple); border-radius: 8px; padding: 0.9rem 1.1rem; margin-bottom: 1rem; }
+.highlight-purple p { font-size: 0.8rem; color: var(--text2); line-height: 1.6; }
+.highlight-purple strong { color: var(--purple); }
+.table-wrap { overflow-x: auto; margin-bottom: 1rem; border-radius: 10px; border: 1px solid var(--border2); }
+table { width: 100%; border-collapse: collapse; font-size: 0.76rem; }
+thead tr { background: var(--surface3); }
+th { padding: 0.7rem 0.9rem; text-align: left; font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); font-weight: 500; }
+td { padding: 0.6rem 0.9rem; border-top: 1px solid var(--border2); color: var(--text2); vertical-align: top; line-height: 1.5; }
+tbody tr:hover { background: rgba(255,255,255,0.02); }
+.tag { display: inline-block; font-family: 'DM Mono', monospace; font-size: 0.6rem; padding: 0.15rem 0.5rem; border-radius: 99px; font-weight: 500; }
+.tag-orange { background: rgba(251,146,60,0.12); color: var(--accent); border: 1px solid rgba(251,146,60,0.25); }
+.tag-blue { background: rgba(96,165,250,0.12); color: var(--blue); border: 1px solid rgba(96,165,250,0.25); }
+.tag-green { background: rgba(74,222,128,0.12); color: var(--green); border: 1px solid rgba(74,222,128,0.25); }
+.tag-red { background: rgba(248,113,113,0.12); color: var(--red); border: 1px solid rgba(248,113,113,0.25); }
+.tag-purple { background: rgba(167,139,250,0.12); color: var(--purple); border: 1px solid rgba(167,139,250,0.25); }
+.psak-ref { display: inline-flex; align-items: center; gap: 0.35rem; font-family: 'DM Mono', monospace; font-size: 0.62rem; background: var(--surface3); border: 1px solid var(--border2); color: var(--text2); padding: 0.15rem 0.55rem; border-radius: 99px; margin-bottom: 0.5rem; }
+.psak-ref span { color: var(--accent); }
+
+/* Flowchart */
+.flow-container { background: var(--surface); border: 1px solid var(--border2); border-radius: 10px; padding: 1rem; margin-bottom: 1rem; }
+.flow-step { background: var(--surface3); border: 1px solid var(--border2); border-radius: 8px; padding: 0.6rem 0.9rem; font-size: 0.76rem; color: var(--text2); text-align: center; margin-bottom: 0.3rem; line-height: 1.4; }
+.flow-step.key { border-color: rgba(251,146,60,0.3); background: rgba(251,146,60,0.06); color: var(--text); font-weight: 600; }
+.flow-arrow { text-align: center; color: var(--muted); font-size: 0.9rem; margin: 0.1rem 0; }
+.flow-result { display: flex; gap: 0.6rem; margin-top: 0.4rem; }
+.flow-yes { flex: 1; background: rgba(74,222,128,0.08); border: 1px solid rgba(74,222,128,0.25); border-radius: 8px; padding: 0.5rem 0.8rem; font-size: 0.72rem; color: var(--green); text-align: center; font-family: 'DM Mono', monospace; }
+.flow-no { flex: 1; background: rgba(248,113,113,0.08); border: 1px solid rgba(248,113,113,0.25); border-radius: 8px; padding: 0.5rem 0.8rem; font-size: 0.72rem; color: var(--red); text-align: center; font-family: 'DM Mono', monospace; }
+
+/* Formula */
+.formula-box { background: var(--surface3); border: 1px solid var(--border2); border-radius: 10px; padding: 1rem 1.2rem; margin-bottom: 1rem; font-family: 'DM Mono', monospace; }
+.formula-title { font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.6rem; }
+.formula-eq { font-size: 0.78rem; color: var(--text); padding: 0.5rem; background: rgba(251,146,60,0.05); border-radius: 6px; margin-bottom: 0.4rem; line-height: 1.7; }
+.formula-item { display: flex; justify-content: space-between; font-size: 0.72rem; color: var(--text2); padding: 0.2rem 0; border-bottom: 1px solid rgba(255,255,255,0.04); }
+.formula-item:last-child { border-bottom: none; }
+.formula-item.total { color: var(--accent); font-weight: 700; border-top: 1px solid var(--border2); margin-top: 0.3rem; padding-top: 0.3rem; }
+
+/* Stage boxes for impairment */
+.stage-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 0.7rem; margin-bottom: 1rem; }
+.stage-card { border-radius: 10px; padding: 0.9rem 1rem; border: 1px solid; }
+.stage-1 { background: rgba(74,222,128,0.06); border-color: rgba(74,222,128,0.25); }
+.stage-2 { background: rgba(251,146,60,0.06); border-color: rgba(251,146,60,0.25); }
+.stage-3 { background: rgba(248,113,113,0.06); border-color: rgba(248,113,113,0.25); }
+.stage-label { font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.3rem; }
+.stage-1 .stage-label { color: var(--green); }
+.stage-2 .stage-label { color: var(--accent); }
+.stage-3 .stage-label { color: var(--red); }
+.stage-card p { font-size: 0.73rem; color: var(--text2); line-height: 1.5; }
+
+/* Latihan */
+.exercise-section { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; margin-bottom: 1.5rem; }
+.exercise-header { background: rgba(251,146,60,0.08); padding: 0.9rem 1.2rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 0.6rem; }
+.exercise-header h3 { font-family: 'DM Mono', monospace; font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); }
+.exercise-badge { font-family: 'DM Mono', monospace; font-size: 0.58rem; background: rgba(251,146,60,0.15); color: var(--accent); padding: 0.15rem 0.5rem; border-radius: 99px; }
+.mc-item { padding: 1rem 1.2rem; border-bottom: 1px solid var(--border2); }
+.mc-item:last-child { border-bottom: none; }
+.mc-question { font-size: 0.8rem; color: var(--text); font-weight: 500; margin-bottom: 0.6rem; line-height: 1.55; }
+.mc-sub { font-size: 0.74rem; color: var(--text2); background: var(--surface3); border-radius: 8px; padding: 0.6rem 0.9rem; margin-bottom: 0.7rem; line-height: 1.6; }
+.mc-options { display: flex; flex-direction: column; gap: 0.3rem; }
+.mc-option { display: flex; gap: 0.6rem; align-items: flex-start; padding: 0.4rem 0.6rem; border-radius: 6px; cursor: pointer; transition: background 0.15s; font-size: 0.76rem; color: var(--text2); line-height: 1.4; border: 1px solid transparent; }
+.mc-option:hover { background: rgba(255,255,255,0.03); border-color: var(--border2); }
+.mc-option.correct { background: rgba(74,222,128,0.1); color: var(--green); border-color: rgba(74,222,128,0.3); }
+.mc-option.wrong { background: rgba(248,113,113,0.08); color: var(--red); border-color: rgba(248,113,113,0.2); }
+.mc-option.revealed { pointer-events: none; }
+.opt-letter { font-family: 'DM Mono', monospace; font-size: 0.65rem; font-weight: 700; background: var(--surface3); padding: 0.15rem 0.4rem; border-radius: 4px; flex-shrink: 0; margin-top: 0.05rem; }
+.mc-feedback { margin-top: 0.5rem; font-size: 0.72rem; color: var(--muted); display: none; padding: 0.4rem 0.6rem; background: var(--surface3); border-radius: 6px; line-height: 1.5; }
+.mc-feedback.show { display: block; }
+.mc-feedback .correct-ans { color: var(--green); font-weight: 600; }
+.essay-item { padding: 1rem 1.2rem; border-bottom: 1px solid var(--border2); }
+.essay-item:last-child { border-bottom: none; }
+.essay-q { font-size: 0.8rem; color: var(--text); font-weight: 500; margin-bottom: 0.8rem; line-height: 1.55; }
+.essay-sub { font-size: 0.74rem; color: var(--text2); background: var(--surface3); border-radius: 8px; padding: 0.7rem 1rem; margin-bottom: 0.8rem; line-height: 1.6; }
+.essay-toggle { display: flex; align-items: center; gap: 0.5rem; font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent3); background: rgba(251,146,60,0.07); border: 1px solid rgba(251,146,60,0.2); padding: 0.4rem 0.8rem; border-radius: 6px; cursor: pointer; transition: all 0.15s; width: fit-content; }
+.essay-toggle:hover { background: rgba(251,146,60,0.12); color: var(--accent); }
+.essay-answer { margin-top: 0.8rem; display: none; background: var(--surface3); border-radius: 8px; padding: 0.9rem 1rem; }
+.essay-answer.show { display: block; }
+.essay-answer h5 { font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent3); margin-bottom: 0.6rem; }
+.essay-answer p, .essay-answer li { font-size: 0.77rem; color: var(--text2); line-height: 1.6; }
+.essay-answer ul { padding-left: 0; list-style: none; display: flex; flex-direction: column; gap: 0.3rem; margin-top: 0.3rem; }
+.essay-answer li { display: flex; gap: 0.5rem; }
+.essay-answer li::before { content: '▸'; color: var(--accent); flex-shrink: 0; font-size: 0.6rem; margin-top: 0.1rem; }
+.answer-group { margin-bottom: 0.7rem; }
+.answer-group h6 { font-size: 0.74rem; font-weight: 600; color: var(--text); margin-bottom: 0.35rem; }
+.calc-table { width: 100%; font-size: 0.72rem; border-collapse: collapse; margin-top: 0.4rem; }
+.calc-table th { background: var(--surface2); padding: 0.4rem 0.6rem; text-align: center; color: var(--accent2); font-weight: 600; border: 1px solid var(--border2); }
+.calc-table td { padding: 0.35rem 0.6rem; border: 1px solid var(--border2); color: var(--text2); }
+.calc-table tr.total td { background: var(--surface2); color: var(--accent); font-weight: 700; }
+
+/* AI */
+.ai-section { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; }
+.ai-header { background: rgba(96,165,250,0.07); padding: 0.9rem 1.2rem; border-bottom: 1px solid rgba(96,165,250,0.15); display: flex; align-items: center; gap: 0.6rem; }
+.ai-header h3 { font-family: 'DM Mono', monospace; font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--blue); }
+.ai-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--blue); }
+.ai-messages { padding: 1rem 1.2rem; min-height: 80px; max-height: 360px; overflow-y: auto; display: flex; flex-direction: column; gap: 0.7rem; }
+.ai-msg { display: flex; gap: 0.6rem; align-items: flex-start; font-size: 0.78rem; line-height: 1.6; animation: fadeUp 0.25s ease; }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+.ai-msg.user { flex-direction: row-reverse; }
+.ai-msg .avatar { width: 26px; height: 26px; border-radius: 6px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 0.65rem; font-weight: 700; margin-top: 0.1rem; }
+.ai-msg.ai .avatar { background: rgba(96,165,250,0.15); color: var(--blue); }
+.ai-msg.user .avatar { background: rgba(251,146,60,0.15); color: var(--accent); }
+.ai-bubble { padding: 0.6rem 0.85rem; border-radius: 10px; max-width: 85%; }
+.ai-msg.ai .ai-bubble { background: var(--surface3); color: var(--text2); }
+.ai-msg.user .ai-bubble { background: rgba(251,146,60,0.09); color: var(--text); text-align: right; }
+.ai-typing { display: flex; gap: 4px; align-items: center; padding: 0.6rem 0.85rem; background: var(--surface3); border-radius: 10px; width: fit-content; }
+.ai-typing span { width: 5px; height: 5px; border-radius: 50%; background: var(--blue); animation: typing 1.2s infinite; }
+.ai-typing span:nth-child(2) { animation-delay: 0.2s; }
+.ai-typing span:nth-child(3) { animation-delay: 0.4s; }
+@keyframes typing { 0%,60%,100% { opacity: 0.2; transform: scale(0.8); } 30% { opacity: 1; transform: scale(1); } }
+.ai-suggestions { padding: 0 1.2rem 0.75rem; display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.ai-chip { font-family: 'DM Mono', monospace; font-size: 0.62rem; background: var(--surface3); border: 1px solid var(--border2); color: var(--text2); padding: 0.3rem 0.7rem; border-radius: 99px; cursor: pointer; transition: all 0.15s; }
+.ai-chip:hover { border-color: rgba(96,165,250,0.35); color: var(--blue); }
+.ai-input-row { padding: 0.75rem 1.2rem; border-top: 1px solid var(--border2); display: flex; gap: 0.5rem; }
+.ai-input { flex: 1; background: var(--surface3); border: 1px solid var(--border2); border-radius: 8px; padding: 0.5rem 0.8rem; font-size: 0.78rem; color: var(--text); font-family: 'DM Sans', sans-serif; outline: none; resize: none; max-height: 100px; transition: border-color 0.2s; }
+.ai-input:focus { border-color: rgba(96,165,250,0.35); }
+.ai-input::placeholder { color: var(--muted); }
+.ai-send { background: var(--blue); color: #000; border: none; border-radius: 8px; padding: 0.5rem 1rem; font-family: 'DM Mono', monospace; font-size: 0.68rem; font-weight: 700; cursor: pointer; transition: opacity 0.15s; }
+.ai-send:hover { opacity: 0.85; }
+.ai-send:disabled { opacity: 0.4; cursor: not-allowed; }
+</style>
+</head>
+<body>
+
+<div class="chapter-header">
+  <div class="chapter-eyebrow">Pelaporan Korporat · CA Indonesia</div>
+  <div class="chapter-title">BAB 7 — Instrumen Keuangan</div>
+  <div class="learning-goals">
+    <h3>Tujuan Pembelajaran</h3>
+    <ul class="goals-list">
+      <li>Menjelaskan cakupan instrumen keuangan</li>
+      <li>Mengklasifikasikan aset keuangan dan liabilitas keuangan</li>
+      <li>Menerapkan pengakuan dan penghentian pengakuan atas aset keuangan dan liabilitas keuangan</li>
+      <li>Menerapkan pengukuran atas aset keuangan dan liabilitas keuangan</li>
+      <li>Mengevaluasi penerapan penurunan nilai atas aset keuangan di dalam perusahaan</li>
+      <li>Menerapkan penyajian atas penerbitan instrumen keuangan</li>
+      <li>Memahami akuntansi lindung nilai</li>
+      <li>Menjelaskan perkembangan terkini akuntansi instrumen keuangan</li>
+    </ul>
+  </div>
+</div>
+
+<div class="page-body">
+  <!-- TOC -->
+  <nav class="toc">
+    <div class="toc-label">Isi Bab</div>
+    <a class="toc-link" href="#s1">7.1 Definisi Instrumen Keuangan</a>
+    <a class="toc-link sub" href="#s1-1">Aset Keuangan</a>
+    <a class="toc-link sub" href="#s1-2">Liabilitas Keuangan</a>
+    <a class="toc-link sub" href="#s1-3">Instrumen Ekuitas</a>
+    <a class="toc-link sub" href="#s1-4">Derivatif & Hybrid</a>
+    <div class="toc-divider"></div>
+    <a class="toc-link" href="#s2">7.2 Klasifikasi</a>
+    <a class="toc-link sub" href="#s2-1">Klasifikasi Aset Keuangan</a>
+    <a class="toc-link sub" href="#s2-2">Uji Model Bisnis & SPPI</a>
+    <a class="toc-link sub" href="#s2-3">Klasifikasi Liabilitas Keuangan</a>
+    <div class="toc-divider"></div>
+    <a class="toc-link" href="#s3">7.3 Reklasifikasi</a>
+    <div class="toc-divider"></div>
+    <a class="toc-link" href="#s4">7.4 Pengakuan & Pengukuran</a>
+    <a class="toc-link sub" href="#s4-1">Pengukuran Awal</a>
+    <a class="toc-link sub" href="#s4-2">Pengukuran Selanjutnya</a>
+    <a class="toc-link sub" href="#s4-3">Nilai Wajar</a>
+    <div class="toc-divider"></div>
+    <a class="toc-link" href="#s5">7.5 Penghentian Pengakuan</a>
+    <a class="toc-link sub" href="#s5-1">Penghentian Aset Keuangan</a>
+    <a class="toc-link sub" href="#s5-2">Penghentian Liabilitas Keuangan</a>
+    <div class="toc-divider"></div>
+    <a class="toc-link" href="#s6">7.6 Penurunan Nilai</a>
+    <a class="toc-link sub" href="#s6-1">Model 3 Tahap (ECL)</a>
+    <a class="toc-link sub" href="#s6-2">Pendekatan Disederhanakan</a>
+    <div class="toc-divider"></div>
+    <a class="toc-link" href="#s7">7.7 Lindung Nilai</a>
+    <a class="toc-link sub" href="#s7-1">Jenis Lindung Nilai</a>
+    <div class="toc-divider"></div>
+    <a class="toc-link" href="#s8">7.8 Penyajian</a>
+    <a class="toc-link" href="#s9">7.9 Pengungkapan</a>
+    <div class="toc-divider"></div>
+    <a class="toc-link" href="#latihan">Latihan Soal</a>
+    <a class="toc-link sub" href="#pilgan">Pilihan Ganda</a>
+    <a class="toc-link sub" href="#esai">Esai</a>
+    <a class="toc-link" href="#ai-tutor">AI Tutor</a>
+  </nav>
+
+  <!-- MAIN CONTENT -->
+  <main class="main">
+
+    <!-- SECTION 7.1 -->
+    <section class="section" id="s1">
+      <div class="section-header">
+        <span class="section-num">7.1</span>
+        <span class="section-title">Definisi Instrumen Keuangan</span>
+      </div>
+      <div class="psak-ref">Diatur dalam <span>PSAK 50 · PSAK 55 · PSAK 71 · PSAK 60</span></div>
+      <div class="highlight">
+        <p><strong>Instrumen keuangan</strong> adalah setiap kontrak yang menambah nilai aset keuangan entitas dan liabilitas keuangan atau instrumen ekuitas entitas lain. Terdiri dari: <strong>Aset Keuangan</strong>, <strong>Liabilitas Keuangan</strong>, dan <strong>Instrumen Ekuitas</strong>.</p>
+      </div>
+
+      <div class="subsection" id="s1-1">
+        <div class="subsection-title">Aset Keuangan</div>
+        <div class="grid-2">
+          <div class="card">
+            <div class="card-title"><span class="dot"></span>Bentuk Aset Keuangan</div>
+            <ul>
+              <li><strong>a.</strong> Kas</li>
+              <li><strong>b.</strong> Instrumen ekuitas yang diterbitkan entitas lain</li>
+              <li><strong>c.</strong> Hak kontraktual untuk menerima kas/aset keuangan lain, atau mempertukarkan instrumen keuangan dengan kondisi berpotensi menguntungkan</li>
+              <li><strong>d.</strong> Kontrak yang diselesaikan dengan instrumen ekuitas entitas sendiri (nonderivatif — jumlah variabel; derivatif — diselesaikan selain fixed-for-fixed)</li>
+            </ul>
+          </div>
+          <div class="card">
+            <div class="card-title"><span class="dot"></span>Pengecualian Aset Keuangan</div>
+            <ul>
+              <li>Investasi pada entitas anak, asosiasi, atau ventura bersama dikecualikan dari ruang lingkup instrumen keuangan</li>
+              <li>Contoh aset keuangan: deposito bank, piutang usaha, obligasi yang dimiliki</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="subsection" id="s1-2">
+        <div class="subsection-title">Liabilitas Keuangan</div>
+        <div class="card">
+          <div class="card-title"><span class="dot"></span>Bentuk Liabilitas Keuangan</div>
+          <ul>
+            <li><strong>a.</strong> Kewajiban kontraktual untuk menyerahkan kas/aset keuangan lain, atau mempertukarkan instrumen keuangan dengan kondisi berpotensi tidak menguntungkan</li>
+            <li><strong>b.</strong> Kontrak yang diselesaikan dengan instrumen ekuitas entitas sendiri — nonderivatif (jumlah variabel) atau derivatif (diselesaikan selain fixed-for-fixed)</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="subsection" id="s1-3">
+        <div class="subsection-title">Instrumen Ekuitas</div>
+        <div class="highlight-green">
+          <p>Instrumen ekuitas adalah setiap kontrak yang memberikan <strong>hak residual atas aset</strong> suatu entitas setelah dikurangi dengan seluruh liabilitasnya. Kunci: entitas menyerahkan jumlah <em>tertentu</em> saham (fixed-for-fixed), bukan jumlah yang bervariasi berdasarkan nilai.</p>
+        </div>
+        <div class="highlight">
+          <p><strong>Contoh 7.1:</strong> Kontrak mewajibkan penyerahan saham senilai Rp5.000.000. Jika kurs Rp1.000/lembar → serahkan 5.000 lembar; jika kurs Rp5.000/lembar → serahkan 1.000 lembar. Ini <strong>liabilitas keuangan</strong> (jumlah saham bervariasi). Sebaliknya, kontrak untuk menyerahkan 1.000 lembar saham terlepas dari nilai → <strong>instrumen ekuitas</strong>.</p>
+        </div>
+      </div>
+
+      <div class="subsection" id="s1-4">
+        <div class="subsection-title">Derivatif & Instrumen Campuran (Hybrid)</div>
+        <div class="card">
+          <div class="card-title"><span class="dot"></span>3 Karakteristik Derivatif</div>
+          <ul>
+            <li>Nilainya berubah akibat perubahan <em>underlying variable</em> (suku bunga, harga komoditas, kurs, dll.)</li>
+            <li>Tidak memerlukan investasi awal neto atau investasi awal neto lebih kecil dibanding kontrak serupa</li>
+            <li>Diselesaikan pada tanggal tertentu di masa depan</li>
+          </ul>
+        </div>
+        <div class="grid-2">
+          <div class="card" style="border-top:2px solid var(--purple)">
+            <div class="card-title" style="color:var(--purple)"><span class="dot" style="background:var(--purple)"></span>Instrumen Campuran (Hybrid)</div>
+            <ul>
+              <li>Memiliki dua komponen: <em>host contract</em> (kontrak utama) + <em>embedded derivative</em> (derivatif melekat)</li>
+              <li>Contoh: <em>convertible bond</em> = liabilitas keuangan + opsi konversi ekuitas</li>
+            </ul>
+          </div>
+          <div class="card" style="border-top:2px solid var(--blue)">
+            <div class="card-title" style="color:var(--blue)"><span class="dot" style="background:var(--blue)"></span>Perlakuan PSAK 71</div>
+            <ul>
+              <li>Jika kontrak utama = aset keuangan → perlakukan <em>keseluruhan</em> kontrak hibrida sebagai aset keuangan (tidak dipisah)</li>
+              <li>Jika kontrak utama bukan aset keuangan → derivatif melekat dipisahkan jika memenuhi 3 syarat</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 7.2 -->
+    <section class="section" id="s2">
+      <div class="section-header">
+        <span class="section-num">7.2</span>
+        <span class="section-title">Klasifikasi Aset Keuangan dan Liabilitas Keuangan</span>
+      </div>
+
+      <div class="subsection" id="s2-1">
+        <div class="subsection-title">7.2.1 Klasifikasi Aset Keuangan</div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Klasifikasi (PSAK 71)</th><th>Dasar Pengukuran</th><th>Singkatan</th></tr></thead>
+            <tbody>
+              <tr><td>Nilai wajar melalui laba rugi</td><td>Nilai wajar, perubahan di laba rugi</td><td><span class="tag tag-red">FVTPL</span></td></tr>
+              <tr><td>Nilai wajar melalui penghasilan komprehensif lain</td><td>Nilai wajar, perubahan di OCI</td><td><span class="tag tag-blue">FVOCI</span></td></tr>
+              <tr><td>Biaya perolehan diamortisasi</td><td>Biaya perolehan + amortisasi efektif</td><td><span class="tag tag-green">AC</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="highlight-blue">
+          <p><strong>Perbedaan PSAK 55 vs PSAK 71:</strong> PSAK 55 memiliki 4 kategori (termasuk Dimiliki hingga Jatuh Tempo & Pinjaman dan Piutang). PSAK 71 menyederhanakannya menjadi 3 kategori berbasis <strong>model bisnis</strong> dan <strong>karakteristik arus kas kontraktual (SPPI)</strong>.</p>
+        </div>
+      </div>
+
+      <div class="subsection" id="s2-2">
+        <div class="subsection-title">7.2.2 Uji Model Bisnis & Uji SPPI</div>
+        <div class="highlight">
+          <p>Untuk menentukan klasifikasi, entitas harus lulus <strong>dua uji</strong>: (1) Uji Model Bisnis, dan (2) Uji karakteristik arus kas kontraktual <strong>SPPI</strong> (<em>Solely Payments of Principal and Interest</em>).</p>
+        </div>
+        <div class="grid-3">
+          <div class="card" style="border-top:2px solid var(--green)">
+            <div class="card-title" style="color:var(--green)"><span class="dot" style="background:var(--green)"></span>Model: Hold to Collect</div>
+            <p>Dimiliki untuk mendapatkan arus kas kontraktual. + SPPI → <span class="tag tag-green">AC</span></p>
+          </div>
+          <div class="card" style="border-top:2px solid var(--blue)">
+            <div class="card-title" style="color:var(--blue)"><span class="dot" style="background:var(--blue)"></span>Model: Hold to Collect & Sell</div>
+            <p>Arus kas kontraktual dan menjual. + SPPI → <span class="tag tag-blue">FVOCI</span></p>
+          </div>
+          <div class="card" style="border-top:2px solid var(--red)">
+            <div class="card-title" style="color:var(--red)"><span class="dot" style="background:var(--red)"></span>Model: Lainnya / Trading</div>
+            <p>Tujuan lain / diperdagangkan → <span class="tag tag-red">FVTPL</span></p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="dot"></span>Faktor SPPI yang Perlu Dipertimbangkan</div>
+          <ul>
+            <li><strong>a.</strong> Termin "tidak sah" atau "<em>de minimis</em>" — tidak perlu dipertimbangkan</li>
+            <li><strong>b.</strong> Hak jika terjadi pailit — instrumen memenuhi SPPI jika pemilik berhak atas pokok dan bunga saat debitur pailit</li>
+            <li><strong>c.</strong> Denominasi mata uang asing — pokok dan bunga harus mengikuti denominasi utang</li>
+            <li><strong>d.</strong> Pembayaran lebih awal / perpanjangan — tidak melanggar SPPI jika jumlah dibayar mencakup pokok + bunga terutang</li>
+            <li><strong>e.</strong> Pembayaran kontinjen lainnya — perlu analisis apakah mengubah arus kas kontraktual</li>
+            <li><strong>f.</strong> Non-recourse — pemberi pinjaman harus mendalami aset pendasar</li>
+            <li><strong>g.</strong> Nilai waktu dari uang — frekuensi penetapan ulang harus cocok dengan tenor suku bunga</li>
+            <li><strong>h.</strong> Contractually linked instruments (tranches) — berlaku aturan khusus</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="subsection" id="s2-3">
+        <div class="subsection-title">7.2.3 Klasifikasi Liabilitas Keuangan</div>
+        <div class="grid-2">
+          <div class="card" style="border-top:2px solid var(--green)">
+            <div class="card-title" style="color:var(--green)"><span class="dot" style="background:var(--green)"></span>Umumnya: Biaya Diamortisasi</div>
+            <p>Default untuk seluruh liabilitas keuangan, kecuali dikategorikan sebagai FVTPL.</p>
+          </div>
+          <div class="card" style="border-top:2px solid var(--red)">
+            <div class="card-title" style="color:var(--red)"><span class="dot" style="background:var(--red)"></span>FVTPL — Pengecualian</div>
+            <ul>
+              <li>Liabilitas diperdagangkan / derivatif liabilitas</li>
+              <li>Liabilitas yang timbul dari pengalihan aset yang tidak memenuhi penghentian pengakuan</li>
+              <li>Kontrak jaminan keuangan</li>
+              <li>Komitmen pinjaman di bawah suku pasar</li>
+              <li>Imbalan kontinjensi kombinasi bisnis (PSAK 22)</li>
+            </ul>
+          </div>
+        </div>
+        <div class="highlight-blue">
+          <p><strong>Own Credit Risk (PSAK 71):</strong> Perubahan nilai wajar liabilitas keuangan yang terkait risiko kredit sendiri disajikan di <strong>OCI</strong>, bukan laba rugi — kecuali jika hal ini akan menimbulkan <em>accounting mismatch</em>.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 7.3 -->
+    <section class="section" id="s3">
+      <div class="section-header">
+        <span class="section-num">7.3</span>
+        <span class="section-title">Reklasifikasi Aset Keuangan dan Liabilitas Keuangan</span>
+      </div>
+      <div class="highlight">
+        <p><strong>Reklasifikasi aset keuangan</strong> hanya diperbolehkan apabila terjadi <strong>perubahan model bisnis entitas</strong>, yang harus jarang terjadi dan ditetapkan manajemen senior akibat perubahan eksternal/internal yang signifikan. Reklasifikasi diterapkan secara <strong>prospektif</strong>.</p>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Dari</th><th>Menjadi</th><th>Perlakuan Akuntansi</th></tr></thead>
+          <tbody>
+            <tr><td><span class="tag tag-red">FVTPL</span></td><td><span class="tag tag-green">AC</span></td><td>Nilai wajar pada tanggal reklasifikasi = nilai tercatat baru</td></tr>
+            <tr><td><span class="tag tag-green">AC</span></td><td><span class="tag tag-red">FVTPL</span></td><td>Akui selisih nilai wajar vs biaya diamortisasi di laba rugi</td></tr>
+            <tr><td><span class="tag tag-red">FVTPL</span></td><td><span class="tag tag-blue">FVOCI</span></td><td>Tetap nilai wajar; keuntungan/kerugian berikutnya di OCI</td></tr>
+            <tr><td><span class="tag tag-blue">FVOCI</span></td><td><span class="tag tag-red">FVTPL</span></td><td>Keuntungan/kerugian kumulatif di OCI direklasifikasi ke laba rugi</td></tr>
+            <tr><td><span class="tag tag-green">AC</span></td><td><span class="tag tag-blue">FVOCI</span></td><td>Akui selisih nilai wajar vs biaya diamortisasi di OCI</td></tr>
+            <tr><td><span class="tag tag-blue">FVOCI</span></td><td><span class="tag tag-green">AC</span></td><td>Keuntungan/kerugian kumulatif OCI dikeluarkan dari ekuitas; nilai wajar disesuaikan dengan kumulatif</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="highlight-blue">
+        <p><strong>Reklasifikasi liabilitas keuangan tidak diperbolehkan.</strong> Demikian pula reklasifikasi tidak berlaku untuk aset yang ditetapkan sebagai FVTPL (<em>fair value option</em>) dan instrumen ekuitas yang ditetapkan FVOCI.</p>
+      </div>
+    </section>
+
+    <!-- SECTION 7.4 -->
+    <section class="section" id="s4">
+      <div class="section-header">
+        <span class="section-num">7.4</span>
+        <span class="section-title">Pengakuan dan Pengukuran Aset Keuangan dan Liabilitas Keuangan</span>
+      </div>
+
+      <div class="subsection" id="s4-1">
+        <div class="subsection-title">7.4.1 Pengukuran Awal</div>
+        <div class="formula-box">
+          <div class="formula-title">Pengukuran Awal</div>
+          <div class="formula-item"><span>Nilai wajar instrumen keuangan</span><span style="color:var(--accent)">±</span></div>
+          <div class="formula-item"><span>Biaya transaksi (untuk aset/liabilitas yang TIDAK diukur pada FVTPL)</span></div>
+          <div class="formula-item total"><span>= Nilai Tercatat Awal</span></div>
+        </div>
+        <div class="grid-2">
+          <div class="card">
+            <div class="card-title"><span class="dot"></span>Akuntansi Tanggal Perdagangan</div>
+            <p>Aset diakui dan liabilitas timbul pada tanggal komitmen. Perubahan nilai wajar antara tanggal perdagangan dan penyelesaian diakui sesuai klasifikasi aset.</p>
+          </div>
+          <div class="card">
+            <div class="card-title"><span class="dot"></span>Akuntansi Tanggal Penyelesaian</div>
+            <p>Aset diakui saat diserahkan. Perubahan nilai wajar antara kedua tanggal tetap diakui untuk aset FVTPL (di laba rugi) dan FVOCI (di OCI).</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="subsection" id="s4-2">
+        <div class="subsection-title">7.4.2 Pengukuran Selanjutnya</div>
+        <div class="grid-3">
+          <div class="card" style="border-top:2px solid var(--green)">
+            <div class="card-title" style="color:var(--green)"><span class="dot" style="background:var(--green)"></span>Biaya Perolehan Diamortisasi (AC)</div>
+            <p>Metode suku bunga efektif. Pendapatan/beban bunga diakui di laba rugi menggunakan EIR.</p>
+          </div>
+          <div class="card" style="border-top:2px solid var(--blue)">
+            <div class="card-title" style="color:var(--blue)"><span class="dot" style="background:var(--blue)"></span>Nilai Wajar melalui OCI (FVOCI)</div>
+            <p>Nilai wajar di laporan posisi keuangan. Perubahan di OCI. Saat dijual, keuntungan/kerugian OCI kumulatif direklasifikasi ke laba rugi (kecuali untuk investasi ekuitas).</p>
+          </div>
+          <div class="card" style="border-top:2px solid var(--red)">
+            <div class="card-title" style="color:var(--red)"><span class="dot" style="background:var(--red)"></span>Nilai Wajar melalui Laba Rugi (FVTPL)</div>
+            <p>Nilai wajar di laporan posisi keuangan. Semua perubahan nilai wajar diakui di laba rugi periode berjalan.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="subsection" id="s4-3">
+        <div class="subsection-title">Pertimbangan dalam Pengukuran Nilai Wajar</div>
+        <div class="grid-2">
+          <div class="card">
+            <div class="card-title"><span class="dot"></span>Pasar Aktif Tersedia</div>
+            <ul>
+              <li>Gunakan harga kuotasi di pasar aktif</li>
+              <li>Aset yang dimiliki → <em>bid price</em></li>
+              <li>Aset yang akan diperoleh / liabilitas yang dimiliki → <em>asking price</em></li>
+              <li>Posisi risiko saling hapus → <em>mid-market prices</em></li>
+            </ul>
+          </div>
+          <div class="card">
+            <div class="card-title"><span class="dot"></span>Pasar Aktif Tidak Tersedia → Teknik Penilaian</div>
+            <ul>
+              <li>Transaksi pasar terkini yang wajar</li>
+              <li>Nilai wajar instrumen serupa</li>
+              <li>Analisis arus kas yang didiskonto (<em>DCF</em>)</li>
+              <li>Model penetapan harga opsi (<em>option pricing models</em>)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 7.5 -->
+    <section class="section" id="s5">
+      <div class="section-header">
+        <span class="section-num">7.5</span>
+        <span class="section-title">Penghentian Pengakuan Aset Keuangan dan Liabilitas Keuangan</span>
+      </div>
+
+      <div class="subsection" id="s5-1">
+        <div class="subsection-title">Penghentian Pengakuan Aset Keuangan</div>
+        <div class="flow-container">
+          <div class="flow-step key">Evaluasi penghentian pengakuan aset keuangan</div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-step">Hak kontraktual untuk menerima arus kas dari aset telah berakhir?</div>
+          <div class="flow-result">
+            <div class="flow-yes">Ya → Hentikan pengakuan</div>
+            <div class="flow-no">Tidak → Lanjutkan ke uji transfer</div>
+          </div>
+          <div class="flow-arrow" style="margin-top:0.5rem">↓ (Tidak)</div>
+          <div class="flow-step">Entitas mengalihkan hak kontraktual arus kas? (atau pass-through?)</div>
+          <div class="flow-arrow">↓ (Ya)</div>
+          <div class="flow-step">Uji Risiko & Manfaat: Secara substansial mengalihkan semua risiko & manfaat?</div>
+          <div class="flow-result">
+            <div class="flow-yes">Ya → Hentikan pengakuan</div>
+            <div class="flow-no">Tidak → Masih memiliki semua risiko & manfaat? → Tetap akui</div>
+          </div>
+          <div class="flow-arrow" style="margin-top:0.5rem">↓ (Tidak keduanya)</div>
+          <div class="flow-step">Uji Pengendalian: Entitas masih memiliki pengendalian?</div>
+          <div class="flow-result">
+            <div class="flow-yes">Ya → Keterlibatan berkelanjutan</div>
+            <div class="flow-no">Tidak → Hentikan pengakuan</div>
+          </div>
+        </div>
+        <div class="grid-3">
+          <div class="card" style="border-top:2px solid var(--green)">
+            <div class="card-title" style="color:var(--green)"><span class="dot" style="background:var(--green)"></span>Memenuhi Kualifikasi</div>
+            <p>Selisih antara nilai tercatat dan jumlah yang diterima (termasuk OCI kumulatif) diakui dalam <strong>laba rugi</strong>.</p>
+          </div>
+          <div class="card" style="border-top:2px solid var(--red)">
+            <div class="card-title" style="color:var(--red)"><span class="dot" style="background:var(--red)"></span>Tidak Memenuhi Kualifikasi</div>
+            <p>Tetap mengakui aset; mengakui <strong>liabilitas keuangan</strong> atas jumlah yang diterima sebagai consideration given.</p>
+          </div>
+          <div class="card" style="border-top:2px solid var(--yellow)">
+            <div class="card-title" style="color:var(--yellow)"><span class="dot" style="background:var(--yellow)"></span>Keterlibatan Berkelanjutan</div>
+            <p>Akui aset sebesar keterlibatan berkelanjutan dan akui liabilitas terkait. Ukuran tergantung bentuk keterlibatan (jaminan, opsi, dll.).</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="subsection" id="s5-2">
+        <div class="subsection-title">Penghentian Pengakuan Liabilitas Keuangan</div>
+        <div class="highlight">
+          <p>Liabilitas keuangan dihentikan pengakuannya jika <strong>berakhir</strong> (dilepaskan, dibatalkan, atau kedaluwarsa). Penghentian juga terjadi apabila terdapat pertukaran instrumen utang dengan persyaratan berbeda secara substansial (<strong>10% test</strong>). Keuntungan/kerugian dari penghentian diakui dalam laba rugi.</p>
+        </div>
+        <div class="grid-2">
+          <div class="card">
+            <div class="card-title"><span class="dot"></span>Modifikasi Substansial (≥10%)</div>
+            <p>Dianggap pelepasan liabilitas lama + pengakuan liabilitas baru pada nilai wajar. Biaya/fee = bagian dari keuntungan/kerugian pelepasan.</p>
+          </div>
+          <div class="card">
+            <div class="card-title"><span class="dot"></span>Modifikasi Tidak Substansial (&lt;10%)</div>
+            <p>Nilai tercatat disesuaikan dengan fee/biaya transaksi. Perbedaan nilai kini arus kas diakui sebagai penyesuaian EIR (diamortisasi hingga jatuh tempo).</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 7.6 -->
+    <section class="section" id="s6">
+      <div class="section-header">
+        <span class="section-num">7.6</span>
+        <span class="section-title">Penurunan Nilai Aset Keuangan</span>
+      </div>
+      <div class="highlight">
+        <p>PSAK 71 menggunakan pendekatan <strong>Expected Credit Loss (ECL)</strong> — berbeda dengan PSAK 55 yang menggunakan <em>incurred credit losses</em>. Entitas mengakui penyisihan kerugian kredit ekspektasian yang bersifat <strong><em>forward-looking</em></strong>.</p>
+      </div>
+
+      <div class="subsection" id="s6-1">
+        <div class="subsection-title">Model 3 Tahap (General Model)</div>
+        <div class="stage-grid">
+          <div class="stage-card stage-1">
+            <div class="stage-label">Tahap 1 — Performing</div>
+            <p>Belum ada penurunan kualitas kredit signifikan sejak pengakuan awal. Akui <strong>ECL 12 bulan</strong>. Bunga dihitung atas nilai tercatat bruto.</p>
+          </div>
+          <div class="stage-card stage-2">
+            <div class="stage-label">Tahap 2 — Underperforming</div>
+            <p>Terjadi peningkatan risiko kredit signifikan sejak pengakuan awal. Akui <strong>ECL sepanjang umur</strong>. Bunga masih dihitung atas nilai tercatat bruto.</p>
+          </div>
+          <div class="stage-card stage-3">
+            <div class="stage-label">Tahap 3 — Credit Impaired</div>
+            <p>Ada bukti penurunan nilai (kredit bermasalah). Akui <strong>ECL sepanjang umur</strong>. Bunga dihitung atas nilai tercatat <em>neto</em> (setelah penyisihan).</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="dot"></span>Indikator Peningkatan Risiko Kredit Signifikan</div>
+          <ul>
+            <li>Pembayaran kontraktual telah jatuh tempo lebih dari <strong>30 hari</strong> → <em>rebuttable presumption</em> tahap 2</li>
+            <li>Pembayaran telah jatuh tempo lebih dari <strong>90 hari</strong> → <em>rebuttable presumption</em> gagal bayar (tahap 3)</li>
+            <li>Informasi <em>forward-looking</em> yang andal tanpa biaya berlebihan harus dipertimbangkan</li>
+            <li>Pengecualian: instrumen dengan risiko kredit rendah (<em>investment grade</em>) dapat menggunakan ECL 12 bulan</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="subsection" id="s6-2">
+        <div class="subsection-title">Pendekatan Disederhanakan (Simplified Approach)</div>
+        <div class="highlight-green">
+          <p>Untuk <strong>piutang dagang</strong>, <strong>aset kontrak</strong>, dan <strong>piutang sewa</strong>: entitas <em>tidak perlu</em> menentukan apakah ada peningkatan risiko kredit signifikan. Langsung akui <strong>ECL sepanjang umur</strong> sejak pengakuan awal. Entitas dapat menggunakan <strong>matriks provisi</strong> berdasarkan aging analysis.</p>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="dot"></span>Formula ECL</div>
+          <div class="formula-eq">ECL = PD × LGD × EAD</div>
+          <div class="formula-item"><span>PD (Probability of Default)</span><span>Kemungkinan gagal bayar</span></div>
+          <div class="formula-item"><span>LGD (Loss Given Default)</span><span>Kerugian jika terjadi gagal bayar</span></div>
+          <div class="formula-item"><span>EAD (Exposure at Default)</span><span>Nilai eksposur saat gagal bayar</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 7.7 -->
+    <section class="section" id="s7">
+      <div class="section-header">
+        <span class="section-num">7.7</span>
+        <span class="section-title">Lindung Nilai (Hedge Accounting)</span>
+      </div>
+      <div class="highlight">
+        <p>PSAK 71 memperbarui model lindung nilai dari PSAK 55 agar lebih <strong><em>principle-based</em></strong> dan lebih mencerminkan aktivitas manajemen risiko aktual. Khusus untuk <em>macro hedging</em> (portofolio terbuka), masih menggunakan ketentuan PSAK 55.</p>
+      </div>
+
+      <div class="subsection" id="s7-1">
+        <div class="subsection-title">3 Jenis Lindung Nilai</div>
+        <div class="grid-3">
+          <div class="card" style="border-top:2px solid var(--accent)">
+            <div class="card-title"><span class="dot"></span>Lindung Nilai Nilai Wajar (<em>Fair Value Hedge</em>)</div>
+            <p>Melindungi terhadap eksposur perubahan nilai wajar aset/liabilitas yang diakui atau komitmen pasti yang belum diakui. Keuntungan/kerugian instrumen lindung nilai <strong>dan</strong> item yang dilindungi → diakui di <strong>laba rugi</strong>.</p>
+          </div>
+          <div class="card" style="border-top:2px solid var(--blue)">
+            <div class="card-title"><span class="dot"></span>Lindung Nilai Arus Kas (<em>Cash Flow Hedge</em>)</div>
+            <p>Melindungi variabilitas arus kas akibat risiko tertentu. Bagian efektif keuntungan/kerugian instrumen lindung nilai → <strong>OCI</strong>. Bagian tidak efektif → laba rugi. Reklasifikasi ke laba rugi saat arus kas item yang dilindungi terjadi.</p>
+          </div>
+          <div class="card" style="border-top:2px solid var(--teal)">
+            <div class="card-title" style="color:var(--teal)"><span class="dot" style="background:var(--teal)"></span>Lindung Nilai Investasi Neto di Operasi Luar Negeri</div>
+            <p>Mirip dengan <em>cash flow hedge</em>. Bagian efektif diakui di <strong>OCI</strong>; direklasifikasi ke laba rugi saat pelepasan entitas luar negeri.</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="dot"></span>Item yang Dapat Ditetapkan sebagai Item Lindung Nilai</div>
+          <ul>
+            <li>Aset/liabilitas yang diakui, komitmen pasti belum diakui, prakiraan transaksi, investasi neto luar negeri</li>
+            <li>Item tunggal atau kelompok dari item</li>
+            <li>PSAK 71 menambah: komponen risiko non-keuangan, posisi neto, eksposur agregat, investasi ekuitas FVOCI</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="dot"></span>Instrumen yang Memenuhi Kualifikasi sebagai Instrumen Lindung Nilai</div>
+          <ul>
+            <li>Semua derivatif dengan pihak eksternal, <em>kecuali</em>: <em>written options</em> yang tidak merupakan <em>offset</em> atas <em>purchased options</em>, dan derivatif melekat yang tidak dipisahkan</li>
+            <li>Aset/liabilitas keuangan non-derivatif yang diukur FVTPL (kecuali pengecualian tertentu)</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 7.8 -->
+    <section class="section" id="s8">
+      <div class="section-header">
+        <span class="section-num">7.8</span>
+        <span class="section-title">Penyajian (PSAK 50)</span>
+      </div>
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-title"><span class="dot"></span>Instrumen Keuangan Majemuk (<em>Split Accounting</em>)</div>
+          <ul>
+            <li>Instrumen yang memiliki komponen liabilitas <em>dan</em> ekuitas (contoh: <em>convertible bond</em>)</li>
+            <li>Langkah: (1) hitung nilai wajar komponen liabilitas terlebih dahulu; (2) sisanya = komponen ekuitas</li>
+            <li>Tidak ada keuntungan/kerugian pada saat penerbitan</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="dot"></span>Saling Hapus (Offsetting)</div>
+          <ul>
+            <li>Aset dan liabilitas keuangan <strong>harus</strong> saling hapus jika: (1) memiliki hak hukum untuk saling hapus, DAN (2) berniat menyelesaikan secara neto atau simultan</li>
+            <li>Saling hapus ≠ penghentian pengakuan; secara esensi akun masih ada</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="dot"></span>Klasifikasi Bunga, Dividen, Untung/Rugi</div>
+          <p>Harus konsisten dengan klasifikasi instrumennya. Dividen atas saham preferen yang diklasifikasi sebagai liabilitas → diperlakukan sebagai <strong>beban bunga</strong>, bukan dividen ekuitas.</p>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="dot"></span>Saham Treasuri</div>
+          <ul>
+            <li>Metode biaya: dicatat pada harga perolehan sebagai pengurang ekuitas</li>
+            <li>Metode nilai nominal: dicatat pada nilai nominal, dikurangi modal saham</li>
+            <li>Tidak ada pengakuan keuntungan/kerugian</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 7.9 -->
+    <section class="section" id="s9">
+      <div class="section-header">
+        <span class="section-num">7.9</span>
+        <span class="section-title">Pengungkapan (PSAK 60)</span>
+      </div>
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-title"><span class="dot"></span>Hirarki Nilai Wajar (3 Tingkat)</div>
+          <ul>
+            <li><strong>Tingkat 1:</strong> Harga kuotasi tidak disesuaikan di pasar aktif untuk aset/liabilitas identik</li>
+            <li><strong>Tingkat 2:</strong> Input selain harga Tingkat 1 yang dapat diobservasi (langsung atau tidak langsung)</li>
+            <li><strong>Tingkat 3:</strong> Input tidak berdasarkan data pasar yang dapat diobservasi (unobservable inputs)</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="dot"></span>Pengungkapan Risiko</div>
+          <ul>
+            <li><strong>Risiko Kredit:</strong> Eksposur maksimum, agunan, analisis aging, penyisihan kerugian kredit</li>
+            <li><strong>Risiko Likuiditas:</strong> Analisis jatuh tempo (maturity analysis) untuk liabilitas nonderivatif dan derivatif</li>
+            <li><strong>Risiko Pasar:</strong> Analisis sensitivitas (atau value-at-risk) untuk risiko kurs, tingkat bunga, harga</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- LATIHAN SOAL -->
+    <section class="section" id="latihan">
+      <div class="section-header">
+        <span class="section-num">✎</span>
+        <span class="section-title">Latihan Soal BAB 7</span>
+      </div>
+
+      <!-- Pilihan Ganda -->
+      <div class="exercise-section" id="pilgan">
+        <div class="exercise-header">
+          <h3>Pilihan Ganda</h3>
+          <span class="exercise-badge">10 Soal</span>
+        </div>
+
+        <!-- Q1 -->
+        <div class="mc-item">
+          <div class="mc-question">1. Bagaimana perlakuan akuntansi untuk kontrak hibrida yang mengandung kontrak utama yang merupakan aset keuangan?</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',1)"><span class="opt-letter">A</span> Seluruh kontrak hibrida diukur pada biaya diamortisasi</div>
+            <div class="mc-option" onclick="checkMC(this,'b',1)"><span class="opt-letter">B</span> Dipisahkan antara kontrak utama dan derivatif melekat</div>
+            <div class="mc-option" onclick="checkMC(this,'c',1)"><span class="opt-letter">C</span> Keseluruhan kontrak hibrida (tidak dipisahkan antara kontrak utama dan derivatif melekat) diperlakukan sebagai aset keuangan</div>
+            <div class="mc-option" onclick="checkMC(this,'d',1)"><span class="opt-letter">D</span> Keseluruhan kontrak hibrida diperlakukan sebagai ekuitas</div>
+          </div>
+          <div class="mc-feedback" id="fb1"><span class="correct-ans">Jawaban: C.</span> Dalam PSAK 71, jika kontrak utama merupakan aset keuangan, seluruh kontrak hibrida tidak dipisah dan diperlakukan sebagai aset keuangan secara keseluruhan.</div>
+        </div>
+
+        <!-- Q2 -->
+        <div class="mc-item">
+          <div class="mc-question">2. Manakah dari konsep berikut yang lebih tepat dalam menggambarkan penurunan nilai piutang usaha?</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',2)"><span class="opt-letter">A</span> Beban penurunan nilai ditentukan berdasarkan jumlah aktual yang tidak dapat ditagih</div>
+            <div class="mc-option" onclick="checkMC(this,'b',2)"><span class="opt-letter">B</span> Beban penurunan nilai ditentukan oleh manajemen berdasarkan piutang mana yang akan dikirimi surat penagihan</div>
+            <div class="mc-option" onclick="checkMC(this,'c',2)"><span class="opt-letter">C</span> Beban penurunan nilai piutang adalah estimasi berdasarkan informasi masa lalu, saat ini, dan masa depan</div>
+            <div class="mc-option" onclick="checkMC(this,'d',2)"><span class="opt-letter">D</span> Beban penurunan nilai ditentukan hanya berdasarkan analisis dari umur piutang</div>
+          </div>
+          <div class="mc-feedback" id="fb2"><span class="correct-ans">Jawaban: C.</span> PSAK 71 menggunakan pendekatan ECL yang bersifat forward-looking, mempertimbangkan informasi masa lalu, saat ini, dan masa depan.</div>
+        </div>
+
+        <!-- Q3 -->
+        <div class="mc-item">
+          <div class="mc-question">3. PT Seruni menjual peralatan dengan harga Rp150.000.000. Termin pembayaran: Rp30.000.000 dimuka dan Rp60.000.000 pada 31 Des 2020 dan 2021. Tingkat bunga wajar 9%. Nilai kini ordinary annuity Rp1 pada 9% untuk 2 tahun = 1.75911. Berapa nilai wesel tagih neto yang diakui per 31 Desember 2019?</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',3)"><span class="opt-letter">A</span> Rp52.773.300</div>
+            <div class="mc-option" onclick="checkMC(this,'b',3)"><span class="opt-letter">B</span> Rp135.546.600</div>
+            <div class="mc-option" onclick="checkMC(this,'c',3)"><span class="opt-letter">C</span> Rp120.000.000</div>
+            <div class="mc-option" onclick="checkMC(this,'d',3)"><span class="opt-letter">D</span> Rp105.546.600</div>
+          </div>
+          <div class="mc-feedback" id="fb3"><span class="correct-ans">Jawaban: D.</span> Nilai kini wesel = Rp60.000.000 × 1.75911 = Rp105.546.600. Pembayaran di muka Rp30jt tidak termasuk dalam wesel tagih.</div>
+        </div>
+
+        <!-- Q4 -->
+        <div class="mc-item">
+          <div class="mc-question">4. PT Berdikari melakukan anjak piutang Rp1.000.000 tanpa jaminan (without recourse), beban keuangan 5%, penahanan 10%. Berapa yang dicatat sebagai keuntungan (kerugian) atas transaksi pengalihan piutang tersebut?</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',4)"><span class="opt-letter">A</span> Kerugian Rp50.000</div>
+            <div class="mc-option" onclick="checkMC(this,'b',4)"><span class="opt-letter">B</span> Keuntungan Rp100.000</div>
+            <div class="mc-option" onclick="checkMC(this,'c',4)"><span class="opt-letter">C</span> Kerugian Rp150.000</div>
+            <div class="mc-option" onclick="checkMC(this,'d',4)"><span class="opt-letter">D</span> Kerugian Rp100.000</div>
+          </div>
+          <div class="mc-feedback" id="fb4"><span class="correct-ans">Jawaban: A.</span> Kas diterima = Rp1.000.000 − Rp50.000 (5%) − Rp100.000 (10%) = Rp850.000. Piutang dihapus Rp1.000.000, piutang retensi Rp100.000. Kerugian = Rp1.000.000 − Rp850.000 − Rp100.000 = Rp50.000.</div>
+        </div>
+
+        <!-- Q5 -->
+        <div class="mc-item">
+          <div class="mc-question">5. Manakah yang bukan instrumen keuangan?</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',5)"><span class="opt-letter">A</span> Utang obligasi</div>
+            <div class="mc-option" onclick="checkMC(this,'b',5)"><span class="opt-letter">B</span> Piutang usaha</div>
+            <div class="mc-option" onclick="checkMC(this,'c',5)"><span class="opt-letter">C</span> Utang pajak penghasilan</div>
+            <div class="mc-option" onclick="checkMC(this,'d',5)"><span class="opt-letter">D</span> Kas</div>
+          </div>
+          <div class="mc-feedback" id="fb5"><span class="correct-ans">Jawaban: C.</span> Utang pajak penghasilan timbul dari kewajiban statutori (bukan kontrak), sehingga bukan merupakan instrumen keuangan.</div>
+        </div>
+
+        <!-- Q6 -->
+        <div class="mc-item">
+          <div class="mc-question">6. Apabila aset keuangan dikelola dalam model bisnis yang tujuannya akan terpenuhi dengan mendapatkan arus kas kontraktual DAN menjual aset keuangan, serta persyaratan kontraktual memenuhi SPPI, maka aset keuangan tersebut diukur pada:</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',6)"><span class="opt-letter">A</span> Nilai wajar melalui laba rugi</div>
+            <div class="mc-option" onclick="checkMC(this,'b',6)"><span class="opt-letter">B</span> Nilai wajar melalui penghasilan komprehensif lain</div>
+            <div class="mc-option" onclick="checkMC(this,'c',6)"><span class="opt-letter">C</span> Biaya diamortisasian</div>
+            <div class="mc-option" onclick="checkMC(this,'d',6)"><span class="opt-letter">D</span> A dan B benar</div>
+          </div>
+          <div class="mc-feedback" id="fb6"><span class="correct-ans">Jawaban: B.</span> Model bisnis "hold to collect and sell" + SPPI → pengukuran FVOCI (nilai wajar melalui penghasilan komprehensif lain).</div>
+        </div>
+
+        <!-- Q7 -->
+        <div class="mc-item">
+          <div class="mc-question">7. Manakah yang bukan merupakan instrumen ekuitas?</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',7)"><span class="opt-letter">A</span> Saham biasa</div>
+            <div class="mc-option" onclick="checkMC(this,'b',7)"><span class="opt-letter">B</span> Saham preferen</div>
+            <div class="mc-option" onclick="checkMC(this,'c',7)"><span class="opt-letter">C</span> Kontrak yang mewajibkan entitas untuk menyerahkan saham dengan nilai Rp10.000.000</div>
+            <div class="mc-option" onclick="checkMC(this,'d',7)"><span class="opt-letter">D</span> Kontrak yang mewajibkan entitas untuk menyerahkan saham sejumlah 10.000 lembar</div>
+          </div>
+          <div class="mc-feedback" id="fb7"><span class="correct-ans">Jawaban: C.</span> Kontrak dengan nilai tetap tetapi jumlah saham bervariasi bukan instrumen ekuitas — melainkan liabilitas keuangan karena jumlah saham bergantung pada nilai wajar.</div>
+        </div>
+
+        <!-- Q8 -->
+        <div class="mc-item">
+          <div class="mc-question">8. Liabilitas keuangan dapat direklasifikasi jika:</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',8)"><span class="opt-letter">A</span> Liabilitas keuangan tidak dapat direklasifikasi</div>
+            <div class="mc-option" onclick="checkMC(this,'b',8)"><span class="opt-letter">B</span> Terdapat perubahan intensi manajemen</div>
+            <div class="mc-option" onclick="checkMC(this,'c',8)"><span class="opt-letter">C</span> Terdapat perubahan model bisnis</div>
+            <div class="mc-option" onclick="checkMC(this,'d',8)"><span class="opt-letter">D</span> B dan C benar</div>
+          </div>
+          <div class="mc-feedback" id="fb8"><span class="correct-ans">Jawaban: A.</span> PSAK 71 tidak memperbolehkan reklasifikasi liabilitas keuangan dalam kondisi apapun.</div>
+        </div>
+
+        <!-- Q9 -->
+        <div class="mc-item">
+          <div class="mc-question">9. Jika PT Dermaga melakukan kontrak dengan PT Pelabuhan yang menyepakati bahwa PT Pelabuhan memperoleh hak 70% atas keseluruhan arus kas dari instrumen utang yang dimiliki PT Dermaga, maka penghentian pengakuan diterapkan:</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',9)"><span class="opt-letter">A</span> Atas keseluruhan dari instrumen utang tersebut</div>
+            <div class="mc-option" onclick="checkMC(this,'b',9)"><span class="opt-letter">B</span> Atas 70% dari arus kas instrumen utang tersebut</div>
+            <div class="mc-option" onclick="checkMC(this,'c',9)"><span class="opt-letter">C</span> Tidak diakui sebagai penghentian pengakuan</div>
+            <div class="mc-option" onclick="checkMC(this,'d',9)"><span class="opt-letter">D</span> Diakui sebagai penghentian pengakuan saat instrumen utang tersebut jatuh tempo</div>
+          </div>
+          <div class="mc-feedback" id="fb9"><span class="correct-ans">Jawaban: B.</span> Pengalihan proporsional penuh (prorata) atas arus kas dari aset keuangan memenuhi kriteria penghentian pengakuan atas bagian yang dialihkan (70%).</div>
+        </div>
+
+        <!-- Q10 -->
+        <div class="mc-item">
+          <div class="mc-question">10. Lindung nilai atas komitmen pasti termasuk ke dalam:</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',10)"><span class="opt-letter">A</span> Lindung nilai atas nilai wajar</div>
+            <div class="mc-option" onclick="checkMC(this,'b',10)"><span class="opt-letter">B</span> Lindung nilai atas arus kas</div>
+            <div class="mc-option" onclick="checkMC(this,'c',10)"><span class="opt-letter">C</span> Lindung nilai atas investasi neto di operasi luar negeri</div>
+            <div class="mc-option" onclick="checkMC(this,'d',10)"><span class="opt-letter">D</span> Semua jawaban salah</div>
+          </div>
+          <div class="mc-feedback" id="fb10"><span class="correct-ans">Jawaban: A.</span> Komitmen pasti yang belum diakui merupakan item yang dilindungi dalam lindung nilai atas nilai wajar (<em>fair value hedge</em>).</div>
+        </div>
+      </div>
+
+      <!-- ESAI -->
+      <div class="exercise-section" id="esai">
+        <div class="exercise-header">
+          <h3>Soal Esai</h3>
+          <span class="exercise-badge">5 Soal</span>
+        </div>
+
+        <!-- E1 -->
+        <div class="essay-item">
+          <div class="essay-q">1. Pada tanggal 1 Januari 2019, PT Amanah memberikan pinjaman kepada PT Tidar sebesar Rp120.000.000 dengan jangka waktu 2 tahun. Tingkat bunga yang diberikan 8% per tahun, sementara tingkat bunga pasar atas pinjaman sejenis adalah 10%.</div>
+          <p class="essay-sub"><strong>Diminta:</strong> Berapa nilai pinjaman yang diberikan yang diakui oleh PT Amanah? Buat jurnal yang dicatat PT Amanah di tanggal 1 Januari 2019.</p>
+          <button class="essay-toggle" onclick="toggleEssay('ea1')">▶ Lihat Jawaban</button>
+          <div class="essay-answer" id="ea1">
+            <h5>Pembahasan</h5>
+            <div class="answer-group">
+              <h6>Nilai Kini Pinjaman (diskonto dengan bunga pasar 10%)</h6>
+              <table class="calc-table">
+                <thead><tr><th>Tahun</th><th>Arus Kas</th><th>Faktor Diskonto</th><th>Nilai Kini</th></tr></thead>
+                <tbody>
+                  <tr><td>2019</td><td>9.600.000</td><td>1/(1.10)¹</td><td>8.727.273</td></tr>
+                  <tr><td>2020</td><td>9.600.000</td><td>1/(1.10)²</td><td>7.933.884</td></tr>
+                  <tr><td>2020 (pokok)</td><td>120.000.000</td><td>1/(1.10)²</td><td>99.173.554</td></tr>
+                  <tr class="total"><td colspan="3">Total Nilai Kini</td><td>115.834.711</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="answer-group">
+              <h6>Jurnal 1 Januari 2019</h6>
+              <ul>
+                <li>Dr. Pinjaman yang Diberikan &nbsp; 115.834.711</li>
+                <li>Dr. Kerugian &nbsp; 4.165.289</li>
+                <li>Cr. Kas &nbsp; 120.000.000</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- E2 -->
+        <div class="essay-item">
+          <div class="essay-q">2. PT Firza membeli 5.000.000 lembar saham pada tanggal 7 Juli 2019 (tanggal perdagangan) dengan harga Rp10.000.000.000. Pada tanggal 10 Juli 2019 (tanggal penyelesaian), nilai wajar saham Rp10.700.000.000. Model bisnis: diperjualbelikan. PT Firza menggunakan akuntansi tanggal penyelesaian. Tahun buku berakhir 31 Desember.</div>
+          <p class="essay-sub"><strong>Diminta:</strong> Buatlah jurnal yang dicatat pada tanggal 7 Juli 2019 dan 10 Juli 2019.</p>
+          <button class="essay-toggle" onclick="toggleEssay('ea2')">▶ Lihat Jawaban</button>
+          <div class="essay-answer" id="ea2">
+            <h5>Pembahasan</h5>
+            <ul>
+              <li><strong>7 Juli 2019:</strong> Tidak ada jurnal (akuntansi tanggal penyelesaian — aset belum diserahkan)</li>
+              <li><strong>10 Juli 2019 (saat diserahkan):</strong></li>
+              <li>Dr. Investasi dalam instrumen ekuitas &nbsp; 10.700.000.000</li>
+              <li>Cr. Kas &nbsp; 10.000.000.000</li>
+              <li>Cr. Keuntungan belum terealisasi &nbsp; 700.000.000</li>
+              <li><em>(Keuntungan Rp700jt diakui karena model bisnis diperjualbelikan → FVTPL)</em></li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- E3 -->
+        <div class="essay-item">
+          <div class="essay-q">3. Pada 31 Desember 2019, PT Tunggal menjual investasinya dalam sekuritas ekuitas kepada PT Nando seharga Rp50.000.000.000 dengan ketentuan PT Tunggal harus membeli kembali investasi tersebut dari PT Nanda seharga Rp55.000.000.000 paling lambat 31 Desember 2020.</div>
+          <p class="essay-sub"><strong>Diminta:</strong> Buatlah jurnal yang dicatat PT Tunggal pada 31 Desember 2019 dan 31 Desember 2020.</p>
+          <button class="essay-toggle" onclick="toggleEssay('ea3')">▶ Lihat Jawaban</button>
+          <div class="essay-answer" id="ea3">
+            <h5>Pembahasan</h5>
+            <p>Karena ada kewajiban membeli kembali, risiko dan manfaat tidak dialihkan. Ini adalah transaksi <strong>pembiayaan</strong>, bukan penjualan.</p>
+            <ul>
+              <li><strong>31 Desember 2019:</strong></li>
+              <li>Dr. Kas &nbsp; 50.000.000.000</li>
+              <li>Cr. Utang Pinjaman &nbsp; 50.000.000.000</li>
+              <li><strong>31 Desember 2020:</strong></li>
+              <li>Dr. Utang Pinjaman &nbsp; 50.000.000.000</li>
+              <li>Dr. Beban Bunga &nbsp; 5.000.000.000</li>
+              <li>Cr. Kas &nbsp; 55.000.000.000</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- E4 -->
+        <div class="essay-item">
+          <div class="essay-q">4. PT Wisata (mat. uang: Rp) menjual barang kepada PT Bajo (mat. uang: USD) pada 30 April 2019 dengan tagihan US$20.000. Kurs spot 30 Apr: US$1=Rp15.575; kurs forward 6 bulan: US$1=Rp15.375. PT Wisata menerapkan fair value hedge menggunakan kontrak forward untuk menjual US$20.000 pada 31 Oktober 2019. Kurs spot 31 Okt: US$1=Rp14.250.</div>
+          <p class="essay-sub"><strong>Diminta:</strong> Buatlah jurnal yang dicatat PT Wisata pada 30 April 2019 dan 31 Oktober 2019.</p>
+          <button class="essay-toggle" onclick="toggleEssay('ea4')">▶ Lihat Jawaban</button>
+          <div class="essay-answer" id="ea4">
+            <h5>Pembahasan</h5>
+            <div class="answer-group">
+              <h6>30 April 2019 (kurs forward digunakan sebagai basis pengukuran)</h6>
+              <ul>
+                <li>Dr. Piutang Dagang &nbsp; 311.500.000 (20.000 × Rp15.575)</li>
+                <li>Cr. Penjualan &nbsp; 311.500.000</li>
+                <li>Tidak ada jurnal untuk kontrak forward (memorandum)</li>
+              </ul>
+            </div>
+            <div class="answer-group">
+              <h6>31 Oktober 2019</h6>
+              <ul>
+                <li>Dr. Kas &nbsp; 285.000.000 (20.000 × Rp14.250)</li>
+                <li>Dr. Rugi Selisih Kurs &nbsp; 26.500.000</li>
+                <li>Cr. Piutang Dagang &nbsp; 311.500.000</li>
+                <li>Dr. Utang Forward &nbsp; 22.500.000 (keuntungan dari forward: 20.000 × (Rp15.375 − Rp14.250))</li>
+                <li>Cr. Untung Selisih Kurs &nbsp; 22.500.000</li>
+                <li>Dr. Kas &nbsp; 22.500.000</li>
+                <li>Cr. Utang Forward &nbsp; 22.500.000</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- E5 -->
+        <div class="essay-item">
+          <div class="essay-q">5. PT Gindara memiliki pinjaman yang diberikan (saldo Rp500.000.000 per 31 Des 2019) yang sensitif terhadap inflasi. PT Gindara menyimpulkan terdapat peningkatan risiko kredit signifikan. Data probabilitas inflasi dan gagal bayar:</div>
+          <div class="essay-sub">
+            <table class="calc-table">
+              <thead><tr><th>Prakiraan Inflasi</th><th>Kemungkinan Terjadi</th><th>PD 12 Bln</th><th>PD Sepanjang Umur</th><th>LGD</th></tr></thead>
+              <tbody>
+                <tr><td>8%</td><td>30%</td><td>1%</td><td>2%</td><td>45%</td></tr>
+                <tr><td>10%</td><td>45%</td><td>3%</td><td>8%</td><td>55%</td></tr>
+                <tr><td>12%</td><td>25%</td><td>6%</td><td>15%</td><td>75%</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="essay-sub"><strong>Diminta:</strong> Hitung kerugian penurunan nilai yang harus diakui per 31 Desember 2019.</p>
+          <button class="essay-toggle" onclick="toggleEssay('ea5')">▶ Lihat Jawaban</button>
+          <div class="essay-answer" id="ea5">
+            <h5>Pembahasan</h5>
+            <p>Karena ada peningkatan risiko kredit signifikan → gunakan ECL <strong>sepanjang umur</strong>.</p>
+            <table class="calc-table">
+              <thead><tr><th>Prob. Terjadi</th><th>PD Sepanjang Umur</th><th>LGD</th><th>ECL</th></tr></thead>
+              <tbody>
+                <tr><td>30%</td><td>2%</td><td>45%</td><td>30%×2%×45%×500jt = 1.350.000</td></tr>
+                <tr><td>45%</td><td>8%</td><td>55%</td><td>45%×8%×55%×500jt = 9.900.000</td></tr>
+                <tr><td>25%</td><td>15%</td><td>75%</td><td>25%×15%×75%×500jt = 14.062.500</td></tr>
+                <tr class="total"><td colspan="3">Total ECL Sepanjang Umur</td><td>25.312.500</td></tr>
+              </tbody>
+            </table>
+            <p style="margin-top:0.5rem">Jurnal: Dr. Beban Kerugian Kredit Rp25.312.500 / Cr. Penyisihan Kerugian Kredit Rp25.312.500</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- AI TUTOR -->
+    <section class="section" id="ai-tutor">
+      <div class="ai-section">
+        <div class="ai-header">
+          <div class="ai-dot"></div>
+          <h3>AI Tutor — BAB 7 Instrumen Keuangan</h3>
+        </div>
+        <div class="ai-messages" id="aiMessages">
+          <div class="ai-msg ai">
+            <div class="avatar">AI</div>
+            <div class="ai-bubble">Halo! Saya siap membantu kamu memahami BAB 7 — Instrumen Keuangan. Tanyakan apapun tentang klasifikasi, pengukuran, penurunan nilai (ECL), lindung nilai, atau soal latihan! 📊</div>
+          </div>
+        </div>
+        <div class="ai-suggestions" id="aiSuggestions">
+          <span class="ai-chip" onclick="sendChip(this)">Apa perbedaan PSAK 55 dan PSAK 71 dalam klasifikasi aset keuangan?</span>
+          <span class="ai-chip" onclick="sendChip(this)">Bagaimana cara menentukan apakah aset keuangan masuk AC, FVOCI, atau FVTPL?</span>
+          <span class="ai-chip" onclick="sendChip(this)">Jelaskan model 3 tahap penurunan nilai (ECL) beserta contohnya</span>
+          <span class="ai-chip" onclick="sendChip(this)">Apa perbedaan fair value hedge dan cash flow hedge?</span>
+          <span class="ai-chip" onclick="sendChip(this)">Bagaimana uji SPPI dalam menentukan klasifikasi aset keuangan?</span>
+        </div>
+        <div class="ai-input-row">
+          <textarea class="ai-input" id="aiInput" rows="1" placeholder="Ketik pertanyaan tentang BAB 7…" onkeydown="handleKey(event)"></textarea>
+          <button class="ai-send" id="aiSendBtn" onclick="sendMessage()">Kirim</button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script>
+const answers = {1:'c',2:'c',3:'d',4:'a',5:'c',6:'b',7:'c',8:'a',9:'b',10:'a'};
+function checkMC(el, choice, num) {
+  const item = el.closest('.mc-item');
+  if (item.querySelector('.revealed')) return;
+  const correct = answers[num];
+  item.querySelectorAll('.mc-option').forEach(opt => {
+    opt.classList.add('revealed');
+    const letter = opt.querySelector('.opt-letter').textContent.toLowerCase();
+    if (letter === correct) opt.classList.add('correct');
+    else if (letter === choice && choice !== correct) opt.classList.add('wrong');
+  });
+  const fb = document.getElementById('fb' + num);
+  if (fb) fb.classList.add('show');
+}
+function toggleEssay(id) {
+  const ans = document.getElementById(id);
+  const btn = ans.previousElementSibling;
+  const show = !ans.classList.contains('show');
+  ans.classList.toggle('show', show);
+  btn.textContent = show ? '▼ Sembunyikan Jawaban' : '▶ Lihat Jawaban';
+}
+const sections = document.querySelectorAll('.section, .subsection');
+const tocLinks = document.querySelectorAll('.toc-link');
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { tocLinks.forEach(l => l.classList.remove('active')); const a = document.querySelector(`.toc-link[href="#${e.target.id}"]`); if (a) a.classList.add('active'); } });
+}, { rootMargin: '-20% 0px -70% 0px' });
+sections.forEach(s => { if (s.id) obs.observe(s); });
+
+const SYSTEM_PROMPT = `Kamu adalah asisten belajar untuk mata kuliah CA Indonesia: Pelaporan Korporat, khususnya BAB 7 tentang Instrumen Keuangan (PSAK 50, 55, 60, 71).
+
+Topik yang kamu kuasai:
+- 7.1 Definisi instrumen keuangan: aset keuangan (kas, instrumen ekuitas entitas lain, hak kontraktual), liabilitas keuangan (kewajiban kontraktual), instrumen ekuitas (hak residual, fixed-for-fixed), derivatif (3 karakteristik), instrumen hybrid/campuran (host contract + embedded derivative), perlakuan PSAK 71 untuk kontrak hibrida
+- 7.2 Klasifikasi aset keuangan PSAK 71: 3 kategori (AC, FVOCI, FVTPL) berdasarkan uji model bisnis (hold to collect / hold to collect & sell / lainnya) + uji SPPI (solely payments of principal and interest). Faktor SPPI: de minimis, non-recourse, nilai waktu uang, contractually linked instruments. Klasifikasi liabilitas keuangan: umumnya biaya diamortisasi kecuali FVTPL
+- 7.3 Reklasifikasi: hanya aset keuangan jika ada perubahan model bisnis (jarang), prospektif. Tabel perlakuan FVTPL↔AC↔FVOCI. Liabilitas tidak dapat direklasifikasi
+- 7.4 Pengakuan & pengukuran: pengukuran awal = nilai wajar ± biaya transaksi (kecuali FVTPL). Akuntansi tanggal perdagangan vs penyelesaian. Pengukuran selanjutnya sesuai klasifikasi. Nilai wajar: pasar aktif (bid/ask/mid), teknik penilaian (DCF, option pricing)
+- 7.5 Penghentian pengakuan: flowchart (berakhirnya hak kontraktual → uji transfer → uji risiko&manfaat → uji pengendalian → keterlibatan berkelanjutan). Pass-through arrangement. Penghentian liabilitas keuangan (10% test untuk modifikasi substansial)
+- 7.6 Penurunan nilai: ECL (expected credit loss) forward-looking vs incurred (PSAK 55). Model 3 tahap: Tahap 1 (ECL 12 bulan), Tahap 2 & 3 (ECL sepanjang umur). Indikator peningkatan risiko kredit (30 hari, 90 hari). Pendekatan disederhanakan untuk piutang dagang/aset kontrak/piutang sewa (matriks provisi). Formula ECL = PD × LGD × EAD
+- 7.7 Lindung nilai: 3 jenis (fair value hedge, cash flow hedge, hedge of net investment). Item lindung nilai & instrumen lindung nilai yang memenuhi kualifikasi. Efektivitas lindung nilai (bagian efektif vs tidak efektif). Contoh jurnal fair value hedge
+- 7.8 Penyajian (PSAK 50): klasifikasi liabilitas vs ekuitas (substansi > bentuk hukum), instrumen majemuk (split accounting), saham treasuri (metode biaya vs nilai nominal), saling hapus (2 syarat), klasifikasi bunga/dividen/untung/rugi
+- 7.9 Pengungkapan (PSAK 60): hirarki nilai wajar 3 tingkat, pengungkapan risiko (kredit, likuiditas, pasar), analisis sensitivitas, analisis jatuh tempo
+
+Jawab dalam Bahasa Indonesia yang jelas dan ringkas. Gunakan contoh angka konkret dan tabel bila relevan. Sertakan referensi PSAK yang relevan.`;
+
+const messagesEl = document.getElementById('aiMessages');
+const inputEl = document.getElementById('aiInput');
+const sendBtn = document.getElementById('aiSendBtn');
+let history = [];
+function addMsg(role, text) {
+  const div = document.createElement('div');
+  div.className = `ai-msg ${role}`;
+  div.innerHTML = `<div class="avatar">${role==='ai'?'AI':'Kamu'}</div><div class="ai-bubble">${text.replace(/\n/g,'<br>')}</div>`;
+  messagesEl.appendChild(div); messagesEl.scrollTop = messagesEl.scrollHeight;
+}
+function addTyping() {
+  const div = document.createElement('div'); div.className = 'ai-msg ai'; div.id = 'typing';
+  div.innerHTML = `<div class="avatar">AI</div><div class="ai-typing"><span></span><span></span><span></span></div>`;
+  messagesEl.appendChild(div); messagesEl.scrollTop = messagesEl.scrollHeight;
+}
+async function sendMessage() {
+  const text = inputEl.value.trim(); if (!text) return;
+  inputEl.value = ''; document.getElementById('aiSuggestions').style.display = 'none';
+  addMsg('user', text); history.push({ role: 'user', content: text }); sendBtn.disabled = true; addTyping();
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ model: 'claude-sonnet-4-20250514', max_tokens: 1000, system: SYSTEM_PROMPT, messages: history }) });
+    const data = await res.json();
+    document.getElementById('typing')?.remove();
+    const reply = data.content?.find(b => b.type === 'text')?.text || 'Maaf, tidak ada respons.';
+    addMsg('ai', reply); history.push({ role: 'assistant', content: reply });
+  } catch { document.getElementById('typing')?.remove(); addMsg('ai', 'Maaf, terjadi kesalahan. Periksa koneksi internet dan coba lagi.'); }
+  sendBtn.disabled = false;
+}
+function sendChip(el) { inputEl.value = el.textContent; sendMessage(); }
+function handleKey(e) { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); } }
+</script>
+</body>
+</html>

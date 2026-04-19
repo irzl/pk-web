@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BAB 6 — Sewa</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #0f0a08; --surface: #1a1208; --surface2: #241a0a; --surface3: #2e2010;
+  --accent: #fb923c; --accent2: #fdba74; --accent3: #ea580c;
+  --yellow: #fbbf24; --green: #4ade80; --teal: #2dd4bf; --blue: #60a5fa; --purple: #a78bfa; --red: #f87171;
+  --text: #fff7ed; --text2: #c4a882; --muted: #6b5a45; --border: rgba(251,146,60,0.1); --border2: rgba(255,255,255,0.06);
+}
+html { scroll-behavior: smooth; }
+body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; min-height: 100vh; }
+
+.chapter-header { background: linear-gradient(135deg, #0f0a08 0%, #1a1208 50%, #0f0a08 100%); border-bottom: 1px solid var(--border); padding: 2.5rem 2rem 2rem; position: relative; overflow: hidden; }
+.chapter-header::before { content: '6'; position: absolute; right: -0.5rem; top: -1rem; font-family: 'Playfair Display', serif; font-size: 12rem; font-weight: 900; color: rgba(251,146,60,0.04); line-height: 1; pointer-events: none; user-select: none; }
+.chapter-eyebrow { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent3); margin-bottom: 0.5rem; }
+.chapter-title { font-family: 'Playfair Display', serif; font-size: clamp(1.4rem, 3.5vw, 2.2rem); font-weight: 900; line-height: 1.15; background: linear-gradient(135deg, #fb923c, #fdba74); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 1.2rem; }
+.learning-goals { background: rgba(251,146,60,0.05); border: 1px solid var(--border); border-radius: 12px; padding: 1rem 1.2rem; max-width: 700px; }
+.learning-goals h3 { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.6rem; }
+.goals-list { list-style: none; display: flex; flex-direction: column; gap: 0.3rem; }
+.goals-list li { font-size: 0.78rem; color: var(--text2); display: flex; gap: 0.6rem; align-items: flex-start; }
+.goals-list li::before { content: '→'; color: var(--accent3); flex-shrink: 0; font-family: 'DM Mono', monospace; font-size: 0.7rem; margin-top: 0.05rem; }
+
+.page-body { display: grid; grid-template-columns: 220px 1fr; min-height: calc(100vh - 200px); }
+.toc { background: var(--surface); border-right: 1px solid var(--border2); padding: 1.5rem 0; position: sticky; top: 0; height: 100vh; overflow-y: auto; }
+.toc-label { font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); padding: 0 1rem; margin-bottom: 0.8rem; }
+.toc-link { display: block; padding: 0.45rem 1rem; font-size: 0.75rem; color: var(--muted); text-decoration: none; transition: all 0.15s; border-left: 2px solid transparent; line-height: 1.4; }
+.toc-link:hover { color: var(--text); background: rgba(251,146,60,0.04); }
+.toc-link.active { color: var(--accent); border-left-color: var(--accent); background: rgba(251,146,60,0.06); }
+.toc-link.sub { padding-left: 1.8rem; font-size: 0.7rem; }
+.toc-divider { height: 1px; background: var(--border2); margin: 0.6rem 1rem; }
+.main { padding: 2rem 2.5rem 4rem; max-width: 860px; }
+.section { margin-bottom: 3rem; scroll-margin-top: 1.5rem; }
+.section-header { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.2rem; padding-bottom: 0.7rem; border-bottom: 1px solid var(--border2); }
+.section-num { font-family: 'DM Mono', monospace; font-size: 0.65rem; font-weight: 700; background: var(--accent3); color: #fff; padding: 0.2rem 0.5rem; border-radius: 4px; flex-shrink: 0; }
+.section-title { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; color: var(--text); line-height: 1.3; }
+.subsection { margin-bottom: 1.5rem; scroll-margin-top: 1.5rem; }
+.subsection-title { font-size: 0.82rem; font-weight: 600; color: var(--accent2); font-family: 'DM Mono', monospace; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.6rem; }
+
+.card { background: var(--surface); border: 1px solid var(--border2); border-radius: 10px; padding: 1.1rem 1.2rem; margin-bottom: 0.8rem; }
+.card-title { font-size: 0.78rem; font-weight: 600; color: var(--accent); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem; }
+.card-title .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
+.card p, .card li { font-size: 0.8rem; color: var(--text2); line-height: 1.6; }
+.card ul, .card ol { padding-left: 1.1rem; margin-top: 0.4rem; display: flex; flex-direction: column; gap: 0.25rem; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; margin-bottom: 1rem; }
+.grid-3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 0.7rem; margin-bottom: 1rem; }
+.highlight { background: rgba(251,146,60,0.06); border: 1px solid rgba(251,146,60,0.2); border-left: 3px solid var(--accent); border-radius: 8px; padding: 0.9rem 1.1rem; margin-bottom: 1rem; }
+.highlight p { font-size: 0.8rem; color: var(--text2); line-height: 1.6; }
+.highlight strong { color: var(--accent); font-weight: 600; }
+.highlight-blue { background: rgba(96,165,250,0.06); border: 1px solid rgba(96,165,250,0.2); border-left: 3px solid var(--blue); border-radius: 8px; padding: 0.9rem 1.1rem; margin-bottom: 1rem; }
+.highlight-blue p { font-size: 0.8rem; color: var(--text2); line-height: 1.6; }
+.highlight-blue strong { color: var(--blue); }
+.highlight-green { background: rgba(74,222,128,0.06); border: 1px solid rgba(74,222,128,0.2); border-left: 3px solid var(--green); border-radius: 8px; padding: 0.9rem 1.1rem; margin-bottom: 1rem; }
+.highlight-green p { font-size: 0.8rem; color: var(--text2); line-height: 1.6; }
+.highlight-green strong { color: var(--green); }
+.table-wrap { overflow-x: auto; margin-bottom: 1rem; border-radius: 10px; border: 1px solid var(--border2); }
+table { width: 100%; border-collapse: collapse; font-size: 0.76rem; }
+thead tr { background: var(--surface3); }
+th { padding: 0.7rem 0.9rem; text-align: left; font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); font-weight: 500; }
+td { padding: 0.6rem 0.9rem; border-top: 1px solid var(--border2); color: var(--text2); vertical-align: top; line-height: 1.5; }
+tbody tr:hover { background: rgba(255,255,255,0.02); }
+.tag { display: inline-block; font-family: 'DM Mono', monospace; font-size: 0.6rem; padding: 0.15rem 0.5rem; border-radius: 99px; font-weight: 500; }
+.tag-orange { background: rgba(251,146,60,0.12); color: var(--accent); border: 1px solid rgba(251,146,60,0.25); }
+.tag-blue { background: rgba(96,165,250,0.12); color: var(--blue); border: 1px solid rgba(96,165,250,0.25); }
+.tag-green { background: rgba(74,222,128,0.12); color: var(--green); border: 1px solid rgba(74,222,128,0.25); }
+.tag-red { background: rgba(248,113,113,0.12); color: var(--red); border: 1px solid rgba(248,113,113,0.25); }
+.tag-purple { background: rgba(167,139,250,0.12); color: var(--purple); border: 1px solid rgba(167,139,250,0.25); }
+.psak-ref { display: inline-flex; align-items: center; gap: 0.35rem; font-family: 'DM Mono', monospace; font-size: 0.62rem; background: var(--surface3); border: 1px solid var(--border2); color: var(--text2); padding: 0.15rem 0.55rem; border-radius: 99px; margin-bottom: 0.5rem; }
+.psak-ref span { color: var(--accent); }
+
+/* Flowchart boxes */
+.flow-container { background: var(--surface); border: 1px solid var(--border2); border-radius: 10px; padding: 1rem; margin-bottom: 1rem; }
+.flow-step { background: var(--surface3); border: 1px solid var(--border2); border-radius: 8px; padding: 0.6rem 0.9rem; font-size: 0.76rem; color: var(--text2); text-align: center; margin-bottom: 0.3rem; line-height: 1.4; }
+.flow-step.key { border-color: rgba(251,146,60,0.3); background: rgba(251,146,60,0.06); color: var(--text); font-weight: 600; }
+.flow-arrow { text-align: center; color: var(--muted); font-size: 0.9rem; margin: 0.1rem 0; }
+.flow-result { display: flex; gap: 0.6rem; margin-top: 0.4rem; }
+.flow-yes { flex: 1; background: rgba(74,222,128,0.08); border: 1px solid rgba(74,222,128,0.25); border-radius: 8px; padding: 0.5rem 0.8rem; font-size: 0.72rem; color: var(--green); text-align: center; font-family: 'DM Mono', monospace; }
+.flow-no { flex: 1; background: rgba(248,113,113,0.08); border: 1px solid rgba(248,113,113,0.25); border-radius: 8px; padding: 0.5rem 0.8rem; font-size: 0.72rem; color: var(--red); text-align: center; font-family: 'DM Mono', monospace; }
+
+/* Sewa comparison table */
+.sewa-compare { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; margin-bottom: 1rem; }
+.sewa-card { background: var(--surface); border: 1px solid var(--border2); border-radius: 10px; padding: 0.9rem 1rem; }
+.sewa-label { font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.25rem; }
+.sewa-name { font-size: 0.9rem; font-weight: 700; margin-bottom: 0.5rem; }
+.sewa-card ul { list-style: none; display: flex; flex-direction: column; gap: 0.25rem; }
+.sewa-card li { font-size: 0.73rem; color: var(--text2); display: flex; gap: 0.5rem; line-height: 1.4; }
+.sewa-card li::before { content: '▸'; color: var(--accent); flex-shrink: 0; font-size: 0.6rem; margin-top: 0.1rem; }
+
+/* Amortisasi table */
+.amort-box { background: var(--surface3); border: 1px solid var(--border2); border-radius: 10px; padding: 1rem 1.2rem; margin-bottom: 1rem; }
+.amort-title { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--yellow); margin-bottom: 0.6rem; }
+
+/* Formula */
+.formula-box { background: var(--surface3); border: 1px solid var(--border2); border-radius: 10px; padding: 1rem 1.2rem; margin-bottom: 1rem; font-family: 'DM Mono', monospace; }
+.formula-title { font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.6rem; }
+.formula-eq { font-size: 0.78rem; color: var(--text); padding: 0.5rem; background: rgba(251,146,60,0.05); border-radius: 6px; margin-bottom: 0.4rem; line-height: 1.7; }
+.formula-item { display: flex; justify-content: space-between; font-size: 0.72rem; color: var(--text2); padding: 0.2rem 0; border-bottom: 1px solid rgba(255,255,255,0.04); }
+.formula-item:last-child { border-bottom: none; }
+.formula-item.total { color: var(--accent); font-weight: 700; border-top: 1px solid var(--border2); margin-top: 0.3rem; padding-top: 0.3rem; }
+
+/* Classification indicators */
+.indikator-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.7rem; margin-bottom: 1rem; }
+.indikator-card { background: var(--surface); border: 1px solid var(--border2); border-radius: 10px; padding: 0.9rem 1rem; border-left: 3px solid; }
+.indikator-num { font-family: 'DM Mono', monospace; font-size: 0.6rem; color: var(--muted); margin-bottom: 0.25rem; }
+.indikator-card p { font-size: 0.75rem; color: var(--text2); line-height: 1.5; }
+
+/* Latihan */
+.exercise-section { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; margin-bottom: 1.5rem; }
+.exercise-header { background: rgba(251,146,60,0.08); padding: 0.9rem 1.2rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 0.6rem; }
+.exercise-header h3 { font-family: 'DM Mono', monospace; font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); }
+.exercise-badge { font-family: 'DM Mono', monospace; font-size: 0.58rem; background: rgba(251,146,60,0.15); color: var(--accent); padding: 0.15rem 0.5rem; border-radius: 99px; }
+.mc-item { padding: 1rem 1.2rem; border-bottom: 1px solid var(--border2); }
+.mc-item:last-child { border-bottom: none; }
+.mc-question { font-size: 0.8rem; color: var(--text); font-weight: 500; margin-bottom: 0.6rem; line-height: 1.55; }
+.mc-sub { font-size: 0.74rem; color: var(--text2); background: var(--surface3); border-radius: 8px; padding: 0.6rem 0.9rem; margin-bottom: 0.7rem; line-height: 1.6; }
+.mc-options { display: flex; flex-direction: column; gap: 0.3rem; }
+.mc-option { display: flex; gap: 0.6rem; align-items: flex-start; padding: 0.4rem 0.6rem; border-radius: 6px; cursor: pointer; transition: background 0.15s; font-size: 0.76rem; color: var(--text2); line-height: 1.4; border: 1px solid transparent; }
+.mc-option:hover { background: rgba(255,255,255,0.03); border-color: var(--border2); }
+.mc-option.correct { background: rgba(74,222,128,0.1); color: var(--green); border-color: rgba(74,222,128,0.3); }
+.mc-option.wrong { background: rgba(248,113,113,0.08); color: var(--red); border-color: rgba(248,113,113,0.2); }
+.mc-option.revealed { pointer-events: none; }
+.opt-letter { font-family: 'DM Mono', monospace; font-size: 0.65rem; font-weight: 700; background: var(--surface3); padding: 0.15rem 0.4rem; border-radius: 4px; flex-shrink: 0; margin-top: 0.05rem; }
+.mc-feedback { margin-top: 0.5rem; font-size: 0.72rem; color: var(--muted); display: none; padding: 0.4rem 0.6rem; background: var(--surface3); border-radius: 6px; line-height: 1.5; }
+.mc-feedback.show { display: block; }
+.mc-feedback .correct-ans { color: var(--green); font-weight: 600; }
+.essay-item { padding: 1rem 1.2rem; border-bottom: 1px solid var(--border2); }
+.essay-item:last-child { border-bottom: none; }
+.essay-q { font-size: 0.8rem; color: var(--text); font-weight: 500; margin-bottom: 0.8rem; line-height: 1.55; }
+.essay-sub { font-size: 0.74rem; color: var(--text2); background: var(--surface3); border-radius: 8px; padding: 0.7rem 1rem; margin-bottom: 0.8rem; line-height: 1.6; }
+.essay-toggle { display: flex; align-items: center; gap: 0.5rem; font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent3); background: rgba(251,146,60,0.07); border: 1px solid rgba(251,146,60,0.2); padding: 0.4rem 0.8rem; border-radius: 6px; cursor: pointer; transition: all 0.15s; width: fit-content; }
+.essay-toggle:hover { background: rgba(251,146,60,0.12); color: var(--accent); }
+.essay-answer { margin-top: 0.8rem; display: none; background: var(--surface3); border-radius: 8px; padding: 0.9rem 1rem; }
+.essay-answer.show { display: block; }
+.essay-answer h5 { font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent3); margin-bottom: 0.6rem; }
+.essay-answer p, .essay-answer li { font-size: 0.77rem; color: var(--text2); line-height: 1.6; }
+.essay-answer ul { padding-left: 0; list-style: none; display: flex; flex-direction: column; gap: 0.3rem; margin-top: 0.3rem; }
+.essay-answer li { display: flex; gap: 0.5rem; }
+.essay-answer li::before { content: '▸'; color: var(--accent); flex-shrink: 0; font-size: 0.6rem; margin-top: 0.1rem; }
+.answer-group { margin-bottom: 0.7rem; }
+.answer-group h6 { font-size: 0.74rem; font-weight: 600; color: var(--text); margin-bottom: 0.35rem; }
+.calc-table { width: 100%; font-size: 0.72rem; border-collapse: collapse; margin-top: 0.4rem; }
+.calc-table th { background: var(--surface2); padding: 0.4rem 0.6rem; text-align: center; color: var(--accent2); font-weight: 600; border: 1px solid var(--border2); }
+.calc-table td { padding: 0.35rem 0.6rem; border: 1px solid var(--border2); color: var(--text2); }
+.calc-table tr.total td { background: var(--surface2); color: var(--accent); font-weight: 700; }
+
+/* AI */
+.ai-section { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; }
+.ai-header { background: rgba(96,165,250,0.07); padding: 0.9rem 1.2rem; border-bottom: 1px solid rgba(96,165,250,0.15); display: flex; align-items: center; gap: 0.6rem; }
+.ai-header h3 { font-family: 'DM Mono', monospace; font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--blue); }
+.ai-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--blue); }
+.ai-messages { padding: 1rem 1.2rem; min-height: 80px; max-height: 360px; overflow-y: auto; display: flex; flex-direction: column; gap: 0.7rem; }
+.ai-msg { display: flex; gap: 0.6rem; align-items: flex-start; font-size: 0.78rem; line-height: 1.6; animation: fadeUp 0.25s ease; }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+.ai-msg.user { flex-direction: row-reverse; }
+.ai-msg .avatar { width: 26px; height: 26px; border-radius: 6px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 0.65rem; font-weight: 700; margin-top: 0.1rem; }
+.ai-msg.ai .avatar { background: rgba(96,165,250,0.15); color: var(--blue); }
+.ai-msg.user .avatar { background: rgba(251,146,60,0.15); color: var(--accent); }
+.ai-bubble { padding: 0.6rem 0.85rem; border-radius: 10px; max-width: 85%; }
+.ai-msg.ai .ai-bubble { background: var(--surface3); color: var(--text2); }
+.ai-msg.user .ai-bubble { background: rgba(251,146,60,0.09); color: var(--text); text-align: right; }
+.ai-typing { display: flex; gap: 4px; align-items: center; padding: 0.6rem 0.85rem; background: var(--surface3); border-radius: 10px; width: fit-content; }
+.ai-typing span { width: 5px; height: 5px; border-radius: 50%; background: var(--blue); animation: typing 1.2s infinite; }
+.ai-typing span:nth-child(2) { animation-delay: 0.2s; }
+.ai-typing span:nth-child(3) { animation-delay: 0.4s; }
+@keyframes typing { 0%,60%,100% { opacity: 0.2; transform: scale(0.8); } 30% { opacity: 1; transform: scale(1); } }
+.ai-suggestions { padding: 0 1.2rem 0.75rem; display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.ai-chip { font-family: 'DM Mono', monospace; font-size: 0.62rem; background: var(--surface3); border: 1px solid var(--border2); color: var(--text2); padding: 0.3rem 0.7rem; border-radius: 99px; cursor: pointer; transition: all 0.15s; }
+.ai-chip:hover { border-color: rgba(96,165,250,0.35); color: var(--blue); }
+.ai-input-row { padding: 0.75rem 1.2rem; border-top: 1px solid var(--border2); display: flex; gap: 0.5rem; }
+.ai-input { flex: 1; background: var(--surface3); border: 1px solid var(--border2); border-radius: 8px; padding: 0.5rem 0.8rem; font-size: 0.78rem; color: var(--text); font-family: 'DM Sans', sans-serif; outline: none; resize: none; max-height: 100px; transition: border-color 0.2s; }
+.ai-input:focus { border-color: rgba(96,165,250,0.35); }
+.ai-input::placeholder { color: var(--muted); }
+.ai-send { background: var(--blue); color: #000; border: none; border-radius: 8px; padding: 0.5rem 1rem; font-family: 'DM Mono', monospace; font-size: 0.68rem; font-weight: 700; cursor: pointer; transition: opacity 0.15s; }
+.ai-send:hover { opacity: 0.85; }
+.ai-send:disabled { opacity: 0.4; cursor: not-allowed; }
+</style>
+</head>
+<body>
+
+<div class="chapter-header">
+  <div class="chapter-eyebrow">Pelaporan Korporat — CA Indonesia</div>
+  <div class="chapter-title">BAB 6 — Sewa</div>
+  <div class="learning-goals">
+    <h3>Tujuan Pembelajaran</h3>
+    <ul class="goals-list">
+      <li>Menjelaskan cakupan sewa berdasarkan PSAK 73</li>
+      <li>Menganalisis perjanjian yang mengandung sewa</li>
+      <li>Menerapkan akuntansi untuk sewa dari sisi penyewa (lessee) dan pesewa (lessor)</li>
+      <li>Menjelaskan perkembangan terkini akuntansi sewa termasuk sales and lease back</li>
+    </ul>
+  </div>
+</div>
+
+<div class="page-body">
+  <nav class="toc">
+    <div class="toc-label">Daftar Isi</div>
+    <a class="toc-link" href="#s1">6.1 Identifikasi Sewa</a>
+    <a class="toc-link sub" href="#s1-1">2 Kata Kunci</a>
+    <a class="toc-link sub" href="#s1-2">Flowchart Identifikasi</a>
+    <a class="toc-link sub" href="#s1-3">Pengecualian Cakupan</a>
+    <div class="toc-divider"></div>
+    <a class="toc-link" href="#s2">6.2 Perlakuan Akuntansi</a>
+    <a class="toc-link sub" href="#s2-1">Lessee — Aset Hak Guna</a>
+    <a class="toc-link sub" href="#s2-2">Lessee — Liabilitas Sewa</a>
+    <a class="toc-link sub" href="#s2-3">Lessee — Pengecualian</a>
+    <a class="toc-link sub" href="#s2-4">Lessor — Klasifikasi</a>
+    <a class="toc-link sub" href="#s2-5">Lessor — Sewa Pembiayaan</a>
+    <a class="toc-link sub" href="#s2-6">Lessor — Sewa Operasi</a>
+    <a class="toc-link sub" href="#s2-7">Subsewa</a>
+    <div class="toc-divider"></div>
+    <a class="toc-link" href="#s3">6.3 Sales & Lease Back</a>
+    <a class="toc-link" href="#s4">6.4 Sewa Tanah & Bangunan</a>
+    <div class="toc-divider"></div>
+    <a class="toc-link" href="#latihan">Latihan Soal</a>
+    <a class="toc-link" href="#ai">Tanya AI</a>
+  </nav>
+
+  <main class="main">
+
+    <!-- 6.1 Identifikasi Sewa -->
+    <section class="section" id="s1">
+      <div class="section-header">
+        <span class="section-num">6.1</span>
+        <h2 class="section-title">Identifikasi Sewa</h2>
+      </div>
+      <div class="psak-ref"><span>PSAK 73</span> Sewa &nbsp;|&nbsp; <span>IFRS 16</span> Leases</div>
+      <div class="highlight">
+        <p>Suatu kontrak merupakan, atau mengandung, sewa jika kontrak tersebut memberikan <strong>hak untuk mengendalikan penggunaan aset identifikasian, selama suatu jangka waktu, untuk dipertukarkan dengan imbalan</strong>. Entitas menilai ulang kontrak jika syarat dan ketentuan berubah.</p>
+      </div>
+
+      <div class="subsection" id="s1-1">
+        <div class="subsection-title">6.1.1 Dua Kata Kunci Identifikasi</div>
+        <div class="grid-2">
+          <div class="card" style="border-top:2px solid var(--accent)">
+            <div class="card-title"><span class="dot"></span>① Aset Identifikasian (Spesifik)</div>
+            <ul>
+              <li>Dapat ditetapkan secara eksplisit atau implisit dalam kontrak</li>
+              <li>Porsi fisik dari suatu aset = aset identifikasian (misal: lantai tertentu sebuah gedung)</li>
+              <li><strong>Bukan aset identifikasian</strong> jika supplier memiliki hak substitusi substantif (dapat mengganti aset kapan saja dan mendapat manfaat ekonomi dari penggantian)</li>
+            </ul>
+          </div>
+          <div class="card" style="border-top:2px solid var(--blue)">
+            <div class="card-title" style="color:var(--blue)"><span class="dot" style="background:var(--blue)"></span>② Pengendalian selama Periode Penggunaan</div>
+            <p style="margin-bottom:0.5rem">Pelanggan memiliki pengendalian jika KEDUANYA terpenuhi:</p>
+            <ul>
+              <li>Hak untuk mendapatkan secara substansial <strong>seluruh manfaat ekonomi</strong> dari penggunaan aset</li>
+              <li>Hak untuk <strong>mengarahkan penggunaan</strong> aset (bagaimana dan untuk tujuan apa)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="subsection" id="s1-2">
+        <div class="subsection-title">6.1.2 Flowchart Identifikasi Kontrak Mengandung Sewa (PSAK 73)</div>
+        <div class="flow-container">
+          <div class="flow-step key">Apakah terdapat aset identifikasian?</div>
+          <div class="flow-arrow">↓ Ya</div>
+          <div class="flow-step key">Apakah pelanggan memiliki hak untuk mendapatkan secara substansial seluruh manfaat ekonomi dari penggunaan aset selama periode penggunaan?</div>
+          <div class="flow-arrow">↓ Ya</div>
+          <div class="flow-step key">Apakah pelanggan memiliki hak untuk mengarahkan bagaimana dan tujuan apa aset digunakan?</div>
+          <div class="flow-arrow">↓</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.6rem;margin-bottom:0.6rem">
+            <div style="background:rgba(74,222,128,0.06);border:1px solid rgba(74,222,128,0.2);border-radius:8px;padding:0.6rem;font-size:0.72rem;color:var(--green);text-align:center">
+              <strong>Ya → Pelanggan</strong><br>Kontrak mengandung sewa ✓
+            </div>
+            <div style="background:rgba(248,113,113,0.06);border:1px solid rgba(248,113,113,0.2);border-radius:8px;padding:0.6rem;font-size:0.72rem;color:var(--red);text-align:center">
+              <strong>Tidak — dicek lebih lanjut</strong><br>Apakah bagaimana & tujuan sudah ditetapkan sebelumnya? → Apakah pelanggan mengoperasikan aset? → Apakah pelanggan mendesain aset?
+            </div>
+          </div>
+          <div style="background:rgba(251,146,60,0.06);border:1px solid rgba(251,146,60,0.2);border-radius:8px;padding:0.6rem;font-size:0.72rem;color:var(--accent);text-align:center">Jika tidak ada kondisi terpenuhi → Kontrak tidak mengandung sewa</div>
+        </div>
+        <div class="grid-2">
+          <div class="card">
+            <div class="card-title"><span class="dot" style="background:var(--red)"></span><span style="color:var(--red)">Contoh Bukan Sewa</span></div>
+            <p>Kontrak pengangkutan barang Jakarta–Bandung dengan truk, di mana pemasok dapat memilih truk mana yang digunakan. Tidak ada aset identifikasian — hak substitusi ada.</p>
+          </div>
+          <div class="card">
+            <div class="card-title"><span class="dot" style="background:var(--green)"></span><span style="color:var(--green)">Contoh Mengandung Sewa</span></div>
+            <p>Kontrak penggunaan kabel optik Jakarta–Surabaya yang disebutkan secara spesifik identitas dan lokasinya. Ada aset identifikasian, pelanggan dapat mengarahkan penggunaan.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="subsection" id="s1-3">
+        <div class="subsection-title">6.1.3 Pengecualian Cakupan PSAK 73</div>
+        <div class="card">
+          <div class="card-title"><span class="dot" style="background:var(--red)"></span><span style="color:var(--red)">Di luar cakupan PSAK 73</span></div>
+          <ul>
+            <li>Eksplorasi/penambangan mineral, minyak, gas alam (PSAK 64)</li>
+            <li>Sewa aset biologis (PSAK 69)</li>
+            <li>Perjanjian konsesi jasa (ISAK 16)</li>
+            <li>Lisensi kekayaan intelektual yang diberikan oleh pesewa (PSAK 72)</li>
+            <li>Hak dalam perjanjian lisensi (PSAK 19): film, rekaman video, karya panggung, manuskrip, hak paten, hak cipta</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6.2 Perlakuan Akuntansi -->
+    <section class="section" id="s2">
+      <div class="section-header">
+        <span class="section-num">6.2</span>
+        <h2 class="section-title">Perlakuan Akuntansi atas Sewa</h2>
+      </div>
+
+      <div class="subsection" id="s2-1">
+        <div class="subsection-title">6.2.1 Sisi Penyewa (Lessee) — Aset Hak Guna</div>
+        <div class="highlight-blue">
+          <p>Pada saat dimulainya sewa, penyewa mengakui <strong>Aset Hak Guna</strong> (<em>right-of-use asset</em>) dan <strong>Liabilitas Sewa</strong>. Semua sewa lessee diklasifikasikan sebagai sewa pembiayaan — kecuali sewa jangka pendek dan sewa aset bernilai rendah.</p>
+        </div>
+        <div class="formula-box">
+          <div class="formula-title">Komponen Aset Hak Guna (Pengukuran Awal)</div>
+          <div class="formula-item"><span>Jumlah pengukuran awal liabilitas sewa</span><span style="color:var(--accent)">+</span></div>
+          <div class="formula-item"><span>Pembayaran sewa sebelum/pada tanggal permulaan − insentif sewa diterima</span><span style="color:var(--accent)">+</span></div>
+          <div class="formula-item"><span>Biaya langsung awal yang dikeluarkan penyewa</span><span style="color:var(--accent)">+</span></div>
+          <div class="formula-item"><span>Estimasi biaya pembongkaran/pemindahan/restorasi (dismantling)</span><span style="color:var(--accent)">+</span></div>
+          <div class="formula-item total"><span>= ASET HAK GUNA</span><span></span></div>
+        </div>
+        <div class="grid-2">
+          <div class="card">
+            <div class="card-title"><span class="dot"></span>Pengukuran Setelah — Model Biaya</div>
+            <ul>
+              <li>Biaya perolehan − akumulasi penyusutan − akumulasi rugi penurunan nilai</li>
+              <li>Disusutkan selama yang lebih awal antara: akhir masa manfaat aset ATAU akhir masa sewa</li>
+              <li>Jika kepemilikan beralih ke lessee di akhir sewa / ada opsi beli → disusutkan sampai akhir masa manfaat aset</li>
+            </ul>
+          </div>
+          <div class="card">
+            <div class="card-title"><span class="dot"></span>Pengecualian Model Biaya</div>
+            <ul>
+              <li>Jika aset hak guna adalah properti investasi dan lessee menggunakan model nilai wajar (PSAK 13)</li>
+              <li>Jika aset hak guna terkait kelas PPE yang lessee menerapkan model revaluasi (PSAK 16)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="subsection" id="s2-2">
+        <div class="subsection-title">6.2.2 Sisi Penyewa (Lessee) — Liabilitas Sewa</div>
+        <div class="formula-box">
+          <div class="formula-title">Komponen Pembayaran Sewa (dalam Liabilitas)</div>
+          <div class="formula-item"><span>(a) Pembayaran tetap − piutang insentif sewa</span></div>
+          <div class="formula-item"><span>(b) Pembayaran sewa variabel berdasarkan indeks/suku bunga</span></div>
+          <div class="formula-item"><span>(c) Jumlah yang diperkirakan dibayar dalam jaminan nilai residual (GRV)</span></div>
+          <div class="formula-item"><span>(d) Harga eksekusi opsi beli (jika cukup pasti dieksekusi)</span></div>
+          <div class="formula-item"><span>(e) Penalti penghentian sewa (jika opsi penghentian diperhitungkan)</span></div>
+          <div class="formula-item total"><span>Didiskontokan dengan suku bunga implisit (atau pinjaman inkremental)</span></div>
+        </div>
+        <p style="font-size:0.8rem;color:var(--text2);margin-bottom:0.8rem">Setelah tanggal permulaan, liabilitas sewa diukur dengan:</p>
+        <div class="grid-3">
+          <div class="card" style="border-top:2px solid var(--green)"><div class="card-title" style="color:var(--green)"><span class="dot" style="background:var(--green)"></span>Tambah</div><p>Bunga atas liabilitas sewa (beban bunga efektif)</p></div>
+          <div class="card" style="border-top:2px solid var(--red)"><div class="card-title" style="color:var(--red)"><span class="dot" style="background:var(--red)"></span>Kurangi</div><p>Pembayaran sewa yang telah dibayar</p></div>
+          <div class="card" style="border-top:2px solid var(--yellow)"><div class="card-title" style="color:var(--yellow)"><span class="dot" style="background:var(--yellow)"></span>Penilaian Kembali</div><p>Jika ada perubahan masa sewa, opsi beli, jaminan nilai residual, atau perubahan indeks/suku bunga</p></div>
+        </div>
+        <div class="highlight">
+          <p><strong>Modifikasi Sewa → Sewa Terpisah</strong> jika: (1) ruang lingkup sewa meningkat karena penambahan hak penggunaan aset pendasar, DAN (2) terdapat peningkatan imbalan sewa yang setara dengan tambahan ruang lingkup.</p>
+        </div>
+      </div>
+
+      <div class="subsection" id="s2-3">
+        <div class="subsection-title">6.2.3 Pengecualian Pengakuan Lessee</div>
+        <div class="grid-2">
+          <div class="card" style="border-top:2px solid var(--yellow)">
+            <div class="card-title" style="color:var(--yellow)"><span class="dot" style="background:var(--yellow)"></span>Sewa Jangka Pendek</div>
+            <ul>
+              <li>Jangka waktu sewa &lt; 12 bulan</li>
+              <li>Tidak mengandung opsi beli</li>
+              <li>Pengakuan: beban sewa garis lurus selama masa sewa</li>
+            </ul>
+          </div>
+          <div class="card" style="border-top:2px solid var(--teal)">
+            <div class="card-title" style="color:var(--teal)"><span class="dot" style="background:var(--teal)"></span>Sewa Aset Bernilai Rendah</div>
+            <ul>
+              <li>Aset pendasar memiliki nilai rendah secara absolut saat baru (≈ IFRS USD 5.000)</li>
+              <li>Tidak ada ketergantungan/interaksi dengan aset lain</li>
+              <li>Tidak berlaku jika aset disubsewakan</li>
+              <li>Contoh: komputer pribadi, perabot kantor kecil</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="subsection" id="s2-4">
+        <div class="subsection-title">6.2.4 Sisi Pesewa (Lessor) — Klasifikasi Sewa</div>
+        <div class="highlight">
+          <p>Lessor mengklasifikasikan sewa sebagai <strong>sewa pembiayaan</strong> jika sewa <strong>mengalihkan secara substansial seluruh risiko dan manfaat</strong> kepemilikan aset dasar. Jika tidak → <strong>sewa operasi</strong>. Dasar: substansi transaksi, bukan bentuk kontrak.</p>
+        </div>
+        <div class="subsection-title" style="margin-top:1rem">5 Indikator Utama Sewa Pembiayaan (Lessor)</div>
+        <div class="indikator-grid">
+          <div class="indikator-card" style="border-left-color:var(--accent)">
+            <div class="indikator-num">01</div>
+            <p>Sewa mengalihkan <strong>kepemilikan aset</strong> ke penyewa di akhir masa sewa</p>
+          </div>
+          <div class="indikator-card" style="border-left-color:var(--blue)">
+            <div class="indikator-num">02</div>
+            <p>Penyewa memiliki <strong>opsi beli</strong> pada harga yang diperkirakan cukup rendah dari nilai wajar sehingga cukup pasti dieksekusi</p>
+          </div>
+          <div class="indikator-card" style="border-left-color:var(--green)">
+            <div class="indikator-num">03</div>
+            <p>Masa sewa adalah <strong>sebagian besar umur ekonomis</strong> aset, meskipun kepemilikan tidak dialihkan</p>
+          </div>
+          <div class="indikator-card" style="border-left-color:var(--yellow)">
+            <div class="indikator-num">04</div>
+            <p>Nilai kini pembayaran sewa minimum <strong>mencakup secara substansial seluruh nilai wajar</strong> aset sewaan</p>
+          </div>
+          <div class="indikator-card" style="border-left-color:var(--purple)">
+            <div class="indikator-num">05</div>
+            <p>Aset sewaan bersifat <strong>khusus</strong> sehingga hanya penyewa yang dapat menggunakannya tanpa modifikasi signifikan</p>
+          </div>
+          <div class="indikator-card" style="border-left-color:var(--teal)">
+            <div class="indikator-num">+</div>
+            <p>Indikator tambahan: jika penyewa membatalkan, kerugian lessor ditanggung penyewa; fluktuasi nilai residual terutang pada penyewa; penyewa dapat memperpanjang di bawah harga pasar</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="subsection" id="s2-5">
+        <div class="subsection-title">6.2.5 Perlakuan Akuntansi Lessor — Sewa Pembiayaan</div>
+        <div class="sewa-compare">
+          <div class="sewa-card" style="border-top:2px solid var(--accent)">
+            <div class="sewa-label">Lessor Biasa</div>
+            <div class="sewa-name" style="color:var(--accent)">Direct Finance Lease</div>
+            <ul>
+              <li>Mengakui <strong>Piutang Sewa Pembiayaan</strong> = nilai investasi bersih (PV pembayaran sewa + GRV)</li>
+              <li>Menghentikan pengakuan aset</li>
+              <li>Mengakui pendapatan bunga selama masa sewa (metode bunga efektif)</li>
+            </ul>
+          </div>
+          <div class="sewa-card" style="border-top:2px solid var(--purple)">
+            <div class="sewa-label">Lessor Pabrikan/Dealer</div>
+            <div class="sewa-name" style="color:var(--purple)">Manufacturer/Dealer Lessor</div>
+            <ul>
+              <li>Mengakui <strong>laba/rugi penjualan</strong> pada awal sewa (harga jual − HPP)</li>
+              <li>Pendapatan = NW aset sewaan atau PV pembayaran sewa (pakai tingkat bunga pasar)</li>
+              <li>HPP = biaya perolehan − PV nilai sisa yang tidak dijamin</li>
+              <li>Pendapatan bunga selama masa sewa</li>
+            </ul>
+          </div>
+        </div>
+        <div class="highlight-blue">
+          <p><strong>Komponen Piutang Sewa (Investasi Neto):</strong> Pembayaran tetap − insentif sewa terutang + pembayaran variabel (indeks/suku bunga) + jaminan nilai residual dari penyewa/pihak ketiga + harga eksekusi opsi beli (jika cukup pasti) + penalti penghentian sewa.</p>
+        </div>
+      </div>
+
+      <div class="subsection" id="s2-6">
+        <div class="subsection-title">6.2.6 Perlakuan Akuntansi Lessor — Sewa Operasi</div>
+        <div class="card">
+          <div class="card-title"><span class="dot"></span>Pengakuan Pendapatan Sewa Operasi</div>
+          <ul>
+            <li>Pendapatan sewa diakui dengan <strong>dasar garis lurus</strong> selama masa sewa</li>
+            <li>Atau dasar sistematis lain yang lebih representatif dari pola manfaat penggunaan aset</li>
+            <li>Aset tetap dipertahankan di laporan posisi keuangan dan terus disusutkan</li>
+            <li>Biaya langsung awal ditambahkan ke nilai tercatat aset dan diakui sebagai beban selama masa sewa</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="subsection" id="s2-7">
+        <div class="subsection-title">6.2.7 Subsewa (Sublease)</div>
+        <div class="highlight">
+          <p>Subsewa adalah sewa di mana penyewa (<em>lessee</em>) menyewakan kembali aset dasar kepada pihak lain. Penyewa utama = <strong>intermediate lessor</strong>. PSAK 73 mewajibkan perjanjian sewa utama (<em>head sublease</em>) dan subsewa diperlakukan terpisah.</p>
+        </div>
+        <div class="grid-2">
+          <div class="card" style="border-top:2px solid var(--green)">
+            <div class="card-title" style="color:var(--green)"><span class="dot" style="background:var(--green)"></span>Klasifikasi Subsewa</div>
+            <ul>
+              <li>Sewa utama jangka pendek → subsewa = sewa operasi</li>
+              <li>Jika tidak, subsewa diklasifikasikan berdasarkan <strong>hak guna aset</strong> dari kontrak sewa utama (head lease)</li>
+            </ul>
+          </div>
+          <div class="card" style="border-top:2px solid var(--blue)">
+            <div class="card-title" style="color:var(--blue)"><span class="dot" style="background:var(--blue)"></span>Jika Subsewa = Sewa Pembiayaan</div>
+            <ul>
+              <li>Mengeluarkan hak guna aset dari buku (derecognize)</li>
+              <li>Mengakui investasi bersih pada subsewa</li>
+              <li>Mengakui selisih di laba rugi</li>
+              <li>Tetap memasukkan liabilitas sewa dari sewa utama</li>
+              <li>Mengakui pendapatan bunga (subsewa) dan beban bunga (sewa utama)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6.3 Sales and Lease Back -->
+    <section class="section" id="s3">
+      <div class="section-header">
+        <span class="section-num">6.3</span>
+        <h2 class="section-title">Sales and Lease Back (Jual dan Sewa Balik)</h2>
+      </div>
+      <div class="psak-ref"><span>PSAK 72</span> Pendapatan dari Kontrak dengan Pelanggan &nbsp;|&nbsp; <span>PSAK 73</span> Sewa</div>
+      <div class="highlight">
+        <p>Entitas menjual aset lalu menyewanya kembali (<em>seller-lessee</em>). Kunci: apakah transfer aset memenuhi kriteria <strong>pengakuan penjualan berdasarkan PSAK 72</strong> (performance obligation terpenuhi)?</p>
+      </div>
+      <div class="grid-2">
+        <div class="card" style="border-top:2px solid var(--green)">
+          <div class="card-title" style="color:var(--green)"><span class="dot" style="background:var(--green)"></span>Transfer = Penjualan (PSAK 72 terpenuhi)</div>
+          <ul>
+            <li><strong>Seller-lessee:</strong> Mengakui penjualan, mengakui aset hak guna sebesar proporsi nilai tercatat yang dipertahankan, hanya mengakui keuntungan/kerugian terkait hak yang ditransfer ke pembeli</li>
+            <li><strong>Buyer-lessor:</strong> Mengakui aset yang dibeli, mengakui investasi neto sewa (sewa pembiayaan) atau aset (sewa operasi)</li>
+          </ul>
+        </div>
+        <div class="card" style="border-top:2px solid var(--red)">
+          <div class="card-title" style="color:var(--red)"><span class="dot" style="background:var(--red)"></span>Transfer BUKAN Penjualan</div>
+          <ul>
+            <li><strong>Seller-lessee:</strong> Tetap mengakui aset + mengakui liabilitas keuangan sebesar jumlah yang diterima</li>
+            <li><strong>Buyer-lessor:</strong> Tidak mengakui aset yang diterima; mengakui <strong>aset keuangan</strong> sebesar jumlah yang dibayarkan</li>
+          </ul>
+        </div>
+      </div>
+      <div class="highlight-blue">
+        <p><strong>Penyesuaian Harga Jual Tidak Sama dengan Nilai Wajar:</strong> Di bawah harga pasar → dicatat sebagai pembayaran sewa dibayar di muka. Di atas harga pasar → dicatat sebagai tambahan pembiayaan dari pembeli-pesewa ke penjual-penyewa.</p>
+      </div>
+    </section>
+
+    <!-- 6.4 Sewa Tanah dan Bangunan -->
+    <section class="section" id="s4">
+      <div class="section-header">
+        <span class="section-num">6.4</span>
+        <h2 class="section-title">Sewa Tanah dan Bangunan</h2>
+      </div>
+      <div class="card">
+        <div class="card-title"><span class="dot"></span>Prinsip Pemisahan</div>
+        <ul>
+          <li>Elemen tanah dan bangunan dinilai secara <strong>terpisah</strong> untuk klasifikasi sewa pembiayaan/operasi</li>
+          <li>Tanah umumnya memiliki umur manfaat tidak terbatas → kemungkinan besar sewa operasi</li>
+          <li>Lessor mengalokasikan pembayaran sewa antara tanah dan bangunan berdasarkan <strong>proporsi relatif nilai wajar</strong></li>
+          <li>Jika nilai wajar tanah tidak material dibanding keseluruhan sewa → elemen tanah dan bangunan dapat diperlakukan sebagai satu kesatuan</li>
+          <li>Jika pembayaran tidak dapat dialokasikan dengan andal → seluruh sewa diklasifikasikan sebagai sewa pembiayaan (kecuali jelas keduanya sewa operasi)</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- RINGKASAN PERBANDINGAN -->
+    <section class="section" id="ringkasan">
+      <div class="section-header">
+        <span class="section-num" style="background:var(--teal);color:#000">≡</span>
+        <h2 class="section-title">Ringkasan Perbandingan Lessee vs Lessor</h2>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Aspek</th><th>Lessee (Penyewa)</th><th>Lessor (Pesewa) — Sewa Pembiayaan</th><th>Lessor (Pesewa) — Sewa Operasi</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Klasifikasi</strong></td><td>Semua = sewa pembiayaan (kecuali pengecualian)</td><td>Transfer substansial risiko & manfaat</td><td>Tidak transfer substansial</td></tr>
+            <tr><td><strong>Pengakuan Awal</strong></td><td>Aset Hak Guna + Liabilitas Sewa</td><td>Piutang Sewa (Investasi Neto); hapus aset</td><td>Aset tetap dipertahankan</td></tr>
+            <tr><td><strong>Pendapatan/Beban</strong></td><td>Beban penyusutan + beban bunga</td><td>Pendapatan bunga (metode efektif)</td><td>Pendapatan sewa (garis lurus)</td></tr>
+            <tr><td><strong>Nilai Residual</strong></td><td>Jaminan nilai residual masuk liabilitas</td><td>Jaminan + tidak dijamin masuk piutang</td><td>Aset dikembalikan, nilai residual tetap di lessor</td></tr>
+            <tr><td><strong>Penyusutan</strong></td><td>Aset hak guna disusutkan</td><td>Tidak ada penyusutan aset (sudah dihapus)</td><td>Aset tetap disusutkan oleh lessor</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- LATIHAN SOAL -->
+    <section class="section" id="latihan">
+      <div class="section-header">
+        <span class="section-num" style="background:var(--yellow);color:#000">✎</span>
+        <h2 class="section-title">Latihan Soal BAB 6</h2>
+      </div>
+
+      <div class="exercise-section">
+        <div class="exercise-header">
+          <h3>Pilihan Ganda</h3>
+          <span class="exercise-badge">10 Soal</span>
+        </div>
+
+        <div class="mc-item">
+          <div class="mc-sub"><strong>Soal 1–3:</strong> PT X dan PT ABC Finance menandatangani perjanjian sewa mesin pada 2 Januari 20x6. Jangka waktu sewa 10 tahun (tidak dapat dibatalkan). Umur ekonomis mesin 12 tahun, tidak ada nilai residu. Pembayaran sewa setiap awal tahun Rp200 juta. Akhir masa sewa mesin menjadi milik PT X. Nilai kini pembayaran sewa minimum (i=10%) = Rp1.351.804.000. PT X mengeluarkan Rp20 juta biaya langsung awal. Metode penyusutan garis lurus.</div>
+          <div class="mc-question">1. Dalam laporan laba rugi komprehensif PT X untuk tahun 20x6, berapa beban bunga yang diakui terkait perjanjian sewa tersebut?</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',1)"><span class="opt-letter">A</span>Rp 0</div>
+            <div class="mc-option" onclick="checkMC(this,'b',1)"><span class="opt-letter">B</span>Rp 115.180.400</div>
+            <div class="mc-option" onclick="checkMC(this,'c',1)"><span class="opt-letter">C</span>Rp 106.698.400</div>
+            <div class="mc-option" onclick="checkMC(this,'d',1)"><span class="opt-letter">D</span>Rp 135.180.400</div>
+          </div>
+          <div class="mc-feedback" id="fb1"><span class="correct-ans">Jawaban: B — Rp115.180.400</span> — Liabilitas awal = Rp1.351.804.000. Pembayaran pertama (1 Jan 20x6, awal tahun/annuity due) langsung mengurangi pokok: 1.351.804.000 − 200.000.000 = Rp1.151.804.000. Beban bunga 20x6 = 10% × 1.151.804.000 = <strong>Rp115.180.400</strong>.</div>
+        </div>
+
+        <div class="mc-item">
+          <div class="mc-question">2. Dalam laporan laba rugi komprehensif PT X untuk tahun 20x6, berapa beban depresiasi yang diakui terkait perjanjian sewa tersebut?</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',2)"><span class="opt-letter">A</span>Rp 114.317.000</div>
+            <div class="mc-option" onclick="checkMC(this,'b',2)"><span class="opt-letter">B</span>Rp 112.650.333</div>
+            <div class="mc-option" onclick="checkMC(this,'c',2)"><span class="opt-letter">C</span>Rp 137.180.400</div>
+            <div class="mc-option" onclick="checkMC(this,'d',2)"><span class="opt-letter">D</span>Rp 135.180.400</div>
+          </div>
+          <div class="mc-feedback" id="fb2"><span class="correct-ans">Jawaban: A — Rp114.317.000</span> — Nilai Aset Hak Guna = Rp1.351.804.000 + Rp20.000.000 = Rp1.371.804.000. Karena kepemilikan beralih di akhir sewa → disusutkan selama umur manfaat aset (12 tahun). Beban penyusutan = 1.371.804.000/12 = <strong>Rp114.317.000</strong>.</div>
+        </div>
+
+        <div class="mc-item">
+          <div class="mc-question">3. Berapa saldo liabilitas sewa yang dilaporkan dalam laporan posisi keuangan PT X untuk tahun yang berakhir 31 Desember 20x6?</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',3)"><span class="opt-letter">A</span>Rp 1.215.682.840</div>
+            <div class="mc-option" onclick="checkMC(this,'b',3)"><span class="opt-letter">B</span>Rp 1.066.984.400</div>
+            <div class="mc-option" onclick="checkMC(this,'c',3)"><span class="opt-letter">C</span>Rp 1.286.984.400</div>
+            <div class="mc-option" onclick="checkMC(this,'d',3)"><span class="opt-letter">D</span>Rp 1.151.804.000</div>
+          </div>
+          <div class="mc-feedback" id="fb3"><span class="correct-ans">Jawaban: D — Rp1.151.804.000</span> — Liabilitas sewa awal Rp1.351.804.000, dikurangi pembayaran pertama Rp200.000.000 (annuity due, bunga=0 di awal) = Rp1.151.804.000. Ini adalah saldo setelah pembayaran 1 Jan 20x6. Pembayaran berikutnya baru pada 1 Jan 20x7, sehingga saldo per 31 Des 20x6 = <strong>Rp1.151.804.000</strong> (liabilitas pokok belum berubah lagi).</div>
+        </div>
+
+        <div class="mc-item">
+          <div class="mc-question">4. Di antara item berikut, manakah yang tidak termasuk ke dalam piutang sewa (<em>lease receivable</em>)?</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',4)"><span class="opt-letter">A</span>Jaminan nilai residu oleh penyewa</div>
+            <div class="mc-option" onclick="checkMC(this,'b',4)"><span class="opt-letter">B</span>Nilai residu yang tidak dijamin</div>
+            <div class="mc-option" onclick="checkMC(this,'c',4)"><span class="opt-letter">C</span>Harga eksekusi opsi beli</div>
+            <div class="mc-option" onclick="checkMC(this,'d',4)"><span class="opt-letter">D</span>Semua termasuk ke dalam piutang sewa</div>
+          </div>
+          <div class="mc-feedback" id="fb4"><span class="correct-ans">Jawaban: B</span> — Nilai residu yang <strong>tidak dijamin</strong> (<em>unguaranteed residual value</em>) <strong>tidak termasuk</strong> dalam piutang sewa (investasi neto) menurut PSAK 73. Piutang sewa hanya mencakup jaminan nilai residual (oleh penyewa, pihak terkait, atau pihak ketiga yang mampu secara finansial), harga opsi beli yang cukup pasti, dan pembayaran tetap/variabel.</div>
+        </div>
+
+        <div class="mc-item">
+          <div class="mc-question">5. Pada sewa dimana lessor adalah pabrikan atau dealer sehingga terdapat laba (selisih) antara nilai wajar (harga jual) dan harga perolehan (nilai buku) aset sewa pada buku lessor, pendapatan bunga …</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',5)"><span class="opt-letter">A</span>Diakui sepenuhnya pada saat dimulainya sewa</div>
+            <div class="mc-option" onclick="checkMC(this,'b',5)"><span class="opt-letter">B</span>Diakui selama masa sewa menggunakan metode garis lurus</div>
+            <div class="mc-option" onclick="checkMC(this,'c',5)"><span class="opt-letter">C</span>Diakui selama masa sewa menggunakan metode bunga efektif (<em>effective interest method</em>)</div>
+            <div class="mc-option" onclick="checkMC(this,'d',5)"><span class="opt-letter">D</span>Tidak ada pendapatan bunga yang diakui</div>
+          </div>
+          <div class="mc-feedback" id="fb5"><span class="correct-ans">Jawaban: C</span> — Untuk lessor pabrikan/dealer, laba penjualan diakui sekaligus di awal. Namun pendapatan bunga tetap diakui selama masa sewa menggunakan <strong>metode bunga efektif (effective interest method)</strong>, yaitu berdasarkan pola tingkat pengembalian periodik konstan atas investasi bersih pesewa.</div>
+        </div>
+
+        <div class="mc-item">
+          <div class="mc-question">6. PT Banyu adalah produsen mesin cetak untuk dijual atau disewakan. Pada 31 Desember 20x8, PT Banyu menyewakan mesin cetak kepada PT Penerbit untuk 5 tahun. Pembayaran sewa Rp20 juta setiap 31 Desember. Akhir masa sewa mesin menjadi milik PT Penerbit. Harga jual normal mesin Rp77 juta, biaya pembuatan Rp60 juta. Untuk tahun 20x8 berapa laba yang diakui PT Banyu dari transaksi sewa ini?</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',6)"><span class="opt-letter">A</span>Rp 23 juta</div>
+            <div class="mc-option" onclick="checkMC(this,'b',6)"><span class="opt-letter">B</span>Rp 17 juta</div>
+            <div class="mc-option" onclick="checkMC(this,'c',6)"><span class="opt-letter">C</span>Rp 40 juta</div>
+            <div class="mc-option" onclick="checkMC(this,'d',6)"><span class="opt-letter">D</span>Rp 20 juta</div>
+          </div>
+          <div class="mc-feedback" id="fb6"><span class="correct-ans">Jawaban: B — Rp17 juta</span> — PT Banyu adalah lessor pabrikan. Laba penjualan diakui di awal = Harga jual − HPP = Rp77 juta − Rp60 juta = <strong>Rp17 juta</strong>. Pendapatan bunga baru diakui mulai tahun berikutnya (pembayaran pertama 31 Des 20x8 hanya mengurangi piutang pokok).</div>
+        </div>
+
+        <div class="mc-item">
+          <div class="mc-sub"><strong>Soal 7–9:</strong> PT Baja (penyewa) melakukan perjanjian sewa mesin dengan PT Metal Sewa (pesewa) pada 1 Januari 20x8. Jangka waktu sewa 3 tahun, tidak ada opsi perpanjangan, tidak dapat dibatalkan. Umur ekonomis mesin 6 tahun, tidak ada nilai residu. Pembayaran sewa setiap awal tahun (2 Januari) Rp287.432 ribu. Di akhir masa sewa mesin dikembalikan. Nilai kini pembayaran sewa = Rp800 juta. Nilai wajar mesin = Rp850 juta. Tingkat bunga implisit PT Metal Sewa = 8%.</div>
+          <div class="mc-question">7. Berapa pendapatan bunga yang diakui PT Metal Sewa untuk tahun 20x8?</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',7)"><span class="opt-letter">A</span>Rp 0</div>
+            <div class="mc-option" onclick="checkMC(this,'b',7)"><span class="opt-letter">B</span>Rp 64 juta</div>
+            <div class="mc-option" onclick="checkMC(this,'c',7)"><span class="opt-letter">C</span>Rp 41,055 juta</div>
+            <div class="mc-option" onclick="checkMC(this,'d',7)"><span class="opt-letter">D</span>Rp 70,40 juta</div>
+          </div>
+          <div class="mc-feedback" id="fb7"><span class="correct-ans">Jawaban: C — Rp41,055 juta</span> — Piutang sewa awal = Rp800 juta. Pembayaran pertama (2 Jan 20x8, annuity due, bunga=0): 800 − 287,432 = 512,568 juta. Pendapatan bunga 20x8 = 8% × 512,568 juta = <strong>Rp41,005 juta ≈ Rp41,055 juta</strong>.</div>
+        </div>
+
+        <div class="mc-item">
+          <div class="mc-question">8. Bila PT Metal Sewa mengklasifikasikan sewa tersebut sebagai <em>direct finance lease</em>, berapa saldo piutang sewa yang diakui di buku PT Metal Sewa pada awal masa sewa (2 Januari 20x8)?</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',8)"><span class="opt-letter">A</span>Rp 287.432 ribu</div>
+            <div class="mc-option" onclick="checkMC(this,'b',8)"><span class="opt-letter">B</span>Rp 800 juta</div>
+            <div class="mc-option" onclick="checkMC(this,'c',8)"><span class="opt-letter">C</span>Rp 880 juta</div>
+            <div class="mc-option" onclick="checkMC(this,'d',8)"><span class="opt-letter">D</span>Rp 80 juta</div>
+          </div>
+          <div class="mc-feedback" id="fb8"><span class="correct-ans">Jawaban: B — Rp800 juta</span> — Untuk direct finance lease, piutang sewa (investasi neto) diakui sebesar <strong>nilai kini pembayaran sewa minimum = Rp800 juta</strong>. Nilai wajar mesin (Rp850 juta) tidak sama karena tidak ada laba penjualan pada direct finance lease biasa.</div>
+        </div>
+
+        <div class="mc-item">
+          <div class="mc-question">9. Bila transaksi sewa diklasifikasikan sebagai sewa operasi, item manakah yang diakui oleh PT Metal Sewa?</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',9)"><span class="opt-letter">A</span>Pendapatan sewa</div>
+            <div class="mc-option" onclick="checkMC(this,'b',9)"><span class="opt-letter">B</span>Pendapatan bunga</div>
+            <div class="mc-option" onclick="checkMC(this,'c',9)"><span class="opt-letter">C</span>Beban depresiasi</div>
+            <div class="mc-option" onclick="checkMC(this,'d',9)"><span class="opt-letter">D</span>Pendapatan sewa dan beban depresiasi</div>
+          </div>
+          <div class="mc-feedback" id="fb9"><span class="correct-ans">Jawaban: D</span> — Untuk sewa operasi di sisi lessor: (1) aset tetap dipertahankan di neraca dan terus disusutkan → <strong>beban depresiasi</strong>; (2) pembayaran sewa yang diterima diakui sebagai <strong>pendapatan sewa</strong> dengan dasar garis lurus. Tidak ada pendapatan bunga pada sewa operasi.</div>
+        </div>
+
+        <div class="mc-item">
+          <div class="mc-question">10. PT A menyewa mesin dari PT C selama 4 tahun. Masa manfaat mesin 4 tahun. Di awal tahun ke 2, PT A menyewakan mesin tersebut ke PT Y untuk jangka waktu 3 tahun. Pada saat PT A mensubsewakan mesin tersebut ke PT Y, perlakuan akuntansi PT A untuk transaksi subsewa tersebut:</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',10)"><span class="opt-letter">A</span>PT A tetap memasukkan hak guna aset dan liabilitas sewa di laporan posisi keuangan</div>
+            <div class="mc-option" onclick="checkMC(this,'b',10)"><span class="opt-letter">B</span>PT A mengakui hak guna aset atas mesin tersebut di laporan posisi keuangan</div>
+            <div class="mc-option" onclick="checkMC(this,'c',10)"><span class="opt-letter">C</span>PT A mengakui beban bunga atas transaksi sewa utama</div>
+            <div class="mc-option" onclick="checkMC(this,'d',10)"><span class="opt-letter">D</span>PT A mengeluarkan hak guna aset dari buku PT A dan mengakui investasi bersih dari PT Y</div>
+          </div>
+          <div class="mc-feedback" id="fb10"><span class="correct-ans">Jawaban: D</span> — Subsewa diklasifikasikan berdasarkan hak guna aset dari sewa utama. Karena masa sewa 3 tahun dari sisa 3 tahun head lease → kemungkinan besar sewa pembiayaan. Sebagai intermediate lessor dengan sewa pembiayaan, PT A <strong>mengeluarkan hak guna aset</strong> (derecognize) dan <strong>mengakui investasi bersih</strong> (piutang sewa dari PT Y). Liabilitas sewa utama tetap ada.</div>
+        </div>
+      </div>
+
+      <!-- ESAI -->
+      <div class="exercise-section">
+        <div class="exercise-header">
+          <h3>Esai</h3>
+          <span class="exercise-badge">4 Soal</span>
+        </div>
+
+        <div class="essay-item">
+          <div class="essay-q">1. Identifikasi apakah perjanjian berikut mengandung sewa berdasarkan PSAK 73:</div>
+          <div class="essay-sub">
+            <strong>a.</strong> Kafe Bejo melakukan perjanjian dengan operator bandara untuk penggunaan ruangan di bandara untuk menjual produknya selama 3 tahun.<br><br>
+            <strong>b.</strong> PT ABC telekomunikasi melakukan perjanjian untuk menggunakan tower A12 dan tower B13 milik PT DEF selama 5 tahun. Selama masa perjanjian, tower tersebut spesifik digunakan hanya untuk PT ABC.<br><br>
+            <strong>c.</strong> PT Milenal mengadakan perjanjian dengan PT Matahati untuk menggunakan 30 persen kapasitas kabel optik yang menghubungkan Jakarta dan Surabaya. Jangka waktu 4 tahun.
+          </div>
+          <button class="essay-toggle" onclick="toggleEssay('e1')">▶ Lihat Jawaban</button>
+          <div class="essay-answer" id="e1">
+            <h5>Kunci Jawaban</h5>
+            <div class="answer-group">
+              <h6>a. Kafe Bejo — BUKAN Sewa</h6>
+              <p>Tidak ada aset identifikasian. Operator bandara memiliki kemampuan mengubah/mensubstitusi ruangan yang disewa (hak substitusi substantif). Kafe Bejo tidak memiliki pengendalian atas ruangan identifikasi tertentu.</p>
+            </div>
+            <div class="answer-group">
+              <h6>b. PT ABC — MENGANDUNG Sewa</h6>
+              <p>Ada aset identifikasian (tower A12 dan B13 disebutkan spesifik). PT DEF tidak memiliki kemampuan mensubstitusi tower yang digunakan. PT ABC memiliki hak untuk mengendalikan penggunaan aset teridentifikasi. → Perjanjian mengandung sewa.</p>
+            </div>
+            <div class="answer-group">
+              <h6>c. PT Milenal — BUKAN Sewa</h6>
+              <p>Tidak ada aset identifikasian. PT Milenal hanya membeli kapasitas (30%), bukan kabel optik spesifik tertentu. PT Matahati sebagai pemasok dapat mengubah/mensubstitusi kabel optik yang digunakan. PT Milenal tidak memiliki hak untuk mengendalikan penggunaan aset teridentifikasi.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="essay-item">
+          <div class="essay-q">2. PT M menyewa 4 unit komputer dari PT L selama 3 tahun. Harga baru komputer Rp10 juta per unit. PT M memutuskan untuk menerapkan pengecualian untuk aset bernilai rendah. Pembayaran sewa: Tahun 1 Rp16 juta, Tahun 2 & 3 Rp10 juta per tahun. PT M memprediksi benefit dari penggunaan komputer sama setiap tahunnya. Bagaimana perlakuan akuntansi PT M atas sewa tersebut?</div>
+          <button class="essay-toggle" onclick="toggleEssay('e2')">▶ Lihat Jawaban</button>
+          <div class="essay-answer" id="e2">
+            <h5>Kunci Jawaban</h5>
+            <div class="answer-group">
+              <h6>Justifikasi Pengecualian Aset Bernilai Rendah:</h6>
+              <p>Harga baru komputer = Rp10 juta per unit ≈ setara USD 5.000 (threshold IFRS). Komputer tidak memiliki ketergantungan signifikan dengan aset lain dan tidak disubsewakan. → Pengecualian sewa aset bernilai rendah dapat diterapkan.</p>
+            </div>
+            <div class="answer-group">
+              <h6>Perhitungan Beban Sewa Tahunan (Garis Lurus):</h6>
+              <p>Total pembayaran = Rp16 juta + (Rp10 juta × 2) = <strong>Rp36 juta</strong></p>
+              <p>Masa sewa = 3 tahun → Beban sewa per tahun = Rp36 juta / 3 = <strong>Rp12 juta/tahun</strong></p>
+            </div>
+            <div class="answer-group">
+              <h6>Jurnal tiap tahun:</h6>
+              <p>Dr. Beban Sewa Rp12.000.000 / Cr. Kas (sesuai pembayaran actual) + Utang sewa dibayar dimuka atau piutang</p>
+              <p>Tahun 1: Dibayar Rp16 juta, beban Rp12 juta → Piutang sewa Rp4 juta (pembayaran lebih besar)</p>
+              <p>Tahun 2 & 3: Dibayar Rp10 juta, beban Rp12 juta → Utang sewa Rp2 juta/tahun</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="essay-item">
+          <div class="essay-q">3. Pada tanggal 1 Januari 2018, PT ABC melakukan perjanjian sewa mesin senilai Rp835.269.250 dengan PT XYZ Rental. Jangka waktu 6 tahun, tidak ada opsi perpanjangan. Umur ekonomis mesin 7 tahun, nilai residu Rp10 juta (dijamin PT ABC). PT ABC memperkirakan nilai sisa ≥ Rp5 juta. Tingkat bunga pinjaman inkremental PT ABC = 10%, tingkat bunga implisit PT XYZ = 8% (diketahui PT ABC). Pembayaran sewa Rp181.023 ribu setiap 31 Desember. Faktor PV annuity due 1 (n=6, i=8%) = 4,62288; PV single sum (n=6, i=8%) = 0,63017. Buatlah jurnal yang dibukukan PT ABC pada 1 Januari dan 31 Desember 2018.</div>
+          <button class="essay-toggle" onclick="toggleEssay('e3')">▶ Lihat Jawaban</button>
+          <div class="essay-answer" id="e3">
+            <h5>Kunci Jawaban</h5>
+            <div class="answer-group">
+              <h6>Pengukuran Awal Liabilitas Sewa:</h6>
+              <p>PT ABC menggunakan suku bunga implisit (8%) karena diketahui.</p>
+              <ul>
+                <li>PV pembayaran sewa = 180.000.000 × 4,62288 = Rp832.118.400</li>
+                <li>PV nilai residu yang dijamin = 5.000.000 × 0,63017 = Rp3.150.850</li>
+                <li>Liabilitas Sewa = <strong>Rp835.269.250</strong></li>
+              </ul>
+            </div>
+            <div class="answer-group">
+              <h6>Jurnal 1 Januari 2018:</h6>
+              <p>Dr. Aset Hak Guna Rp835.269.250 / Cr. Liabilitas Sewa Pembiayaan Rp835.269.250</p>
+            </div>
+            <div class="answer-group">
+              <h6>Jurnal 31 Desember 2018:</h6>
+              <p><em>Beban bunga:</em> 8% × Rp835.269.250 = Rp66.821.540</p>
+              <p>Dr. Beban Bunga Rp66.821.540 / Cr. Utang Bunga Rp66.821.540</p>
+              <p><em>Pembayaran sewa:</em></p>
+              <p>Dr. Liabilitas Sewa Pembiayaan Rp113.178.460 / Dr. Utang Bunga Rp66.821.540 / Cr. Kas Rp180.000.000</p>
+              <p><em>Penyusutan Aset Hak Guna:</em> (835.269.250 − 0)/7 = Rp119.324.179 (disusutkan selama umur aset karena ada GRV)</p>
+              <p>Dr. Beban Penyusutan Rp119.324.179 / Cr. Akumulasi Penyusutan Rp119.324.179</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="essay-item">
+          <div class="essay-q">4. Dengan informasi yang sama dengan soal 3: (a) Analisis klasifikasi sewa dari sisi PT XYZ Rental. (b) Buatlah jurnal yang dibukukan PT XYZ Rental untuk transaksi sewa tersebut di tahun 2018.</div>
+          <button class="essay-toggle" onclick="toggleEssay('e4')">▶ Lihat Jawaban</button>
+          <div class="essay-answer" id="e4">
+            <h5>Kunci Jawaban</h5>
+            <div class="answer-group">
+              <h6>(a) Klasifikasi Sewa — Sisi PT XYZ Rental (Lessor):</h6>
+              <p>Sewa diklasifikasikan sebagai <strong>sewa pembiayaan</strong> karena terdapat indikator transfer risiko dan manfaat:</p>
+              <ul>
+                <li>Masa sewa 6 tahun = 86% dari umur ekonomis aset (7 tahun) → sebagian besar umur ekonomis</li>
+                <li>Nilai kini pembayaran sewa minimum (Rp835.269.250) ≈ sama dengan nilai wajar mesin (Rp835.269.250) → mencakup secara substansial seluruh nilai wajar</li>
+              </ul>
+            </div>
+            <div class="answer-group">
+              <h6>(b) Jurnal PT XYZ Rental 2018:</h6>
+              <p><em>2 Januari 2018 — Pengakuan piutang sewa:</em></p>
+              <p>Dr. Piutang Sewa Pembiayaan Rp835.269.250 / Cr. Mesin Rp835.269.250</p>
+              <p><em>31 Desember 2018 — Penerimaan angsuran:</em></p>
+              <p>Dr. Kas Rp180.000.000 / Cr. Pendapatan Bunga Rp66.821.540 / Cr. Piutang Sewa Pembiayaan Rp113.178.460</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- AI CHAT -->
+    <section class="section" id="ai">
+      <div class="section-header">
+        <span class="section-num" style="background:var(--blue);color:#000">🤖</span>
+        <h2 class="section-title">Tanya AI — Asisten Belajar BAB 6</h2>
+      </div>
+      <div class="ai-section">
+        <div class="ai-header">
+          <div class="ai-dot"></div>
+          <h3>Asisten Sewa (PSAK 73)</h3>
+        </div>
+        <div class="ai-messages" id="aiMessages">
+          <div class="ai-msg ai">
+            <div class="avatar">AI</div>
+            <div class="ai-bubble">Halo! Saya siap membantu kamu memahami <strong>BAB 6 — Sewa</strong>. Tanyakan apa saja tentang identifikasi sewa, perlakuan akuntansi lessee (aset hak guna & liabilitas sewa), lessor (sewa pembiayaan vs operasi), subsewa, sales and lease back, atau sewa tanah dan bangunan. 💡</div>
+          </div>
+        </div>
+        <div class="ai-suggestions" id="aiSuggestions">
+          <span class="ai-chip" onclick="sendChip(this)">Bagaimana cara mengidentifikasi apakah kontrak mengandung sewa?</span>
+          <span class="ai-chip" onclick="sendChip(this)">Apa komponen aset hak guna dan cara menghitungnya?</span>
+          <span class="ai-chip" onclick="sendChip(this)">Apa perbedaan sewa pembiayaan dan sewa operasi dari sisi lessor?</span>
+          <span class="ai-chip" onclick="sendChip(this)">Jelaskan perlakuan akuntansi sales and lease back</span>
+          <span class="ai-chip" onclick="sendChip(this)">Kapan pengecualian sewa jangka pendek dan aset bernilai rendah dapat diterapkan?</span>
+        </div>
+        <div class="ai-input-row">
+          <textarea class="ai-input" id="aiInput" rows="1" placeholder="Ketik pertanyaan tentang BAB 6…" onkeydown="handleKey(event)"></textarea>
+          <button class="ai-send" id="aiSendBtn" onclick="sendMessage()">Kirim</button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script>
+const answers = {1:'b',2:'a',3:'d',4:'b',5:'c',6:'b',7:'c',8:'b',9:'d',10:'d'};
+function checkMC(el, choice, num) {
+  const item = el.closest('.mc-item');
+  if (item.querySelector('.revealed')) return;
+  const correct = answers[num];
+  item.querySelectorAll('.mc-option').forEach(opt => {
+    opt.classList.add('revealed');
+    const letter = opt.querySelector('.opt-letter').textContent.toLowerCase();
+    if (letter === correct) opt.classList.add('correct');
+    else if (letter === choice && choice !== correct) opt.classList.add('wrong');
+  });
+  const fb = document.getElementById('fb' + num);
+  if (fb) fb.classList.add('show');
+}
+function toggleEssay(id) {
+  const ans = document.getElementById(id);
+  const btn = ans.previousElementSibling;
+  const show = !ans.classList.contains('show');
+  ans.classList.toggle('show', show);
+  btn.textContent = show ? '▼ Sembunyikan Jawaban' : '▶ Lihat Jawaban';
+}
+const sections = document.querySelectorAll('.section, .subsection');
+const tocLinks = document.querySelectorAll('.toc-link');
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { tocLinks.forEach(l => l.classList.remove('active')); const a = document.querySelector(`.toc-link[href="#${e.target.id}"]`); if (a) a.classList.add('active'); } });
+}, { rootMargin: '-20% 0px -70% 0px' });
+sections.forEach(s => { if (s.id) obs.observe(s); });
+
+const SYSTEM_PROMPT = `Kamu adalah asisten belajar untuk mata kuliah CA Indonesia: Pelaporan Korporat, khususnya BAB 6 tentang Sewa (PSAK 73).
+
+Topik yang kamu kuasai:
+- 6.1 Identifikasi sewa: 2 kata kunci (aset identifikasian + pengendalian), flowchart PSAK 73, pengecualian cakupan (PSAK 64, 69, ISAK 16, PSAK 72, PSAK 19)
+- 6.2.1 Lessee — Aset hak guna: komponen pengukuran awal (liabilitas sewa + pembayaran sebelum permulaan + biaya langsung awal + estimasi dismantling), model biaya, penyusutan (periode mana yang lebih awal antara umur manfaat vs masa sewa)
+- 6.2.2 Lessee — Liabilitas sewa: komponen pembayaran sewa (tetap, variabel indeks, GRV, harga opsi beli, penalti), suku bunga implisit atau pinjaman inkremental, pengukuran setelah (tambah bunga, kurangi pembayaran, penilaian kembali), modifikasi sewa
+- 6.2.3 Pengecualian lessee: sewa jangka pendek (<12 bulan, tanpa opsi beli), sewa aset bernilai rendah (≤USD5.000 saat baru)
+- 6.2.2 Lessor — Klasifikasi: sewa pembiayaan jika mengalihkan substansial risiko & manfaat (5 indikator utama + 3 indikator tambahan), sewa operasi jika tidak
+- 6.2.3 Lessor sewa pembiayaan: direct finance lease (piutang investasi neto = PV pembayaran + GRV + URV), manufacturer/dealer lessor (akui laba penjualan di awal + pendapatan bunga metode efektif selama masa sewa)
+- 6.2.4 Lessor sewa operasi: pendapatan sewa garis lurus, aset tetap dipertahankan dan disusutkan
+- Subsewa: intermediate lessor, klasifikasi berdasarkan hak guna aset dari head lease
+- Sales and Lease Back: apakah transfer = penjualan (PSAK 72)? → seller-lessee akui sebagian keuntungan; jika bukan penjualan → liabilitas keuangan
+- Sewa tanah dan bangunan: pisahkan elemen, alokasikan berdasarkan proporsi nilai wajar
+
+Jawab dalam Bahasa Indonesia yang jelas dan ringkas. Gunakan contoh angka konkret dan tabel amortisasi bila relevan.`;
+
+const messagesEl = document.getElementById('aiMessages');
+const inputEl = document.getElementById('aiInput');
+const sendBtn = document.getElementById('aiSendBtn');
+let history = [];
+function addMsg(role, text) {
+  const div = document.createElement('div');
+  div.className = `ai-msg ${role}`;
+  div.innerHTML = `<div class="avatar">${role==='ai'?'AI':'Kamu'}</div><div class="ai-bubble">${text.replace(/\n/g,'<br>')}</div>`;
+  messagesEl.appendChild(div); messagesEl.scrollTop = messagesEl.scrollHeight;
+}
+function addTyping() {
+  const div = document.createElement('div'); div.className = 'ai-msg ai'; div.id = 'typing';
+  div.innerHTML = `<div class="avatar">AI</div><div class="ai-typing"><span></span><span></span><span></span></div>`;
+  messagesEl.appendChild(div); messagesEl.scrollTop = messagesEl.scrollHeight;
+}
+async function sendMessage() {
+  const text = inputEl.value.trim(); if (!text) return;
+  inputEl.value = ''; document.getElementById('aiSuggestions').style.display = 'none';
+  addMsg('user', text); history.push({ role: 'user', content: text }); sendBtn.disabled = true; addTyping();
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ model: 'claude-sonnet-4-20250514', max_tokens: 1000, system: SYSTEM_PROMPT, messages: history }) });
+    const data = await res.json();
+    document.getElementById('typing')?.remove();
+    const reply = data.content?.find(b => b.type === 'text')?.text || 'Maaf, tidak ada respons.';
+    addMsg('ai', reply); history.push({ role: 'assistant', content: reply });
+  } catch { document.getElementById('typing')?.remove(); addMsg('ai', 'Maaf, terjadi kesalahan. Periksa koneksi internet dan coba lagi.'); }
+  sendBtn.disabled = false;
+}
+function sendChip(el) { inputEl.value = el.textContent; sendMessage(); }
+function handleKey(e) { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); } }
+</script>
+</body>
+</html>

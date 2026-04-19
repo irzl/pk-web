@@ -1,0 +1,1354 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BAB 5 — Aset Tidak Lancar</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #0f0a08; --surface: #1a1208; --surface2: #241a0a; --surface3: #2e2010;
+  --accent: #fb923c; --accent2: #fdba74; --accent3: #ea580c;
+  --yellow: #fbbf24; --green: #4ade80; --teal: #2dd4bf; --blue: #60a5fa; --purple: #a78bfa; --red: #f87171;
+  --text: #fff7ed; --text2: #c4a882; --muted: #6b5a45; --border: rgba(251,146,60,0.1); --border2: rgba(255,255,255,0.06);
+}
+html { scroll-behavior: smooth; }
+body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; min-height: 100vh; }
+
+.chapter-header { background: linear-gradient(135deg, #0f0a08 0%, #1a1208 50%, #0f0a08 100%); border-bottom: 1px solid var(--border); padding: 2.5rem 2rem 2rem; position: relative; overflow: hidden; }
+.chapter-header::before { content: '5'; position: absolute; right: -0.5rem; top: -1rem; font-family: 'Playfair Display', serif; font-size: 12rem; font-weight: 900; color: rgba(251,146,60,0.04); line-height: 1; pointer-events: none; user-select: none; }
+.chapter-eyebrow { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent3); margin-bottom: 0.5rem; }
+.chapter-title { font-family: 'Playfair Display', serif; font-size: clamp(1.4rem, 3.5vw, 2.2rem); font-weight: 900; line-height: 1.15; background: linear-gradient(135deg, #fb923c, #fdba74); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 1.2rem; }
+.learning-goals { background: rgba(251,146,60,0.05); border: 1px solid var(--border); border-radius: 12px; padding: 1rem 1.2rem; max-width: 700px; }
+.learning-goals h3 { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.6rem; }
+.goals-list { list-style: none; display: flex; flex-direction: column; gap: 0.3rem; }
+.goals-list li { font-size: 0.78rem; color: var(--text2); display: flex; gap: 0.6rem; align-items: flex-start; }
+.goals-list li::before { content: '→'; color: var(--accent3); flex-shrink: 0; font-family: 'DM Mono', monospace; font-size: 0.7rem; margin-top: 0.05rem; }
+
+.page-body { display: grid; grid-template-columns: 220px 1fr; min-height: calc(100vh - 200px); }
+.toc { background: var(--surface); border-right: 1px solid var(--border2); padding: 1.5rem 0; position: sticky; top: 0; height: 100vh; overflow-y: auto; }
+.toc-label { font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); padding: 0 1rem; margin-bottom: 0.8rem; }
+.toc-link { display: block; padding: 0.45rem 1rem; font-size: 0.75rem; color: var(--muted); text-decoration: none; transition: all 0.15s; border-left: 2px solid transparent; line-height: 1.4; }
+.toc-link:hover { color: var(--text); background: rgba(251,146,60,0.04); }
+.toc-link.active { color: var(--accent); border-left-color: var(--accent); background: rgba(251,146,60,0.06); }
+.toc-link.sub { padding-left: 1.8rem; font-size: 0.7rem; }
+.toc-divider { height: 1px; background: var(--border2); margin: 0.6rem 1rem; }
+.main { padding: 2rem 2.5rem 4rem; max-width: 860px; }
+.section { margin-bottom: 3rem; scroll-margin-top: 1.5rem; }
+.section-header { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.2rem; padding-bottom: 0.7rem; border-bottom: 1px solid var(--border2); }
+.section-num { font-family: 'DM Mono', monospace; font-size: 0.65rem; font-weight: 700; background: var(--accent3); color: #fff; padding: 0.2rem 0.5rem; border-radius: 4px; flex-shrink: 0; }
+.section-title { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; color: var(--text); line-height: 1.3; }
+.subsection { margin-bottom: 1.5rem; scroll-margin-top: 1.5rem; }
+.subsection-title { font-size: 0.82rem; font-weight: 600; color: var(--accent2); font-family: 'DM Mono', monospace; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.6rem; }
+
+.card { background: var(--surface); border: 1px solid var(--border2); border-radius: 10px; padding: 1.1rem 1.2rem; margin-bottom: 0.8rem; }
+.card-title { font-size: 0.78rem; font-weight: 600; color: var(--accent); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem; }
+.card-title .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
+.card p, .card li { font-size: 0.8rem; color: var(--text2); line-height: 1.6; }
+.card ul, .card ol { padding-left: 1.1rem; margin-top: 0.4rem; display: flex; flex-direction: column; gap: 0.25rem; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; margin-bottom: 1rem; }
+.grid-3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 0.7rem; margin-bottom: 1rem; }
+.highlight { background: rgba(251,146,60,0.06); border: 1px solid rgba(251,146,60,0.2); border-left: 3px solid var(--accent); border-radius: 8px; padding: 0.9rem 1.1rem; margin-bottom: 1rem; }
+.highlight p { font-size: 0.8rem; color: var(--text2); line-height: 1.6; }
+.highlight strong { color: var(--accent); font-weight: 600; }
+.highlight-blue { background: rgba(96,165,250,0.06); border: 1px solid rgba(96,165,250,0.2); border-left: 3px solid var(--blue); border-radius: 8px; padding: 0.9rem 1.1rem; margin-bottom: 1rem; }
+.highlight-blue p { font-size: 0.8rem; color: var(--text2); line-height: 1.6; }
+.highlight-blue strong { color: var(--blue); font-weight: 600; }
+.highlight-green { background: rgba(74,222,128,0.06); border: 1px solid rgba(74,222,128,0.2); border-left: 3px solid var(--green); border-radius: 8px; padding: 0.9rem 1.1rem; margin-bottom: 1rem; }
+.highlight-green p { font-size: 0.8rem; color: var(--text2); line-height: 1.6; }
+.highlight-green strong { color: var(--green); font-weight: 600; }
+.table-wrap { overflow-x: auto; margin-bottom: 1rem; border-radius: 10px; border: 1px solid var(--border2); }
+table { width: 100%; border-collapse: collapse; font-size: 0.76rem; }
+thead tr { background: var(--surface3); }
+th { padding: 0.7rem 0.9rem; text-align: left; font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); font-weight: 500; }
+td { padding: 0.6rem 0.9rem; border-top: 1px solid var(--border2); color: var(--text2); vertical-align: top; line-height: 1.5; }
+tbody tr:hover { background: rgba(255,255,255,0.02); }
+.tag { display: inline-block; font-family: 'DM Mono', monospace; font-size: 0.6rem; padding: 0.15rem 0.5rem; border-radius: 99px; font-weight: 500; }
+.tag-orange { background: rgba(251,146,60,0.12); color: var(--accent); border: 1px solid rgba(251,146,60,0.25); }
+.tag-yellow { background: rgba(251,191,36,0.12); color: var(--yellow); border: 1px solid rgba(251,191,36,0.25); }
+.tag-green { background: rgba(74,222,128,0.12); color: var(--green); border: 1px solid rgba(74,222,128,0.25); }
+.tag-blue { background: rgba(96,165,250,0.12); color: var(--blue); border: 1px solid rgba(96,165,250,0.25); }
+.tag-purple { background: rgba(167,139,250,0.12); color: var(--purple); border: 1px solid rgba(167,139,250,0.25); }
+.tag-red { background: rgba(248,113,113,0.12); color: var(--red); border: 1px solid rgba(248,113,113,0.25); }
+.psak-ref { display: inline-flex; align-items: center; gap: 0.35rem; font-family: 'DM Mono', monospace; font-size: 0.62rem; background: var(--surface3); border: 1px solid var(--border2); color: var(--text2); padding: 0.15rem 0.55rem; border-radius: 99px; margin-bottom: 0.5rem; }
+.psak-ref span { color: var(--accent); }
+
+/* Pengukuran model comparison */
+.model-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.7rem; margin-bottom: 1rem; }
+.model-card { background: var(--surface); border: 1px solid var(--border2); border-radius: 10px; padding: 0.9rem 1rem; }
+.model-label { font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.25rem; }
+.model-name { font-size: 0.85rem; font-weight: 700; margin-bottom: 0.4rem; }
+.model-card ul { list-style: none; display: flex; flex-direction: column; gap: 0.2rem; }
+.model-card li { font-size: 0.72rem; color: var(--text2); display: flex; gap: 0.4rem; line-height: 1.4; }
+.model-card li::before { content: '▸'; color: var(--accent); flex-shrink: 0; font-size: 0.6rem; margin-top: 0.1rem; }
+
+/* Revaluasi flow */
+.revaluasi-box { background: var(--surface3); border: 1px solid var(--border2); border-radius: 10px; padding: 1rem 1.2rem; margin-bottom: 1rem; }
+.revaluasi-title { font-family: 'DM Mono', monospace; font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--yellow); margin-bottom: 0.6rem; }
+.revaluasi-box p { font-size: 0.76rem; color: var(--text2); line-height: 1.55; }
+
+/* Penyusutan methods */
+.penyusutan-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 0.7rem; margin-bottom: 1rem; }
+.penyusutan-card { background: var(--surface); border: 1px solid var(--border2); border-radius: 10px; padding: 0.9rem 1rem; text-align: center; border-top: 2px solid; }
+.penyusutan-icon { font-size: 1.4rem; margin-bottom: 0.4rem; }
+.penyusutan-name { font-size: 0.78rem; font-weight: 700; color: var(--text); margin-bottom: 0.25rem; }
+.penyusutan-card p { font-size: 0.68rem; color: var(--text2); line-height: 1.4; }
+
+/* Impairment flow */
+.impairment-flow { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1rem; }
+.impairment-step { background: var(--surface); border: 1px solid var(--border2); border-radius: 8px; padding: 0.7rem 1rem; display: flex; gap: 0.7rem; align-items: flex-start; }
+.impairment-num { font-family: 'DM Mono', monospace; font-size: 0.65rem; font-weight: 700; background: var(--accent3); color: #fff; padding: 0.15rem 0.5rem; border-radius: 4px; flex-shrink: 0; margin-top: 0.05rem; }
+.impairment-step p { font-size: 0.78rem; color: var(--text2); line-height: 1.55; }
+.impairment-step strong { color: var(--text); }
+
+/* Formula box */
+.formula-box { background: var(--surface3); border: 1px solid var(--border2); border-radius: 10px; padding: 1rem 1.2rem; margin-bottom: 1rem; font-family: 'DM Mono', monospace; }
+.formula-title { font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.6rem; }
+.formula-eq { font-size: 0.82rem; color: var(--text); text-align: center; padding: 0.5rem; background: rgba(251,146,60,0.05); border-radius: 6px; margin-bottom: 0.4rem; }
+.formula-note { font-size: 0.68rem; color: var(--muted); margin-top: 0.3rem; }
+
+/* Pengalihan table */
+.pengalihan-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; margin-bottom: 1rem; }
+.pengalihan-card { background: var(--surface); border: 1px solid var(--border2); border-radius: 10px; padding: 0.9rem 1rem; }
+.pengalihan-label { font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.4rem; font-weight: 700; }
+.pengalihan-card ul { list-style: none; display: flex; flex-direction: column; gap: 0.3rem; }
+.pengalihan-card li { font-size: 0.72rem; color: var(--text2); display: flex; gap: 0.4rem; line-height: 1.4; }
+.pengalihan-card li::before { content: '→'; font-size: 0.7rem; flex-shrink: 0; margin-top: 0.05rem; }
+
+/* R&D phase */
+.rd-flow { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; margin-bottom: 1rem; }
+.rd-card { background: var(--surface); border: 1px solid var(--border2); border-radius: 10px; padding: 0.9rem 1rem; }
+.rd-phase { font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.3rem; }
+.rd-result { font-size: 0.78rem; font-weight: 700; margin-bottom: 0.4rem; }
+.rd-card ul { list-style: none; display: flex; flex-direction: column; gap: 0.2rem; }
+.rd-card li { font-size: 0.72rem; color: var(--text2); display: flex; gap: 0.4rem; line-height: 1.4; }
+.rd-card li::before { content: '·'; font-size: 1rem; flex-shrink: 0; line-height: 1.2; }
+
+/* Latihan */
+.exercise-section { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; margin-bottom: 1.5rem; }
+.exercise-header { background: rgba(251,146,60,0.08); padding: 0.9rem 1.2rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 0.6rem; }
+.exercise-header h3 { font-family: 'DM Mono', monospace; font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); }
+.exercise-badge { font-family: 'DM Mono', monospace; font-size: 0.58rem; background: rgba(251,146,60,0.15); color: var(--accent); padding: 0.15rem 0.5rem; border-radius: 99px; }
+.mc-item { padding: 1rem 1.2rem; border-bottom: 1px solid var(--border2); }
+.mc-item:last-child { border-bottom: none; }
+.mc-question { font-size: 0.8rem; color: var(--text); font-weight: 500; margin-bottom: 0.6rem; line-height: 1.55; }
+.mc-options { display: flex; flex-direction: column; gap: 0.3rem; }
+.mc-option { display: flex; gap: 0.6rem; align-items: flex-start; padding: 0.4rem 0.6rem; border-radius: 6px; cursor: pointer; transition: background 0.15s; font-size: 0.76rem; color: var(--text2); line-height: 1.4; border: 1px solid transparent; }
+.mc-option:hover { background: rgba(255,255,255,0.03); border-color: var(--border2); }
+.mc-option.correct { background: rgba(74,222,128,0.1); color: var(--green); border-color: rgba(74,222,128,0.3); }
+.mc-option.wrong { background: rgba(248,113,113,0.08); color: var(--red); border-color: rgba(248,113,113,0.2); }
+.mc-option.revealed { pointer-events: none; }
+.opt-letter { font-family: 'DM Mono', monospace; font-size: 0.65rem; font-weight: 700; background: var(--surface3); padding: 0.15rem 0.4rem; border-radius: 4px; flex-shrink: 0; margin-top: 0.05rem; }
+.mc-feedback { margin-top: 0.5rem; font-size: 0.72rem; color: var(--muted); display: none; padding: 0.4rem 0.6rem; background: var(--surface3); border-radius: 6px; line-height: 1.5; }
+.mc-feedback.show { display: block; }
+.mc-feedback .correct-ans { color: var(--green); font-weight: 600; }
+.essay-item { padding: 1rem 1.2rem; border-bottom: 1px solid var(--border2); }
+.essay-item:last-child { border-bottom: none; }
+.essay-q { font-size: 0.8rem; color: var(--text); font-weight: 500; margin-bottom: 0.8rem; line-height: 1.55; }
+.essay-toggle { display: flex; align-items: center; gap: 0.5rem; font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent3); background: rgba(251,146,60,0.07); border: 1px solid rgba(251,146,60,0.2); padding: 0.4rem 0.8rem; border-radius: 6px; cursor: pointer; transition: all 0.15s; width: fit-content; }
+.essay-toggle:hover { background: rgba(251,146,60,0.12); color: var(--accent); }
+.essay-answer { margin-top: 0.8rem; display: none; background: var(--surface3); border-radius: 8px; padding: 0.9rem 1rem; }
+.essay-answer.show { display: block; }
+.essay-answer h5 { font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent3); margin-bottom: 0.6rem; }
+.essay-answer p, .essay-answer li { font-size: 0.77rem; color: var(--text2); line-height: 1.6; }
+.essay-answer ul { padding-left: 0; list-style: none; display: flex; flex-direction: column; gap: 0.3rem; margin-top: 0.3rem; }
+.essay-answer li { display: flex; gap: 0.5rem; }
+.essay-answer li::before { content: '▸'; color: var(--accent); flex-shrink: 0; font-size: 0.6rem; margin-top: 0.1rem; }
+.answer-group { margin-bottom: 0.7rem; }
+.answer-group h6 { font-size: 0.74rem; font-weight: 600; color: var(--text); margin-bottom: 0.35rem; }
+.calc-table { width: 100%; font-size: 0.73rem; border-collapse: collapse; margin-top: 0.5rem; }
+.calc-table th { background: var(--surface2); padding: 0.4rem 0.6rem; text-align: left; color: var(--accent2); font-weight: 600; border: 1px solid var(--border2); }
+.calc-table td { padding: 0.35rem 0.6rem; border: 1px solid var(--border2); color: var(--text2); }
+.calc-table tr.total td { background: var(--surface2); color: var(--accent); font-weight: 700; }
+
+/* AI */
+.ai-section { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; }
+.ai-header { background: rgba(96,165,250,0.07); padding: 0.9rem 1.2rem; border-bottom: 1px solid rgba(96,165,250,0.15); display: flex; align-items: center; gap: 0.6rem; }
+.ai-header h3 { font-family: 'DM Mono', monospace; font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--blue); }
+.ai-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--blue); }
+.ai-messages { padding: 1rem 1.2rem; min-height: 80px; max-height: 360px; overflow-y: auto; display: flex; flex-direction: column; gap: 0.7rem; }
+.ai-msg { display: flex; gap: 0.6rem; align-items: flex-start; font-size: 0.78rem; line-height: 1.6; animation: fadeUp 0.25s ease; }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+.ai-msg.user { flex-direction: row-reverse; }
+.ai-msg .avatar { width: 26px; height: 26px; border-radius: 6px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 0.65rem; font-weight: 700; margin-top: 0.1rem; }
+.ai-msg.ai .avatar { background: rgba(96,165,250,0.15); color: var(--blue); }
+.ai-msg.user .avatar { background: rgba(251,146,60,0.15); color: var(--accent); }
+.ai-bubble { padding: 0.6rem 0.85rem; border-radius: 10px; max-width: 85%; }
+.ai-msg.ai .ai-bubble { background: var(--surface3); color: var(--text2); }
+.ai-msg.user .ai-bubble { background: rgba(251,146,60,0.09); color: var(--text); text-align: right; }
+.ai-typing { display: flex; gap: 4px; align-items: center; padding: 0.6rem 0.85rem; background: var(--surface3); border-radius: 10px; width: fit-content; }
+.ai-typing span { width: 5px; height: 5px; border-radius: 50%; background: var(--blue); animation: typing 1.2s infinite; }
+.ai-typing span:nth-child(2) { animation-delay: 0.2s; }
+.ai-typing span:nth-child(3) { animation-delay: 0.4s; }
+@keyframes typing { 0%,60%,100% { opacity: 0.2; transform: scale(0.8); } 30% { opacity: 1; transform: scale(1); } }
+.ai-suggestions { padding: 0 1.2rem 0.75rem; display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.ai-chip { font-family: 'DM Mono', monospace; font-size: 0.62rem; background: var(--surface3); border: 1px solid var(--border2); color: var(--text2); padding: 0.3rem 0.7rem; border-radius: 99px; cursor: pointer; transition: all 0.15s; }
+.ai-chip:hover { border-color: rgba(96,165,250,0.35); color: var(--blue); }
+.ai-input-row { padding: 0.75rem 1.2rem; border-top: 1px solid var(--border2); display: flex; gap: 0.5rem; }
+.ai-input { flex: 1; background: var(--surface3); border: 1px solid var(--border2); border-radius: 8px; padding: 0.5rem 0.8rem; font-size: 0.78rem; color: var(--text); font-family: 'DM Sans', sans-serif; outline: none; resize: none; max-height: 100px; transition: border-color 0.2s; }
+.ai-input:focus { border-color: rgba(96,165,250,0.35); }
+.ai-input::placeholder { color: var(--muted); }
+.ai-send { background: var(--blue); color: #000; border: none; border-radius: 8px; padding: 0.5rem 1rem; font-family: 'DM Mono', monospace; font-size: 0.68rem; font-weight: 700; cursor: pointer; transition: opacity 0.15s; }
+.ai-send:hover { opacity: 0.85; }
+.ai-send:disabled { opacity: 0.4; cursor: not-allowed; }
+</style>
+</head>
+<body>
+
+<div class="chapter-header">
+  <div class="chapter-eyebrow">Pelaporan Korporat — CA Indonesia</div>
+  <div class="chapter-title">BAB 5 — Aset Tidak Lancar</div>
+  <div class="learning-goals">
+    <h3>Tujuan Pembelajaran</h3>
+    <ul class="goals-list">
+      <li>Menjelaskan kriteria dan cakupan aset tidak lancar</li>
+      <li>Menerapkan akuntansi properti investasi, aset tetap, aset takberwujud, dan aset biologis</li>
+      <li>Mengevaluasi kebijakan akuntansi atas properti investasi, aset tetap, aset takberwujud, dan aset biologis</li>
+      <li>Menerapkan akuntansi aset tambang, hibah pemerintah, aset dari pelanggan, dan penurunan nilai aset tidak lancar</li>
+      <li>Mengevaluasi kebijakan akuntansi terkait aset tambang, hibah pemerintah, aset dari pelanggan, dan penurunan nilai</li>
+    </ul>
+  </div>
+</div>
+
+<div class="page-body">
+  <nav class="toc">
+    <div class="toc-label">Daftar Isi</div>
+    <a class="toc-link" href="#s1">5.1 Pengertian ATL</a>
+    <a class="toc-link" href="#s2">5.2 Properti Investasi</a>
+    <a class="toc-link sub" href="#s2-1">Definisi</a>
+    <a class="toc-link sub" href="#s2-2">Pengakuan</a>
+    <a class="toc-link sub" href="#s2-3">Pengukuran Awal</a>
+    <a class="toc-link sub" href="#s2-4">Pengukuran Setelah</a>
+    <a class="toc-link sub" href="#s2-5">Pengalihan</a>
+    <a class="toc-link sub" href="#s2-6">Penghentian</a>
+    <div class="toc-divider"></div>
+    <a class="toc-link" href="#s3">5.3 Aset Tetap</a>
+    <a class="toc-link sub" href="#s3-1">Definisi</a>
+    <a class="toc-link sub" href="#s3-2">Pengakuan</a>
+    <a class="toc-link sub" href="#s3-3">Pengukuran Awal</a>
+    <a class="toc-link sub" href="#s3-4">Pengukuran Setelah</a>
+    <a class="toc-link sub" href="#s3-5">Penyusutan</a>
+    <a class="toc-link sub" href="#s3-6">Penghentian</a>
+    <div class="toc-divider"></div>
+    <a class="toc-link" href="#s4">5.4 Aset Takberwujud</a>
+    <a class="toc-link sub" href="#s4-1">Definisi</a>
+    <a class="toc-link sub" href="#s4-2">Pengakuan & Pengukuran</a>
+    <a class="toc-link sub" href="#s4-3">Pengakuan Beban</a>
+    <a class="toc-link sub" href="#s4-4">Pengukuran Setelah</a>
+    <a class="toc-link sub" href="#s4-5">Umur Manfaat & Amortisasi</a>
+    <div class="toc-divider"></div>
+    <a class="toc-link" href="#s5">5.5 Aset Biologis</a>
+    <a class="toc-link" href="#s6">5.6 Aset Tambang</a>
+    <a class="toc-link" href="#s7">5.7 Hibah Pemerintah</a>
+    <a class="toc-link" href="#s8">5.8 Aset dari Pelanggan</a>
+    <a class="toc-link" href="#s9">5.9 Penurunan Nilai</a>
+    <div class="toc-divider"></div>
+    <a class="toc-link" href="#latihan">Latihan Soal</a>
+    <a class="toc-link" href="#ai">Tanya AI</a>
+  </nav>
+
+  <main class="main">
+
+    <!-- 5.1 -->
+    <section class="section" id="s1">
+      <div class="section-header">
+        <span class="section-num">5.1</span>
+        <h2 class="section-title">Pengertian Aset Tidak Lancar</h2>
+      </div>
+      <div class="psak-ref"><span>PSAK 1</span> Penyajian Laporan Keuangan</div>
+      <div class="highlight">
+        <p>Aset tidak lancar adalah aset yang memberikan manfaat ekonomi <strong>lebih dari satu tahun</strong> atau lebih dari satu siklus operasi normal. Suatu aset diklasifikasikan sebagai aset tidak lancar jika <strong>tidak memenuhi keempat kriteria aset lancar</strong> yang diatur dalam PSAK 1.</p>
+      </div>
+      <div class="grid-3">
+        <div class="card" style="border-top:2px solid var(--accent)">
+          <div class="card-title"><span class="dot"></span>Properti Investasi</div>
+          <p>Tanah/bangunan untuk menghasilkan rental atau kenaikan nilai</p>
+        </div>
+        <div class="card" style="border-top:2px solid var(--blue)">
+          <div class="card-title" style="color:var(--blue)"><span class="dot" style="background:var(--blue)"></span>Aset Tetap</div>
+          <p>Aset berwujud untuk operasi, digunakan &gt; 1 periode</p>
+        </div>
+        <div class="card" style="border-top:2px solid var(--purple)">
+          <div class="card-title" style="color:var(--purple)"><span class="dot" style="background:var(--purple)"></span>Aset Takberwujud</div>
+          <p>Aset tanpa wujud fisik: paten, hak cipta, goodwill</p>
+        </div>
+        <div class="card" style="border-top:2px solid var(--green)">
+          <div class="card-title" style="color:var(--green)"><span class="dot" style="background:var(--green)"></span>Aset Biologis</div>
+          <p>Hewan atau tanaman hidup (PSAK 69)</p>
+        </div>
+        <div class="card" style="border-top:2px solid var(--teal)">
+          <div class="card-title" style="color:var(--teal)"><span class="dot" style="background:var(--teal)"></span>Aset Tambang</div>
+          <p>Aset eksplorasi & evaluasi pertambangan (PSAK 64)</p>
+        </div>
+        <div class="card" style="border-top:2px solid var(--yellow)">
+          <div class="card-title" style="color:var(--yellow)"><span class="dot" style="background:var(--yellow)"></span>Aset Keuangan JP</div>
+          <p>Aset keuangan yang bersifat jangka panjang</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5.2 Properti Investasi -->
+    <section class="section" id="s2">
+      <div class="section-header">
+        <span class="section-num">5.2</span>
+        <h2 class="section-title">Properti Investasi</h2>
+      </div>
+      <div class="psak-ref"><span>PSAK 13</span> Properti Investasi &nbsp;|&nbsp; <span>ISAK 31</span> Ruang Lingkup PSAK 13</div>
+
+      <div class="subsection" id="s2-1">
+        <div class="subsection-title">5.2.1 Definisi</div>
+        <div class="highlight">
+          <p>Properti (tanah atau bangunan atau keduanya) yang dikuasai untuk <strong>menghasilkan rental</strong> atau <strong>kenaikan nilai</strong> atau keduanya — bukan untuk digunakan dalam produksi/jasa/administrasi dan bukan untuk dijual dalam kegiatan usaha sehari-hari.</p>
+        </div>
+        <div class="grid-2">
+          <div class="card">
+            <div class="card-title"><span class="dot" style="background:var(--green)"></span><span style="color:var(--green)">✓ Termasuk Properti Investasi</span></div>
+            <ul>
+              <li>Tanah/bangunan yang disewakan ke pihak ketiga via sewa operasi</li>
+              <li>Bangunan dalam proses pembangunan untuk disewakan</li>
+              <li>Tanah yang tujuan penggunaannya belum ditentukan</li>
+              <li>Hak atas properti via sewa operasi (jika memenuhi syarat)</li>
+            </ul>
+          </div>
+          <div class="card">
+            <div class="card-title"><span class="dot" style="background:var(--red)"></span><span style="color:var(--red)">✗ Bukan Properti Investasi</span></div>
+            <ul>
+              <li>Properti yang digunakan sendiri (aset tetap)</li>
+              <li>Disewakan ke pihak ketiga via sewa pembiayaan</li>
+              <li>Tanah/bangunan dalam proses pengembangan untuk dijual</li>
+              <li>Bangunan hotel yang memberikan tambahan jasa signifikan</li>
+              <li>Properti yang disewakan induk ke anak perusahaan (konsolidasi)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="subsection" id="s2-2">
+        <div class="subsection-title">5.2.2 Pengakuan</div>
+        <div class="highlight-blue">
+          <p>Diakui sebagai aset jika dan hanya jika: <strong>(a)</strong> besar kemungkinan manfaat ekonomi masa depan akan mengalir ke perusahaan, <strong>DAN (b)</strong> biaya perolehan dapat diukur dengan andal. Kriteria ini juga berlaku untuk kapitalisasi biaya setelah pengakuan awal.</p>
+        </div>
+      </div>
+
+      <div class="subsection" id="s2-3">
+        <div class="subsection-title">5.2.3 Pengukuran Saat Pengakuan</div>
+        <p style="font-size:0.8rem;color:var(--text2);margin-bottom:0.8rem">Diukur sebesar biaya perolehan (harga beli + biaya yang dapat diatribusikan langsung: biaya jasa hukum, pajak pengalihan, biaya transaksi).</p>
+        <div class="grid-3">
+          <div class="card">
+            <div class="card-title"><span class="dot"></span>Pembayaran Ditangguhkan</div>
+            <p>Diukur setara nilai tunai. Selisih dengan total pembayaran = beban bunga selama cicilan.</p>
+          </div>
+          <div class="card">
+            <div class="card-title"><span class="dot"></span>Transaksi Sewa</div>
+            <p>Diukur sesuai PSAK 30: min(nilai wajar, nilai kini pembayaran sewa minimum).</p>
+          </div>
+          <div class="card">
+            <div class="card-title"><span class="dot"></span>Pertukaran Aset</div>
+            <p>Diukur pada nilai wajar aset yang diserahkan (jika memiliki substansi komersial).</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="subsection" id="s2-4">
+        <div class="subsection-title">5.2.4 Pengukuran Setelah Pengakuan</div>
+        <div class="model-grid">
+          <div class="model-card" style="border-top:2px solid var(--accent)">
+            <div class="model-label">Model 1</div>
+            <div class="model-name" style="color:var(--accent)">Model Nilai Wajar</div>
+            <ul>
+              <li>Diukur pada nilai wajar tanggal pelaporan</li>
+              <li>Keuntungan/kerugian diakui di laba rugi</li>
+              <li><strong>Tidak perlu disusutkan</strong></li>
+              <li>Harus diterapkan untuk seluruh properti investasi</li>
+            </ul>
+          </div>
+          <div class="model-card" style="border-top:2px solid var(--blue)">
+            <div class="model-label">Model 2</div>
+            <div class="model-name" style="color:var(--blue)">Model Biaya</div>
+            <ul>
+              <li>Biaya perolehan − akumulasi penyusutan − akumulasi rugi penurunan nilai</li>
+              <li>Properti bangunan <strong>harus disusutkan</strong></li>
+              <li>Harus mengungkapkan nilai wajar di CALK</li>
+            </ul>
+          </div>
+        </div>
+        <div class="highlight">
+          <p><strong>⚠ Pengecualian:</strong> Jika properti digunakan sebagai agunan dengan nilai dikaitkan ke nilai wajar, atau jika sewa operasi diklasifikasikan sebagai properti investasi → wajib pakai model nilai wajar.</p>
+        </div>
+      </div>
+
+      <div class="subsection" id="s2-5">
+        <div class="subsection-title">5.2.5 Pengalihan (Reklasifikasi)</div>
+        <div class="pengalihan-grid">
+          <div class="pengalihan-card" style="border-top:2px solid var(--red)">
+            <div class="pengalihan-label" style="color:var(--red)">Dari Properti Investasi →</div>
+            <ul>
+              <li style="color:var(--text2)">→ Aset Tetap (dimulainya penggunaan oleh pemilik)</li>
+              <li style="color:var(--text2)">→ Persediaan (dimulainya pengembangan untuk dijual)</li>
+            </ul>
+            <p style="font-size:0.7rem;color:var(--muted);margin-top:0.5rem">Nilai wajar saat pengalihan = deemed cost aset baru</p>
+          </div>
+          <div class="pengalihan-card" style="border-top:2px solid var(--green)">
+            <div class="pengalihan-label" style="color:var(--green)">← Ke Properti Investasi</div>
+            <ul>
+              <li style="color:var(--text2)">Aset Tetap → PI (berakhirnya pemakaian oleh pemilik)</li>
+              <li style="color:var(--text2)">Persediaan → PI (inisiasi sewa operasi ke pihak ketiga)</li>
+            </ul>
+            <p style="font-size:0.7rem;color:var(--muted);margin-top:0.5rem">Selisih nilai wajar pada tanggal pengalihan → surplus revaluasi (OCI) atau laba rugi</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="subsection" id="s2-6">
+        <div class="subsection-title">5.2.6 Penghentian Pengakuan</div>
+        <div class="card">
+          <div class="card-title"><span class="dot"></span>Kondisi Penghentian</div>
+          <ul>
+            <li>Properti investasi dijual</li>
+            <li>Ditukarkan dengan aset lain</li>
+            <li>Disewakan ke pihak lain melalui sewa pembiayaan</li>
+            <li>Properti hilang atau rusak permanen</li>
+          </ul>
+        </div>
+        <div class="highlight-blue">
+          <p><strong>Catatan:</strong> Pengalihan ke aset tetap/persediaan <em>bukan</em> penghentian pengakuan karena aset masih digunakan. Selisih hasil neto pelepasan dan jumlah tercatat = keuntungan/kerugian di laba rugi. Untuk transaksi <em>sale and leaseback</em> → keuntungan/kerugian ditangguhkan dan diamortisasi.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5.3 Aset Tetap -->
+    <section class="section" id="s3">
+      <div class="section-header">
+        <span class="section-num">5.3</span>
+        <h2 class="section-title">Aset Tetap</h2>
+      </div>
+      <div class="psak-ref"><span>PSAK 16</span> Aset Tetap &nbsp;|&nbsp; <span>PSAK 69</span> Agrikultur (Tanaman Produktif)</div>
+
+      <div class="subsection" id="s3-1">
+        <div class="subsection-title">5.3.1 Definisi</div>
+        <div class="highlight">
+          <p>Aset berwujud yang: <strong>(a)</strong> dimiliki untuk digunakan dalam produksi/penyediaan barang atau jasa, untuk direntalkan, atau untuk tujuan administratif; <strong>DAN (b)</strong> diharapkan untuk digunakan selama lebih dari satu periode.</p>
+        </div>
+        <div class="grid-2">
+          <div class="card">
+            <div class="card-title"><span class="dot"></span>Contoh Aset Tetap</div>
+            <ul>
+              <li>Tanah & bangunan pabrik, mesin produksi</li>
+              <li>Kendaraan operasional, komputer, printer</li>
+              <li>Mesin yang disewakan via sewa operasi (bukan tanah/bangunan)</li>
+              <li>Tanaman produktif (kelapa sawit, karet — PSAK 16 via PSAK 69)</li>
+            </ul>
+          </div>
+          <div class="card">
+            <div class="card-title"><span class="dot"></span>Tanaman Produktif</div>
+            <p style="margin-bottom:0.4rem">Tanaman hidup yang: (a) digunakan dalam produksi/penyediaan produk agrikultur, (b) diharapkan menghasilkan &gt; 1 periode, (c) sangat jarang dijual sebagai produk agrikultur.</p>
+            <p>Akuntansi sama dengan aset tetap.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="subsection" id="s3-2">
+        <div class="subsection-title">5.3.2 Pengakuan</div>
+        <div class="highlight-blue">
+          <p>Dua kriteria kapitalisasi sama dengan properti investasi. Berlaku juga untuk: <strong>(1) biaya selanjutnya</strong> (penggantian komponen → hapus komponen lama, akui yang baru); <strong>(2) inspeksi berkala/overhaul</strong> → dikapitalisasi dan menghapus sisa inspeksi sebelumnya.</p>
+        </div>
+      </div>
+
+      <div class="subsection" id="s3-3">
+        <div class="subsection-title">5.3.3 Pengukuran Saat Pengakuan — 3 Elemen Biaya Perolehan</div>
+        <div class="grid-3">
+          <div class="card" style="border-top:2px solid var(--accent)">
+            <div class="card-title"><span class="dot"></span>① Harga Perolehan</div>
+            <p>Harga beli + bea impor + pajak tidak dapat dikreditkan − diskon. <em>Catatan: PPN masukan yang dapat dikreditkan TIDAK masuk biaya perolehan.</em></p>
+          </div>
+          <div class="card" style="border-top:2px solid var(--blue)">
+            <div class="card-title" style="color:var(--blue)"><span class="dot" style="background:var(--blue)"></span>② Biaya Langsung</div>
+            <p>Biaya imbalan kerja, penyiapan lahan, instalasi, pengujian aset, fee profesional, biaya pembongkaran bangunan lama (neto).</p>
+          </div>
+          <div class="card" style="border-top:2px solid var(--yellow)">
+            <div class="card-title" style="color:var(--yellow)"><span class="dot" style="background:var(--yellow)"></span>③ Dismantling Cost</div>
+            <p>Estimasi biaya pembongkaran/restorasi di masa depan (nilai kini-nya) — menambah biaya perolehan aset.</p>
+          </div>
+        </div>
+        <div class="highlight">
+          <p><strong>Penghentian kapitalisasi:</strong> Ketika aset sudah berada di lokasi dan kondisi siap digunakan sesuai intensi manajemen. Biaya setelah itu (idle, kerugian operasi awal) dibebankan langsung.</p>
+        </div>
+      </div>
+
+      <div class="subsection" id="s3-4">
+        <div class="subsection-title">5.3.4 Pengukuran Setelah Pengakuan</div>
+        <div class="model-grid">
+          <div class="model-card" style="border-top:2px solid var(--blue)">
+            <div class="model-label">Model 1</div>
+            <div class="model-name" style="color:var(--blue)">Model Biaya</div>
+            <ul>
+              <li>Biaya perolehan − akumulasi penyusutan − akumulasi rugi penurunan nilai</li>
+              <li>Tidak ada surplus revaluasi</li>
+            </ul>
+          </div>
+          <div class="model-card" style="border-top:2px solid var(--accent)">
+            <div class="model-label">Model 2</div>
+            <div class="model-name" style="color:var(--accent)">Model Revaluasi</div>
+            <ul>
+              <li>Nilai wajar tanggal revaluasi − akumulasi penyusutan setelahnya − akumulasi rugi penurunan nilai</li>
+              <li>Tetap mencatat penyusutan</li>
+              <li>Diterapkan per kelas aset tetap</li>
+            </ul>
+          </div>
+        </div>
+        <div class="revaluasi-box">
+          <div class="revaluasi-title">Pengakuan Selisih Revaluasi</div>
+          <div class="table-wrap" style="margin-top:0.5rem">
+            <table>
+              <thead><tr><th>Kondisi</th><th>Dampak ke OCI (Penghasilan Komprehensif Lain)</th><th>Dampak ke Laba Rugi</th></tr></thead>
+              <tbody>
+                <tr><td>Nilai wajar > Nilai tercatat</td><td>Diakui sebagai surplus revaluasi ↑</td><td>Laba revaluasi, jika ada rugi revaluasi sebelumnya</td></tr>
+                <tr><td>Nilai wajar &lt; Nilai tercatat</td><td>Mengurangi surplus revaluasi (jika ada)</td><td>Diakui sebagai rugi revaluasi</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p style="font-size:0.7rem;color:var(--muted);margin-top:0.5rem">Metode penyesuaian revaluasi: (1) Proporsional — gross up/down; (2) Eliminasi — hapus akumulasi penyusutan, restate nilai bruto.</p>
+        </div>
+      </div>
+
+      <div class="subsection" id="s3-5">
+        <div class="subsection-title">5.3.5 Penyusutan</div>
+        <div class="penyusutan-grid">
+          <div class="penyusutan-card" style="border-top-color:var(--blue)">
+            <div class="penyusutan-icon">📏</div>
+            <div class="penyusutan-name">Garis Lurus</div>
+            <p>Pola konsumsi sama setiap periode. Biaya/tahun = (Biaya − Nilai Residu) / Umur Manfaat</p>
+          </div>
+          <div class="penyusutan-card" style="border-top-color:var(--accent)">
+            <div class="penyusutan-icon">📉</div>
+            <div class="penyusutan-name">Saldo Menurun</div>
+            <p>Pola konsumsi lebih tinggi di awal. Tarif × Nilai tercatat awal periode</p>
+          </div>
+          <div class="penyusutan-card" style="border-top-color:var(--green)">
+            <div class="penyusutan-icon">🔩</div>
+            <div class="penyusutan-name">Unit Produksi</div>
+            <p>Pola konsumsi berdasarkan aktivitas/output. Biaya per unit × unit dihasilkan</p>
+          </div>
+        </div>
+        <div class="grid-2">
+          <div class="card">
+            <div class="card-title"><span class="dot"></span>Poin Penting Penyusutan</div>
+            <ul>
+              <li>Dimulai saat aset <em>siap digunakan</em></li>
+              <li>Dihentikan saat direklasifikasi ke ATUD atau dilepaskan</li>
+              <li><strong>Tanah tidak disusutkan</strong> (umur manfaat tidak terbatas)</li>
+              <li>Konsep dekomponenisasi: bagian aset signifikan disusutkan terpisah</li>
+            </ul>
+          </div>
+          <div class="card">
+            <div class="card-title"><span class="dot"></span>Review Tahunan (PSAK 25)</div>
+            <ul>
+              <li>Nilai residu → review minimum tiap akhir tahun</li>
+              <li>Umur manfaat → review minimum tiap akhir tahun</li>
+              <li>Metode penyusutan → review minimum tiap akhir tahun</li>
+              <li>Perubahan diperlakukan <strong>prospektif</strong> (bukan retrospektif)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="subsection" id="s3-6">
+        <div class="subsection-title">5.3.6 Penghentian Pengakuan</div>
+        <div class="highlight-green">
+          <p>Dihentikan ketika <strong>dilepaskan</strong> (dijual, sewa pembiayaan, disumbangkan) atau tidak ada lagi manfaat ekonomi masa depan. Selisih hasil neto pelepasan dan jumlah tercatat = keuntungan/kerugian di laba rugi. Untuk <em>sale and leaseback</em> → ditangguhkan dan diamortisasi.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5.4 Aset Takberwujud -->
+    <section class="section" id="s4">
+      <div class="section-header">
+        <span class="section-num">5.4</span>
+        <h2 class="section-title">Aset Takberwujud</h2>
+      </div>
+      <div class="psak-ref"><span>PSAK 19</span> Aset Takberwujud</div>
+
+      <div class="subsection" id="s4-1">
+        <div class="subsection-title">5.4.1 Definisi — 3 Unsur</div>
+        <div class="grid-3">
+          <div class="card" style="border-top:2px solid var(--purple)">
+            <div class="card-title" style="color:var(--purple)"><span class="dot" style="background:var(--purple)"></span>① Keteridentifikasian</div>
+            <p>Dapat dipisahkan/dibedakan dari perusahaan (dijual, dialihkan, dilisensikan), ATAU timbul dari kontrak/hak legal lainnya.</p>
+          </div>
+          <div class="card" style="border-top:2px solid var(--blue)">
+            <div class="card-title" style="color:var(--blue)"><span class="dot" style="background:var(--blue)"></span>② Pengendalian</div>
+            <p>Perusahaan dapat memperoleh manfaat ekonomi dan membatasi akses pihak lain. Karyawan terampil <em>tidak dapat</em> diakui karena tidak memenuhi unsur ini.</p>
+          </div>
+          <div class="card" style="border-top:2px solid var(--teal)">
+            <div class="card-title" style="color:var(--teal)"><span class="dot" style="background:var(--teal)"></span>③ Manfaat Ekonomi</div>
+            <p>Dapat berupa pendapatan penjualan, penghematan biaya, atau manfaat lain dari penggunaan aset.</p>
+          </div>
+        </div>
+        <div class="highlight">
+          <p><strong>Goodwill internal TIDAK boleh diakui</strong> karena tidak dapat diidentifikasi, tidak timbul dari kontrak, dan tidak dapat diukur biaya perolehannya secara andal.</p>
+        </div>
+      </div>
+
+      <div class="subsection" id="s4-2">
+        <div class="subsection-title">5.4.2 Pengakuan dan Pengukuran</div>
+        <p style="font-size:0.8rem;color:var(--text2);margin-bottom:0.8rem">Diakui sebesar biaya perolehan jika memenuhi definisi + 2 kriteria kapitalisasi. Cara perolehan mempengaruhi pengukuran:</p>
+        <div class="grid-2">
+          <div class="card"><div class="card-title"><span class="dot"></span>Perolehan Terpisah</div><p>Harga beli + bea masuk + pajak tak dikreditkan − diskon + semua biaya yang dapat diatribusikan langsung.</p></div>
+          <div class="card"><div class="card-title"><span class="dot"></span>Kombinasi Bisnis</div><p>Diukur pada nilai wajar saat akuisisi. Kriteria kapitalisasi ke-2 dianggap terpenuhi.</p></div>
+          <div class="card"><div class="card-title"><span class="dot"></span>Hibah Pemerintah</div><p>Diakui pada nilai wajar. Alternatif: nilai nominal + seluruh pengeluaran yang dapat diatribusikan langsung.</p></div>
+          <div class="card"><div class="card-title"><span class="dot"></span>Pertukaran Aset</div><p>Diukur pada nilai wajar (jika substansi komersial & nilai dapat diukur andal). Jika tidak → jumlah tercatat aset dilepaskan.</p></div>
+        </div>
+
+        <div class="rd-flow">
+          <div class="rd-card" style="border-top:2px solid var(--red)">
+            <div class="rd-phase" style="color:var(--red)">Tahap Penelitian / Riset</div>
+            <div class="rd-result" style="color:var(--red)">→ DIBEBANKAN</div>
+            <ul>
+              <li>Pencarian alternatif bahan baku</li>
+              <li>Evaluasi & seleksi final</li>
+              <li>Belum dapat menunjukkan manfaat ekonomi masa depan</li>
+            </ul>
+          </div>
+          <div class="rd-card" style="border-top:2px solid var(--green)">
+            <div class="rd-phase" style="color:var(--green)">Tahap Pengembangan</div>
+            <div class="rd-result" style="color:var(--green)">→ DIKAPITALISASI (jika 6 kriteria terpenuhi)</div>
+            <ul>
+              <li>Kelayakan teknis untuk diselesaikan</li>
+              <li>Niat untuk menyelesaikan & menggunakan/menjual</li>
+              <li>Kemampuan untuk menggunakan/menjual</li>
+              <li>Ada pasar atau kegunaan internal</li>
+              <li>Sumber daya tersedia untuk menyelesaikan</li>
+              <li>Mampu mengukur pengeluaran secara andal</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="subsection" id="s4-3">
+        <div class="subsection-title">5.4.3 Pengakuan Beban</div>
+        <div class="highlight">
+          <p>Pengeluaran atas aset takberwujud dibebankan kecuali: (1) merupakan bagian biaya perolehan yang memenuhi kriteria pengakuan, atau (2) diperoleh dari kombinasi bisnis namun tidak dapat diakui terpisah (jadi bagian goodwill). <strong>Pengeluaran yang sudah dibebankan TIDAK BOLEH dikapitalisasi di kemudian hari.</strong></p>
+        </div>
+      </div>
+
+      <div class="subsection" id="s4-4">
+        <div class="subsection-title">5.4.4 Pengukuran Setelah Pengakuan</div>
+        <p style="font-size:0.8rem;color:var(--text2);margin-bottom:0.6rem">Sama seperti aset tetap: Model Biaya atau Model Revaluasi (harus ada pasar aktif). Jika pasar aktif tidak tersedia → model revaluasi tidak dapat diterapkan.</p>
+      </div>
+
+      <div class="subsection" id="s4-5">
+        <div class="subsection-title">5.4.5 Umur Manfaat, Nilai Residu, dan Metode Amortisasi</div>
+        <div class="grid-2">
+          <div class="card" style="border-top:2px solid var(--blue)">
+            <div class="card-title" style="color:var(--blue)"><span class="dot" style="background:var(--blue)"></span>Umur Manfaat Terbatas</div>
+            <ul>
+              <li>Diamortisasi sepanjang umur manfaatnya</li>
+              <li>Nilai residu diasumsikan nol (kecuali ada komitmen pihak ketiga/pasar aktif)</li>
+              <li>Metode: garis lurus, saldo menurun, unit produksi</li>
+              <li>Review nilai residu, umur manfaat & metode tiap akhir tahun</li>
+            </ul>
+          </div>
+          <div class="card" style="border-top:2px solid var(--yellow)">
+            <div class="card-title" style="color:var(--yellow)"><span class="dot" style="background:var(--yellow)"></span>Umur Manfaat Tidak Terbatas</div>
+            <ul>
+              <li><strong>Tidak diamortisasi</strong></li>
+              <li>Uji penurunan nilai <strong>setiap tahun</strong> (wajib)</li>
+              <li>Review umur manfaat tiap periode</li>
+              <li>Jika umur berubah jadi terbatas → prospektif</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5.5 Aset Biologis -->
+    <section class="section" id="s5">
+      <div class="section-header">
+        <span class="section-num">5.5</span>
+        <h2 class="section-title">Aset Biologis</h2>
+      </div>
+      <div class="psak-ref"><span>PSAK 69</span> Agrikultur</div>
+      <div class="highlight">
+        <p>Aset biologis adalah <strong>hewan atau tanaman hidup</strong> yang diatur dalam PSAK 69 (<em>kecuali tanaman produktif</em> yang diatur PSAK 16). Diukur pada <strong>nilai wajar dikurangi biaya untuk menjual</strong> pada saat pengakuan dan setiap akhir periode pelaporan.</p>
+      </div>
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-title"><span class="dot"></span>Pengakuan (3 Kriteria)</div>
+          <ul>
+            <li>Mengendalikan aset biologis sebagai akibat peristiwa masa lalu</li>
+            <li>Besar kemungkinan manfaat ekonomi masa depan akan mengalir ke perusahaan</li>
+            <li>Nilai wajar atau biaya perolehan dapat diukur secara andal</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="dot"></span>Pengukuran</div>
+          <ul>
+            <li>Nilai wajar dikurangi biaya untuk menjual (saat pengakuan awal & setiap akhir periode)</li>
+            <li>Keuntungan/kerugian → langsung ke laba rugi</li>
+            <li>Jika nilai wajar tidak dapat diukur andal → biaya perolehan − akumulasi penyusutan − rugi penurunan nilai</li>
+          </ul>
+        </div>
+      </div>
+      <div class="subsection">
+        <div class="subsection-title">5.5.3 Hibah Pemerintah terkait Aset Biologis</div>
+        <div class="grid-2">
+          <div class="card" style="border-top:2px solid var(--green)">
+            <div class="card-title" style="color:var(--green)"><span class="dot" style="background:var(--green)"></span>Aset Biologis (Nilai Wajar)</div>
+            <p>Hibah tanpa syarat → diakui di laba rugi saat menjadi piutang. Hibah bersyarat → diakui saat kondisi terpenuhi.</p>
+          </div>
+          <div class="card" style="border-top:2px solid var(--blue)">
+            <div class="card-title" style="color:var(--blue)"><span class="dot" style="background:var(--blue)"></span>Aset Biologis (Model Biaya)</div>
+            <p>Mengacu pada ketentuan PSAK 61: Akuntansi Hibah Pemerintah dan Pengungkapan Bantuan Pemerintah.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5.6 Aset Tambang -->
+    <section class="section" id="s6">
+      <div class="section-header">
+        <span class="section-num">5.6</span>
+        <h2 class="section-title">Aset Tambang</h2>
+      </div>
+      <div class="psak-ref"><span>PSAK 64</span> Aktivitas Eksplorasi dan Evaluasi Pertambangan Sumber Daya Mineral</div>
+      <div class="highlight">
+        <p>Aset eksplorasi dan evaluasi = akumulasi pengeluaran yang terjadi selama <strong>kegiatan eksplorasi dan evaluasi</strong> (setelah memperoleh hak hukum sampai diperolehnya kelayakan teknis dan komersial). Diakui sebesar <strong>biaya perolehan</strong>.</p>
+      </div>
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-title"><span class="dot"></span>Komponen Biaya Perolehan Aset Tambang</div>
+          <ul>
+            <li>Perolehan hak untuk eksplorasi</li>
+            <li>Kajian topografi, geologi, geokimia, geofisika</li>
+            <li>Pengeboran eksplorasi & pemaritan</li>
+            <li>Pengambilan contoh</li>
+            <li>Aktivitas evaluasi kelayakan teknis & komersial</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="dot"></span>Penyajian & Pengukuran Setelah</div>
+          <ul>
+            <li>Diklasifikasikan sebagai aset berwujud atau takberwujud</li>
+            <li>Model biaya atau model revaluasi (konsisten per klasifikasi)</li>
+            <li>Uji penurunan nilai saat ada indikasi (indikator khusus PSAK 64)</li>
+            <li>Saat diperoleh kelayakan teknis → reklasifikasi & uji penurunan nilai</li>
+          </ul>
+        </div>
+      </div>
+      <div class="highlight-blue">
+        <p><strong>Asset Retirement Obligation (ARO):</strong> Kewajiban pemindahan dan restorasi lokasi tambang diakui sebagai provisi sesuai PSAK 57 dan menambah biaya perolehan aset tambang.</p>
+      </div>
+    </section>
+
+    <!-- 5.7 Hibah Pemerintah -->
+    <section class="section" id="s7">
+      <div class="section-header">
+        <span class="section-num">5.7</span>
+        <h2 class="section-title">Hibah Pemerintah</h2>
+      </div>
+      <div class="psak-ref"><span>PSAK 61</span> Akuntansi Hibah Pemerintah</div>
+      <div class="highlight">
+        <p>Hibah pemerintah = bentuk pengalihan sumber daya kepada entitas sebagai imbalan atau kepatuhan entitas atas kondisi tertentu yang berkaitan dengan aktivitas operasi entitas.</p>
+      </div>
+      <div class="impairment-flow">
+        <div class="impairment-step">
+          <span class="impairment-num">1</span>
+          <p><strong>Syarat Pengakuan:</strong> Belum diakui sampai ada keyakinan memadai bahwa (a) perusahaan akan mematuhi kondisi yang melekat, DAN (b) hibah akan diterima.</p>
+        </div>
+        <div class="impairment-step">
+          <span class="impairment-num">2</span>
+          <p><strong>Pengukuran Awal:</strong> Diakui pada nilai wajar aset. Alternatif: nilai nominal. Pada saat pengakuan, perusahaan membukukkan <strong>Pendapatan Ditangguhkan</strong> di sisi kredit.</p>
+        </div>
+        <div class="impairment-step">
+          <span class="impairment-num">3</span>
+          <p><strong>Amortisasi Pendapatan Ditangguhkan:</strong> Selama periode dimana perusahaan mengakui beban atas biaya terkait. Untuk aset yang disusutkan → diamortisasi selama umur manfaat aset. Untuk tanah → selama periode biaya kewajiban yang dipersyaratkan.</p>
+        </div>
+        <div class="impairment-step">
+          <span class="impairment-num">4</span>
+          <p><strong>Pengukuran Selanjutnya:</strong> Mengacu pada PSAK terkait aset yang diterima (PSAK 16 untuk aset tetap, PSAK 13 untuk properti investasi).</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5.8 Aset dari Pelanggan -->
+    <section class="section" id="s8">
+      <div class="section-header">
+        <span class="section-num">5.8</span>
+        <h2 class="section-title">Aset dari Pelanggan</h2>
+      </div>
+      <div class="psak-ref"><span>ISAK 27</span> Pengalihan Aset dari Pelanggan</div>
+      <p style="font-size:0.8rem;color:var(--text2);margin-bottom:0.8rem">Industri utilitas (listrik, air) dan TI sering menerima pengalihan aset tetap dari pelanggan. ISAK 27 mengatur 4 permasalahan:</p>
+      <div class="grid-2">
+        <div class="card" style="border-top:2px solid var(--accent)">
+          <div class="card-title"><span class="dot"></span>① Apakah Memenuhi Definisi Aset?</div>
+          <p>Diuji menggunakan KKPK. Kunci: perusahaan memiliki <strong>pengendalian</strong> atas aset (dapat menggunakan, menjual, atau menentukan bagaimana aset dioperasikan).</p>
+        </div>
+        <div class="card" style="border-top:2px solid var(--blue)">
+          <div class="card-title" style="color:var(--blue)"><span class="dot" style="background:var(--blue)"></span>② Pengukuran Awal</div>
+          <p>Diakui sebagai aset tetap sesuai PSAK 16 dan diukur pada <strong>nilai wajar</strong> saat pengakuan awal.</p>
+        </div>
+        <div class="card" style="border-top:2px solid var(--green)">
+          <div class="card-title" style="color:var(--green)"><span class="dot" style="background:var(--green)"></span>③ Pengakuan Pendapatan (Saldo Kredit)</div>
+          <p>Atas pengalihan aset dari pelanggan, perusahaan mengakui pendapatan sesuai PSAK 23 berdasarkan jasa yang dijanjikan (koneksi, akses berkelanjutan, atau keduanya).</p>
+        </div>
+        <div class="card" style="border-top:2px solid var(--yellow)">
+          <div class="card-title" style="color:var(--yellow)"><span class="dot" style="background:var(--yellow)"></span>④ Pengalihan Kas dari Pelanggan</div>
+          <p>Jika kas digunakan untuk mengkonstruksi/memperoleh aset dan perusahaan memiliki pengendalian → aset diakui sebagai aset perusahaan. Berlaku ruang lingkup ISAK 27.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5.9 Penurunan Nilai -->
+    <section class="section" id="s9">
+      <div class="section-header">
+        <span class="section-num">5.9</span>
+        <h2 class="section-title">Penurunan Nilai Aset</h2>
+      </div>
+      <div class="psak-ref"><span>PSAK 48</span> Penurunan Nilai Aset</div>
+
+      <div class="subsection">
+        <div class="subsection-title">5.9.1 Prosedur Penurunan Nilai</div>
+        <div class="impairment-flow">
+          <div class="impairment-step">
+            <span class="impairment-num" style="background:var(--yellow);color:#000">1</span>
+            <p><strong>Menilai indikasi penurunan nilai</strong> — setiap akhir periode pelaporan. Sumber eksternal: penurunan nilai pasar signifikan, perubahan teknologi/pasar/ekonomi yang merugikan, kenaikan suku bunga, jumlah tercatat > kapitalisasi pasar. Sumber internal: keusangan/kerusakan fisik, perubahan cara penggunaan, kinerja ekonomi lebih buruk dari ekspektasi.</p>
+          </div>
+          <div class="impairment-step">
+            <span class="impairment-num" style="background:var(--accent)">2</span>
+            <p><strong>Uji penurunan nilai</strong> jika ada indikasi. Hitung <strong>Jumlah Terpulihkan</strong> = max(Nilai Wajar − Biaya Pelepasan, Nilai Pakai). Nilai pakai = nilai kini arus kas yang diharapkan dari aset.</p>
+          </div>
+          <div class="impairment-step">
+            <span class="impairment-num" style="background:var(--red)">3</span>
+            <p><strong>Pengakuan rugi penurunan nilai</strong> jika Jumlah Tercatat > Jumlah Terpulihkan. Rugi penurunan nilai = Jumlah Tercatat − Jumlah Terpulihkan → diakui di laba rugi (kecuali aset model revaluasi → kurangi surplus revaluasi dahulu).</p>
+          </div>
+        </div>
+        <div class="formula-box">
+          <div class="formula-title">Jumlah Terpulihkan (PSAK 48)</div>
+          <div class="formula-eq">Jumlah Terpulihkan = max ( Nilai Wajar − Biaya Pelepasan , Nilai Pakai )</div>
+          <div class="formula-eq" style="margin-top:0.4rem">Rugi Penurunan Nilai = Jumlah Tercatat − Jumlah Terpulihkan</div>
+        </div>
+      </div>
+
+      <div class="subsection">
+        <div class="subsection-title">5.9.2 Pengecualian Prosedur Penurunan Nilai</div>
+        <div class="highlight">
+          <p>Tiga jenis aset <strong>wajib uji penurunan nilai setiap tahun</strong> terlepas ada/tidaknya indikasi: <strong>(1)</strong> Aset takberwujud dengan umur manfaat tidak terbatas (indefinite-life), <strong>(2)</strong> Aset takberwujud yang belum digunakan, <strong>(3)</strong> Goodwill.</p>
+        </div>
+      </div>
+
+      <div class="subsection">
+        <div class="subsection-title">5.9.3 Penurunan Nilai pada Level Unit Penghasil Kas (UPK)</div>
+        <div class="highlight-blue">
+          <p>UPK = kelompok terkecil aset yang menghasilkan arus kas masuk yang sebagian besar independen dari aset lain. Digunakan jika jumlah terpulihkan tidak dapat ditentukan untuk aset individual.</p>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="dot"></span>Alokasi Rugi Penurunan Nilai UPK</div>
+          <ul>
+            <li><strong>Pertama:</strong> Dikurangi dari jumlah tercatat goodwill yang dialokasikan ke UPK</li>
+            <li><strong>Kemudian:</strong> Sisa rugi dialokasikan ke aset lain secara <strong>proporsional</strong> berdasarkan nilai tercatat</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="subsection">
+        <div class="subsection-title">5.9.4 Pemulihan Rugi Penurunan Nilai</div>
+        <div class="grid-2">
+          <div class="card" style="border-top:2px solid var(--green)">
+            <div class="card-title" style="color:var(--green)"><span class="dot" style="background:var(--green)"></span>Pemulihan Diperbolehkan (selain Goodwill)</div>
+            <ul>
+              <li>Dicek setiap akhir periode pelaporan</li>
+              <li>Pemulihan tidak boleh melebihi jumlah tercatat <em>seharusnya</em> (jika tidak pernah ada penurunan nilai)</li>
+              <li>Laba pemulihan diakui di laba rugi</li>
+            </ul>
+          </div>
+          <div class="card" style="border-top:2px solid var(--red)">
+            <div class="card-title" style="color:var(--red)"><span class="dot" style="background:var(--red)"></span>Goodwill — Tidak Dapat Dipulihkan</div>
+            <p>Rugi penurunan nilai goodwill yang pernah diakui <strong>tidak boleh dipulihkan</strong> pada periode berikutnya.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- LATIHAN SOAL -->
+    <section class="section" id="latihan">
+      <div class="section-header">
+        <span class="section-num" style="background:var(--yellow);color:#000">✎</span>
+        <h2 class="section-title">Latihan Soal BAB 5</h2>
+      </div>
+
+      <div class="exercise-section">
+        <div class="exercise-header">
+          <h3>Pilihan Ganda</h3>
+          <span class="exercise-badge">20 Soal</span>
+        </div>
+
+        <div class="mc-item">
+          <div class="mc-question">1. Berikut bukan contoh dari properti investasi adalah …</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',1)"><span class="opt-letter">A</span>Bangunan yang sedang dalam proses pembangunan yang nantinya akan disewakan kepada pihak ketiga melalui sewa operasi</div>
+            <div class="mc-option" onclick="checkMC(this,'b',1)"><span class="opt-letter">B</span>Tanah yang dimiliki perusahaan tetapi belum ditentukan penggunaannya di masa mendatang</div>
+            <div class="mc-option" onclick="checkMC(this,'c',1)"><span class="opt-letter">C</span>Bangunan yang disewa dari pihak lain melalui sewa pembiayaan kemudian disewakan lagi ke pihak ketiga melalui sewa operasi</div>
+            <div class="mc-option" onclick="checkMC(this,'d',1)"><span class="opt-letter">D</span>Tanah yang sedang dalam proses pengembangan untuk dijual kepada pihak ketiga</div>
+          </div>
+          <div class="mc-feedback" id="fb1"><span class="correct-ans">Jawaban: D</span> — Tanah dalam proses pengembangan untuk dijual merupakan persediaan, bukan properti investasi. Properti investasi harus dimiliki untuk menghasilkan rental atau kenaikan nilai, bukan untuk dijual dalam kegiatan usaha sehari-hari.</div>
+        </div>
+
+        <div class="mc-item">
+          <div class="mc-question">2. PT ABC memiliki bangunan yang disewakan kepada pihak ketiga. Nilai tercatat pada 31 Desember 2018 (sebelum penyesuaian) sebesar Rp660 juta. Nilai wajar bangunan tersebut pada 31 Desember 2018 adalah Rp690 juta. Jika PT ABC memilih menggunakan pengukuran nilai wajar, maka jurnal yang dibuat PT ABC pada 31 Desember 2018 adalah …</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',2)"><span class="opt-letter">A</span>Dr. Bangunan (properti investasi) Rp30 juta / Cr. Laba penyesuaian nilai wajar – P/L Rp30 juta</div>
+            <div class="mc-option" onclick="checkMC(this,'b',2)"><span class="opt-letter">B</span>Dr. Bangunan (properti investasi) Rp30 juta / Cr. Surplus revaluasi - OCI Rp30 juta</div>
+            <div class="mc-option" onclick="checkMC(this,'c',2)"><span class="opt-letter">C</span>Dr. Bangunan (aset tetap) Rp30 juta / Cr. Surplus revaluasi - OCI Rp30 juta</div>
+            <div class="mc-option" onclick="checkMC(this,'d',2)"><span class="opt-letter">D</span>Dr. Bangunan (aset tetap) Rp30 juta / Cr. Laba penyesuaian nilai wajar – P/L Rp30 juta</div>
+          </div>
+          <div class="mc-feedback" id="fb2"><span class="correct-ans">Jawaban: A</span> — Untuk properti investasi model nilai wajar, keuntungan dari kenaikan nilai wajar (Rp690 − Rp660 = Rp30 juta) diakui di laba rugi (P/L), bukan di OCI. Akunnya tetap Bangunan (properti investasi), bukan aset tetap.</div>
+        </div>
+
+        <div class="mc-item">
+          <div class="mc-question">3. Pernyataan terkait dengan properti investasi yang benar adalah …</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',3)"><span class="opt-letter">A</span>Selisih lebih antara nilai tercatat dan nilai wajar pada saat pengalihan persediaan ke properti investasi yang akan diukur pada nilai wajar dicatat sebagai surplus revaluasi</div>
+            <div class="mc-option" onclick="checkMC(this,'b',3)"><span class="opt-letter">B</span>Informasi mengenai nilai wajar tidak perlu diungkapkan dalam CALK jika perusahaan memilih mengukur properti investasinya dengan model biaya</div>
+            <div class="mc-option" onclick="checkMC(this,'c',3)"><span class="opt-letter">C</span>Perusahaan tidak perlu menyusutkan properti investasi yang diukur dengan menggunakan model nilai wajar</div>
+            <div class="mc-option" onclick="checkMC(this,'d',3)"><span class="opt-letter">D</span>Properti yang sedang dibangun untuk dijual kepada pihak ketiga diklasifikasikan sebagai properti investasi</div>
+          </div>
+          <div class="mc-feedback" id="fb3"><span class="correct-ans">Jawaban: C</span> — Properti investasi dengan model nilai wajar tidak perlu disusutkan karena keuntungan/kerugian perubahan nilai wajar langsung diakui di laba rugi. Sedangkan pilihan B salah karena nilai wajar tetap harus diungkapkan di CALK meski memakai model biaya.</div>
+        </div>
+
+        <div class="mc-item">
+          <div class="mc-question">4. Berikut pernyataan yang tepat terkait dengan revaluasi aset tetap adalah …</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',4)"><span class="opt-letter">A</span>Ketika perusahaan memilih untuk menerapkan model revaluasi, maka model tersebut berlaku untuk seluruh aset tetap perusahaan</div>
+            <div class="mc-option" onclick="checkMC(this,'b',4)"><span class="opt-letter">B</span>Revaluasi tidak harus dilakukan di setiap akhir periode pelaporan</div>
+            <div class="mc-option" onclick="checkMC(this,'c',4)"><span class="opt-letter">C</span>Keuntungan atau kerugian akibat selisih nilai tercatat dan nilai wajar aset tetap disajikan di surplus revaluasi</div>
+            <div class="mc-option" onclick="checkMC(this,'d',4)"><span class="opt-letter">D</span>Nilai wajar yang digunakan untuk revaluasi aset tetap harus berdasarkan kuotasi harga di pasar aktif</div>
+          </div>
+          <div class="mc-feedback" id="fb4"><span class="correct-ans">Jawaban: B</span> — Frekuensi revaluasi tidak harus setiap tahun, cukup reguler agar nilai tercatat tidak berbeda material dengan nilai wajar. Pilihan A salah karena model revaluasi berlaku per kelas aset, bukan seluruh aset tetap perusahaan.</div>
+        </div>
+
+        <div class="mc-item">
+          <div class="mc-question">5. PT MWA membeli sebuah mobil seharga Rp570.000.000 pada 1 September 2018. Perusahaan memperkirakan umur manfaat dari mobil tersebut adalah 5 tahun dengan nilai residu Rp70.000.000. Jika perusahaan menggunakan metode saldo menurun, beban penyusutan yang diakui PT MWA untuk tahun 2020 adalah …</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',5)"><span class="opt-letter">A</span>Rp118.560.000</div>
+            <div class="mc-option" onclick="checkMC(this,'b',5)"><span class="opt-letter">B</span>Rp129.960.000</div>
+            <div class="mc-option" onclick="checkMC(this,'c',5)"><span class="opt-letter">C</span>Rp136.800.000</div>
+            <div class="mc-option" onclick="checkMC(this,'d',5)"><span class="opt-letter">D</span>Rp197.600.000</div>
+          </div>
+          <div class="mc-feedback" id="fb5"><span class="correct-ans">Jawaban: B — Rp129.960.000</span> — Tarif = 2/5 = 40%. Periode 1 (1 Sep 2018–31 Agu 2019): 40% × 570 juta = 228 juta. Periode 2 (1 Sep 2019–31 Agu 2020): 40% × 342 juta = 136,8 juta. Periode 3 (1 Sep 2020–31 Agu 2021): 40% × 205,2 juta = 82,08 juta. Beban 2020 = (9/12 × 136,8 juta) + (4/12 × 82,08 juta) = Rp102.600.000 + Rp27.360.000 = <strong>Rp129.960.000</strong>.</div>
+        </div>
+
+        <div class="mc-item">
+          <div class="mc-question">6. Pada 1 Januari 2017, PT OPO membeli mesin foto copy seharga Rp150 juta. Estimasi umur manfaat adalah 6 tahun dengan nilai sisa nol. Metode penyusutan garis lurus. Jika pada 1 Januari 2019, PT OPO merubah estimasi umur manfaat menjadi 4 tahun dengan nilai sisa Rp10.000.000, maka nilai beban penyusutan tahun 2019 adalah …</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',6)"><span class="opt-letter">A</span>Rp45.000.000</div>
+            <div class="mc-option" onclick="checkMC(this,'b',6)"><span class="opt-letter">B</span>Rp37.500.000</div>
+            <div class="mc-option" onclick="checkMC(this,'c',6)"><span class="opt-letter">C</span>Rp35.000.000</div>
+            <div class="mc-option" onclick="checkMC(this,'d',6)"><span class="opt-letter">D</span>Rp25.000.000</div>
+          </div>
+          <div class="mc-feedback" id="fb6"><span class="correct-ans">Jawaban: A — Rp45.000.000</span> — Beban awal = (150 juta − 0)/6 = 25 juta/tahun. Nilai tercatat 1 Januari 2019 = 150 juta − (2 × 25 juta) = 100 juta. Sisa umur manfaat baru = 4 − 2 = 2 tahun. Beban penyusutan baru = (100 juta − 10 juta)/2 = <strong>Rp45.000.000</strong>.</div>
+        </div>
+
+        <div class="mc-item">
+          <div class="mc-question">7. PT Lama dan PT Baru mengadakan transaksi pertukaran mesin. Nilai tercatat dan nilai wajar mesin PT Lama berturut-turut sebesar Rp240 juta dan Rp270 juta. Sedangkan nilai tercatat dan nilai wajar mesin PT Baru adalah Rp440 juta dan Rp400 juta. PT Lama juga menyerahkan kas sejumlah Rp80 juta kepada PT Baru. Jika transaksi pertukaran memiliki substansi komersial, nilai perolehan mesin yang akan dicatat PT Lama sebesar …</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',7)"><span class="opt-letter">A</span>Rp270 juta</div>
+            <div class="mc-option" onclick="checkMC(this,'b',7)"><span class="opt-letter">B</span>Rp320 juta</div>
+            <div class="mc-option" onclick="checkMC(this,'c',7)"><span class="opt-letter">C</span>Rp350 juta</div>
+            <div class="mc-option" onclick="checkMC(this,'d',7)"><span class="opt-letter">D</span>Rp400 juta</div>
+          </div>
+          <div class="mc-feedback" id="fb7"><span class="correct-ans">Jawaban: C — Rp350 juta</span> — Dengan substansi komersial, aset baru diakui pada nilai wajar aset yang diserahkan + kas. Nilai wajar mesin lama PT Lama = Rp270 juta + kas Rp80 juta = <strong>Rp350 juta</strong>.</div>
+        </div>
+
+        <div class="mc-item">
+          <div class="mc-question">8. Untuk aset takberwujud dengan umur manfaat tidak terbatas, perusahaan harus mengevaluasi setiap tahun terkait …</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',8)"><span class="opt-letter">A</span>Metode amortisasi</div>
+            <div class="mc-option" onclick="checkMC(this,'b',8)"><span class="opt-letter">B</span>Estimasi nilai residu</div>
+            <div class="mc-option" onclick="checkMC(this,'c',8)"><span class="opt-letter">C</span>Kemungkinan terjadinya penurunan nilai</div>
+            <div class="mc-option" onclick="checkMC(this,'d',8)"><span class="opt-letter">D</span>Umur manfaat</div>
+          </div>
+          <div class="mc-feedback" id="fb8"><span class="correct-ans">Jawaban: C</span> — Aset takberwujud dengan umur manfaat tidak terbatas tidak diamortisasi, sehingga tidak ada metode amortisasi, nilai residu, atau review umur manfaat yang perlu dievaluasi. Yang wajib dilakukan setiap tahun adalah <strong>uji penurunan nilai</strong> (impairment test).</div>
+        </div>
+
+        <div class="mc-item">
+          <div class="mc-question">9. Pernyataan berikut yang salah terkait pengukuran aset takberwujud adalah …</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',9)"><span class="opt-letter">A</span>Dengan model revaluasi, aset takberwujud dicatat pada jumlah revaluasian dan nilai wajar dan wajib menggunakan referensi dari pasar aktif</div>
+            <div class="mc-option" onclick="checkMC(this,'b',9)"><span class="opt-letter">B</span>Jika suatu aset takberwujud tidak memiliki harga di pasar aktif, maka perusahaan tetap dapat menerapkan model revaluasi dengan menggunakan metode penentuan nilai wajar lainnya</div>
+            <div class="mc-option" onclick="checkMC(this,'c',9)"><span class="opt-letter">C</span>Perusahaan dapat memilih model biaya atau model revaluasi sebagai kebijakan akuntansinya untuk mengukur aset takberwujudnya</div>
+            <div class="mc-option" onclick="checkMC(this,'d',9)"><span class="opt-letter">D</span>Dengan model biaya, aset takberwujud dicatat pada biaya perolehannya dikurangi akumulasi amortisasi dan akumulasi rugi penurunan nilai</div>
+          </div>
+          <div class="mc-feedback" id="fb9"><span class="correct-ans">Jawaban: B</span> — Pernyataan B SALAH. Untuk aset takberwujud, nilai wajar yang digunakan dalam model revaluasi harus mengacu pada <strong>pasar aktif</strong>. Jika tidak ada pasar aktif, model revaluasi tidak dapat diterapkan (berbeda dengan properti investasi yang boleh menggunakan metode lain).</div>
+        </div>
+
+        <div class="mc-item">
+          <div class="mc-question">10. Yang diklasifikasikan sebagai tanaman produktif menurut PSAK 69 adalah …</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',10)"><span class="opt-letter">A</span>Pohon jati yang ditebang dan diambil kayunya</div>
+            <div class="mc-option" onclick="checkMC(this,'b',10)"><span class="opt-letter">B</span>Pohon kelapa sawit yang sisa kayunya dijual untuk kayu bakar</div>
+            <div class="mc-option" onclick="checkMC(this,'c',10)"><span class="opt-letter">C</span>Tanaman semusim seperti gandum</div>
+            <div class="mc-option" onclick="checkMC(this,'d',10)"><span class="opt-letter">D</span>Pohon matoa yang diambil buahnya dan dijual kayunya sekaligus</div>
+          </div>
+          <div class="mc-feedback" id="fb10"><span class="correct-ans">Jawaban: B</span> — Kelapa sawit yang sisa kayunya dijual untuk kayu bakar adalah tanaman produktif karena: (a) digunakan untuk menghasilkan produk agrikultur (minyak sawit), (b) diharapkan menghasilkan lebih dari 1 periode, (c) kemungkinan sangat jarang dijual sebagai produk agrikultur (penjualan kayu bakar hanyalah penjualan sisa insidental/incidental scrap).</div>
+        </div>
+
+        <div class="mc-item">
+          <div class="mc-question">11. Pada saat pengakuan awal, aset eksplorasi dan evaluasi diukur pada …</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',11)"><span class="opt-letter">A</span>Biaya perolehan</div>
+            <div class="mc-option" onclick="checkMC(this,'b',11)"><span class="opt-letter">B</span>Nilai wajar</div>
+            <div class="mc-option" onclick="checkMC(this,'c',11)"><span class="opt-letter">C</span>Nilai Wajar dikurangi biaya pemulihan lingkungan</div>
+            <div class="mc-option" onclick="checkMC(this,'d',11)"><span class="opt-letter">D</span>Biaya penggantian ditambah marjin normal</div>
+          </div>
+          <div class="mc-feedback" id="fb11"><span class="correct-ans">Jawaban: A</span> — Sesuai PSAK 64, pada saat pengakuan awal aset eksplorasi dan evaluasi diakui sebesar <strong>biaya perolehan</strong>, yaitu pengeluaran yang terkait dengan penemuan sumber daya mineral spesifik.</div>
+        </div>
+
+        <div class="mc-item">
+          <div class="mc-question">12. Contoh biaya perolehan awal dari aset eksplorasi dan evaluasi sumber daya mineral adalah sebagai berikut, kecuali …</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',12)"><span class="opt-letter">A</span>Biaya pengeboran eksplorasi</div>
+            <div class="mc-option" onclick="checkMC(this,'b',12)"><span class="opt-letter">B</span>Biaya kajian topografi dan geologi</div>
+            <div class="mc-option" onclick="checkMC(this,'c',12)"><span class="opt-letter">C</span>Biaya pengembangan sumber daya mineral</div>
+            <div class="mc-option" onclick="checkMC(this,'d',12)"><span class="opt-letter">D</span>Biaya perolehan hak untuk eksplorasi</div>
+          </div>
+          <div class="mc-feedback" id="fb12"><span class="correct-ans">Jawaban: C</span> — Biaya pengembangan sumber daya mineral terjadi <em>setelah</em> diperoleh kelayakan teknis dan komersial, sehingga berada di luar ruang lingkup PSAK 64 dan bukan merupakan komponen biaya perolehan aset eksplorasi dan evaluasi.</div>
+        </div>
+
+        <div class="mc-item">
+          <div class="mc-question">13. Berikut biaya terkait dengan kegiatan penambangan batubara PT BBM: Biaya kajian topografi dan geologi 200; Biaya survei lapangan sebelum hak eksplorasi diperoleh 50; Biaya pengeboran eksplorasi 450; Biaya pengambilan contoh 150; Biaya aktivitas evaluasi kelayakan teknis & komersial atas penambangan 125; Biaya pengupasan lapisan tanah 500. Aset eksplorasi dan evaluasi diakui PT BBM sebesar …</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',13)"><span class="opt-letter">A</span>1.475</div>
+            <div class="mc-option" onclick="checkMC(this,'b',13)"><span class="opt-letter">B</span>1.425</div>
+            <div class="mc-option" onclick="checkMC(this,'c',13)"><span class="opt-letter">C</span>925</div>
+            <div class="mc-option" onclick="checkMC(this,'d',13)"><span class="opt-letter">D</span>650</div>
+          </div>
+          <div class="mc-feedback" id="fb13"><span class="correct-ans">Jawaban: C — 925</span> — Biaya sebelum hak eksplorasi diperoleh (50) dan biaya pengupasan lapisan tanah (500) bukan komponen aset eksplorasi. Yang masuk: kajian topografi 200 + pengeboran 450 + pengambilan contoh 150 + evaluasi kelayakan 125 = <strong>925</strong>.</div>
+        </div>
+
+        <div class="mc-item">
+          <div class="mc-question">14. Pada tahun 2016, pemerintah menyerahkan sebidang tanah secara cuma-cuma kepada sebuah entitas untuk digunakan sebagai tempat membangun pembangkit listrik. Nilai wajar tanah tersebut dapat diketahui, namun entitas baru dapat melaksanakan pembangunan pembangkit listrik dimaksud pada tahun 2018. Sehubungan dengan transaksi penyerahan tanah dari pemerintah ini, entitas tersebut …</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',14)"><span class="opt-letter">A</span>Mengakui sebagai hibah terkait aset</div>
+            <div class="mc-option" onclick="checkMC(this,'b',14)"><span class="opt-letter">B</span>Mengakui sebagai hibah terkait penghasilan</div>
+            <div class="mc-option" onclick="checkMC(this,'c',14)"><span class="opt-letter">C</span>Belum mengakui hibah pemerintah</div>
+            <div class="mc-option" onclick="checkMC(this,'d',14)"><span class="opt-letter">D</span>Mengakui sebagai penyertaan pemerintah di dalam entitas</div>
+          </div>
+          <div class="mc-feedback" id="fb14"><span class="correct-ans">Jawaban: C</span> — Karena entitas baru dapat membangun pada tahun 2018, pada tahun 2016 belum ada keyakinan memadai bahwa kondisi yang melekat pada hibah akan dapat dipenuhi. Oleh karena itu, hibah pemerintah <strong>belum diakui</strong> pada tahun 2016.</div>
+        </div>
+
+        <div class="mc-item">
+          <div class="mc-question">15. Pada 1 Januari 2018, PT Alam Raya menerima hibah pemerintah berupa mesin XYZ dengan nilai wajar Rp250 juta. PT Alam Raya memperkirakan masa manfaat mesin XYZ adalah 5 tahun. Jika pada 1 Januari 2018, PT Alam Raya telah memenuhi semua kewajiban yang dipersyaratkan pemerintah terkait hibah tersebut, maka jurnal yang dibuat oleh PT Alam Raya adalah …</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',15)"><span class="opt-letter">A</span>Dr. Mesin 250 juta / Cr. Pendapatan lain-lain 250 juta</div>
+            <div class="mc-option" onclick="checkMC(this,'b',15)"><span class="opt-letter">B</span>Dr. Mesin 250 juta / Cr. Sumbangan/Donasi 250 juta</div>
+            <div class="mc-option" onclick="checkMC(this,'c',15)"><span class="opt-letter">C</span>Dr. Mesin 250 juta / Cr. Pendapatan Ditangguhkan 250 juta</div>
+            <div class="mc-option" onclick="checkMC(this,'d',15)"><span class="opt-letter">D</span>Tidak ada jurnal yang dibuat</div>
+          </div>
+          <div class="mc-feedback" id="fb15"><span class="correct-ans">Jawaban: C</span> — Pada saat menerima aset dari hibah pemerintah, perusahaan mengakui aset pada nilai wajar dan membukukkan <strong>Pendapatan Ditangguhkan</strong> (deferred income) di sisi kredit. Pendapatan ini kemudian diamortisasi selama umur manfaat aset (5 tahun).</div>
+        </div>
+
+        <div class="mc-item">
+          <div class="mc-question">16. PT Dermaga Biru membangun mesin pengolahan air minum seharga Rp10 milyar, lalu diserahkan ke PT Aman Tirta. Nilai wajar mesin saat serah terima Rp12,5 milyar, nilai bukunya Rp9,75 milyar. Pernyataan yang paling tepat pada saat mesin diserahterimakan kepada PT Aman Tirta adalah …</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',16)"><span class="opt-letter">A</span>PT Dermaga Biru tetap mengakui aset tetap sebesar selisih antara nilai wajar dari nilai bukunya, yaitu Rp2,75 milyar</div>
+            <div class="mc-option" onclick="checkMC(this,'b',16)"><span class="opt-letter">B</span>PT Aman Tirta mengakui aset tetap sebesar Rp10 milyar</div>
+            <div class="mc-option" onclick="checkMC(this,'c',16)"><span class="opt-letter">C</span>PT Dermaga Biru mengakui aset tetap sebesar Rp9,75 milyar</div>
+            <div class="mc-option" onclick="checkMC(this,'d',16)"><span class="opt-letter">D</span>PT Aman Tirta mengakui pendapatan sebesar Rp12,5 milyar</div>
+          </div>
+          <div class="mc-feedback" id="fb16"><span class="correct-ans">Jawaban: D</span> — PT Aman Tirta (penerima) memiliki pengendalian atas aset alihan. Sesuai ISAK 27 dan PSAK 23 (pertukaran barang/jasa tidak serupa), PT Aman Tirta mengakui aset tetap pada nilai wajar (Rp12,5 milyar) dan mengakui <strong>pendapatan sebesar Rp12,5 milyar</strong>.</div>
+        </div>
+
+        <div class="mc-item">
+          <div class="mc-question">17. Jumlah terpulihkan aset menurut PSAK 48 adalah …</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',17)"><span class="opt-letter">A</span>Nilai yang lebih rendah antara jumlah tercatat dengan nilai pakai</div>
+            <div class="mc-option" onclick="checkMC(this,'b',17)"><span class="opt-letter">B</span>Nilai yang lebih tinggi antara nilai wajar dikurangi biaya pelepasan dengan nilai pakai</div>
+            <div class="mc-option" onclick="checkMC(this,'c',17)"><span class="opt-letter">C</span>Nilai yang lebih tinggi antara nilai wajar dengan nilai pakai</div>
+            <div class="mc-option" onclick="checkMC(this,'d',17)"><span class="opt-letter">D</span>Nilai yang lebih tinggi antara jumlah tercatat dengan nilai pakai</div>
+          </div>
+          <div class="mc-feedback" id="fb17"><span class="correct-ans">Jawaban: B</span> — Sesuai PSAK 48, jumlah terpulihkan = nilai yang <strong>lebih tinggi</strong> antara <strong>nilai wajar dikurangi biaya pelepasan</strong> dengan <strong>nilai pakai</strong> (value in use = PV arus kas masa depan).</div>
+        </div>
+
+        <div class="mc-item">
+          <div class="mc-question">18. Pernyataan berikut benar menurut PSAK 48 adalah …</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',18)"><span class="opt-letter">A</span>Penurunan nilai untuk goodwill dilakukan pada level Unit Penghasil Kas (UPK)</div>
+            <div class="mc-option" onclick="checkMC(this,'b',18)"><span class="opt-letter">B</span>PSAK 48 tidak berlaku bagi properti investasi, baik yang diukur dengan model nilai wajar maupun model biaya</div>
+            <div class="mc-option" onclick="checkMC(this,'c',18)"><span class="opt-letter">C</span>Rugi penurunan nilai adalah selisih jumlah tercatat dengan jumlah terpulihkan aset dan selalu diakui di laba rugi</div>
+            <div class="mc-option" onclick="checkMC(this,'d',18)"><span class="opt-letter">D</span>Untuk aset takterwujud dengan masa manfaat takterbatas dan goodwill, pengujian penurunan nilai hanya akan dilakukan jika terdapat indikasi penurunan nilai</div>
+          </div>
+          <div class="mc-feedback" id="fb18"><span class="correct-ans">Jawaban: A</span> — Goodwill tidak dapat diuji penurunan nilainya secara individual, sehingga pengujiannya dilakukan pada level <strong>Unit Penghasil Kas (UPK)</strong> yang menjadi tempat goodwill dialokasikan.</div>
+        </div>
+
+        <div class="mc-item">
+          <div class="mc-question">19. Pernyataan berikut benar terkait pemulihan rugi penurunan nilai aset …</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',19)"><span class="opt-letter">A</span>PSAK memperbolehkan pemulihan rugi penurunan nilai dimana jumlah tercatat setelah pemulihan rugi penurunan nilai tersebut boleh melebihi jumlah tercatat seandainya tidak terjadi rugi penurunan nilai</div>
+            <div class="mc-option" onclick="checkMC(this,'b',19)"><span class="opt-letter">B</span>PSAK tidak memperbolehkan pemulihan rugi penurunan nilai</div>
+            <div class="mc-option" onclick="checkMC(this,'c',19)"><span class="opt-letter">C</span>PSAK memperbolehkan pemulihan rugi penurunan nilai dimana jumlah tercatat setelah pemulihan rugi penurunan nilai tersebut tidak boleh melebihi jumlah tercatat seandainya tidak terjadi rugi penurunan nilai</div>
+            <div class="mc-option" onclick="checkMC(this,'d',19)"><span class="opt-letter">D</span>Pada saat jumlah terpulihkan UPK meningkat, maka dilakukan pemulihan rugi penurunan nilai atas goodwill</div>
+          </div>
+          <div class="mc-feedback" id="fb19"><span class="correct-ans">Jawaban: C</span> — Pemulihan rugi penurunan nilai diperbolehkan (kecuali goodwill), namun dengan batas maksimum: jumlah tercatat aset setelah pemulihan <strong>tidak boleh melebihi</strong> jumlah tercatat aset seharusnya jika tidak pernah ada rugi penurunan nilai sebelumnya.</div>
+        </div>
+
+        <div class="mc-item">
+          <div class="mc-question">20. Alokasi rugi penurunan nilai untuk Unit Penghasil Kas adalah dengan cara …</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',20)"><span class="opt-letter">A</span>Pertama dikurangi dari jumlah tercatat goodwill, kemudian sisanya dialokasikan ke aset dengan nilai paling besar</div>
+            <div class="mc-option" onclick="checkMC(this,'b',20)"><span class="opt-letter">B</span>Pertama dikurangi dari jumlah tercatat goodwill, kemudian sisanya dibagi ke aset lain secara proporsional berdasarkan nilai tercatatnya</div>
+            <div class="mc-option" onclick="checkMC(this,'c',20)"><span class="opt-letter">C</span>Pertama dikurangi dari jumlah tercatat aset yang nilainya paling besar, kemudian sisanya dialokasikan ke nilai tercatat goodwill</div>
+            <div class="mc-option" onclick="checkMC(this,'d',20)"><span class="opt-letter">D</span>Dialokasikan secara proporsional berdasarkan nilai tercatatnya, termasuk ke nilai tercatat goodwill</div>
+          </div>
+          <div class="mc-feedback" id="fb20"><span class="correct-ans">Jawaban: B</span> — Rugi penurunan nilai UPK dialokasikan: <strong>pertama</strong> ke goodwill (sampai habis), kemudian <strong>sisanya</strong> dialokasikan ke aset lain dalam UPK secara <strong>proporsional berdasarkan jumlah tercatat</strong> masing-masing aset.</div>
+        </div>
+      </div>
+
+      <!-- ESAI -->
+      <div class="exercise-section">
+        <div class="exercise-header">
+          <h3>Esai</h3>
+          <span class="exercise-badge">4 Soal</span>
+        </div>
+
+        <div class="essay-item">
+          <div class="essay-q">1. Berikut rincian aset yang dimiliki PT LOL per 31 Desember 2018: Tanah A (kantor pusat, Rp500 juta), Gedung B (kantor pusat, Rp800 juta, UL 20 th, diperoleh 1 Jan 2007), Tanah C (daerah strategis, Rp2 milyar), Tanah D (belum ditentukan peruntukannya, Rp1,2 milyar), Tanah E (akan dibangun Gedung F untuk disewakan, Rp800 juta), Gedung F (disewakan ke pihak ketiga, Rp1 milyar), Mobil G (operasional, Rp1,2 milyar, UL 5 th, diperoleh 1 Jan 2016), Mesin H (disewakan ke pihak ketiga, Rp400 juta, UL 4 th, diperoleh 1 Jan 2017). Nilai wajar: Tanah A 700 jt, Gedung B 1 M, Tanah C 2,5 M, Tanah D 1,25 M, Tanah E 850 jt, Gedung F 1,3 M, Mobil G 800 jt, Mesin H 300 jt. Bagaimana penyajian aset PT LOL pada laporan posisi keuangan per 31 Desember 2018?</div>
+          <button class="essay-toggle" onclick="toggleEssay('e1')">▶ Lihat Jawaban</button>
+          <div class="essay-answer" id="e1">
+            <h5>Kunci Jawaban</h5>
+            <div class="answer-group">
+              <h6>Aset Tetap (Model Biaya):</h6>
+              <div style="overflow-x:auto">
+                <table class="calc-table">
+                  <thead><tr><th>Aset</th><th>Biaya Perolehan</th><th>Akumulasi Penyusutan</th><th>Nilai Tercatat</th></tr></thead>
+                  <tbody>
+                    <tr><td>Tanah A</td><td>500 jt</td><td>–</td><td>500 jt</td></tr>
+                    <tr><td>Gedung B</td><td>800 jt</td><td>(480 jt) = 12/20 × 800</td><td>320 jt</td></tr>
+                    <tr><td>Mobil G</td><td>1.200 jt</td><td>(720 jt) = 3/5 × 1.200</td><td>480 jt</td></tr>
+                    <tr><td>Mesin H</td><td>400 jt</td><td>(200 jt) = 2/4 × 400</td><td>200 jt</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="answer-group">
+              <h6>Properti Investasi (Model Nilai Wajar):</h6>
+              <ul>
+                <li>Tanah C → Rp2,5 milyar (nilai wajar — digunakan untuk kenaikan nilai)</li>
+                <li>Tanah D → Rp1,25 milyar (nilai wajar — tujuan belum ditentukan)</li>
+                <li>Tanah E → Rp850 juta (nilai wajar — untuk dibangun gedung yang akan disewakan)</li>
+                <li>Gedung F → Rp1,3 milyar (nilai wajar — disewakan ke pihak ketiga)</li>
+              </ul>
+              <p style="font-size:0.72rem;color:var(--muted);margin-top:0.4rem">Catatan: Mesin H yang disewakan ke pihak ketiga melalui sewa operasi → tetap aset tetap (bukan properti investasi, karena hanya tanah/bangunan yang bisa menjadi properti investasi).</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="essay-item">
+          <div class="essay-q">2. Data aset takberwujud PT Olala pada 31 Desember 2018: Hak Paten A (diperoleh 2 Jan 2018, UL 10 th, biaya Rp90 jt, akum amortisasi Rp9 jt) dan Hak Cipta B (diperoleh 5 Jan 2012, UL 10 th, biaya Rp54 jt, akum amortisasi Rp37,8 jt). Transaksi 2019: (1) 2 Jan: beli lisensi mesin ABC Rp150 jt untuk 5 th + biaya hukum proteksi Rp54 jt; (2) Jan–Juni: biaya R&D produk C Rp315 jt (40% penelitian, 60% pengembangan); (3) 1 Juli: hak paten produk C diberikan, UL 6 th; (4) 1 Sept: biaya iklan peluncuran produk C Rp60 jt. Buatlah jurnal seluruh transaksi aset takberwujud PT Olala selama 2019!</div>
+          <button class="essay-toggle" onclick="toggleEssay('e2')">▶ Lihat Jawaban</button>
+          <div class="essay-answer" id="e2">
+            <h5>Kunci Jawaban — Jurnal PT OLALA tahun 2019</h5>
+            <div class="answer-group">
+              <h6>2 Januari — Pembelian Lisensi Mesin ABC:</h6>
+              <p>Dr. Lisensi Mesin ABC <strong>Rp204.000.000</strong> / Cr. Kas Rp204.000.000 (harga beli + biaya langsung yang dapat diatribusikan = 150 + 54 juta)</p>
+            </div>
+            <div class="answer-group">
+              <h6>20 Januari — Biaya R&D Produk C (40% penelitian, 60% pengembangan):</h6>
+              <p>Biaya penelitian = 40% × 315 juta = 126 juta → <strong>Beban Penelitian</strong></p>
+              <p>Biaya pengembangan = 60% × 315 juta = 189 juta → <strong>Hak Paten Produk C</strong> (dikapitalisasi karena 6 kriteria terpenuhi saat paten diberikan)</p>
+              <p>Dr. Beban Penelitian Rp126.000.000 / Cr. Kas Rp126.000.000</p>
+            </div>
+            <div class="answer-group">
+              <h6>1 Juli — Hak Paten Produk C:</h6>
+              <p>Dr. Hak Paten Produk C Rp189.000.000 / Cr. Kas Rp189.000.000</p>
+            </div>
+            <div class="answer-group">
+              <h6>1 September — Biaya Iklan:</h6>
+              <p>Dr. Beban Pemasaran Rp60.000.000 / Cr. Kas Rp60.000.000 (iklan = bukan aset takberwujud, langsung beban)</p>
+            </div>
+            <div class="answer-group">
+              <h6>31 Desember — Amortisasi:</h6>
+              <ul>
+                <li>Hak Paten A: 90 jt / 10 th = Rp9.000.000</li>
+                <li>Hak Cipta B: 54 jt / 10 th = Rp5.400.000</li>
+                <li>Lisensi Mesin ABC: 204 jt / 5 th = Rp40.800.000</li>
+                <li>Hak Paten C: 189 jt / 6 th × 6/12 = Rp15.750.000 (6 bulan)</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="essay-item">
+          <div class="essay-q">3. Pada 31 Desember 2018, terdapat indikasi penurunan nilai atas mesin fotocopy yang dimiliki PT AADC. Nilai wajar dikurangi biaya pelepasan mesin adalah Rp14,5 juta, nilai pakainya Rp14 juta. Mesin fotocopy dibeli 1 Januari 2016 seharga Rp28 juta dengan umur manfaat 8 tahun dan tanpa nilai sisa. Metode penyusutan garis lurus. Diminta: (a) Berapakah jumlah terpulihkan mesin fotocopy? (b) Apakah mesin mengalami penurunan nilai? Jika ya, berapa ruginya? (c) Bagaimana jurnal yang harus dibuat PT AADC?</div>
+          <button class="essay-toggle" onclick="toggleEssay('e3')">▶ Lihat Jawaban</button>
+          <div class="essay-answer" id="e3">
+            <h5>Kunci Jawaban</h5>
+            <div class="answer-group">
+              <h6>(a) Jumlah Terpulihkan:</h6>
+              <p>Jumlah terpulihkan = max(Rp14,5 juta; Rp14 juta) = <strong>Rp14,5 juta</strong></p>
+            </div>
+            <div class="answer-group">
+              <h6>(b) Pengujian Penurunan Nilai:</h6>
+              <div style="overflow-x:auto"><table class="calc-table">
+                <tbody>
+                  <tr><td>Biaya perolehan</td><td>28 juta</td></tr>
+                  <tr><td>Akumulasi penyusutan (28 juta/8 th × 3 th)</td><td>(10,5 juta)</td></tr>
+                  <tr class="total"><td>Jumlah tercatat 31 Des 2018</td><td>17,5 juta</td></tr>
+                  <tr><td>Jumlah terpulihkan</td><td>14,5 juta</td></tr>
+                  <tr class="total"><td>Rugi penurunan nilai</td><td>3 juta</td></tr>
+                </tbody>
+              </table></div>
+              <p>Ya, mesin mengalami penurunan nilai sebesar <strong>Rp3.000.000</strong>.</p>
+            </div>
+            <div class="answer-group">
+              <h6>(c) Jurnal:</h6>
+              <p>Dr. Rugi penurunan nilai Rp3.000.000 / Cr. Akumulasi rugi penurunan nilai Rp3.000.000</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="essay-item">
+          <div class="essay-q">4. Pada awal 2016, PT Halep mengakuisisi PT Osaka senilai Rp100 milyar. PT Osaka memiliki kegiatan produksi di dua negara: UPK X (alokasi nilai akuisisi Rp30 milyar, nilai wajar aset teridentifikasi Rp25 milyar) dan UPK Y (alokasi Rp70 milyar, nilai wajar aset teridentifikasi Rp50 milyar). Pada akhir 2018, jumlah terpulihkan UPK X adalah Rp17 milyar dan jumlah tercatat aset teridentifikasi UPK X (selain goodwill) adalah Rp18,3 milyar (biaya perolehan Rp20 milyar − akumulasi penyusutan Rp1,7 milyar). Diminta: (a) Hitung goodwill UPK X. (b) Hitung jumlah tercatat UPK X. (c) Apakah UPK X mengalami penurunan nilai? (d) Berapa rugi penurunan nilai yang harus dialokasikan ke goodwill dan aset teridentifikasi (selain goodwill)?</div>
+          <button class="essay-toggle" onclick="toggleEssay('e4')">▶ Lihat Jawaban</button>
+          <div class="essay-answer" id="e4">
+            <h5>Kunci Jawaban</h5>
+            <div class="answer-group">
+              <h6>(a) Goodwill UPK X:</h6>
+              <p>Goodwill = Nilai akuisisi − Nilai wajar aset teridentifikasi = Rp30 milyar − Rp25 milyar = <strong>Rp5 milyar</strong></p>
+            </div>
+            <div class="answer-group">
+              <h6>(b) Jumlah Tercatat UPK X (akhir 2018):</h6>
+              <p>Goodwill Rp5 milyar + Aset teridentifikasi Rp18,3 milyar = <strong>Rp23,3 milyar</strong></p>
+            </div>
+            <div class="answer-group">
+              <h6>(c) Pengujian Penurunan Nilai:</h6>
+              <p>Jumlah tercatat UPK X (Rp23,3 milyar) > Jumlah terpulihkan (Rp17 milyar) → <strong>UPK X mengalami penurunan nilai sebesar Rp6,3 milyar</strong>.</p>
+            </div>
+            <div class="answer-group">
+              <h6>(d) Alokasi Rugi Penurunan Nilai:</h6>
+              <div style="overflow-x:auto"><table class="calc-table">
+                <thead><tr><th>Aset</th><th>Jumlah tercatat</th><th>Alokasi rugi PN</th><th>Jumlah tercatat akhir</th></tr></thead>
+                <tbody>
+                  <tr><td>Goodwill</td><td>5 milyar</td><td>(5 milyar)</td><td>–</td></tr>
+                  <tr><td>Aset teridentifikasi</td><td>18,3 milyar</td><td>(1,3 milyar)</td><td>17 milyar</td></tr>
+                  <tr class="total"><td>Total</td><td>23,3 milyar</td><td>6,3 milyar</td><td>17 milyar</td></tr>
+                </tbody>
+              </table></div>
+              <p>Pertama dikurangi goodwill Rp5 milyar, sisa Rp1,3 milyar dialokasikan ke aset teridentifikasi.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- AI CHAT -->
+    <section class="section" id="ai">
+      <div class="section-header">
+        <span class="section-num" style="background:var(--blue);color:#000">🤖</span>
+        <h2 class="section-title">Tanya AI — Asisten Belajar BAB 5</h2>
+      </div>
+      <div class="ai-section">
+        <div class="ai-header">
+          <div class="ai-dot"></div>
+          <h3>Asisten Aset Tidak Lancar</h3>
+        </div>
+        <div class="ai-messages" id="aiMessages">
+          <div class="ai-msg ai">
+            <div class="avatar">AI</div>
+            <div class="ai-bubble">Halo! Saya siap membantu kamu memahami <strong>BAB 5 — Aset Tidak Lancar</strong>. Tanyakan apa saja tentang properti investasi, aset tetap, aset takberwujud, aset biologis, aset tambang, hibah pemerintah, aset dari pelanggan, atau penurunan nilai aset. 💡</div>
+          </div>
+        </div>
+        <div class="ai-suggestions" id="aiSuggestions">
+          <span class="ai-chip" onclick="sendChip(this)">Apa perbedaan model nilai wajar dan model biaya untuk properti investasi?</span>
+          <span class="ai-chip" onclick="sendChip(this)">Bagaimana menghitung dismantling cost pada aset tetap?</span>
+          <span class="ai-chip" onclick="sendChip(this)">Kapan biaya R&D dikapitalisasi sebagai aset takberwujud?</span>
+          <span class="ai-chip" onclick="sendChip(this)">Jelaskan prosedur penurunan nilai aset dan Unit Penghasil Kas</span>
+          <span class="ai-chip" onclick="sendChip(this)">Apa perbedaan tanaman produktif dan aset biologis biasa?</span>
+        </div>
+        <div class="ai-input-row">
+          <textarea class="ai-input" id="aiInput" rows="1" placeholder="Ketik pertanyaan tentang BAB 5…" onkeydown="handleKey(event)"></textarea>
+          <button class="ai-send" id="aiSendBtn" onclick="sendMessage()">Kirim</button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script>
+const answers = {1:'d',2:'a',3:'c',4:'b',5:'b',6:'a',7:'c',8:'c',9:'b',10:'b',11:'a',12:'c',13:'c',14:'c',15:'c',16:'d',17:'b',18:'a',19:'c',20:'b'};
+function checkMC(el, choice, num) {
+  const item = el.closest('.mc-item');
+  if (item.querySelector('.revealed')) return;
+  const correct = answers[num];
+  item.querySelectorAll('.mc-option').forEach(opt => {
+    opt.classList.add('revealed');
+    const letter = opt.querySelector('.opt-letter').textContent.toLowerCase();
+    if (letter === correct) opt.classList.add('correct');
+    else if (letter === choice && choice !== correct) opt.classList.add('wrong');
+  });
+  const fb = document.getElementById('fb' + num);
+  if (fb) fb.classList.add('show');
+}
+function toggleEssay(id) {
+  const ans = document.getElementById(id);
+  const btn = ans.previousElementSibling;
+  const show = !ans.classList.contains('show');
+  ans.classList.toggle('show', show);
+  btn.textContent = show ? '▼ Sembunyikan Jawaban' : '▶ Lihat Jawaban';
+}
+const sections = document.querySelectorAll('.section, .subsection');
+const tocLinks = document.querySelectorAll('.toc-link');
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { tocLinks.forEach(l => l.classList.remove('active')); const a = document.querySelector(`.toc-link[href="#${e.target.id}"]`); if (a) a.classList.add('active'); } });
+}, { rootMargin: '-20% 0px -70% 0px' });
+sections.forEach(s => { if (s.id) obs.observe(s); });
+
+const SYSTEM_PROMPT = `Kamu adalah asisten belajar untuk mata kuliah CA Indonesia: Pelaporan Korporat, khususnya BAB 5 tentang Aset Tidak Lancar.
+
+Topik yang kamu kuasai:
+- 5.1 Pengertian aset tidak lancar: definisi, jenis (properti investasi, aset tetap, aset takberwujud, aset biologis, aset tambang, aset keuangan JP)
+- 5.2 Properti investasi (PSAK 13): definisi, pengakuan, pengukuran saat & setelah pengakuan (model nilai wajar vs model biaya), pengalihan, penghentian pengakuan
+- 5.3 Aset tetap (PSAK 16): definisi, pengakuan, 3 elemen biaya perolehan (harga perolehan, biaya langsung, dismantling cost), model biaya vs model revaluasi, penyusutan (3 metode, konsep dekomponenisasi, review tahunan), penghentian pengakuan
+- 5.4 Aset takberwujud (PSAK 19): definisi (3 unsur: keteridentifikasian, pengendalian, manfaat ekonomi), pengakuan (6 cara perolehan termasuk tahap penelitian vs pengembangan), model biaya vs model revaluasi, umur manfaat terbatas vs tidak terbatas
+- 5.5 Aset biologis (PSAK 69): definisi, pengakuan, pengukuran nilai wajar dikurangi biaya untuk menjual, hibah pemerintah terkait aset biologis
+- 5.6 Aset tambang (PSAK 64): definisi, komponen biaya perolehan, ARO, pengukuran setelah pengakuan
+- 5.7 Hibah pemerintah (PSAK 61): definisi, syarat pengakuan, pengukuran, amortisasi pendapatan ditangguhkan
+- 5.8 Aset dari pelanggan (ISAK 27): 4 permasalahan, pengendalian aset alihan, pengakuan pendapatan
+- 5.9 Penurunan nilai aset (PSAK 48): prosedur (indikasi → uji → jumlah terpulihkan), jumlah terpulihkan = max(NW-biaya pelepasan, nilai pakai), alokasi rugi UPK (goodwill dulu, lalu proporsional), pemulihan rugi penurunan nilai, pengecualian goodwill
+
+Jawab dalam Bahasa Indonesia yang jelas dan ringkas. Gunakan contoh angka konkret bila relevan.`;
+
+const messagesEl = document.getElementById('aiMessages');
+const inputEl = document.getElementById('aiInput');
+const sendBtn = document.getElementById('aiSendBtn');
+let history = [];
+function addMsg(role, text) {
+  const div = document.createElement('div');
+  div.className = `ai-msg ${role}`;
+  div.innerHTML = `<div class="avatar">${role==='ai'?'AI':'Kamu'}</div><div class="ai-bubble">${text.replace(/\n/g,'<br>')}</div>`;
+  messagesEl.appendChild(div); messagesEl.scrollTop = messagesEl.scrollHeight;
+}
+function addTyping() {
+  const div = document.createElement('div'); div.className = 'ai-msg ai'; div.id = 'typing';
+  div.innerHTML = `<div class="avatar">AI</div><div class="ai-typing"><span></span><span></span><span></span></div>`;
+  messagesEl.appendChild(div); messagesEl.scrollTop = messagesEl.scrollHeight;
+}
+async function sendMessage() {
+  const text = inputEl.value.trim(); if (!text) return;
+  inputEl.value = ''; document.getElementById('aiSuggestions').style.display = 'none';
+  addMsg('user', text); history.push({ role: 'user', content: text }); sendBtn.disabled = true; addTyping();
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ model: 'claude-sonnet-4-20250514', max_tokens: 1000, system: SYSTEM_PROMPT, messages: history }) });
+    const data = await res.json();
+    document.getElementById('typing')?.remove();
+    const reply = data.content?.find(b => b.type === 'text')?.text || 'Maaf, tidak ada respons.';
+    addMsg('ai', reply); history.push({ role: 'assistant', content: reply });
+  } catch { document.getElementById('typing')?.remove(); addMsg('ai', 'Maaf, terjadi kesalahan. Periksa koneksi internet dan coba lagi.'); }
+  sendBtn.disabled = false;
+}
+function sendChip(el) { inputEl.value = el.textContent; sendMessage(); }
+function handleKey(e) { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); } }
+</script>
+</body>
+</html>
