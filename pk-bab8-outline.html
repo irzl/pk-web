@@ -1,0 +1,1031 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BAB 8 — Imbalan Kerja, Provisi dan Kontinjensi</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #0f0a08; --surface: #1a1208; --surface2: #241a0a; --surface3: #2e2010;
+  --accent: #fb923c; --accent2: #fdba74; --accent3: #ea580c;
+  --yellow: #fbbf24; --green: #4ade80; --teal: #2dd4bf; --blue: #60a5fa; --purple: #a78bfa; --red: #f87171;
+  --text: #fff7ed; --text2: #c4a882; --muted: #6b5a45; --border: rgba(251,146,60,0.1); --border2: rgba(255,255,255,0.06);
+}
+html { scroll-behavior: smooth; }
+body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; min-height: 100vh; }
+
+.chapter-header { background: linear-gradient(135deg, #0f0a08 0%, #1a1208 50%, #0f0a08 100%); border-bottom: 1px solid var(--border); padding: 2.5rem 2rem 2rem; position: relative; overflow: hidden; }
+.chapter-header::before { content: '8'; position: absolute; right: -0.5rem; top: -1rem; font-family: 'Playfair Display', serif; font-size: 12rem; font-weight: 900; color: rgba(251,146,60,0.04); line-height: 1; pointer-events: none; user-select: none; }
+.chapter-eyebrow { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent3); margin-bottom: 0.5rem; }
+.chapter-title { font-family: 'Playfair Display', serif; font-size: clamp(1.4rem, 3.5vw, 2.2rem); font-weight: 900; line-height: 1.15; background: linear-gradient(135deg, #fb923c, #fdba74); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 1.2rem; }
+.learning-goals { background: rgba(251,146,60,0.05); border: 1px solid var(--border); border-radius: 12px; padding: 1rem 1.2rem; max-width: 700px; }
+.learning-goals h3 { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.6rem; }
+.goals-list { list-style: none; display: flex; flex-direction: column; gap: 0.3rem; }
+.goals-list li { font-size: 0.78rem; color: var(--text2); display: flex; gap: 0.6rem; align-items: flex-start; }
+.goals-list li::before { content: '→'; color: var(--accent3); flex-shrink: 0; font-family: 'DM Mono', monospace; font-size: 0.7rem; margin-top: 0.05rem; }
+
+.page-body { display: grid; grid-template-columns: 220px 1fr; min-height: calc(100vh - 200px); }
+.toc { background: var(--surface); border-right: 1px solid var(--border2); padding: 1.5rem 0; position: sticky; top: 0; height: 100vh; overflow-y: auto; }
+.toc-label { font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); padding: 0 1rem; margin-bottom: 0.8rem; }
+.toc-link { display: block; padding: 0.45rem 1rem; font-size: 0.75rem; color: var(--muted); text-decoration: none; transition: all 0.15s; border-left: 2px solid transparent; line-height: 1.4; }
+.toc-link:hover { color: var(--text); background: rgba(251,146,60,0.04); }
+.toc-link.active { color: var(--accent); border-left-color: var(--accent); background: rgba(251,146,60,0.06); }
+.toc-link.sub { padding-left: 1.8rem; font-size: 0.7rem; }
+.toc-divider { height: 1px; background: var(--border2); margin: 0.6rem 1rem; }
+.main { padding: 2rem 2.5rem 4rem; max-width: 860px; }
+.section { margin-bottom: 3rem; scroll-margin-top: 1.5rem; }
+.section-header { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.2rem; padding-bottom: 0.7rem; border-bottom: 1px solid var(--border2); }
+.section-num { font-family: 'DM Mono', monospace; font-size: 0.65rem; font-weight: 700; background: var(--accent3); color: #fff; padding: 0.2rem 0.5rem; border-radius: 4px; flex-shrink: 0; }
+.section-title { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; color: var(--text); line-height: 1.3; }
+.subsection { margin-bottom: 1.5rem; scroll-margin-top: 1.5rem; }
+.subsection-title { font-size: 0.82rem; font-weight: 600; color: var(--accent2); font-family: 'DM Mono', monospace; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.6rem; }
+
+.card { background: var(--surface); border: 1px solid var(--border2); border-radius: 10px; padding: 1.1rem 1.2rem; margin-bottom: 0.8rem; }
+.card-title { font-size: 0.78rem; font-weight: 600; color: var(--accent); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem; }
+.card-title .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
+.card p, .card li { font-size: 0.8rem; color: var(--text2); line-height: 1.6; }
+.card ul, .card ol { padding-left: 1.1rem; margin-top: 0.4rem; display: flex; flex-direction: column; gap: 0.25rem; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; margin-bottom: 1rem; }
+.grid-3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 0.7rem; margin-bottom: 1rem; }
+.grid-4 { display: grid; grid-template-columns: repeat(4,1fr); gap: 0.7rem; margin-bottom: 1rem; }
+.highlight { background: rgba(251,146,60,0.06); border: 1px solid rgba(251,146,60,0.2); border-left: 3px solid var(--accent); border-radius: 8px; padding: 0.9rem 1.1rem; margin-bottom: 1rem; }
+.highlight p { font-size: 0.8rem; color: var(--text2); line-height: 1.6; }
+.highlight strong { color: var(--accent); font-weight: 600; }
+.highlight-blue { background: rgba(96,165,250,0.06); border: 1px solid rgba(96,165,250,0.2); border-left: 3px solid var(--blue); border-radius: 8px; padding: 0.9rem 1.1rem; margin-bottom: 1rem; }
+.highlight-blue p { font-size: 0.8rem; color: var(--text2); line-height: 1.6; }
+.highlight-blue strong { color: var(--blue); }
+.highlight-green { background: rgba(74,222,128,0.06); border: 1px solid rgba(74,222,128,0.2); border-left: 3px solid var(--green); border-radius: 8px; padding: 0.9rem 1.1rem; margin-bottom: 1rem; }
+.highlight-green p { font-size: 0.8rem; color: var(--text2); line-height: 1.6; }
+.highlight-green strong { color: var(--green); }
+.highlight-red { background: rgba(248,113,113,0.06); border: 1px solid rgba(248,113,113,0.2); border-left: 3px solid var(--red); border-radius: 8px; padding: 0.9rem 1.1rem; margin-bottom: 1rem; }
+.highlight-red p { font-size: 0.8rem; color: var(--text2); line-height: 1.6; }
+.highlight-red strong { color: var(--red); }
+.table-wrap { overflow-x: auto; margin-bottom: 1rem; border-radius: 10px; border: 1px solid var(--border2); }
+table { width: 100%; border-collapse: collapse; font-size: 0.76rem; }
+thead tr { background: var(--surface3); }
+th { padding: 0.7rem 0.9rem; text-align: left; font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); font-weight: 500; }
+td { padding: 0.6rem 0.9rem; border-top: 1px solid var(--border2); color: var(--text2); vertical-align: top; line-height: 1.5; }
+tbody tr:hover { background: rgba(255,255,255,0.02); }
+.tag { display: inline-block; font-family: 'DM Mono', monospace; font-size: 0.6rem; padding: 0.15rem 0.5rem; border-radius: 99px; font-weight: 500; }
+.tag-orange { background: rgba(251,146,60,0.12); color: var(--accent); border: 1px solid rgba(251,146,60,0.25); }
+.tag-blue { background: rgba(96,165,250,0.12); color: var(--blue); border: 1px solid rgba(96,165,250,0.25); }
+.tag-green { background: rgba(74,222,128,0.12); color: var(--green); border: 1px solid rgba(74,222,128,0.25); }
+.tag-red { background: rgba(248,113,113,0.12); color: var(--red); border: 1px solid rgba(248,113,113,0.25); }
+.tag-purple { background: rgba(167,139,250,0.12); color: var(--purple); border: 1px solid rgba(167,139,250,0.25); }
+.tag-yellow { background: rgba(251,191,36,0.12); color: var(--yellow); border: 1px solid rgba(251,191,36,0.25); }
+.psak-ref { display: inline-flex; align-items: center; gap: 0.35rem; font-family: 'DM Mono', monospace; font-size: 0.62rem; background: var(--surface3); border: 1px solid var(--border2); color: var(--text2); padding: 0.15rem 0.55rem; border-radius: 99px; margin-bottom: 0.5rem; }
+.psak-ref span { color: var(--accent); }
+
+/* Formula */
+.formula-box { background: var(--surface3); border: 1px solid var(--border2); border-radius: 10px; padding: 1rem 1.2rem; margin-bottom: 1rem; font-family: 'DM Mono', monospace; }
+.formula-title { font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.6rem; }
+.formula-eq { font-size: 0.78rem; color: var(--text); padding: 0.5rem; background: rgba(251,146,60,0.05); border-radius: 6px; margin-bottom: 0.4rem; line-height: 1.7; }
+.formula-item { display: flex; justify-content: space-between; font-size: 0.72rem; color: var(--text2); padding: 0.2rem 0; border-bottom: 1px solid rgba(255,255,255,0.04); }
+.formula-item:last-child { border-bottom: none; }
+.formula-item.total { color: var(--accent); font-weight: 700; border-top: 1px solid var(--border2); margin-top: 0.3rem; padding-top: 0.3rem; }
+.formula-item.neg { color: var(--red); }
+.formula-item.pos { color: var(--green); }
+
+/* Component breakdown boxes */
+.comp-box { border-radius: 10px; padding: 0.85rem 1rem; margin-bottom: 0.6rem; border: 1px solid; }
+.comp-laba { background: rgba(96,165,250,0.06); border-color: rgba(96,165,250,0.25); }
+.comp-oci { background: rgba(167,139,250,0.06); border-color: rgba(167,139,250,0.25); }
+.comp-label { font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.4rem; }
+.comp-laba .comp-label { color: var(--blue); }
+.comp-oci .comp-label { color: var(--purple); }
+.comp-box ul { list-style: none; display: flex; flex-direction: column; gap: 0.25rem; }
+.comp-box li { font-size: 0.75rem; color: var(--text2); display: flex; gap: 0.5rem; }
+.comp-box li::before { content: '▸'; flex-shrink: 0; font-size: 0.6rem; margin-top: 0.1rem; }
+.comp-laba li::before { color: var(--blue); }
+.comp-oci li::before { color: var(--purple); }
+
+/* Provisi vs Kontinjensi comparison */
+.pkv-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 0.7rem; margin-bottom: 1rem; }
+.pkv-card { border-radius: 10px; padding: 0.9rem 1rem; border: 1px solid; }
+.pkv-provisi { background: rgba(251,146,60,0.06); border-color: rgba(251,146,60,0.25); }
+.pkv-liabkont { background: rgba(248,113,113,0.06); border-color: rgba(248,113,113,0.25); }
+.pkv-asetkont { background: rgba(74,222,128,0.06); border-color: rgba(74,222,128,0.25); }
+.pkv-label { font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.3rem; }
+.pkv-provisi .pkv-label { color: var(--accent); }
+.pkv-liabkont .pkv-label { color: var(--red); }
+.pkv-asetkont .pkv-label { color: var(--green); }
+.pkv-card p { font-size: 0.73rem; color: var(--text2); line-height: 1.5; }
+
+/* Latihan */
+.exercise-section { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; margin-bottom: 1.5rem; }
+.exercise-header { background: rgba(251,146,60,0.08); padding: 0.9rem 1.2rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 0.6rem; }
+.exercise-header h3 { font-family: 'DM Mono', monospace; font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); }
+.exercise-badge { font-family: 'DM Mono', monospace; font-size: 0.58rem; background: rgba(251,146,60,0.15); color: var(--accent); padding: 0.15rem 0.5rem; border-radius: 99px; }
+.mc-item { padding: 1rem 1.2rem; border-bottom: 1px solid var(--border2); }
+.mc-item:last-child { border-bottom: none; }
+.mc-question { font-size: 0.8rem; color: var(--text); font-weight: 500; margin-bottom: 0.6rem; line-height: 1.55; }
+.mc-sub { font-size: 0.74rem; color: var(--text2); background: var(--surface3); border-radius: 8px; padding: 0.6rem 0.9rem; margin-bottom: 0.7rem; line-height: 1.6; }
+.mc-options { display: flex; flex-direction: column; gap: 0.3rem; }
+.mc-option { display: flex; gap: 0.6rem; align-items: flex-start; padding: 0.4rem 0.6rem; border-radius: 6px; cursor: pointer; transition: background 0.15s; font-size: 0.76rem; color: var(--text2); line-height: 1.4; border: 1px solid transparent; }
+.mc-option:hover { background: rgba(255,255,255,0.03); border-color: var(--border2); }
+.mc-option.correct { background: rgba(74,222,128,0.1); color: var(--green); border-color: rgba(74,222,128,0.3); }
+.mc-option.wrong { background: rgba(248,113,113,0.08); color: var(--red); border-color: rgba(248,113,113,0.2); }
+.mc-option.revealed { pointer-events: none; }
+.opt-letter { font-family: 'DM Mono', monospace; font-size: 0.65rem; font-weight: 700; background: var(--surface3); padding: 0.15rem 0.4rem; border-radius: 4px; flex-shrink: 0; margin-top: 0.05rem; }
+.mc-feedback { margin-top: 0.5rem; font-size: 0.72rem; color: var(--muted); display: none; padding: 0.4rem 0.6rem; background: var(--surface3); border-radius: 6px; line-height: 1.5; }
+.mc-feedback.show { display: block; }
+.mc-feedback .correct-ans { color: var(--green); font-weight: 600; }
+.essay-item { padding: 1rem 1.2rem; border-bottom: 1px solid var(--border2); }
+.essay-item:last-child { border-bottom: none; }
+.essay-q { font-size: 0.8rem; color: var(--text); font-weight: 500; margin-bottom: 0.8rem; line-height: 1.55; }
+.essay-sub { font-size: 0.74rem; color: var(--text2); background: var(--surface3); border-radius: 8px; padding: 0.7rem 1rem; margin-bottom: 0.8rem; line-height: 1.6; }
+.essay-toggle { display: flex; align-items: center; gap: 0.5rem; font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent3); background: rgba(251,146,60,0.07); border: 1px solid rgba(251,146,60,0.2); padding: 0.4rem 0.8rem; border-radius: 6px; cursor: pointer; transition: all 0.15s; width: fit-content; }
+.essay-toggle:hover { background: rgba(251,146,60,0.12); color: var(--accent); }
+.essay-answer { margin-top: 0.8rem; display: none; background: var(--surface3); border-radius: 8px; padding: 0.9rem 1rem; }
+.essay-answer.show { display: block; }
+.essay-answer h5 { font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent3); margin-bottom: 0.6rem; }
+.essay-answer p, .essay-answer li { font-size: 0.77rem; color: var(--text2); line-height: 1.6; }
+.essay-answer ul { padding-left: 0; list-style: none; display: flex; flex-direction: column; gap: 0.3rem; margin-top: 0.3rem; }
+.essay-answer li { display: flex; gap: 0.5rem; }
+.essay-answer li::before { content: '▸'; color: var(--accent); flex-shrink: 0; font-size: 0.6rem; margin-top: 0.1rem; }
+.answer-group { margin-bottom: 0.7rem; }
+.answer-group h6 { font-size: 0.74rem; font-weight: 600; color: var(--text); margin-bottom: 0.35rem; }
+.calc-table { width: 100%; font-size: 0.72rem; border-collapse: collapse; margin-top: 0.4rem; }
+.calc-table th { background: var(--surface2); padding: 0.4rem 0.6rem; text-align: center; color: var(--accent2); font-weight: 600; border: 1px solid var(--border2); }
+.calc-table td { padding: 0.35rem 0.6rem; border: 1px solid var(--border2); color: var(--text2); }
+.calc-table tr.total td { background: var(--surface2); color: var(--accent); font-weight: 700; }
+
+/* AI */
+.ai-section { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; }
+.ai-header { background: rgba(96,165,250,0.07); padding: 0.9rem 1.2rem; border-bottom: 1px solid rgba(96,165,250,0.15); display: flex; align-items: center; gap: 0.6rem; }
+.ai-header h3 { font-family: 'DM Mono', monospace; font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--blue); }
+.ai-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--blue); }
+.ai-messages { padding: 1rem 1.2rem; min-height: 80px; max-height: 360px; overflow-y: auto; display: flex; flex-direction: column; gap: 0.7rem; }
+.ai-msg { display: flex; gap: 0.6rem; align-items: flex-start; font-size: 0.78rem; line-height: 1.6; animation: fadeUp 0.25s ease; }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+.ai-msg.user { flex-direction: row-reverse; }
+.ai-msg .avatar { width: 26px; height: 26px; border-radius: 6px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 0.65rem; font-weight: 700; margin-top: 0.1rem; }
+.ai-msg.ai .avatar { background: rgba(96,165,250,0.15); color: var(--blue); }
+.ai-msg.user .avatar { background: rgba(251,146,60,0.15); color: var(--accent); }
+.ai-bubble { padding: 0.6rem 0.85rem; border-radius: 10px; max-width: 85%; }
+.ai-msg.ai .ai-bubble { background: var(--surface3); color: var(--text2); }
+.ai-msg.user .ai-bubble { background: rgba(251,146,60,0.09); color: var(--text); text-align: right; }
+.ai-typing { display: flex; gap: 4px; align-items: center; padding: 0.6rem 0.85rem; background: var(--surface3); border-radius: 10px; width: fit-content; }
+.ai-typing span { width: 5px; height: 5px; border-radius: 50%; background: var(--blue); animation: typing 1.2s infinite; }
+.ai-typing span:nth-child(2) { animation-delay: 0.2s; }
+.ai-typing span:nth-child(3) { animation-delay: 0.4s; }
+@keyframes typing { 0%,60%,100% { opacity: 0.2; transform: scale(0.8); } 30% { opacity: 1; transform: scale(1); } }
+.ai-suggestions { padding: 0 1.2rem 0.75rem; display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.ai-chip { font-family: 'DM Mono', monospace; font-size: 0.62rem; background: var(--surface3); border: 1px solid var(--border2); color: var(--text2); padding: 0.3rem 0.7rem; border-radius: 99px; cursor: pointer; transition: all 0.15s; }
+.ai-chip:hover { border-color: rgba(96,165,250,0.35); color: var(--blue); }
+.ai-input-row { padding: 0.75rem 1.2rem; border-top: 1px solid var(--border2); display: flex; gap: 0.5rem; }
+.ai-input { flex: 1; background: var(--surface3); border: 1px solid var(--border2); border-radius: 8px; padding: 0.5rem 0.8rem; font-size: 0.78rem; color: var(--text); font-family: 'DM Sans', sans-serif; outline: none; resize: none; max-height: 100px; transition: border-color 0.2s; }
+.ai-input:focus { border-color: rgba(96,165,250,0.35); }
+.ai-input::placeholder { color: var(--muted); }
+.ai-send { background: var(--blue); color: #000; border: none; border-radius: 8px; padding: 0.5rem 1rem; font-family: 'DM Mono', monospace; font-size: 0.68rem; font-weight: 700; cursor: pointer; transition: opacity 0.15s; }
+.ai-send:hover { opacity: 0.85; }
+.ai-send:disabled { opacity: 0.4; cursor: not-allowed; }
+</style>
+</head>
+<body>
+
+<div class="chapter-header">
+  <div class="chapter-eyebrow">Pelaporan Korporat · CA Indonesia</div>
+  <div class="chapter-title">BAB 8 — Imbalan Kerja, Provisi dan Kontinjensi</div>
+  <div class="learning-goals">
+    <h3>Tujuan Pembelajaran</h3>
+    <ul class="goals-list">
+      <li>Menjelaskan cakupan imbalan kerja</li>
+      <li>Menerapkan akuntansi imbalan kerja jangka pendek, iuran pasti, jangka panjang lain, dan pesangon</li>
+      <li>Menganalisis akuntansi imbalan pascakerja imbalan pasti</li>
+      <li>Menerapkan akuntansi provisi dan kontinjensi</li>
+    </ul>
+  </div>
+</div>
+
+<div class="page-body">
+  <!-- TOC -->
+  <nav class="toc">
+    <div class="toc-label">Isi Bab</div>
+    <a class="toc-link" href="#s1">8.1 Imbalan Kerja Jangka Pendek</a>
+    <a class="toc-link sub" href="#s1-1">Cuti Berbayar</a>
+    <a class="toc-link sub" href="#s1-2">Program Bagi Laba & Bonus</a>
+    <div class="toc-divider"></div>
+    <a class="toc-link" href="#s2">8.2 Imbalan Pascakerja</a>
+    <a class="toc-link sub" href="#s2-1">Program Iuran Pasti</a>
+    <a class="toc-link sub" href="#s2-2">Program Imbalan Pasti</a>
+    <a class="toc-link sub" href="#s2-3">Kondisi di Indonesia (UU 13/2003)</a>
+    <a class="toc-link sub" href="#s2-4">Akuntansi Imbalan Pasti</a>
+    <a class="toc-link sub" href="#s2-5">Komponen Biaya & OCI</a>
+    <div class="toc-divider"></div>
+    <a class="toc-link" href="#s3">8.3 Imbalan Kerja Jangka Panjang Lain</a>
+    <a class="toc-link" href="#s4">8.4 Pesangon</a>
+    <div class="toc-divider"></div>
+    <a class="toc-link" href="#s5">8.5 Pengakuan Provisi & Kontinjensi</a>
+    <a class="toc-link" href="#s6">8.6 Pengukuran Provisi</a>
+    <a class="toc-link" href="#s7">8.7 Penggantian & Perubahan Provisi</a>
+    <a class="toc-link" href="#s8">8.8 Penerapan Aturan Pengakuan</a>
+    <a class="toc-link" href="#s9">8.9 Pengungkapan</a>
+    <div class="toc-divider"></div>
+    <a class="toc-link" href="#latihan">Latihan Soal</a>
+    <a class="toc-link sub" href="#pilgan">Pilihan Ganda</a>
+    <a class="toc-link sub" href="#esai">Esai</a>
+    <a class="toc-link" href="#ai-tutor">AI Tutor</a>
+  </nav>
+
+  <!-- MAIN CONTENT -->
+  <main class="main">
+
+    <!-- SECTION 8.1 -->
+    <section class="section" id="s1">
+      <div class="section-header">
+        <span class="section-num">8.1</span>
+        <span class="section-title">Imbalan Kerja Jangka Pendek</span>
+      </div>
+      <div class="psak-ref">Diatur dalam <span>PSAK 24 (Amandemen 2018)</span></div>
+      <div class="highlight">
+        <p><strong>Definisi:</strong> Imbalan kerja (selain pesangon) yang diperkirakan akan diselesaikan seluruhnya dalam waktu <strong>12 bulan</strong> setelah akhir periode pelaporan saat pekerja memberikan jasa terkait. Tidak memerlukan asumsi aktuaria dan tidak dilakukan diskonto.</p>
+      </div>
+      <div class="grid-4">
+        <div class="card"><div class="card-title"><span class="dot"></span>Upah & Gaji</div><p>Upah, gaji, dan iuran jaminan sosial</p></div>
+        <div class="card"><div class="card-title"><span class="dot"></span>Cuti Berbayar</div><p>Cuti tahunan berbayar dan cuti sakit berbayar</p></div>
+        <div class="card"><div class="card-title"><span class="dot"></span>Bagi Laba & Bonus</div><p>Program bagi laba dan bonus</p></div>
+        <div class="card"><div class="card-title"><span class="dot"></span>Nonmoneter</div><p>Imbalan nonmoneter (perawatan medis, perumahan, kendaraan, dll.)</p></div>
+      </div>
+      <div class="highlight-blue">
+        <p>Imbalan kerja jangka pendek <strong>diakui sebagai beban</strong> ketika pekerja telah memberikan jasanya. Jika belum dibayar → diakui sebagai <strong>Liabilitas (beban terakru)</strong>. Jika sudah dibayar melebihi imbalan → diakui sebagai <strong>Aset (biaya dibayar dimuka)</strong>.</p>
+      </div>
+
+      <div class="subsection" id="s1-1">
+        <div class="subsection-title">8.1.1 Cuti Berbayar</div>
+        <div class="grid-2">
+          <div class="card" style="border-top:2px solid var(--green)">
+            <div class="card-title" style="color:var(--green)"><span class="dot" style="background:var(--green)"></span>Cuti Berbayar Diakumulasi</div>
+            <ul>
+              <li>Hak cuti periode berjalan yang belum digunakan dapat dibawa ke periode mendatang</li>
+              <li>Beban dan liabilitas diakui <strong>saat pekerja memberikan jasa</strong> yang menambah hak cuti di masa depan</li>
+              <li>Diukur sebagai jumlah tambahan yang diperkirakan dibayar atas hak yang terakumulasi</li>
+            </ul>
+          </div>
+          <div class="card" style="border-top:2px solid var(--red)">
+            <div class="card-title" style="color:var(--red)"><span class="dot" style="background:var(--red)"></span>Cuti Berbayar Tidak Diakumulasi</div>
+            <ul>
+              <li>Hak cuti akan hangus apabila tidak digunakan di periode berjalan</li>
+              <li>Beban langsung diakui dan dibayarkan <strong>pada saat terjadinya cuti</strong></li>
+              <li>Tidak ada liabilitas yang diakui di akhir periode</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="subsection" id="s1-2">
+        <div class="subsection-title">8.1.2 Program Bagi Laba dan Bonus</div>
+        <div class="highlight">
+          <p>Entitas mengakui biaya ekspektasian atas bagi laba dan bonus jika, dan hanya jika: (1) terdapat <strong>kewajiban hukum atau konstruktif</strong> atas pembayaran tersebut, dan (2) kewajiban tersebut dapat <strong>diestimasi secara andal</strong>.</p>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="dot"></span>Kewajiban Konstruktif</div>
+          <p>Terkadang entitas tidak menyatakan dalam kontrak adanya pembayaran bonus atau gaji ke-13, namun setiap tahunnya entitas selalu membayarkannya. Hal ini menimbulkan <strong>kewajiban konstruktif</strong> karena tidak ada hal realistis lain yang dapat dilakukan selain membayar bonus tersebut.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 8.2 -->
+    <section class="section" id="s2">
+      <div class="section-header">
+        <span class="section-num">8.2</span>
+        <span class="section-title">Imbalan Pascakerja</span>
+      </div>
+      <div class="highlight">
+        <p><strong>Imbalan pascakerja</strong> adalah imbalan kerja (selain pesangon dan jangka pendek) yang terutang setelah pekerja menyelesaikan masa kerjanya. Contoh: pensiun, asuransi jiwa, tunjangan kesehatan pascakerja.</p>
+      </div>
+      <div class="grid-2">
+        <div class="subsection" id="s2-1" style="margin:0">
+          <div class="card" style="border-top:2px solid var(--green)">
+            <div class="card-title" style="color:var(--green)"><span class="dot" style="background:var(--green)"></span>Program Iuran Pasti (Defined Contribution)</div>
+            <ul>
+              <li>Pemberi kerja membayar iuran tetap ke entitas terpisah (dana pensiun)</li>
+              <li>Tidak ada kewajiban hukum/konstruktif untuk membayar lebih jika dana tidak cukup</li>
+              <li><strong>Risiko aktuarial & investasi ditanggung Pekerja</strong></li>
+              <li>Akuntansi sederhana: beban diakui saat terjadi. Jika iuran diselesaikan >12 bulan → nilai kini</li>
+            </ul>
+          </div>
+        </div>
+        <div class="subsection" id="s2-2" style="margin:0">
+          <div class="card" style="border-top:2px solid var(--accent)">
+            <div class="card-title"><span class="dot"></span>Program Imbalan Pasti (Defined Benefit)</div>
+            <ul>
+              <li>Pemberi kerja menjamin jumlah manfaat yang akan diterima pekerja di akhir masa kerja</li>
+              <li>Biasanya terkait dengan gaji dan lamanya masa kerja</li>
+              <li><strong>Risiko aktuarial & investasi ditanggung Entitas (Pemberi Kerja)</strong></li>
+              <li>Akuntansi kompleks: menggunakan metode <em>Projected Unit Credit</em> (PUC)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="subsection" id="s2-3">
+        <div class="subsection-title">8.2.3 Kondisi di Indonesia — UU No. 13 Tahun 2003</div>
+        <div class="highlight-blue">
+          <p>UU 13/2003 pasal 156 mengatur besarnya <strong>pesangon, penghargaan, dan penggantian hak</strong> yang wajib dibayarkan pemberi kerja kepada pekerja untuk berbagai jenis PHK. Indonesia secara efektif memberlakukan <strong>Program Imbalan Pasti</strong> bagi seluruh tenaga kerja.</p>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Jenis PHK</th><th>Pesangon</th><th>Penghargaan</th><th>Penggantian Hak</th><th>Uang Pisah</th></tr></thead>
+            <tbody>
+              <tr><td>Mengundurkan diri</td><td>—</td><td>—</td><td>1 kali</td><td>1 kali</td></tr>
+              <tr><td>Meninggal</td><td>2 kali</td><td>1 kali</td><td>1 kali</td><td>—</td></tr>
+              <tr><td>Pensiun Normal</td><td>2 kali</td><td>1 kali</td><td>1 kali</td><td>—</td></tr>
+              <tr><td>Sakit Berkepanjangan / Cacat</td><td>2 kali</td><td>1 kali</td><td>1 kali</td><td>—</td></tr>
+              <tr><td>Kesalahan Berat</td><td>—</td><td>—</td><td>1 kali</td><td>1 kali</td></tr>
+              <tr><td>Entitas Tutup</td><td>1 kali</td><td>1 kali</td><td>1 kali</td><td>—</td></tr>
+              <tr><td>Pailit</td><td>1 kali</td><td>1 kali</td><td>1 kali</td><td>—</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="dot"></span>Besaran Pesangon & Penghargaan (Pasal 156 Ayat 2 & 3)</div>
+          <div class="grid-2" style="gap:0.5rem;margin-top:0.5rem">
+            <div>
+              <p style="font-size:0.72rem;color:var(--accent2);margin-bottom:0.4rem;font-family:'DM Mono',monospace">PESANGON (maks 9 kali)</p>
+              <table class="calc-table" style="margin:0"><thead><tr><th>Masa Kerja</th><th>Bulan Upah</th></tr></thead>
+              <tbody>
+                <tr><td>MK &lt; 1 th</td><td>1 kali</td></tr>
+                <tr><td>1 ≤ MK &lt; 2</td><td>2 kali</td></tr>
+                <tr><td>2 ≤ MK &lt; 3</td><td>3 kali</td></tr>
+                <tr><td>3 ≤ MK &lt; 4</td><td>4 kali</td></tr>
+                <tr><td>5 ≤ MK &lt; 6</td><td>6 kali</td></tr>
+                <tr><td>7 ≤ MK &lt; 8</td><td>8 kali</td></tr>
+                <tr><td>MK ≥ 8</td><td>9 kali</td></tr>
+              </tbody></table>
+            </div>
+            <div>
+              <p style="font-size:0.72rem;color:var(--accent2);margin-bottom:0.4rem;font-family:'DM Mono',monospace">PENGHARGAAN (maks 10 kali)</p>
+              <table class="calc-table" style="margin:0"><thead><tr><th>Masa Kerja</th><th>Bulan Upah</th></tr></thead>
+              <tbody>
+                <tr><td>3 ≤ MK &lt; 6</td><td>2 kali</td></tr>
+                <tr><td>6 ≤ MK &lt; 9</td><td>3 kali</td></tr>
+                <tr><td>9 ≤ MK &lt; 12</td><td>4 kali</td></tr>
+                <tr><td>12 ≤ MK &lt; 15</td><td>5 kali</td></tr>
+                <tr><td>15 ≤ MK &lt; 18</td><td>6 kali</td></tr>
+                <tr><td>18 ≤ MK &lt; 21</td><td>7 kali</td></tr>
+                <tr><td>MK &gt; 24</td><td>10 kali</td></tr>
+              </tbody></table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="subsection" id="s2-4">
+        <div class="subsection-title">8.2.4 Akuntansi untuk Program Imbalan Pasti</div>
+        <div class="highlight">
+          <p>Menggunakan metode <strong>Projected Unit Credit (PUC)</strong>. Laporan Posisi Keuangan menyajikan <strong>Aset atau Liabilitas Imbalan Pasti Neto</strong> = NKKIP − NWAP (disesuaikan dampak Batas Atas Aset).</p>
+        </div>
+        <div class="grid-2">
+          <div class="card" style="border-top:2px solid var(--red)">
+            <div class="card-title" style="color:var(--red)"><span class="dot" style="background:var(--red)"></span>Kondisi Defisit → Liabilitas</div>
+            <div class="formula-eq" style="font-size:0.75rem;margin-top:0.5rem">NKKIP &gt; NWAP → Defisit<br>Liabilitas = NKKIP − NWAP</div>
+          </div>
+          <div class="card" style="border-top:2px solid var(--green)">
+            <div class="card-title" style="color:var(--green)"><span class="dot" style="background:var(--green)"></span>Kondisi Surplus → Aset</div>
+            <div class="formula-eq" style="font-size:0.75rem;margin-top:0.5rem">NWAP &gt; NKKIP → Surplus<br>Aset = MIN(NKKIP − NWAP, Batas Atas Aset)</div>
+          </div>
+        </div>
+        <div class="formula-box">
+          <div class="formula-title">Formula Pergerakan NKKIP & NWAP</div>
+          <div class="formula-eq">NKKIP (t=1) = NKKIP (t=0) + BJ + BB ±KKP ±KKA − PMu</div>
+          <div class="formula-item"><span>BJ</span><span>Biaya Jasa (Kini + Lalu)</span></div>
+          <div class="formula-item"><span>BB</span><span>Biaya Bunga = Tingkat Diskonto × NKKIP awal</span></div>
+          <div class="formula-item"><span>KKP</span><span>Keuntungan/Kerugian atas Penyelesaian</span></div>
+          <div class="formula-item"><span>KKA</span><span>Keuntungan/Kerugian Aktuarial</span></div>
+          <div class="formula-item total"><span>PMu</span><span>Pembayaran Manfaat (untuk unfunded)</span></div>
+          <div class="formula-eq" style="margin-top:0.6rem">NWAP (t=1) = NWAP (t=0) + IHAP + K − PMd</div>
+          <div class="formula-item"><span>IHAP</span><span>Imbal Hasil Aset Program (pada tingkat diskonto)</span></div>
+          <div class="formula-item"><span>K</span><span>Kontribusi yang dibayarkan</span></div>
+          <div class="formula-item total"><span>PMd</span><span>Pembayaran Manfaat (untuk funded)</span></div>
+        </div>
+      </div>
+
+      <div class="subsection" id="s2-5">
+        <div class="subsection-title">Komponen Biaya Imbalan Pasti — Laba Rugi vs OCI</div>
+        <div class="comp-box comp-laba">
+          <div class="comp-label">Laporan Laba Rugi</div>
+          <ul>
+            <li><strong>Biaya Jasa Kini</strong> (<em>Current Service Cost</em>) — perubahan NKKIP dari jasa pekerja periode berjalan</li>
+            <li><strong>Biaya Jasa Lalu</strong> (<em>Past Service Cost</em>) — perubahan NKKIP akibat penerapan/perubahan/kurtailmen program; diakui <strong>segera</strong> tanpa memandang vesting status</li>
+            <li><strong>Keuntungan/Kerugian atas Penyelesaian</strong> (<em>Settlement gains/losses</em>) — diakui saat penyelesaian terjadi</li>
+            <li><strong>Bunga Neto Liabilitas (Aset) Imbalan Pasti</strong> = Tingkat Diskonto × Liabilitas (Aset) Imbalan Pasti Neto awal periode</li>
+          </ul>
+        </div>
+        <div class="comp-box comp-oci">
+          <div class="comp-label">Penghasilan Komprehensif Lain (OCI) — Komponen Pengukuran Kembali</div>
+          <ul>
+            <li><strong>Keuntungan dan Kerugian Aktuarial</strong> — dari penyesuaian asumsi aktuaria vs kenyataan</li>
+            <li><strong>Imbal Hasil Aset Program yang belum diakui dalam Bunga Neto</strong> = Realisasi Imbal Hasil − Pendapatan Bunga yang telah diakui</li>
+            <li><strong>Perubahan Dampak Batas Atas Aset yang belum diakui dalam Bunga Neto</strong></li>
+          </ul>
+        </div>
+        <div class="highlight-green">
+          <p><strong>Penting:</strong> Komponen OCI (Pengukuran Kembali) <strong>tidak dapat direklasifikasi ke laba rugi</strong> di periode berikutnya. Ini merupakan perubahan signifikan dari PSAK 24 revisi sebelumnya yang menggunakan metode koridor.</p>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="dot"></span>Bunga Neto — Contoh Perhitungan</div>
+          <div class="mc-sub">
+            NWAP = Rp500jt, NKKIP = Rp650jt, Liabilitas Neto = Rp150jt, Tingkat Diskonto = 5%, Imbal Hasil Aktual = 8%
+          </div>
+          <ul>
+            <li>Bunga Neto = 5% × Rp150jt = <strong>Rp7.500.000</strong> (diakui di Laba Rugi)</li>
+            <li>Pendapatan Bunga (dalam Bunga Neto) = 5% × Rp500jt = Rp25.000.000</li>
+            <li>Imbal Hasil Aktual = 8% × Rp500jt = Rp40.000.000</li>
+            <li>IHAP belum diakui dalam Bunga Neto = Rp40jt − Rp25jt = <strong>Rp15.000.000</strong> (diakui di OCI)</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 8.3 -->
+    <section class="section" id="s3">
+      <div class="section-header">
+        <span class="section-num">8.3</span>
+        <span class="section-title">Imbalan Kerja Jangka Panjang Lain</span>
+      </div>
+      <div class="highlight">
+        <p>Seluruh imbalan kerja selain jangka pendek, pascakerja, dan pesangon. Contoh: <strong>Bagi Laba dan Bonus</strong>, Imbalan Cacat Permanen, <strong>Cuti Besar</strong>, <strong>Penghargaan Masa Kerja</strong>, dan <strong>Remunerasi Tangguhan</strong>. Akuntansi serupa dengan imbalan pasti namun komponen pengukuran kembali langsung diakui di laba rugi (tidak melalui OCI).</p>
+      </div>
+    </section>
+
+    <!-- SECTION 8.4 -->
+    <section class="section" id="s4">
+      <div class="section-header">
+        <span class="section-num">8.4</span>
+        <span class="section-title">Pesangon</span>
+      </div>
+      <div class="highlight">
+        <p><strong>Pesangon</strong> adalah imbalan yang diberikan dalam pertukaran atas penghentian perjanjian kerja sebagai akibat pemberhentian sebelum usia purna karya normal atau keputusan pekerja menerima tawaran imbalan sebagai pertukaran penghentian perjanjian kerja.</p>
+      </div>
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-title"><span class="dot"></span>Pengakuan Pesangon</div>
+          <p>Pesangon diakui pada tanggal <strong>lebih awal</strong> antara:</p>
+          <ul>
+            <li>Ketika tidak dapat lagi menarik tawaran (pekerja telah menerima, atau berlaku pembatasan hukum atas penarikan tawaran)</li>
+            <li>Pengakuan biaya restrukturisasi sesuai PSAK 57</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="dot"></span>Pengukuran Pesangon</div>
+          <ul>
+            <li>Diselesaikan dalam <strong>≤12 bulan</strong> → diukur pada <strong>nilai nominal</strong></li>
+            <li>Diselesaikan dalam <strong>&gt;12 bulan</strong> → diukur pada <strong>nilai kini</strong></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title"><span class="dot"></span>Kriteria Tawaran Tidak Dapat Ditarik</div>
+        <ul>
+          <li>Kecil kemungkinan perubahan signifikan atas program tersebut</li>
+          <li>Program mengidentifikasi jumlah pekerja yang akan dihentikan, klasifikasi pekerjaan/fungsi, lokasi, serta tanggal penyelesaian</li>
+          <li>Program membuat detail yang memadai sehingga pekerja dapat menentukan jenis dan jumlah imbalan</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- SECTION 8.5 -->
+    <section class="section" id="s5">
+      <div class="section-header">
+        <span class="section-num">8.5</span>
+        <span class="section-title">Pengakuan Provisi & Kontinjensi</span>
+      </div>
+      <div class="psak-ref">Diatur dalam <span>PSAK 57</span> (adopsi IAS 37)</div>
+      <div class="pkv-grid">
+        <div class="pkv-card pkv-provisi">
+          <div class="pkv-label">Provisi</div>
+          <p><strong>Diakui</strong> dalam laporan keuangan. Liabilitas yang waktu dan jumlahnya belum pasti. Contoh: liabilitas garansi produk.</p>
+        </div>
+        <div class="pkv-card pkv-liabkont">
+          <div class="pkv-label">Liabilitas Kontinjensi</div>
+          <p><strong>Tidak diakui</strong>, hanya <strong>diungkapkan</strong> (kecuali kemungkinan arus keluar sangat kecil). Kewajiban potensial atau kewajiban kini yang tidak memenuhi syarat pengakuan.</p>
+        </div>
+        <div class="pkv-card pkv-asetkont">
+          <div class="pkv-label">Aset Kontinjensi</div>
+          <p><strong>Tidak diakui</strong>. Aset potensial dari peristiwa masa lalu. Diungkapkan jika kemungkinan besar terjadi. Jika realisasi sudah pasti → diakui sebagai aset.</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title"><span class="dot"></span>3 Kondisi Pengakuan Provisi</div>
+        <ul>
+          <li><strong>1.</strong> Entitas memiliki <strong>kewajiban kini</strong> (hukum atau konstruktif) sebagai akibat peristiwa masa lalu</li>
+          <li><strong>2.</strong> <strong>Kemungkinan besar</strong> penyelesaian kewajiban tersebut mengakibatkan arus keluar sumber daya yang mengandung manfaat ekonomi</li>
+          <li><strong>3.</strong> <strong>Estimasi yang andal</strong> mengenai jumlah kewajiban tersebut dapat dibuat</li>
+        </ul>
+      </div>
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-title"><span class="dot"></span>Liabilitas Kontinjensi — Definisi</div>
+          <ul>
+            <li>Kewajiban potensial dari peristiwa masa lalu yang keberadaannya akan pasti setelah terjadi/tidak terjadinya peristiwa masa datang di luar kendali entitas</li>
+            <li>Kewajiban kini yang tidak diakui karena: (i) tidak kemungkinan besar arus keluar, atau (ii) jumlah tidak dapat diestimasi andal</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="dot"></span>Aset Kontinjensi — Definisi</div>
+          <ul>
+            <li>Aset potensial dari peristiwa masa lalu yang keberadaannya akan pasti setelah terjadi/tidak terjadinya peristiwa masa datang di luar kendali entitas</li>
+            <li>Contoh: klaim yang diajukan entitas melalui proses hukum yang hasilnya belum pasti</li>
+            <li>Tidak boleh diakui karena dapat menimbulkan pengakuan penghasilan yang mungkin tidak pernah terealisasi</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 8.6 -->
+    <section class="section" id="s6">
+      <div class="section-header">
+        <span class="section-num">8.6</span>
+        <span class="section-title">Pengukuran Provisi & Kontinjensi</span>
+      </div>
+      <div class="highlight">
+        <p>Dasar pengukuran provisi: <strong>estimasi terbaik</strong> pengeluaran yang diperlukan untuk menyelesaikan kewajiban kini pada akhir periode pelaporan.</p>
+      </div>
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-title"><span class="dot"></span>Metode Expected Value (Populasi)</div>
+          <p>Jika provisi menyangkut populasi besar unsur, kewajiban ditentukan dengan menimbang berbagai kemungkinan hasil berdasarkan probabilitas terkait.</p>
+          <div class="mc-sub" style="margin-top:0.5rem">
+            <strong>Contoh 8.2:</strong> Garansi produk: 75%×Rp0 + 20%×Rp1M + 5%×Rp4M = <strong>Rp400 juta</strong>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="dot"></span>Nilai Kini (Diskonto)</div>
+          <ul>
+            <li>Jika dampak nilai waktu uang material, jumlah provisi = <strong>nilai kini</strong> dari perkiraan pengeluaran</li>
+            <li>Tingkat diskonto: sebelum pajak, mencerminkan penilaian pasar nilai waktu uang dan risiko terkait kewajiban</li>
+            <li>Tingkat diskonto <strong>tidak</strong> mencerminkan risiko yang sudah diperhitungkan dalam estimasi arus kas</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 8.7 -->
+    <section class="section" id="s7">
+      <div class="section-header">
+        <span class="section-num">8.7</span>
+        <span class="section-title">Penggantian, Perubahan dan Penggunaan Provisi</span>
+      </div>
+      <div class="grid-3">
+        <div class="card">
+          <div class="card-title"><span class="dot"></span>Penggantian oleh Pihak Ketiga</div>
+          <ul>
+            <li>Diakui <strong>hanya</strong> saat ada keyakinan penggantian pasti diterima</li>
+            <li>Diakui sebagai <strong>aset terpisah</strong></li>
+            <li>Jumlah tidak boleh melebihi nilai provisi</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="dot"></span>Perubahan Provisi</div>
+          <ul>
+            <li>Provisi ditelaah setiap akhir periode</li>
+            <li>Disesuaikan untuk mencerminkan estimasi terbaik yang paling kini</li>
+            <li>Jika arus keluar tidak mungkin besar → provisi dibatalkan</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="dot"></span>Penggunaan Provisi</div>
+          <ul>
+            <li>Provisi hanya dapat digunakan untuk pengeluaran yang <strong>berhubungan langsung</strong> dengan tujuan pembentukan provisi</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 8.8 -->
+    <section class="section" id="s8">
+      <div class="section-header">
+        <span class="section-num">8.8</span>
+        <span class="section-title">Penerapan Aturan Pengakuan dan Pengukuran</span>
+      </div>
+      <div class="grid-3">
+        <div class="card" style="border-top:2px solid var(--red)">
+          <div class="card-title" style="color:var(--red)"><span class="dot" style="background:var(--red)"></span>Kerugian Operasi Masa Datang</div>
+          <p>Provisi <strong>tidak boleh</strong> diakui untuk kerugian operasi masa datang. Namun jika ada indikasi kerugian, entitas menguji penurunan nilai aset terkait.</p>
+        </div>
+        <div class="card" style="border-top:2px solid var(--accent)">
+          <div class="card-title"><span class="dot"></span>Kontrak Memberatkan</div>
+          <p>Jika entitas terikat dalam <strong>kontrak memberatkan</strong> (biaya yang tidak dapat dihindari melebihi manfaat ekonomi), kewajiban kini diukur dan diakui sebagai provisi.</p>
+        </div>
+        <div class="card" style="border-top:2px solid var(--blue)">
+          <div class="card-title" style="color:var(--blue)"><span class="dot" style="background:var(--blue)"></span>Restrukturisasi</div>
+          <p>Provisi restrukturisasi hanya mencakup pengeluaran langsung dari restrukturisasi yang: (a) benar-benar harus dikeluarkan dalam rangka restrukturisasi, dan (b) tidak terkait dengan aktivitas yang masih berlangsung.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 8.9 -->
+    <section class="section" id="s9">
+      <div class="section-header">
+        <span class="section-num">8.9</span>
+        <span class="section-title">Pengungkapan Provisi & Kontinjensi</span>
+      </div>
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-title"><span class="dot"></span>Pengungkapan Provisi</div>
+          <ul>
+            <li>Nilai tercatat pada awal dan akhir periode</li>
+            <li>Provisi tambahan yang dibuat dalam periode</li>
+            <li>Jumlah yang digunakan (dibebankan ke provisi)</li>
+            <li>Jumlah yang belum digunakan dan dibatalkan</li>
+            <li>Peningkatan nilai kini karena berlalunya waktu (unwinding of discount)</li>
+            <li>Uraian singkat karakteristik kewajiban dan perkiraan waktu arus keluar</li>
+            <li>Indikasi ketidakpastian jumlah/waktu arus keluar</li>
+            <li>Jumlah estimasi penggantian yang akan diterima</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="dot"></span>Pengungkapan Kontinjensi</div>
+          <ul>
+            <li><strong>Liabilitas Kontinjensi:</strong> Uraian ringkas karakteristik, estimasi dampak finansial, indikasi ketidakpastian, kemungkinan penggantian pihak ketiga</li>
+            <li><strong>Aset Kontinjensi</strong> (jika kemungkinan besar terjadi): Uraian singkat dan estimasi dampak keuangannya</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- LATIHAN SOAL -->
+    <section class="section" id="latihan">
+      <div class="section-header">
+        <span class="section-num">✎</span>
+        <span class="section-title">Latihan Soal BAB 8</span>
+      </div>
+
+      <!-- Pilihan Ganda -->
+      <div class="exercise-section" id="pilgan">
+        <div class="exercise-header">
+          <h3>Pilihan Ganda</h3>
+          <span class="exercise-badge">11 Soal</span>
+        </div>
+
+        <div class="mc-item">
+          <div class="mc-question">1. Di bawah ini adalah contoh imbalan jangka pendek yang diatur dalam PSAK 24, kecuali:</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',1)"><span class="opt-letter">A</span> Upah, gaji, dan iuran jaminan sosial</div>
+            <div class="mc-option" onclick="checkMC(this,'b',1)"><span class="opt-letter">B</span> Cuti tahunan berbayar dan cuti sakit berbayar</div>
+            <div class="mc-option" onclick="checkMC(this,'c',1)"><span class="opt-letter">C</span> Program bagi laba dan bonus</div>
+            <div class="mc-option" onclick="checkMC(this,'d',1)"><span class="opt-letter">D</span> Pesangon jangka pendek</div>
+          </div>
+          <div class="mc-feedback" id="fb1"><span class="correct-ans">Jawaban: D.</span> Pesangon merupakan kategori terpisah dalam PSAK 24, bukan imbalan kerja jangka pendek. Pesangon diberikan atas dasar penghentian perjanjian kerja.</div>
+        </div>
+
+        <div class="mc-item">
+          <div class="mc-question">2. Berikut merupakan salah satu perbedaan antara program iuran pasti dan program manfaat pasti:</div>
+          <div class="mc-sub">
+            <table class="calc-table"><thead><tr><th></th><th>Iuran Pasti</th><th>Manfaat Pasti</th></tr></thead>
+            <tbody>
+              <tr><td>A. Kewajiban Pemberi Kerja</td><td>Memberikan Manfaat masa depan yang pasti</td><td>Memberikan manfaat masa depan yang tidak pasti</td></tr>
+              <tr><td>B. Hak Pekerja</td><td>Mendapatkan manfaat masa depan yang pasti</td><td>Mendapatkan manfaat masa depan yang tidak pasti</td></tr>
+              <tr><td>C. Risiko Aktuarial</td><td>Pada Pekerja</td><td>Pada Pemberi Kerja</td></tr>
+              <tr><td>D. Risiko Investasi</td><td>Pada Pemberi Kerja</td><td>Pada Pekerja</td></tr>
+            </tbody></table>
+          </div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',2)"><span class="opt-letter">A</span> Pilihan A</div>
+            <div class="mc-option" onclick="checkMC(this,'b',2)"><span class="opt-letter">B</span> Pilihan B</div>
+            <div class="mc-option" onclick="checkMC(this,'c',2)"><span class="opt-letter">C</span> Pilihan C</div>
+            <div class="mc-option" onclick="checkMC(this,'d',2)"><span class="opt-letter">D</span> Pilihan D</div>
+          </div>
+          <div class="mc-feedback" id="fb2"><span class="correct-ans">Jawaban: C.</span> Pada program iuran pasti, risiko aktuarial (dan investasi) ditanggung oleh pekerja. Pada program imbalan pasti, risiko aktuarial dan investasi ditanggung oleh pemberi kerja.</div>
+        </div>
+
+        <div class="mc-item">
+          <div class="mc-question">3. Berikut ini yang akan diakui sebagai biaya imbalan pasti dalam laporan laba rugi dan penghasilan komprehensif lain adalah:</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',3)"><span class="opt-letter">A</span> Biaya Jasa Kini</div>
+            <div class="mc-option" onclick="checkMC(this,'b',3)"><span class="opt-letter">B</span> Imbal Hasil atas Aset Program</div>
+            <div class="mc-option" onclick="checkMC(this,'c',3)"><span class="opt-letter">C</span> Keuntungan atau Kerugian Aktuarial</div>
+            <div class="mc-option" onclick="checkMC(this,'d',3)"><span class="opt-letter">D</span> Nilai Wajar Aset Program</div>
+          </div>
+          <div class="mc-feedback" id="fb3"><span class="correct-ans">Jawaban: A.</span> Biaya Jasa Kini diakui dalam Laporan Laba Rugi sebagai bagian dari biaya imbalan pasti. Imbal hasil aset program (belum diakui dalam bunga neto) dan keuntungan/kerugian aktuarial diakui di OCI. Nilai Wajar Aset Program bukan komponen biaya.</div>
+        </div>
+
+        <div class="mc-item">
+          <div class="mc-question">4. Berikut ini yang akan diakui sebagai komponen Penghasilan Komprehensif Lain adalah:</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',4)"><span class="opt-letter">A</span> Biaya Jasa Kini</div>
+            <div class="mc-option" onclick="checkMC(this,'b',4)"><span class="opt-letter">B</span> Imbal Hasil atas Aset Program</div>
+            <div class="mc-option" onclick="checkMC(this,'c',4)"><span class="opt-letter">C</span> Pengukuran Kembali atas Program Imbalan Pasti</div>
+            <div class="mc-option" onclick="checkMC(this,'d',4)"><span class="opt-letter">D</span> Nilai Wajar Aset Program</div>
+          </div>
+          <div class="mc-feedback" id="fb4"><span class="correct-ans">Jawaban: C.</span> Komponen Pengukuran Kembali (Remeasurement Component) — yang terdiri dari keuntungan/kerugian aktuarial, IHAP belum diakui dalam bunga neto, dan dampak batas atas aset — diakui dalam OCI.</div>
+        </div>
+
+        <div class="mc-item">
+          <div class="mc-question">5. Bagaimana pengakuan Biaya Jasa Lalu sesuai dengan PSAK 24 (Revisi 2013)?</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',5)"><span class="opt-letter">A</span> Diakui seluruhnya sebagai komponen Penghasilan Komprehensif Lain</div>
+            <div class="mc-option" onclick="checkMC(this,'b',5)"><span class="opt-letter">B</span> Diakui seluruhnya langsung dalam Laporan Laba Rugi</div>
+            <div class="mc-option" onclick="checkMC(this,'c',5)"><span class="opt-letter">C</span> Diakui bagian yang telah vested langsung dalam Laporan Laba Rugi</div>
+            <div class="mc-option" onclick="checkMC(this,'d',5)"><span class="opt-letter">D</span> Diakui bagian yang non-vested melalui amortisasi ke Laporan Laba Rugi</div>
+          </div>
+          <div class="mc-feedback" id="fb5"><span class="correct-ans">Jawaban: B.</span> Berdasarkan PSAK 24 (Revisi 2013), Biaya Jasa Lalu diakui <strong>seluruhnya dan segera</strong> dalam Laporan Laba Rugi tanpa memandang status vesting-nya. Metode koridor sudah dihapuskan.</div>
+        </div>
+
+        <div class="mc-item">
+          <div class="mc-question">6. Bagaimana pengaruh Dampak Batas Atas Aset sesuai dengan PSAK 24 (Revisi 2013)?</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',6)"><span class="opt-letter">A</span> Mempengaruhi pengukuran akun Nilai Wajar Aset Program yang akan disajikan dalam Laporan Posisi Keuangan</div>
+            <div class="mc-option" onclick="checkMC(this,'b',6)"><span class="opt-letter">B</span> Mempengaruhi pengukuran akun Nilai Kini Kewajiban Imbalan Pasti yang akan disajikan dalam Laporan Posisi Keuangan</div>
+            <div class="mc-option" onclick="checkMC(this,'c',6)"><span class="opt-letter">C</span> Mempengaruhi pengukuran nilai Aset Imbalan Pasti yang akan disajikan dalam Laporan Posisi Keuangan</div>
+            <div class="mc-option" onclick="checkMC(this,'d',6)"><span class="opt-letter">D</span> Mempengaruhi pengukuran nilai Liabilitas Imbalan Pasti yang akan disajikan dalam Laporan Posisi Keuangan</div>
+          </div>
+          <div class="mc-feedback" id="fb6"><span class="correct-ans">Jawaban: C.</span> Batas Atas Aset membatasi nilai Aset Imbalan Pasti yang dapat diakui. Jika kondisi surplus, Aset yang diakui adalah mana yang lebih rendah antara NKKIP−NWAP vs Batas Atas Aset.</div>
+        </div>
+
+        <div class="mc-item">
+          <div class="mc-question">7. PT X memiliki 100 pekerja dengan hak 10 hari cuti berbayar diakumulasi. Per 31 Des 2014, rata-rata hak cuti terakumulasi yang tidak digunakan adalah 2 hari/pekerja. Di tahun 2015: 80 pekerja diperkirakan mengambil ≤10 hari, 20 pekerja mengambil 11 hari. Upah harian 2015 = Rp75.000. Berapa Liabilitas Imbalan Kerja Jangka Pendek atas Cuti Berbayar Diakumulasi dari 2014?</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',7)"><span class="opt-letter">A</span> Rp15.000.000</div>
+            <div class="mc-option" onclick="checkMC(this,'b',7)"><span class="opt-letter">B</span> Rp1.500.000</div>
+            <div class="mc-option" onclick="checkMC(this,'c',7)"><span class="opt-letter">C</span> Rp16.000.000</div>
+            <div class="mc-option" onclick="checkMC(this,'d',7)"><span class="opt-letter">D</span> Rp1.650.000</div>
+          </div>
+          <div class="mc-feedback" id="fb7"><span class="correct-ans">Jawaban: B.</span> Hanya 20 pekerja yang akan menggunakan sisa cuti lebih dari 10 hari. Cuti tambahan yang akan diambil = (11−10) × 20 = 20 hari. Liabilitas = 20 hari × Rp75.000 = <strong>Rp1.500.000</strong>.</div>
+        </div>
+
+        <div class="mc-item">
+          <div class="mc-question">8. PT X menetapkan Program Pascakerja Iuran Pasti bagi seluruh pekerjanya. Kontribusi PT X = 10% dari gaji pokok dan kontribusi pekerja = 5% dari gaji pokok. Berapakah jumlah manfaat pascakerja yang nantinya akan diterima pekerja?</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',8)"><span class="opt-letter">A</span> Akumulasi kontribusi PT X</div>
+            <div class="mc-option" onclick="checkMC(this,'b',8)"><span class="opt-letter">B</span> Akumulasi kontribusi PT X + kontribusi Pekerja</div>
+            <div class="mc-option" onclick="checkMC(this,'c',8)"><span class="opt-letter">C</span> Akumulasi kontribusi PT X + kontribusi Pekerja + imbal hasil/kerugian investasi</div>
+            <div class="mc-option" onclick="checkMC(this,'d',8)"><span class="opt-letter">D</span> Tidak ada pilihan yang benar</div>
+          </div>
+          <div class="mc-feedback" id="fb8"><span class="correct-ans">Jawaban: C.</span> Dalam program iuran pasti, manfaat yang diterima pekerja adalah akumulasi iuran dari pemberi kerja + iuran pekerja + imbal hasil/kerugian dari investasi dana tersebut. Inilah yang disebut risiko investasi ditanggung pekerja.</div>
+        </div>
+
+        <div class="mc-item">
+          <div class="mc-question">9. Berdasarkan data: NWAP = Rp350 juta, NKKIP = Rp550 juta, Liabilitas Neto = Rp200 juta, Tingkat diskonto = 5%. Berapakah nilai Bunga Neto Liabilitas (Aset) Imbalan Pasti?</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',9)"><span class="opt-letter">A</span> Rp24.500.000</div>
+            <div class="mc-option" onclick="checkMC(this,'b',9)"><span class="opt-letter">B</span> Rp10.000.000</div>
+            <div class="mc-option" onclick="checkMC(this,'c',9)"><span class="opt-letter">C</span> Rp14.000.000</div>
+            <div class="mc-option" onclick="checkMC(this,'d',9)"><span class="opt-letter">D</span> Rp27.500.000</div>
+          </div>
+          <div class="mc-feedback" id="fb9"><span class="correct-ans">Jawaban: B.</span> Bunga Neto = Tingkat Diskonto × Liabilitas Imbalan Pasti Neto = 5% × Rp200.000.000 = <strong>Rp10.000.000</strong>.</div>
+        </div>
+
+        <div class="mc-item">
+          <div class="mc-question">10. Berdasarkan data soal no. 9, jika realisasi imbal hasil adalah 7%, maka nilai Imbal Hasil Aset Program yang belum diakui dalam Bunga Neto adalah:</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',10)"><span class="opt-letter">A</span> Rp7.000.000</div>
+            <div class="mc-option" onclick="checkMC(this,'b',10)"><span class="opt-letter">B</span> Rp17.500.000</div>
+            <div class="mc-option" onclick="checkMC(this,'c',10)"><span class="opt-letter">C</span> Rp24.500.000</div>
+            <div class="mc-option" onclick="checkMC(this,'d',10)"><span class="opt-letter">D</span> Tidak ada jawaban yang benar</div>
+          </div>
+          <div class="mc-feedback" id="fb10"><span class="correct-ans">Jawaban: A.</span> Imbal Hasil Aktual = 7% × Rp350jt = Rp24.500.000. Pendapatan Bunga diakui dalam Bunga Neto = 5% × Rp350jt = Rp17.500.000. Selisih = Rp24.500.000 − Rp17.500.000 = <strong>Rp7.000.000</strong> (diakui di OCI).</div>
+        </div>
+
+        <div class="mc-item">
+          <div class="mc-question">11. Berdasarkan data soal no. 9, dengan mengabaikan dampak pajak tangguhan, jurnal yang akan dicatatkan oleh PT X adalah:</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',11)"><span class="opt-letter">A</span> Db. Bunga Neto 24.500.000; Db. Imbal Hasil Aset Prog. belum diakui 7.000.000; Kr. Liabilitas 31.500.000</div>
+            <div class="mc-option" onclick="checkMC(this,'b',11)"><span class="opt-letter">B</span> Db. Beban Imbalan Kerja 10.000.000; Db. Penghasilan Komprehensif Lain 7.000.000; Kr. Liabilitas Imbalan Kerja 17.000.000</div>
+            <div class="mc-option" onclick="checkMC(this,'c',11)"><span class="opt-letter">C</span> Db. Bunga Neto 14.000.000; Db. Imbal Hasil Aset Prog. belum diakui 24.500.000; Kr. Liabilitas 38.500.000</div>
+            <div class="mc-option" onclick="checkMC(this,'d',11)"><span class="opt-letter">D</span> Db. Beban Imbalan Kerja 10.000.000; Db. Penghasilan Komprehensif Lain 17.500.000; Kr. Liabilitas 27.500.000</div>
+          </div>
+          <div class="mc-feedback" id="fb11"><span class="correct-ans">Jawaban: B.</span> Bunga Neto Rp10jt ke Laba Rugi, IHAP belum diakui Rp7jt ke OCI (keduanya menambah liabilitas). Db. Beban Imbalan Kerja 10.000.000 + Db. OCI 7.000.000 = Kr. Liabilitas 17.000.000.</div>
+        </div>
+      </div>
+
+      <!-- ESAI -->
+      <div class="exercise-section" id="esai">
+        <div class="exercise-header">
+          <h3>Soal Esai</h3>
+          <span class="exercise-badge">4 Soal</span>
+        </div>
+
+        <!-- E1 -->
+        <div class="essay-item">
+          <div class="essay-q">1. Suatu program pascakerja memberikan manfaat sebesar Rp250.000.000 kepada seluruh pekerjanya yang masih bekerja di entitas pada usia 55 tahun dengan masa kerja minimal 25 tahun.</div>
+          <p class="essay-sub"><strong>Diminta:</strong> Bagaimana pengatribusian manfaat pascakerja pada setiap periode pemberian jasa?</p>
+          <button class="essay-toggle" onclick="toggleEssay('ea1')">▶ Lihat Jawaban</button>
+          <div class="essay-answer" id="ea1">
+            <h5>Pembahasan</h5>
+            <ul>
+              <li>Bagi pekerja yang bergabung dengan entitas di usia <strong>30 tahun</strong> (yaitu 25 tahun sebelum usia 55), manfaat pascakerja akan diatribusikan sebesar <strong>Rp10.000.000 per tahun</strong> (Rp250jt ÷ 25 tahun).</li>
+              <li>Bagi pekerja yang bergabung sebelum berusia 30 tahun (masa kerja >25 tahun), <strong>manfaat tidak bertambah lagi setelah 25 tahun pertama</strong>. Oleh karena itu, manfaat pascakerja tetap diatribusikan sebesar Rp10.000.000 untuk 25 tahun pertama masa kerjanya.</li>
+              <li>Biaya Jasa Kini dan NKKIP untuk pekerja yang telah melampaui 25 tahun masa kerja dihitung dengan mempertimbangkan kemungkinan pekerja tetap bekerja dan tingkat mortalitasnya.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- E2 -->
+        <div class="essay-item">
+          <div class="essay-q">2. PT X memberikan Program Pascakerja dengan kontribusi 3,5% dari ekspektasi gaji masa depan untuk setiap periode jasa, dengan vesting setelah 5 tahun masa kerja. Pada 1 Januari 2015, PT X meningkatkan kontribusinya menjadi 4,5% berlaku untuk masa kerja mulai 1 Januari 2010. Nilai kini tambahan manfaat pada tanggal perubahan:<br>• Pekerja masa kerja ≥5 tahun: Rp200.000.000<br>• Pekerja masa kerja &lt;5 tahun (rata-rata 3 tahun): Rp150.000.000</div>
+          <p class="essay-sub"><strong>Diminta:</strong> Tentukan kapan dan bagaimana Biaya Jasa Lalu diakui sebagai beban dalam Laporan Laba Rugi.</p>
+          <button class="essay-toggle" onclick="toggleEssay('ea2')">▶ Lihat Jawaban</button>
+          <div class="essay-answer" id="ea2">
+            <h5>Pembahasan</h5>
+            <p>Berdasarkan PSAK 24 (Revisi 2013), Biaya Jasa Lalu diakui <strong>seluruhnya dan segera</strong> dalam Laporan Laba Rugi pada tanggal perubahan program, tanpa memandang status vesting-nya.</p>
+            <ul>
+              <li>Tanggal 1 Januari 2015 (tanggal efektif PSAK 24 Revisi 2013) adalah tanggal pengakuan.</li>
+              <li>Total Biaya Jasa Lalu = Rp200.000.000 (pekerja vested) + Rp150.000.000 (pekerja non-vested) = <strong>Rp350.000.000</strong></li>
+              <li>Seluruh Rp350.000.000 diakui sebagai beban dalam Laporan Laba Rugi pada 31 Desember 2015 (periode di mana perubahan program terjadi).</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- E3 -->
+        <div class="essay-item">
+          <div class="essay-q">3. PT X menerapkan usia pensiun 55 tahun. Bapak Andi berusia 52 tahun per 31 Desember 2017, telah bekerja 30 tahun, gaji pokok Desember 2017 = Rp8.500.000. Asumsi: kenaikan gaji 6%/tahun, tingkat diskonto 10%/tahun, Bapak Andi berumur panjang dan tetap bekerja hingga pensiun.</div>
+          <p class="essay-sub"><strong>Diminta:</strong> Hitunglah berapa besarnya Nilai Kini Kewajiban Imbalan Pasti untuk Bapak Andi di periode Desember 2017.</p>
+          <button class="essay-toggle" onclick="toggleEssay('ea3')">▶ Lihat Jawaban</button>
+          <div class="essay-answer" id="ea3">
+            <h5>Pembahasan</h5>
+            <table class="calc-table">
+              <thead><tr><th>Komponen</th><th>Perhitungan</th><th>Hasil</th></tr></thead>
+              <tbody>
+                <tr><td>Gaji Masa Depan (3 tahun lagi)</td><td>Rp8.500.000 × (1+6%)³</td><td>Rp10.123.636</td></tr>
+                <tr><td>Pesangon (A) — 9×2 kali</td><td>Rp10.123.636 × 9 × 2</td><td>Rp182.225.448</td></tr>
+                <tr><td>Penghargaan (B) — 10×1 kali</td><td>Rp10.123.636 × 10 × 1</td><td>Rp101.236.360</td></tr>
+                <tr><td>Sub total (A+B)</td><td></td><td>Rp283.461.808</td></tr>
+                <tr><td>Penggantian Hak (C) = 15% × (A+B)</td><td>Rp283.461.808 × 15%</td><td>Rp42.519.271</td></tr>
+                <tr><td>Total Imbalan Masa Depan (D=A+B+C)</td><td></td><td>Rp336.104.715</td></tr>
+                <tr><td>Alokasi per periode jasa</td><td>Rp336.104.715 ÷ 25 tahun (masa kerja aktif)</td><td>Rp13.444.189</td></tr>
+                <tr><td>Biaya Jasa Kini (E)</td><td>Rp13.444.189 ÷ (1+10%)³</td><td>Rp10.100.818</td></tr>
+                <tr><td>Kewajiban Awal (F)</td><td>Rp10.100.818 × 30 tahun</td><td>Rp303.024.537</td></tr>
+                <tr><td>Sub total (F)</td><td></td><td>Rp303.024.537</td></tr>
+                <tr><td>Biaya Bunga (G)</td><td>Rp313.125.355 × 10%</td><td>Rp31.312.535</td></tr>
+                <tr class="total"><td>NKKIP Bpk. Andi (H=E+F+G)</td><td></td><td>Rp344.437.890</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- E4 -->
+        <div class="essay-item">
+          <div class="essay-q">4. Informasi Program Imbalan Pasti PT X, PT Y, dan PT Z (dalam jutaan Rupiah):</div>
+          <div class="essay-sub">
+            <table class="calc-table">
+              <thead><tr><th></th><th>PT X</th><th>PT Y</th><th>PT Z</th></tr></thead>
+              <tbody>
+                <tr><td>Tingkat Diskonto (awal periode)</td><td>5%</td><td>6%</td><td>10%</td></tr>
+                <tr><td>NKKIP di awal tahun</td><td>Rp2.000</td><td>Rp2.000</td><td>Rp3.000</td></tr>
+                <tr><td>NWAP di awal tahun</td><td>Rp1.400</td><td>Rp3.000</td><td>Rp1.000</td></tr>
+                <tr><td>Dampak Batas Atas Aset di awal tahun</td><td>—</td><td>Rp1.000</td><td>—</td></tr>
+                <tr><td>Biaya Jasa</td><td>Rp150</td><td>Rp75</td><td>Rp120</td></tr>
+                <tr><td>Kerugian (Keuntungan) Aktuarial</td><td>Rp40</td><td>(Rp60)</td><td>Rp40</td></tr>
+                <tr><td>Imbal Hasil Aset Program</td><td>Rp100</td><td>Rp300</td><td>Rp125</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="essay-sub"><strong>Diminta:</strong> (a) Biaya Imbalan Pasti di Laba Rugi; (b) OCI — Pengukuran Kembali; (c) Total Biaya; (d) Saldo Liabilitas/Aset Imbalan Pasti Neto akhir tahun</p>
+          <button class="essay-toggle" onclick="toggleEssay('ea4')">▶ Lihat Jawaban</button>
+          <div class="essay-answer" id="ea4">
+            <h5>Pembahasan (dalam jutaan Rp)</h5>
+            <div class="answer-group">
+              <h6>a) Biaya Imbalan Pasti di Laba Rugi</h6>
+              <table class="calc-table">
+                <thead><tr><th></th><th>PT X</th><th>PT Y</th><th>PT Z</th></tr></thead>
+                <tbody>
+                  <tr><td>Beban Bunga (% × NKKIP awal)</td><td>100</td><td>120</td><td>300</td></tr>
+                  <tr><td>Pendapatan Bunga (% × NWAP awal)</td><td>(70)</td><td>(180)</td><td>(100)</td></tr>
+                  <tr><td>Bunga Atas Dampak Batas Atas Aset</td><td>—</td><td>(60)</td><td>—</td></tr>
+                  <tr><td>Bunga Neto</td><td>30</td><td>(120)</td><td>200</td></tr>
+                  <tr><td>Biaya Jasa</td><td>150</td><td>75</td><td>120</td></tr>
+                  <tr class="total"><td>Biaya di Laba Rugi</td><td>180</td><td>(45)</td><td>320</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="answer-group">
+              <h6>b) OCI — Pengukuran Kembali</h6>
+              <table class="calc-table">
+                <thead><tr><th></th><th>PT X</th><th>PT Y</th><th>PT Z</th></tr></thead>
+                <tbody>
+                  <tr><td>IHAP belum diakui dalam Bunga Neto</td><td>(30)</td><td>(120)</td><td>(25)</td></tr>
+                  <tr><td>Kerugian (Keuntungan) Aktuarial</td><td>40</td><td>(60)</td><td>40</td></tr>
+                  <tr class="total"><td>OCI Total</td><td>10</td><td>(180)</td><td>15</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="answer-group">
+              <h6>d) Saldo Liabilitas/Aset Neto Akhir Tahun</h6>
+              <table class="calc-table">
+                <thead><tr><th></th><th>PT X</th><th>PT Y</th><th>PT Z</th></tr></thead>
+                <tbody>
+                  <tr><td>Liabilitas (Aset) Neto awal tahun</td><td>600</td><td>(1.000)</td><td>2.000</td></tr>
+                  <tr><td>Biaya di Laba Rugi</td><td>180</td><td>(45)</td><td>320</td></tr>
+                  <tr><td>OCI (Pengukuran Kembali)</td><td>10</td><td>(180)</td><td>15</td></tr>
+                  <tr class="total"><td>Liabilitas (Aset) Neto Akhir</td><td>790</td><td>(1.225)*</td><td>2.335</td></tr>
+                </tbody>
+              </table>
+              <p style="font-size:0.72rem;color:var(--muted);margin-top:0.4rem">*PT Y surplus, nilai Aset dibatasi oleh Batas Atas Aset</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- AI TUTOR -->
+    <section class="section" id="ai-tutor">
+      <div class="ai-section">
+        <div class="ai-header">
+          <div class="ai-dot"></div>
+          <h3>AI Tutor — BAB 8 Imbalan Kerja, Provisi & Kontinjensi</h3>
+        </div>
+        <div class="ai-messages" id="aiMessages">
+          <div class="ai-msg ai">
+            <div class="avatar">AI</div>
+            <div class="ai-bubble">Halo! Saya siap membantu kamu memahami BAB 8 — Imbalan Kerja, Provisi dan Kontinjensi. Tanyakan apapun tentang program imbalan pasti, NKKIP, OCI, provisi, atau soal latihan! 👷</div>
+          </div>
+        </div>
+        <div class="ai-suggestions" id="aiSuggestions">
+          <span class="ai-chip" onclick="sendChip(this)">Apa perbedaan program iuran pasti dan imbalan pasti?</span>
+          <span class="ai-chip" onclick="sendChip(this)">Komponen apa saja yang masuk Laba Rugi vs OCI untuk program imbalan pasti?</span>
+          <span class="ai-chip" onclick="sendChip(this)">Bagaimana cara menghitung Bunga Neto Liabilitas Imbalan Pasti?</span>
+          <span class="ai-chip" onclick="sendChip(this)">Kapan provisi diakui dan apa bedanya dengan liabilitas kontinjensi?</span>
+          <span class="ai-chip" onclick="sendChip(this)">Jelaskan Batas Atas Aset dan dampaknya terhadap Aset Imbalan Pasti</span>
+        </div>
+        <div class="ai-input-row">
+          <textarea class="ai-input" id="aiInput" rows="1" placeholder="Ketik pertanyaan tentang BAB 8…" onkeydown="handleKey(event)"></textarea>
+          <button class="ai-send" id="aiSendBtn" onclick="sendMessage()">Kirim</button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script>
+const answers = {1:'d',2:'c',3:'a',4:'c',5:'b',6:'c',7:'b',8:'c',9:'b',10:'a',11:'b'};
+function checkMC(el, choice, num) {
+  const item = el.closest('.mc-item');
+  if (item.querySelector('.revealed')) return;
+  const correct = answers[num];
+  item.querySelectorAll('.mc-option').forEach(opt => {
+    opt.classList.add('revealed');
+    const letter = opt.querySelector('.opt-letter').textContent.toLowerCase();
+    if (letter === correct) opt.classList.add('correct');
+    else if (letter === choice && choice !== correct) opt.classList.add('wrong');
+  });
+  const fb = document.getElementById('fb' + num);
+  if (fb) fb.classList.add('show');
+}
+function toggleEssay(id) {
+  const ans = document.getElementById(id);
+  const btn = ans.previousElementSibling;
+  const show = !ans.classList.contains('show');
+  ans.classList.toggle('show', show);
+  btn.textContent = show ? '▼ Sembunyikan Jawaban' : '▶ Lihat Jawaban';
+}
+const sections = document.querySelectorAll('.section, .subsection');
+const tocLinks = document.querySelectorAll('.toc-link');
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { tocLinks.forEach(l => l.classList.remove('active')); const a = document.querySelector(`.toc-link[href="#${e.target.id}"]`); if (a) a.classList.add('active'); } });
+}, { rootMargin: '-20% 0px -70% 0px' });
+sections.forEach(s => { if (s.id) obs.observe(s); });
+
+const SYSTEM_PROMPT = `Kamu adalah asisten belajar untuk mata kuliah CA Indonesia: Pelaporan Korporat, khususnya BAB 8 tentang Imbalan Kerja, Provisi dan Kontinjensi (PSAK 24 amandemen 2018 dan PSAK 57).
+
+Topik yang kamu kuasai:
+- 8.1 Imbalan Kerja Jangka Pendek (PSAK 24): definisi (diselesaikan dalam 12 bulan), jenis (upah/gaji, cuti berbayar, bagi laba/bonus, nonmoneter). Cuti berbayar diakumulasi vs tidak diakumulasi. Kewajiban hukum vs konstruktif untuk bonus.
+- 8.2 Imbalan Pascakerja: Program Iuran Pasti (DC) vs Program Imbalan Pasti (DB). Perbedaan: siapa yang menanggung risiko aktuarial dan investasi. Kondisi Indonesia: UU No.13/2003 memberlakukan program imbalan pasti bagi seluruh tenaga kerja. Tabel pesangon (maks 9 kali), penghargaan (maks 10 kali), penggantian hak (15%).
+- 8.2.4 Akuntansi Program Imbalan Pasti: Metode Projected Unit Credit (PUC). Laporan Posisi Keuangan: NKKIP - NWAP = Liabilitas (defisit) atau Aset (surplus, dibatasi Batas Atas Aset). Formula NKKIP(t1) = NKKIP(t0) + BJ + BB ± KKP ± KKA - PMu. Formula NWAP(t1) = NWAP(t0) + IHAP + K - PMd. Komponen Laporan Laba Rugi: Biaya Jasa Kini, Biaya Jasa Lalu (diakui segera), Keuntungan/Kerugian Penyelesaian, Bunga Neto (= Tingkat Diskonto × Liabilitas/Aset Imbalan Pasti Neto awal). Komponen OCI (Pengukuran Kembali): Keuntungan/Kerugian Aktuarial, Imbal Hasil Aset Program belum diakui dalam Bunga Neto (= Realisasi Imbal Hasil - Pendapatan Bunga), Perubahan Dampak Batas Atas Aset belum diakui dalam Bunga Neto. OCI tidak dapat direklasifikasi ke laba rugi.
+- 8.3 Imbalan Kerja Jangka Panjang Lain: contoh cuti besar, penghargaan masa kerja, remunerasi tangguhan. Komponen pengukuran kembali langsung di laba rugi (tidak melalui OCI).
+- 8.4 Pesangon: definisi, pengakuan (lebih awal antara tidak dapat menarik tawaran vs pengakuan biaya restrukturisasi). Pengukuran: nilai nominal jika ≤12 bulan, nilai kini jika >12 bulan.
+- 8.5 Provisi & Kontinjensi (PSAK 57): Provisi (diakui) vs Liabilitas Kontinjensi (tidak diakui, diungkapkan) vs Aset Kontinjensi (tidak diakui). 3 syarat pengakuan provisi: kewajiban kini + kemungkinan besar arus keluar + estimasi andal.
+- 8.6 Pengukuran Provisi: estimasi terbaik, metode expected value (populasi), nilai kini jika material. Contoh garansi produk.
+- 8.7 Penggantian, perubahan, dan penggunaan provisi.
+- 8.8 Penerapan aturan: larangan provisi untuk kerugian operasi masa datang, kontrak memberatkan, restrukturisasi.
+- 8.9 Pengungkapan provisi (8 item) dan kontinjensi.
+
+Jawab dalam Bahasa Indonesia yang jelas dan ringkas. Gunakan contoh angka konkret dan tabel bila relevan. Sertakan referensi PSAK yang relevan.`;
+
+const messagesEl = document.getElementById('aiMessages');
+const inputEl = document.getElementById('aiInput');
+const sendBtn = document.getElementById('aiSendBtn');
+let history = [];
+function addMsg(role, text) {
+  const div = document.createElement('div');
+  div.className = `ai-msg ${role}`;
+  div.innerHTML = `<div class="avatar">${role==='ai'?'AI':'Kamu'}</div><div class="ai-bubble">${text.replace(/\n/g,'<br>')}</div>`;
+  messagesEl.appendChild(div); messagesEl.scrollTop = messagesEl.scrollHeight;
+}
+function addTyping() {
+  const div = document.createElement('div'); div.className = 'ai-msg ai'; div.id = 'typing';
+  div.innerHTML = `<div class="avatar">AI</div><div class="ai-typing"><span></span><span></span><span></span></div>`;
+  messagesEl.appendChild(div); messagesEl.scrollTop = messagesEl.scrollHeight;
+}
+async function sendMessage() {
+  const text = inputEl.value.trim(); if (!text) return;
+  inputEl.value = ''; document.getElementById('aiSuggestions').style.display = 'none';
+  addMsg('user', text); history.push({ role: 'user', content: text }); sendBtn.disabled = true; addTyping();
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ model: 'claude-sonnet-4-20250514', max_tokens: 1000, system: SYSTEM_PROMPT, messages: history }) });
+    const data = await res.json();
+    document.getElementById('typing')?.remove();
+    const reply = data.content?.find(b => b.type === 'text')?.text || 'Maaf, tidak ada respons.';
+    addMsg('ai', reply); history.push({ role: 'assistant', content: reply });
+  } catch { document.getElementById('typing')?.remove(); addMsg('ai', 'Maaf, terjadi kesalahan. Periksa koneksi internet dan coba lagi.'); }
+  sendBtn.disabled = false;
+}
+function sendChip(el) { inputEl.value = el.textContent; sendMessage(); }
+function handleKey(e) { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); } }
+</script>
+</body>
+</html>

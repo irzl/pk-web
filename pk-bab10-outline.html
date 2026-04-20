@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BAB 10 — Kombinasi Bisnis dan Konsolidasi</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #0f0a08; --surface: #1a1208; --surface2: #241a0a; --surface3: #2e2010;
+  --accent: #fb923c; --accent2: #fdba74; --accent3: #ea580c;
+  --yellow: #fbbf24; --green: #4ade80; --teal: #2dd4bf; --blue: #60a5fa; --purple: #a78bfa; --red: #f87171;
+  --text: #fff7ed; --text2: #c4a882; --muted: #6b5a45; --border: rgba(251,146,60,0.1); --border2: rgba(255,255,255,0.06);
+}
+html { scroll-behavior: smooth; }
+body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; min-height: 100vh; }
+
+.chapter-header { background: linear-gradient(135deg, #0f0a08 0%, #1a1208 50%, #0f0a08 100%); border-bottom: 1px solid var(--border); padding: 2.5rem 2rem 2rem; position: relative; overflow: hidden; }
+.chapter-header::before { content: '10'; position: absolute; right: -0.5rem; top: -1rem; font-family: 'Playfair Display', serif; font-size: 12rem; font-weight: 900; color: rgba(251,146,60,0.04); line-height: 1; pointer-events: none; user-select: none; }
+.chapter-eyebrow { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent3); margin-bottom: 0.5rem; }
+.chapter-title { font-family: 'Playfair Display', serif; font-size: clamp(1.4rem, 3.5vw, 2.2rem); font-weight: 900; line-height: 1.15; background: linear-gradient(135deg, #fb923c, #fdba74); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 1.2rem; }
+.learning-goals { background: rgba(251,146,60,0.05); border: 1px solid var(--border); border-radius: 12px; padding: 1rem 1.2rem; max-width: 700px; }
+.learning-goals h3 { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.6rem; }
+.goals-list { list-style: none; display: flex; flex-direction: column; gap: 0.3rem; }
+.goals-list li { font-size: 0.78rem; color: var(--text2); display: flex; gap: 0.6rem; align-items: flex-start; }
+.goals-list li::before { content: '→'; color: var(--accent3); flex-shrink: 0; font-family: 'DM Mono', monospace; font-size: 0.7rem; margin-top: 0.05rem; }
+
+.page-body { display: grid; grid-template-columns: 220px 1fr; min-height: calc(100vh - 200px); }
+.toc { background: var(--surface); border-right: 1px solid var(--border2); padding: 1.5rem 0; position: sticky; top: 0; height: 100vh; overflow-y: auto; }
+.toc-label { font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); padding: 0 1rem; margin-bottom: 0.8rem; }
+.toc-link { display: block; padding: 0.45rem 1rem; font-size: 0.75rem; color: var(--muted); text-decoration: none; transition: all 0.15s; border-left: 2px solid transparent; line-height: 1.4; }
+.toc-link:hover { color: var(--text); background: rgba(251,146,60,0.04); }
+.toc-link.active { color: var(--accent); border-left-color: var(--accent); background: rgba(251,146,60,0.06); }
+.toc-link.sub { padding-left: 1.8rem; font-size: 0.7rem; }
+.toc-divider { height: 1px; background: var(--border2); margin: 0.6rem 1rem; }
+.main { padding: 2rem 2.5rem 4rem; max-width: 860px; }
+.section { margin-bottom: 3rem; scroll-margin-top: 1.5rem; }
+.section-header { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.2rem; padding-bottom: 0.7rem; border-bottom: 1px solid var(--border2); }
+.section-num { font-family: 'DM Mono', monospace; font-size: 0.65rem; font-weight: 700; background: var(--accent3); color: #fff; padding: 0.2rem 0.5rem; border-radius: 4px; flex-shrink: 0; }
+.section-title { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; color: var(--text); line-height: 1.3; }
+.subsection { margin-bottom: 1.5rem; scroll-margin-top: 1.5rem; }
+.subsection-title { font-size: 0.82rem; font-weight: 600; color: var(--accent2); font-family: 'DM Mono', monospace; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.6rem; }
+
+.card { background: var(--surface); border: 1px solid var(--border2); border-radius: 10px; padding: 1.1rem 1.2rem; margin-bottom: 0.8rem; }
+.card-title { font-size: 0.78rem; font-weight: 600; color: var(--accent); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem; }
+.card-title .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
+.card p, .card li { font-size: 0.8rem; color: var(--text2); line-height: 1.6; }
+.card ul, .card ol { padding-left: 1.1rem; margin-top: 0.4rem; display: flex; flex-direction: column; gap: 0.25rem; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; margin-bottom: 1rem; }
+.grid-3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 0.7rem; margin-bottom: 1rem; }
+.grid-4 { display: grid; grid-template-columns: repeat(4,1fr); gap: 0.7rem; margin-bottom: 1rem; }
+.highlight { background: rgba(251,146,60,0.06); border: 1px solid rgba(251,146,60,0.2); border-left: 3px solid var(--accent); border-radius: 8px; padding: 0.9rem 1.1rem; margin-bottom: 1rem; }
+.highlight p { font-size: 0.8rem; color: var(--text2); line-height: 1.6; }
+.highlight strong { color: var(--accent); font-weight: 600; }
+.highlight-blue { background: rgba(96,165,250,0.06); border: 1px solid rgba(96,165,250,0.2); border-left: 3px solid var(--blue); border-radius: 8px; padding: 0.9rem 1.1rem; margin-bottom: 1rem; }
+.highlight-blue p { font-size: 0.8rem; color: var(--text2); line-height: 1.6; }
+.highlight-blue strong { color: var(--blue); }
+.highlight-green { background: rgba(74,222,128,0.06); border: 1px solid rgba(74,222,128,0.2); border-left: 3px solid var(--green); border-radius: 8px; padding: 0.9rem 1.1rem; margin-bottom: 1rem; }
+.highlight-green p { font-size: 0.8rem; color: var(--text2); line-height: 1.6; }
+.highlight-green strong { color: var(--green); }
+.highlight-purple { background: rgba(167,139,250,0.06); border: 1px solid rgba(167,139,250,0.2); border-left: 3px solid var(--purple); border-radius: 8px; padding: 0.9rem 1.1rem; margin-bottom: 1rem; }
+.highlight-purple p { font-size: 0.8rem; color: var(--text2); line-height: 1.6; }
+.highlight-purple strong { color: var(--purple); }
+.table-wrap { overflow-x: auto; margin-bottom: 1rem; border-radius: 10px; border: 1px solid var(--border2); }
+table { width: 100%; border-collapse: collapse; font-size: 0.76rem; }
+thead tr { background: var(--surface3); }
+th { padding: 0.7rem 0.9rem; text-align: left; font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); font-weight: 500; }
+td { padding: 0.6rem 0.9rem; border-top: 1px solid var(--border2); color: var(--text2); vertical-align: top; line-height: 1.5; }
+tbody tr:hover { background: rgba(255,255,255,0.02); }
+.tag { display: inline-block; font-family: 'DM Mono', monospace; font-size: 0.6rem; padding: 0.15rem 0.5rem; border-radius: 99px; font-weight: 500; }
+.tag-orange { background: rgba(251,146,60,0.12); color: var(--accent); border: 1px solid rgba(251,146,60,0.25); }
+.tag-blue { background: rgba(96,165,250,0.12); color: var(--blue); border: 1px solid rgba(96,165,250,0.25); }
+.tag-green { background: rgba(74,222,128,0.12); color: var(--green); border: 1px solid rgba(74,222,128,0.25); }
+.tag-red { background: rgba(248,113,113,0.12); color: var(--red); border: 1px solid rgba(248,113,113,0.25); }
+.tag-purple { background: rgba(167,139,250,0.12); color: var(--purple); border: 1px solid rgba(167,139,250,0.25); }
+.psak-ref { display: inline-flex; align-items: center; gap: 0.35rem; font-family: 'DM Mono', monospace; font-size: 0.62rem; background: var(--surface3); border: 1px solid var(--border2); color: var(--text2); padding: 0.15rem 0.55rem; border-radius: 99px; margin-bottom: 0.5rem; margin-right: 0.3rem; }
+.psak-ref span { color: var(--accent); }
+
+/* Formula */
+.formula-box { background: var(--surface3); border: 1px solid var(--border2); border-radius: 10px; padding: 1rem 1.2rem; margin-bottom: 1rem; font-family: 'DM Mono', monospace; }
+.formula-title { font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.6rem; }
+.formula-eq { font-size: 0.78rem; color: var(--text); padding: 0.5rem; background: rgba(251,146,60,0.05); border-radius: 6px; margin-bottom: 0.4rem; line-height: 1.7; }
+.formula-item { display: flex; justify-content: space-between; font-size: 0.72rem; color: var(--text2); padding: 0.2rem 0; border-bottom: 1px solid rgba(255,255,255,0.04); }
+.formula-item:last-child { border-bottom: none; }
+.formula-item.total { color: var(--accent); font-weight: 700; border-top: 1px solid var(--border2); margin-top: 0.3rem; padding-top: 0.3rem; }
+.formula-item.subtotal { color: var(--yellow); font-weight: 600; }
+
+/* Flowchart */
+.flow-container { background: var(--surface); border: 1px solid var(--border2); border-radius: 10px; padding: 1rem; margin-bottom: 1rem; }
+.flow-step { background: var(--surface3); border: 1px solid var(--border2); border-radius: 8px; padding: 0.6rem 0.9rem; font-size: 0.76rem; color: var(--text2); text-align: center; margin-bottom: 0.3rem; line-height: 1.4; }
+.flow-step.key { border-color: rgba(251,146,60,0.3); background: rgba(251,146,60,0.06); color: var(--text); font-weight: 600; }
+.flow-arrow { text-align: center; color: var(--muted); font-size: 0.9rem; margin: 0.1rem 0; }
+.flow-result { display: flex; gap: 0.6rem; margin-top: 0.4rem; }
+.flow-yes { flex: 1; background: rgba(74,222,128,0.08); border: 1px solid rgba(74,222,128,0.25); border-radius: 8px; padding: 0.5rem 0.8rem; font-size: 0.72rem; color: var(--green); text-align: center; font-family: 'DM Mono', monospace; }
+.flow-no { flex: 1; background: rgba(248,113,113,0.08); border: 1px solid rgba(248,113,113,0.25); border-radius: 8px; padding: 0.5rem 0.8rem; font-size: 0.72rem; color: var(--red); text-align: center; font-family: 'DM Mono', monospace; }
+
+/* Kombinasi bisnis comparison */
+.kombi-compare { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; margin-bottom: 1rem; }
+.kombi-card { background: var(--surface); border: 1px solid var(--border2); border-radius: 10px; padding: 0.9rem 1rem; }
+.kombi-label { font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.25rem; }
+.kombi-name { font-size: 0.9rem; font-weight: 700; margin-bottom: 0.5rem; }
+.kombi-card ul { list-style: none; display: flex; flex-direction: column; gap: 0.25rem; }
+.kombi-card li { font-size: 0.73rem; color: var(--text2); display: flex; gap: 0.5rem; line-height: 1.4; }
+.kombi-card li::before { content: '▸'; color: var(--accent); flex-shrink: 0; font-size: 0.6rem; margin-top: 0.1rem; }
+
+/* Jurnal box */
+.jurnal-box { background: var(--surface3); border: 1px solid var(--border2); border-radius: 10px; padding: 0.9rem 1.1rem; margin-bottom: 1rem; }
+.jurnal-title { font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--yellow); margin-bottom: 0.7rem; }
+.jurnal-row { display: flex; font-size: 0.74rem; color: var(--text2); padding: 0.2rem 0; border-bottom: 1px solid rgba(255,255,255,0.03); gap: 0.5rem; }
+.jurnal-row:last-child { border-bottom: none; }
+.jurnal-account { flex: 1; }
+.jurnal-account.cr { padding-left: 1.5rem; color: var(--muted); }
+.jurnal-debit { width: 80px; text-align: right; color: var(--accent2); font-family: 'DM Mono', monospace; font-size: 0.7rem; }
+.jurnal-kredit { width: 80px; text-align: right; color: var(--teal); font-family: 'DM Mono', monospace; font-size: 0.7rem; }
+
+/* Step indicator */
+.step-list { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1rem; }
+.step-item { display: flex; gap: 0.75rem; align-items: flex-start; background: var(--surface); border: 1px solid var(--border2); border-radius: 8px; padding: 0.7rem 0.9rem; }
+.step-num { font-family: 'DM Mono', monospace; font-size: 0.65rem; font-weight: 700; background: var(--accent3); color: #fff; padding: 0.2rem 0.45rem; border-radius: 4px; flex-shrink: 0; margin-top: 0.05rem; }
+.step-item p { font-size: 0.78rem; color: var(--text2); line-height: 1.5; }
+.step-item strong { color: var(--text); }
+
+/* Latihan */
+.exercise-section { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; margin-bottom: 1.5rem; }
+.exercise-header { background: rgba(251,146,60,0.08); padding: 0.9rem 1.2rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 0.6rem; }
+.exercise-header h3 { font-family: 'DM Mono', monospace; font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); }
+.exercise-badge { font-family: 'DM Mono', monospace; font-size: 0.58rem; background: rgba(251,146,60,0.15); color: var(--accent); padding: 0.15rem 0.5rem; border-radius: 99px; }
+.mc-item { padding: 1rem 1.2rem; border-bottom: 1px solid var(--border2); }
+.mc-item:last-child { border-bottom: none; }
+.mc-question { font-size: 0.8rem; color: var(--text); font-weight: 500; margin-bottom: 0.6rem; line-height: 1.55; }
+.mc-sub { font-size: 0.74rem; color: var(--text2); background: var(--surface3); border-radius: 8px; padding: 0.6rem 0.9rem; margin-bottom: 0.7rem; line-height: 1.6; }
+.mc-options { display: flex; flex-direction: column; gap: 0.3rem; }
+.mc-option { display: flex; gap: 0.6rem; align-items: flex-start; padding: 0.4rem 0.6rem; border-radius: 6px; cursor: pointer; transition: background 0.15s; font-size: 0.76rem; color: var(--text2); line-height: 1.4; border: 1px solid transparent; }
+.mc-option:hover { background: rgba(255,255,255,0.03); border-color: var(--border2); }
+.mc-option.correct { background: rgba(74,222,128,0.1); color: var(--green); border-color: rgba(74,222,128,0.3); }
+.mc-option.wrong { background: rgba(248,113,113,0.08); color: var(--red); border-color: rgba(248,113,113,0.2); }
+.mc-option.revealed { pointer-events: none; }
+.opt-letter { font-family: 'DM Mono', monospace; font-size: 0.65rem; font-weight: 700; background: var(--surface3); padding: 0.15rem 0.4rem; border-radius: 4px; flex-shrink: 0; margin-top: 0.05rem; }
+.mc-feedback { margin-top: 0.5rem; font-size: 0.72rem; color: var(--muted); display: none; padding: 0.4rem 0.6rem; background: var(--surface3); border-radius: 6px; line-height: 1.5; }
+.mc-feedback.show { display: block; }
+.mc-feedback .correct-ans { color: var(--green); font-weight: 600; }
+.essay-item { padding: 1rem 1.2rem; border-bottom: 1px solid var(--border2); }
+.essay-item:last-child { border-bottom: none; }
+.essay-q { font-size: 0.8rem; color: var(--text); font-weight: 500; margin-bottom: 0.8rem; line-height: 1.55; }
+.essay-sub { font-size: 0.74rem; color: var(--text2); background: var(--surface3); border-radius: 8px; padding: 0.7rem 1rem; margin-bottom: 0.8rem; line-height: 1.6; }
+.essay-toggle { display: flex; align-items: center; gap: 0.5rem; font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent3); background: rgba(251,146,60,0.07); border: 1px solid rgba(251,146,60,0.2); padding: 0.4rem 0.8rem; border-radius: 6px; cursor: pointer; transition: all 0.15s; width: fit-content; }
+.essay-toggle:hover { background: rgba(251,146,60,0.12); color: var(--accent); }
+.essay-answer { margin-top: 0.8rem; display: none; background: var(--surface3); border-radius: 8px; padding: 0.9rem 1rem; }
+.essay-answer.show { display: block; }
+.essay-answer h5 { font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent3); margin-bottom: 0.6rem; }
+.essay-answer p, .essay-answer li { font-size: 0.77rem; color: var(--text2); line-height: 1.6; }
+.essay-answer ul { padding-left: 0; list-style: none; display: flex; flex-direction: column; gap: 0.3rem; margin-top: 0.3rem; }
+.essay-answer li { display: flex; gap: 0.5rem; }
+.essay-answer li::before { content: '▸'; color: var(--accent); flex-shrink: 0; font-size: 0.6rem; margin-top: 0.1rem; }
+.answer-group { margin-bottom: 0.7rem; }
+.answer-group h6 { font-size: 0.74rem; font-weight: 600; color: var(--text); margin-bottom: 0.35rem; }
+.calc-table { width: 100%; font-size: 0.72rem; border-collapse: collapse; margin-top: 0.4rem; }
+.calc-table th { background: var(--surface2); padding: 0.4rem 0.6rem; text-align: center; color: var(--accent2); font-weight: 600; border: 1px solid var(--border2); }
+.calc-table td { padding: 0.35rem 0.6rem; border: 1px solid var(--border2); color: var(--text2); }
+.calc-table tr.total td { background: var(--surface2); color: var(--accent); font-weight: 700; }
+
+/* AI */
+.ai-section { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; }
+.ai-header { background: rgba(96,165,250,0.07); padding: 0.9rem 1.2rem; border-bottom: 1px solid rgba(96,165,250,0.15); display: flex; align-items: center; gap: 0.6rem; }
+.ai-header h3 { font-family: 'DM Mono', monospace; font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--blue); }
+.ai-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--blue); }
+.ai-messages { padding: 1rem 1.2rem; min-height: 80px; max-height: 360px; overflow-y: auto; display: flex; flex-direction: column; gap: 0.7rem; }
+.ai-msg { display: flex; gap: 0.6rem; align-items: flex-start; font-size: 0.78rem; line-height: 1.6; animation: fadeUp 0.25s ease; }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+.ai-msg.user { flex-direction: row-reverse; }
+.ai-msg .avatar { width: 26px; height: 26px; border-radius: 6px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 0.65rem; font-weight: 700; margin-top: 0.1rem; }
+.ai-msg.ai .avatar { background: rgba(96,165,250,0.15); color: var(--blue); }
+.ai-msg.user .avatar { background: rgba(251,146,60,0.15); color: var(--accent); }
+.ai-bubble { padding: 0.6rem 0.85rem; border-radius: 10px; max-width: 85%; }
+.ai-msg.ai .ai-bubble { background: var(--surface3); color: var(--text2); }
+.ai-msg.user .ai-bubble { background: rgba(251,146,60,0.09); color: var(--text); text-align: right; }
+.ai-typing { display: flex; gap: 4px; align-items: center; padding: 0.6rem 0.85rem; background: var(--surface3); border-radius: 10px; width: fit-content; }
+.ai-typing span { width: 5px; height: 5px; border-radius: 50%; background: var(--blue); animation: typing 1.2s infinite; }
+.ai-typing span:nth-child(2) { animation-delay: 0.2s; }
+.ai-typing span:nth-child(3) { animation-delay: 0.4s; }
+@keyframes typing { 0%,60%,100% { opacity: 0.2; transform: scale(0.8); } 30% { opacity: 1; transform: scale(1); } }
+.ai-suggestions { padding: 0 1.2rem 0.75rem; display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.ai-chip { font-family: 'DM Mono', monospace; font-size: 0.62rem; background: var(--surface3); border: 1px solid var(--border2); color: var(--text2); padding: 0.3rem 0.7rem; border-radius: 99px; cursor: pointer; transition: all 0.15s; }
+.ai-chip:hover { border-color: rgba(96,165,250,0.35); color: var(--blue); }
+.ai-input-row { padding: 0.75rem 1.2rem; border-top: 1px solid var(--border2); display: flex; gap: 0.5rem; }
+.ai-input { flex: 1; background: var(--surface3); border: 1px solid var(--border2); border-radius: 8px; padding: 0.5rem 0.8rem; font-size: 0.78rem; color: var(--text); font-family: 'DM Sans', sans-serif; outline: none; resize: none; max-height: 100px; transition: border-color 0.2s; }
+.ai-input:focus { border-color: rgba(96,165,250,0.35); }
+.ai-input::placeholder { color: var(--muted); }
+.ai-send { background: var(--blue); color: #000; border: none; border-radius: 8px; padding: 0.5rem 1rem; font-family: 'DM Mono', monospace; font-size: 0.68rem; font-weight: 700; cursor: pointer; transition: opacity 0.15s; }
+.ai-send:hover { opacity: 0.85; }
+.ai-send:disabled { opacity: 0.4; cursor: not-allowed; }
+</style>
+</head>
+<body>
+
+<div class="chapter-header">
+  <div class="chapter-eyebrow">Pelaporan Korporat — CA Indonesia</div>
+  <div class="chapter-title">BAB 10 — Kombinasi Bisnis dan Konsolidasi</div>
+  <div class="learning-goals">
+    <h3>Tujuan Pembelajaran</h3>
+    <ul class="goals-list">
+      <li>Menentukan, menerapkan, dan mengevaluasi kebijakan pelaporan korporat dari perusahaan dan grup perusahaan, baik laporan keuangan, laporan tahunan, maupun laporan terintegrasi</li>
+      <li>Mampu mengevaluasi dan menerapkan keterampilan professional dan pengetahuan teknis standar akuntansi secara integral</li>
+    </ul>
+  </div>
+</div>
+
+<div class="page-body">
+  <nav class="toc">
+    <div class="toc-label">Daftar Isi</div>
+    <a href="#s1" class="toc-link">10.1 Pengertian Kombinasi Bisnis</a>
+    <a href="#s2" class="toc-link">10.2 KB Entitas Tidak Sepengendali</a>
+    <a href="#s2-1" class="toc-link sub">10.2.1 Metode Akuisisi</a>
+    <a href="#s2-2" class="toc-link sub">10.2.2 Goodwill & Bargain Purchase</a>
+    <div class="toc-divider"></div>
+    <a href="#s3" class="toc-link">10.3 KB Entitas Sepengendali</a>
+    <a href="#s4" class="toc-link">10.4 Laporan Keuangan Konsolidasian</a>
+    <a href="#s4-1" class="toc-link sub">Metode Ekuitas vs Biaya</a>
+    <a href="#s4-2" class="toc-link sub">Transaksi Antar Entitas</a>
+    <a href="#s5" class="toc-link">10.5 Kehilangan Pengendalian</a>
+    <div class="toc-divider"></div>
+    <a href="#latihan" class="toc-link">Latihan Soal</a>
+    <a href="#ai" class="toc-link">Tanya AI</a>
+  </nav>
+
+  <main class="main">
+
+    <!-- SECTION 10.1 -->
+    <div class="section" id="s1">
+      <div class="section-header">
+        <span class="section-num">10.1</span>
+        <span class="section-title">Pengertian Kombinasi Bisnis</span>
+      </div>
+
+      <div style="margin-bottom:0.5rem;">
+        <span class="psak-ref"><span>PSAK</span> 22 — Kombinasi Bisnis</span>
+        <span class="psak-ref"><span>PSAK</span> 65 — Laporan Keuangan Konsolidasian</span>
+        <span class="psak-ref"><span>PSAK</span> 38 — KB Entitas Sepengendali</span>
+      </div>
+
+      <div class="highlight">
+        <p><strong>Kombinasi bisnis</strong> (PSAK 22) adalah transaksi di mana suatu entitas, sebagai pengakuisisi, memperoleh pengendalian atas satu atau lebih bisnis (pihak diakuisisi). <strong>Bisnis</strong> = rangkaian terintegrasi aktivitas dan aset yang dikelola untuk memberikan hasil dalam bentuk dividen atau manfaat ekonomi lainnya.</p>
+      </div>
+
+      <div class="highlight-blue">
+        <p><strong>Pengendalian (PSAK 65 PP02)</strong>: Entitas dikatakan memperoleh pengendalian jika memiliki (1) kekuasaan atas entitas lain, (2) hak atas imbal hasil variabel dari keterlibatannya, dan (3) kemampuan menggunakan kekuasaannya untuk memengaruhi jumlah imbal hasil tersebut.</p>
+      </div>
+
+      <div class="subsection-title">Bentuk Kombinasi Bisnis</div>
+      <div class="kombi-compare">
+        <div class="kombi-card" style="border-top:2px solid var(--accent)">
+          <div class="kombi-label">Bentuk 1</div>
+          <div class="kombi-name" style="color:var(--accent)">Merger</div>
+          <ul>
+            <li>Aset bersih entitas diakuisisi digabungkan ke pihak pengakuisisi <strong>secara hukum</strong>, atau</li>
+            <li>Aset neto seluruh entitas bergabung dialihkan ke entitas baru yang terbentuk secara hukum</li>
+            <li>Entitas yang diakuisisi / bergabung <strong>secara hukum bubar</strong> setelah merger</li>
+          </ul>
+        </div>
+        <div class="kombi-card" style="border-top:2px solid var(--blue)">
+          <div class="kombi-label">Bentuk 2</div>
+          <div class="kombi-name" style="color:var(--blue)">Akuisisi</div>
+          <ul>
+            <li>Pengakuisisi memperoleh kepentingan ekuitas entitas lain (yang diakuisisi)</li>
+            <li>Kedua entitas <strong>masih beroperasi</strong> secara hukum setelah kombinasi bisnis</li>
+            <li>Jika kepemilikan tidak penuh (tidak 100%) → sisa kepemilikan disebut <strong>kepentingan nonpengendali (KNP)</strong></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Jenis</th><th>Sebelum KB</th><th>Setelah KB</th></tr></thead>
+          <tbody>
+            <tr><td>Merger (1)</td><td>PT A + PT B</td><td>PT A (PT B bubar)</td></tr>
+            <tr><td>Merger (2)</td><td>PT A + PT B</td><td>PT C (entitas baru, A & B bubar)</td></tr>
+            <tr><td>Akuisisi</td><td>PT A + PT B</td><td>PT A (induk) + PT B (anak)</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="highlight-green">
+        <p>Perlakuan akuntansi dibagi dua berdasarkan hubungan entitas: <strong>Kombinasi Bisnis Entitas Tidak Sepengendali</strong> → metode akuisisi (PSAK 22); <strong>Kombinasi Bisnis Entitas Sepengendali</strong> → metode penyatuan kepemilikan (PSAK 38).</p>
+      </div>
+    </div>
+
+    <!-- SECTION 10.2 -->
+    <div class="section" id="s2">
+      <div class="section-header">
+        <span class="section-num">10.2</span>
+        <span class="section-title">Kombinasi Bisnis Entitas Tidak Sepengendali</span>
+      </div>
+
+      <div class="subsection" id="s2-1">
+        <div class="subsection-title">10.2.1 Metode Akuisisi</div>
+        <div class="highlight">
+          <p>Metode akuisisi wajib diterapkan saat terjadi KB antara entitas <strong>tidak sepengendali</strong>. Berdasarkan PSAK 22 par 05, ada 4 langkah utama:</p>
+        </div>
+        <div class="step-list">
+          <div class="step-item"><span class="step-num">01</span><p><strong>Menentukan Pihak Pengakuisisi</strong> — entitas yang memperoleh pengendalian; umumnya yang mengalihkan kas/aset, menimbulkan liabilitas, atau menerbitkan kepentingan ekuitas.</p></div>
+          <div class="step-item"><span class="step-num">02</span><p><strong>Menentukan Tanggal Akuisisi</strong> — tanggal pengakuisisi memperoleh pengendalian; umumnya saat pengalihan imbalan, perolehan aset, dan pengambilalihan liabilitas terjadi.</p></div>
+          <div class="step-item"><span class="step-num">03</span><p><strong>Mengakui dan Mengukur Aset Teridentifikasi, Liabilitas, dan KNP</strong> — diakui sebesar <strong>nilai wajar</strong> pada tanggal akuisisi.</p></div>
+          <div class="step-item"><span class="step-num">04</span><p><strong>Mengakui dan Mengukur Goodwill atau Bargain Purchase</strong> — selisih antara imbalan yang dialihkan dengan nilai wajar neto aset teridentifikasi yang diperoleh.</p></div>
+        </div>
+
+        <div class="subsection-title" style="margin-top:1rem">Pengukuran Khusus (PSAK 22 par 54)</div>
+        <div class="grid-3">
+          <div class="card" style="border-top:2px solid var(--teal)">
+            <div class="card-title" style="color:var(--teal)"><span class="dot" style="background:var(--teal)"></span>Hak yang Diperoleh Kembali</div>
+            <p>Diakui sebagai <strong>aset tak berwujud</strong> yang diamortisasi selama sisa periode kontraktual.</p>
+          </div>
+          <div class="card" style="border-top:2px solid var(--yellow)">
+            <div class="card-title" style="color:var(--yellow)"><span class="dot" style="background:var(--yellow)"></span>Liabilitas Kontinjensi</div>
+            <p>Diakui jika merupakan <strong>kewajiban kini dari masa lalu</strong> dan dapat diukur dengan andal, meskipun arus keluar tidak besar kemungkinannya.</p>
+          </div>
+          <div class="card" style="border-top:2px solid var(--purple)">
+            <div class="card-title" style="color:var(--purple)"><span class="dot" style="background:var(--purple)"></span>Aset Indemnifikasi</div>
+            <p>Jaminan kontraktual dari penjual. Diakui dan diukur <strong>pada dasar yang sama</strong> dengan hal yang dijamin.</p>
+          </div>
+        </div>
+
+        <div class="subsection-title" style="margin-top:1rem">Imbalan Kontinjensi</div>
+        <div class="highlight">
+          <p>Kewajiban pengakuisisi mengalihkan aset/ekuitas tambahan jika kondisi tertentu terpenuhi. <strong>Perubahan nilai wajar imbalan kontinjensi setelah tanggal akuisisi bukan penyesuaian periode pengukuran.</strong></p>
+        </div>
+        <div class="grid-3">
+          <div class="card">
+            <div class="card-title"><span class="dot"></span><span class="tag tag-blue">Ekuitas</span></div>
+            <p>Tidak diukur kembali; penyelesaian dicatat di ekuitas.</p>
+          </div>
+          <div class="card">
+            <div class="card-title"><span class="dot"></span><span class="tag tag-orange">Dalam Lingkup PSAK 55</span></div>
+            <p>Diukur pada nilai wajar setiap tanggal pelaporan; perubahan diakui di laba rugi.</p>
+          </div>
+          <div class="card">
+            <div class="card-title"><span class="dot"></span><span class="tag tag-purple">Di Luar PSAK 55</span></div>
+            <p>Diukur pada nilai wajar setiap tanggal pelaporan; perubahan diakui di laba rugi.</p>
+          </div>
+        </div>
+
+        <div class="subsection-title" style="margin-top:1rem">Kepentingan Nonpengendali (KNP)</div>
+        <div class="grid-2">
+          <div class="card" style="border-top:2px solid var(--green)">
+            <div class="card-title" style="color:var(--green)"><span class="dot" style="background:var(--green)"></span>Opsi 1: Nilai Wajar</div>
+            <p>Mengukur KNP pada nilai wajar penuh → menghasilkan <strong>full goodwill</strong>.</p>
+          </div>
+          <div class="card" style="border-top:2px solid var(--accent)">
+            <div class="card-title"><span class="dot"></span>Opsi 2: Bagian Proporsional</div>
+            <p>Mengukur KNP sebesar bagian proporsional dari aset neto teridentifikasi → menghasilkan <strong>partial goodwill</strong>.</p>
+          </div>
+        </div>
+
+        <div class="highlight-blue">
+          <p><strong>Biaya transaksi langsung</strong> (legal, auditor, penilai) dibebankan saat terjadinya. Biaya yang terkait dengan instrumen yang diterbitkan sebagai imbalan (efek utang/saham) diperlakukan sesuai PSAK 50 dan PSAK 55.</p>
+        </div>
+      </div>
+
+      <div class="subsection" id="s2-2">
+        <div class="subsection-title">10.2.2 Goodwill dan Pembelian dengan Diskon (Bargain Purchase)</div>
+
+        <div class="formula-box">
+          <div class="formula-title">Formula Goodwill</div>
+          <div class="formula-eq">Goodwill = (1) + (2) + (3) − NW Aset Bersih Teridentifikasi</div>
+          <div class="formula-item"><span>(1) NW Imbalan yang dialihkan</span><span>Rp xxx</span></div>
+          <div class="formula-item"><span>(2) Jumlah kepentingan nonpengendali</span><span>Rp xxx</span></div>
+          <div class="formula-item"><span>(3) NW kepentingan ekuitas sebelumnya (akuisisi bertahap)</span><span>Rp xxx</span></div>
+          <div class="formula-item total"><span>Total</span><span>Rp xxx</span></div>
+          <div class="formula-item" style="color:var(--red)"><span>Dikurangi: NW Aset Neto Teridentifikasi</span><span>(Rp xxx)</span></div>
+          <div class="formula-item total"><span>Goodwill / (Bargain Purchase)</span><span>Rp xxx</span></div>
+        </div>
+
+        <div class="grid-2">
+          <div class="card" style="border-top:2px solid var(--accent)">
+            <div class="card-title"><span class="dot"></span>Goodwill (+)</div>
+            <p>Total (1)+(2)+(3) <strong>lebih besar</strong> dari NW aset neto teridentifikasi → diakui sebagai aset tak berwujud, tidak diamortisasi, diuji penurunan nilai (PSAK 48) secara rutin.</p>
+          </div>
+          <div class="card" style="border-top:2px solid var(--green)">
+            <div class="card-title" style="color:var(--green)"><span class="dot" style="background:var(--green)"></span>Bargain Purchase (−)</div>
+            <p>Total (1)+(2)+(3) <strong>lebih kecil</strong> dari NW aset neto teridentifikasi → pengakuisisi mengakui <strong>keuntungan dari pembelian dengan diskon</strong> di laba rugi.</p>
+          </div>
+        </div>
+
+        <div class="subsection-title" style="margin-top:0.5rem">Akuisisi Bertahap (Step Acquisition)</div>
+        <div class="highlight-purple">
+          <p>Jika sebelumnya telah memiliki kepentingan ekuitas di entitas yang diakuisisi, pada tanggal akuisisi kepentingan ekuitas sebelumnya <strong>diukur kembali pada nilai wajar</strong>. Selisih nilai wajar dan nilai buku diakui sebagai <strong>keuntungan/kerugian</strong> di laba rugi.</p>
+        </div>
+
+        <div class="subsection-title" style="margin-top:0.5rem">Contoh: Goodwill — Merger (Contoh 10.1a)</div>
+        <div class="jurnal-box">
+          <div class="jurnal-title">Jurnal PT A — Imbalan Saham (70 juta lembar × Rp1.000 = Rp70 M)</div>
+          <div class="jurnal-row"><span class="jurnal-account">Dr. Aset lancar</span><span class="jurnal-debit">60</span><span class="jurnal-kredit"></span></div>
+          <div class="jurnal-row"><span class="jurnal-account">Dr. Aset tidak lancar</span><span class="jurnal-debit">180</span><span class="jurnal-kredit"></span></div>
+          <div class="jurnal-row"><span class="jurnal-account">Dr. Goodwill</span><span class="jurnal-debit">20</span><span class="jurnal-kredit"></span></div>
+          <div class="jurnal-row"><span class="jurnal-account">Dr. Beban merger</span><span class="jurnal-debit">0,1</span><span class="jurnal-kredit"></span></div>
+          <div class="jurnal-row"><span class="jurnal-account cr">Cr. Liabilitas jangka pendek</span><span class="jurnal-debit"></span><span class="jurnal-kredit">30</span></div>
+          <div class="jurnal-row"><span class="jurnal-account cr">Cr. Liabilitas jangka panjang</span><span class="jurnal-debit"></span><span class="jurnal-kredit">160</span></div>
+          <div class="jurnal-row"><span class="jurnal-account cr">Cr. Saham biasa (70jt × Rp600)</span><span class="jurnal-debit"></span><span class="jurnal-kredit">42</span></div>
+          <div class="jurnal-row"><span class="jurnal-account cr">Cr. Premium saham biasa</span><span class="jurnal-debit"></span><span class="jurnal-kredit">27,98</span></div>
+          <div class="jurnal-row"><span class="jurnal-account cr">Cr. Kas (biaya penerbitan saham)</span><span class="jurnal-debit"></span><span class="jurnal-kredit">0,12</span></div>
+        </div>
+
+        <div class="subsection-title" style="margin-top:0.5rem">Contoh: Bargain Purchase — Merger (Contoh 10.1b)</div>
+        <div class="jurnal-box">
+          <div class="jurnal-title">Jurnal PT A — Imbalan Kas Rp40 M (NW Aset Bersih = 50 → Bargain Purchase = 10)</div>
+          <div class="jurnal-row"><span class="jurnal-account">Dr. Aset lancar</span><span class="jurnal-debit">60</span><span class="jurnal-kredit"></span></div>
+          <div class="jurnal-row"><span class="jurnal-account">Dr. Aset tidak lancar</span><span class="jurnal-debit">180</span><span class="jurnal-kredit"></span></div>
+          <div class="jurnal-row"><span class="jurnal-account">Dr. Beban merger</span><span class="jurnal-debit">0,1</span><span class="jurnal-kredit"></span></div>
+          <div class="jurnal-row"><span class="jurnal-account cr">Cr. Liabilitas jangka pendek</span><span class="jurnal-debit"></span><span class="jurnal-kredit">30</span></div>
+          <div class="jurnal-row"><span class="jurnal-account cr">Cr. Liabilitas jangka panjang</span><span class="jurnal-debit"></span><span class="jurnal-kredit">160</span></div>
+          <div class="jurnal-row"><span class="jurnal-account cr">Cr. Keuntungan pembelian diskon</span><span class="jurnal-debit"></span><span class="jurnal-kredit">10</span></div>
+          <div class="jurnal-row"><span class="jurnal-account cr">Cr. Kas</span><span class="jurnal-debit"></span><span class="jurnal-kredit">40,1</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 10.3 -->
+    <div class="section" id="s3">
+      <div class="section-header">
+        <span class="section-num">10.3</span>
+        <span class="section-title">Kombinasi Bisnis Entitas Sepengendali</span>
+      </div>
+      <span class="psak-ref"><span>PSAK</span> 38 — KB Entitas Sepengendali</span>
+
+      <div class="highlight">
+        <p>KB entitas sepengendali adalah kombinasi bisnis antara dua entitas yang sebelum dan sesudah KB <strong>dikendalikan oleh pihak yang sama</strong> dan pengendaliannya tidak bersifat sementara. Tidak ada perubahan substansi ekonomi.</p>
+      </div>
+
+      <div class="subsection-title">Contoh Bentuk KB Entitas Sepengendali</div>
+      <div class="step-list">
+        <div class="step-item"><span class="step-num">1</span><p>Entitas induk memindahkan sebagian aset bersih dari entitas anak yang dimilikinya menjadi aset bersih entitas induk.</p></div>
+        <div class="step-item"><span class="step-num">2</span><p>Entitas induk mengalihkan sebagian hak pemilikannya dalam suatu entitas anak ke entitas anak lainnya yang dimiliki entitas induk.</p></div>
+        <div class="step-item"><span class="step-num">3</span><p>Entitas induk menukar kepemilikannya atas sebagian aset bersih dalam entitas anak dengan saham tambahan yang diterbitkan oleh entitas anak lainnya.</p></div>
+      </div>
+
+      <div class="grid-2">
+        <div class="card" style="border-top:2px solid var(--teal)">
+          <div class="card-title" style="color:var(--teal)"><span class="dot" style="background:var(--teal)"></span>Metode Penyatuan Kepemilikan</div>
+          <ul>
+            <li>Menggunakan <strong>jumlah tercatat</strong> (nilai buku), bukan nilai wajar</li>
+            <li>Laporan keuangan komparatif disajikan seolah penggabungan terjadi sejak <strong>awal periode</strong></li>
+            <li>Tidak ada goodwill yang timbul</li>
+          </ul>
+        </div>
+        <div class="card" style="border-top:2px solid var(--yellow)">
+          <div class="card-title" style="color:var(--yellow)"><span class="dot" style="background:var(--yellow)"></span>Pengakuan Selisih</div>
+          <ul>
+            <li>Entitas yang menerima bisnis: selisih imbalan vs jumlah tercatat → diakui di <strong>tambahan modal disetor</strong></li>
+            <li>Entitas yang melepas bisnis: selisih imbalan vs jumlah tercatat → diakui di <strong>tambahan modal disetor</strong></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="subsection-title" style="margin-top:0.5rem">Contoh 10.3: PT A mengakuisisi PT B (sesama anak PT C)</div>
+      <div class="jurnal-box">
+        <div class="jurnal-title">Jurnal PT A — Nilai Tercatat Aset Bersih PT B = Rp200 M, Pembayaran = Rp240 M</div>
+        <div class="jurnal-row"><span class="jurnal-account">Dr. Investasi di PT B</span><span class="jurnal-debit">200</span><span class="jurnal-kredit"></span></div>
+        <div class="jurnal-row"><span class="jurnal-account">Dr. Tambahan modal disetor (selisih)</span><span class="jurnal-debit">40</span><span class="jurnal-kredit"></span></div>
+        <div class="jurnal-row"><span class="jurnal-account cr">Cr. Kas</span><span class="jurnal-debit"></span><span class="jurnal-kredit">240</span></div>
+      </div>
+    </div>
+
+    <!-- SECTION 10.4 -->
+    <div class="section" id="s4">
+      <div class="section-header">
+        <span class="section-num">10.4</span>
+        <span class="section-title">Laporan Keuangan Konsolidasian</span>
+      </div>
+      <span class="psak-ref"><span>PSAK</span> 65 — Laporan Keuangan Konsolidasian</span>
+      <span class="psak-ref"><span>PSAK</span> 4 — Laporan Keuangan Tersendiri</span>
+
+      <div class="highlight">
+        <p>Laporan keuangan konsolidasian adalah <strong>gabungan</strong> laporan keuangan entitas induk dan anak seolah-olah seluruh entitas merupakan <strong>satu entitas</strong> secara substansi ekonomis. Konsolidasi berlaku sejak entitas induk memperoleh pengendalian dan berakhir ketika kehilangan pengendalian.</p>
+      </div>
+
+      <div class="subsection-title">3 Prosedur Konsolidasi</div>
+      <div class="step-list">
+        <div class="step-item"><span class="step-num">1</span><p><strong>Menggabungkan</strong> aset, liabilitas, ekuitas, penghasilan, beban, dan arus kas sejenis dari entitas induk dan anak.</p></div>
+        <div class="step-item"><span class="step-num">2</span><p><strong>Mengeliminasi</strong> jumlah tercatat investasi entitas induk di entitas anak dan bagian entitas induk di ekuitas entitas anak.</p></div>
+        <div class="step-item"><span class="step-num">3</span><p><strong>Mengeliminasi secara penuh</strong> aset, liabilitas, ekuitas, penghasilan, beban, dan arus kas yang berasal dari transaksi antar entitas dalam kelompok usaha.</p></div>
+      </div>
+
+      <div id="s4-1" class="subsection">
+        <div class="subsection-title">Metode Pencatatan Investasi: Ekuitas vs Biaya Perolehan</div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Aspek</th><th>Metode Ekuitas</th><th>Metode Biaya Perolehan</th></tr></thead>
+            <tbody>
+              <tr><td>Pengakuan laba anak</td><td>Dr. Investasi / Cr. Pendapatan dari anak (proporsional)</td><td>Tidak ada jurnal</td></tr>
+              <tr><td>Penerimaan dividen</td><td>Dr. Kas / Cr. Investasi (pengurang)</td><td>Dr. Kas / Cr. Pendapatan dividen</td></tr>
+              <tr><td>Amortisasi diferensial</td><td>Disesuaikan di akun Pendapatan dari anak</td><td>Tidak ada jurnal</td></tr>
+              <tr><td>Saldo akun Investasi</td><td>Berubah sesuai laba/rugi/dividen anak</td><td>Tetap sebesar harga akuisisi awal</td></tr>
+              <tr><td>Hasil konsolidasi akhir</td><td colspan="2" style="text-align:center;color:var(--green)">Sama — metode eliminasi hanya berbeda, hasil akhir identik</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="subsection-title" style="margin-top:0.5rem">Akuisisi Interim (Mid-Year Acquisition)</div>
+        <div class="highlight-blue">
+          <p>Jika akuisisi terjadi di tengah periode (misal 1 Juli), maka informasi keuangan entitas anak yang disajikan di laporan konsolidasian <strong>dihitung sejak tanggal akuisisi</strong>. Hasil operasi sebelum tanggal akuisisi harus dieliminasi.</p>
+        </div>
+      </div>
+
+      <div id="s4-2" class="subsection">
+        <div class="subsection-title">Transaksi Antar Entitas (Intercompany Transactions)</div>
+        <div class="grid-2">
+          <div class="card" style="border-top:2px solid var(--accent)">
+            <div class="card-title"><span class="dot"></span>Upstream (Anak → Induk)</div>
+            <p>Laba belum terealisasi dalam persediaan/aset induk. Eliminasi <strong>sebesar proporsi kepemilikan induk</strong> di entitas anak (metode ekuitas).</p>
+          </div>
+          <div class="card" style="border-top:2px solid var(--blue)">
+            <div class="card-title" style="color:var(--blue)"><span class="dot" style="background:var(--blue)"></span>Downstream (Induk → Anak)</div>
+            <p>Laba/rugi belum terealisasi. Entitas induk menyesuaikan <strong>kerugian bersih seluruhnya</strong> (downstream).</p>
+          </div>
+        </div>
+        <div class="highlight">
+          <p>Dalam laporan keuangan konsolidasi, transaksi antar entitas "dianggap tidak terjadi". Sehingga nilai pendapatan, beban, aset, dan liabilitas yang timbul dari transaksi tersebut <strong>dieliminasi seluruhnya</strong>.</p>
+        </div>
+      </div>
+
+      <div class="subsection-title" style="margin-top:0.5rem">Laporan Keuangan Tersendiri (PSAK 4)</div>
+      <div class="highlight-green">
+        <p>Entitas induk dapat menyajikan laporan keuangan tersendiri (individual) yang hanya dapat menjadi <strong>informasi tambahan</strong> dalam laporan keuangan konsolidasian — bukan laporan bertujuan umum. Metode pencatatan investasi di entitas anak: (1) Biaya perolehan, (2) PSAK 55, atau (3) Metode ekuitas (PSAK 15).</p>
+      </div>
+    </div>
+
+    <!-- SECTION 10.5 -->
+    <div class="section" id="s5">
+      <div class="section-header">
+        <span class="section-num">10.5</span>
+        <span class="section-title">Kehilangan Pengendalian</span>
+      </div>
+
+      <div class="highlight">
+        <p>Jika entitas induk kehilangan pengendalian atas entitas anak (misal dengan menjual sebagian kepemilikan saham), entitas induk melakukan 3 hal sekaligus:</p>
+      </div>
+
+      <div class="step-list">
+        <div class="step-item"><span class="step-num">1</span><p><strong>Menghentikan pengakuan</strong> aset dan liabilitas entitas anak dari laporan keuangan konsolidasian.</p></div>
+        <div class="step-item"><span class="step-num">2</span><p><strong>Mengakui sisa investasi</strong> pada entitas anak sebesar <strong>nilai wajar</strong> pada tanggal kehilangan pengendalian, lalu mencatat sisa investasi tersebut sesuai PSAK 55 atau PSAK 15 (jika masih memiliki pengaruh signifikan).</p></div>
+        <div class="step-item"><span class="step-num">3</span><p><strong>Mencatat keuntungan atau kerugian</strong> yang timbul dari hilangnya pengendalian di laba rugi.</p></div>
+      </div>
+
+      <div class="formula-box">
+        <div class="formula-title">Perhitungan Keuntungan — Kehilangan Pengendalian (Contoh 10.7)</div>
+        <div class="formula-item"><span>Hasil penjualan saham PT N</span><span>220 M</span></div>
+        <div class="formula-item"><span>NW 40% kepemilikan tersisa (50% × NW Rp450 M)</span><span>225 M</span></div>
+        <div class="formula-item subtotal"><span>Jumlah</span><span>445 M</span></div>
+        <div class="formula-item" style="color:var(--red)"><span>Dikurangi: Nilai buku investasi</span><span>(400 M)</span></div>
+        <div class="formula-item total"><span>Keuntungan penjualan investasi</span><span>45 M</span></div>
+      </div>
+
+      <div class="jurnal-box">
+        <div class="jurnal-title">Jurnal PT M — Penjualan 40% kepemilikan PT N</div>
+        <div class="jurnal-row"><span class="jurnal-account">Dr. Kas</span><span class="jurnal-debit">220</span><span class="jurnal-kredit"></span></div>
+        <div class="jurnal-row"><span class="jurnal-account cr">Cr. Investasi di PT N (50% × 400 M)</span><span class="jurnal-debit"></span><span class="jurnal-kredit">175</span></div>
+        <div class="jurnal-row"><span class="jurnal-account cr">Cr. Keuntungan penjualan investasi</span><span class="jurnal-debit"></span><span class="jurnal-kredit">45</span></div>
+      </div>
+
+      <div class="highlight-blue">
+        <p>Sisa kepemilikan (40%) senilai Rp225 M menjadi <strong>nilai perolehan awal</strong> untuk perlakuan akuntansi selanjutnya. Jika masih memiliki pengaruh signifikan → PSAK 15 (metode ekuitas). Jika tidak → PSAK 55 (instrumen keuangan).</p>
+      </div>
+    </div>
+
+    <!-- LATIHAN -->
+    <div class="section" id="latihan">
+      <div class="section-header">
+        <span class="section-num">✎</span>
+        <span class="section-title">Latihan Soal</span>
+      </div>
+
+      <!-- Multiple Choice -->
+      <div class="exercise-section">
+        <div class="exercise-header">
+          <h3>Pilihan Ganda</h3>
+          <span class="exercise-badge">10 Soal</span>
+        </div>
+
+        <div class="mc-item">
+          <div class="mc-question">1. Berdasarkan PSAK 22, metode yang wajib digunakan dalam kombinasi bisnis antara entitas tidak sepengendali adalah…</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',1)"><span class="opt-letter">A</span> Metode penyatuan kepemilikan</div>
+            <div class="mc-option" onclick="checkMC(this,'b',1)"><span class="opt-letter">B</span> Metode akuisisi</div>
+            <div class="mc-option" onclick="checkMC(this,'c',1)"><span class="opt-letter">C</span> Metode ekuitas</div>
+            <div class="mc-option" onclick="checkMC(this,'d',1)"><span class="opt-letter">D</span> Metode biaya perolehan</div>
+          </div>
+          <div class="mc-feedback" id="fb1"><span class="correct-ans">B — Metode Akuisisi.</span> PSAK 22 par 05 mewajibkan metode akuisisi untuk semua KB antara entitas tidak sepengendali. Metode penyatuan kepemilikan hanya berlaku untuk entitas sepengendali (PSAK 38).</div>
+        </div>
+
+        <div class="mc-item">
+          <div class="mc-question">2. PT X mengakuisisi 80% saham PT Y dengan membayar kas Rp500 juta. Nilai wajar aset neto PT Y = Rp600 juta. KNP diukur pada bagian proporsional. Berapakah goodwill yang diakui?</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',2)"><span class="opt-letter">A</span> Rp20 juta</div>
+            <div class="mc-option" onclick="checkMC(this,'b',2)"><span class="opt-letter">B</span> Rp0 — bargain purchase Rp20 juta</div>
+            <div class="mc-option" onclick="checkMC(this,'c',2)"><span class="opt-letter">C</span> Rp100 juta</div>
+            <div class="mc-option" onclick="checkMC(this,'d',2)"><span class="opt-letter">D</span> Rp500 juta</div>
+          </div>
+          <div class="mc-feedback" id="fb2"><span class="correct-ans">B — Bargain purchase Rp20 juta.</span> Total = Kas 500 + KNP (20% × 600 = 120) = 620. NW Aset Bersih = 600. Selisih = 20 (lebih kecil) → bargain purchase, bukan goodwill.</div>
+        </div>
+
+        <div class="mc-item">
+          <div class="mc-question">3. Dalam metode penyatuan kepemilikan (PSAK 38), aset dan liabilitas entitas yang bergabung dicatat sebesar…</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',3)"><span class="opt-letter">A</span> Nilai wajar pada tanggal kombinasi bisnis</div>
+            <div class="mc-option" onclick="checkMC(this,'b',3)"><span class="opt-letter">B</span> Nilai pasar saham yang diterbitkan</div>
+            <div class="mc-option" onclick="checkMC(this,'c',3)"><span class="opt-letter">C</span> Jumlah tercatat (nilai buku)</div>
+            <div class="mc-option" onclick="checkMC(this,'d',3)"><span class="opt-letter">D</span> Nilai yang dapat dipulihkan</div>
+          </div>
+          <div class="mc-feedback" id="fb3"><span class="correct-ans">C — Jumlah tercatat (nilai buku).</span> PSAK 38 menggunakan metode penyatuan kepemilikan berdasarkan jumlah tercatat karena tidak ada perubahan substansi ekonomi kepemilikan.</div>
+        </div>
+
+        <div class="mc-item">
+          <div class="mc-question">4. Setelah tanggal akuisisi, goodwill diperlakukan sesuai dengan…</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',4)"><span class="opt-letter">A</span> PSAK 16 — diamortisasi selama masa manfaat</div>
+            <div class="mc-option" onclick="checkMC(this,'b',4)"><span class="opt-letter">B</span> PSAK 19 — tidak diamortisasi, diuji penurunan nilai (PSAK 48)</div>
+            <div class="mc-option" onclick="checkMC(this,'c',4)"><span class="opt-letter">C</span> PSAK 55 — diukur ulang setiap periode</div>
+            <div class="mc-option" onclick="checkMC(this,'d',4)"><span class="opt-letter">D</span> PSAK 48 — selalu diakui sebagai beban tahunan</div>
+          </div>
+          <div class="mc-feedback" id="fb4"><span class="correct-ans">B — PSAK 19 (aset tak berwujud).</span> Goodwill tidak diamortisasi, namun dievaluasi secara rutin kemungkinan penurunan nilai sesuai PSAK 48.</div>
+        </div>
+
+        <div class="mc-item">
+          <div class="mc-question">5. Biaya yang dikeluarkan langsung terkait kombinasi bisnis (biaya legal, auditor, jasa penilai) berdasarkan PSAK 22 diakui sebagai…</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',5)"><span class="opt-letter">A</span> Bagian dari goodwill</div>
+            <div class="mc-option" onclick="checkMC(this,'b',5)"><span class="opt-letter">B</span> Penambah nilai imbalan yang dialihkan</div>
+            <div class="mc-option" onclick="checkMC(this,'c',5)"><span class="opt-letter">C</span> Beban pada saat terjadinya</div>
+            <div class="mc-option" onclick="checkMC(this,'d',5)"><span class="opt-letter">D</span> Aset tak berwujud yang diamortisasi</div>
+          </div>
+          <div class="mc-feedback" id="fb5"><span class="correct-ans">C — Beban pada saat terjadinya.</span> Berdasarkan PSAK 22 par 53, biaya langsung KB seperti legal, auditor, dan jasa penilai dibebankan langsung — tidak dikapitalisasi ke goodwill maupun imbalan.</div>
+        </div>
+
+        <div class="mc-item">
+          <div class="mc-question">6. Dalam laporan keuangan konsolidasian, transaksi penjualan persediaan dari entitas anak (upstream) ke entitas induk yang sebagian belum terjual ke pihak eksternal harus…</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',6)"><span class="opt-letter">A</span> Tidak dieliminasi karena merupakan transaksi sah</div>
+            <div class="mc-option" onclick="checkMC(this,'b',6)"><span class="opt-letter">B</span> Dieliminasi seluruhnya dari laba rugi konsolidasi</div>
+            <div class="mc-option" onclick="checkMC(this,'c',6)"><span class="opt-letter">C</span> Dieliminasi hanya sebesar laba yang belum terealisasi</div>
+            <div class="mc-option" onclick="checkMC(this,'d',6)"><span class="opt-letter">D</span> Dieliminasi hanya sebesar bagian KNP</div>
+          </div>
+          <div class="mc-feedback" id="fb6"><span class="correct-ans">C — Dieliminasi hanya sebesar laba yang belum terealisasi.</span> Dalam konsolidasi, laba belum terealisasi (persediaan yang masih ada di induk) harus dieliminasi. Transaksi yang sudah terjual ke pihak eksternal dianggap sudah terealisasi.</div>
+        </div>
+
+        <div class="mc-item">
+          <div class="mc-question">7. PT A (induk) memiliki 70% saham PT B. PT A menjual tanah ke PT B seharga Rp150 juta, sedangkan nilai bukunya Rp200 juta (rugi Rp50 juta). Di akhir tahun tanah masih dimiliki PT B. Dalam jurnal eliminasi konsolidasian, kerugian yang dieliminasi adalah…</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',7)"><span class="opt-letter">A</span> Rp35 juta (70% × Rp50 juta)</span></div>
+            <div class="mc-option" onclick="checkMC(this,'b',7)"><span class="opt-letter">B</span> Rp15 juta (30% × Rp50 juta)</div>
+            <div class="mc-option" onclick="checkMC(this,'c',7)"><span class="opt-letter">C</span> Rp50 juta (seluruhnya)</div>
+            <div class="mc-option" onclick="checkMC(this,'d',7)"><span class="opt-letter">D</span> Rp0 — kerugian tidak dieliminasi</div>
+          </div>
+          <div class="mc-feedback" id="fb7"><span class="correct-ans">C — Rp50 juta (seluruhnya).</span> Ini adalah transaksi downstream (induk → anak). Kerugian downstream belum terealisasi dieliminasi seluruhnya oleh entitas induk (bukan hanya proporsi kepemilikan).</div>
+        </div>
+
+        <div class="mc-item">
+          <div class="mc-question">8. Entitas induk kehilangan pengendalian atas entitas anak. Sisa kepemilikan setelah penjualan saham harus diakui pada…</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',8)"><span class="opt-letter">A</span> Nilai buku investasi sebelum penjualan</div>
+            <div class="mc-option" onclick="checkMC(this,'b',8)"><span class="opt-letter">B</span> Nilai wajar pada tanggal kehilangan pengendalian</div>
+            <div class="mc-option" onclick="checkMC(this,'c',8)"><span class="opt-letter">C</span> Nilai nominal saham</div>
+            <div class="mc-option" onclick="checkMC(this,'d',8)"><span class="opt-letter">D</span> Nilai realisasi bersih</div>
+          </div>
+          <div class="mc-feedback" id="fb8"><span class="correct-ans">B — Nilai wajar pada tanggal kehilangan pengendalian.</span> PSAK 65 mengharuskan sisa investasi diakui pada nilai wajar saat tanggal kehilangan pengendalian, sebagai dasar pencatatan selanjutnya.</div>
+        </div>
+
+        <div class="mc-item">
+          <div class="mc-question">9. Perubahan nilai wajar imbalan kontinjensi setelah tanggal akuisisi yang diklasifikasikan sebagai ekuitas dicatat sebagai…</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',9)"><span class="opt-letter">A</span> Penyesuaian goodwill</div>
+            <div class="mc-option" onclick="checkMC(this,'b',9)"><span class="opt-letter">B</span> Beban di laba rugi</div>
+            <div class="mc-option" onclick="checkMC(this,'c',9)"><span class="opt-letter">C</span> Tidak diukur kembali; penyelesaian dicatat di ekuitas</div>
+            <div class="mc-option" onclick="checkMC(this,'d',9)"><span class="opt-letter">D</span> Penghasilan komprehensif lain</div>
+          </div>
+          <div class="mc-feedback" id="fb9"><span class="correct-ans">C — Tidak diukur kembali; penyelesaian dicatat di ekuitas.</span> Imbalan kontinjensi yang diklasifikasikan sebagai ekuitas tidak diukur kembali setelah tanggal akuisisi.</div>
+        </div>
+
+        <div class="mc-item">
+          <div class="mc-question">10. Manakah pernyataan yang BENAR mengenai akuisisi bertahap (step acquisition)?</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',10)"><span class="opt-letter">A</span> Kepentingan ekuitas sebelumnya tetap dicatat pada nilai buku</div>
+            <div class="mc-option" onclick="checkMC(this,'b',10)"><span class="opt-letter">B</span> Goodwill dihitung hanya dari imbalan yang dialihkan pada akuisisi terakhir</div>
+            <div class="mc-option" onclick="checkMC(this,'c',10)"><span class="opt-letter">C</span> Kepentingan ekuitas sebelumnya diukur kembali ke nilai wajar; selisih diakui di laba rugi</div>
+            <div class="mc-option" onclick="checkMC(this,'d',10)"><span class="opt-letter">D</span> Metode penyatuan kepemilikan berlaku untuk step acquisition</div>
+          </div>
+          <div class="mc-feedback" id="fb10"><span class="correct-ans">C — Kepentingan ekuitas sebelumnya diukur kembali ke nilai wajar; selisih diakui di laba rugi.</span> Pada saat memperoleh pengendalian melalui akuisisi bertahap, kepentingan yang telah dimiliki sebelumnya di-remeasure ke nilai wajar, dan keuntungan/kerugiannya diakui di laba rugi.</div>
+        </div>
+      </div>
+
+      <!-- Essay -->
+      <div class="exercise-section">
+        <div class="exercise-header">
+          <h3>Soal Esai &amp; Hitungan</h3>
+          <span class="exercise-badge">3 Soal</span>
+        </div>
+
+        <div class="essay-item">
+          <div class="essay-q">1. PT Induk mengakuisisi 80% saham PT Anak pada 1 Januari 2023 dengan membayar kas Rp400 juta. Pada tanggal akuisisi, nilai wajar aset neto teridentifikasi PT Anak sebesar Rp450 juta. KNP diukur pada bagian proporsional dari aset neto. Hitunglah goodwill atau bargain purchase yang timbul, dan buatlah jurnal pencatatan akuisisi di PT Induk.</div>
+          <button class="essay-toggle" onclick="toggleEssay('ea1')">▶ Lihat Jawaban</button>
+          <div class="essay-answer" id="ea1">
+            <h5>Pembahasan</h5>
+            <div class="answer-group">
+              <h6>Perhitungan Goodwill</h6>
+              <table class="calc-table">
+                <tr><td>Imbalan yang dialihkan (kas)</td><td style="text-align:right">400</td></tr>
+                <tr><td>KNP (20% × 450)</td><td style="text-align:right">90</td></tr>
+                <tr><td>Kepentingan sebelumnya</td><td style="text-align:right">—</td></tr>
+                <tr class="total"><td><strong>Total</strong></td><td style="text-align:right"><strong>490</strong></td></tr>
+                <tr><td>Dikurangi: NW Aset Bersih</td><td style="text-align:right">(450)</td></tr>
+                <tr class="total"><td><strong>Goodwill</strong></td><td style="text-align:right"><strong>40</strong></td></tr>
+              </table>
+            </div>
+            <div class="answer-group">
+              <h6>Jurnal Akuisisi di PT Induk</h6>
+              <ul>
+                <li>Dr. Investasi di PT Anak &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 400</li>
+                <li style="padding-left:1rem">Cr. Kas &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 400</li>
+              </ul>
+              <p style="margin-top:0.4rem">Dalam kertas kerja konsolidasi, eliminasi investasi dan ekuitas PT Anak menghasilkan pengakuan goodwill Rp40 juta dan KNP Rp90 juta.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="essay-item">
+          <div class="essay-q">2. Jelaskan perbedaan antara kombinasi bisnis entitas tidak sepengendali dan entitas sepengendali dari sisi: (a) standar yang berlaku, (b) metode akuntansi yang digunakan, dan (c) dasar pengukuran aset dan liabilitas yang diperoleh.</div>
+          <button class="essay-toggle" onclick="toggleEssay('ea2')">▶ Lihat Jawaban</button>
+          <div class="essay-answer" id="ea2">
+            <h5>Jawaban</h5>
+            <ul>
+              <li><strong>(a) Standar:</strong> Tidak Sepengendali → PSAK 22; Sepengendali → PSAK 38.</li>
+              <li><strong>(b) Metode:</strong> Tidak Sepengendali → metode akuisisi (acquisition method); Sepengendali → metode penyatuan kepemilikan (pooling of interest method).</li>
+              <li><strong>(c) Dasar pengukuran:</strong> Tidak Sepengendali → <strong>nilai wajar</strong> pada tanggal akuisisi (dapat menghasilkan goodwill); Sepengendali → <strong>jumlah tercatat/nilai buku</strong> (tidak menghasilkan goodwill; selisih ke tambahan modal disetor).</li>
+              <li>Alasan perbedaan: KB entitas sepengendali tidak mengubah substansi ekonomi kepemilikan, sehingga tidak tepat menggunakan nilai wajar.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="essay-item">
+          <div class="essay-q">3. PT G mengakuisisi 80% PT H sebesar nilai buku aset bersih Rp400 juta pada 1 Januari 2020. Selama 2020, PT H mencatat laba bersih Rp50 juta dan mengumumkan dividen tunai Rp20 juta. Tunjukkan jurnal yang dibuat PT G jika menggunakan (a) metode ekuitas dan (b) metode biaya perolehan. Jelaskan mengapa hasil konsolidasi akhirnya sama.</div>
+          <button class="essay-toggle" onclick="toggleEssay('ea3')">▶ Lihat Jawaban</button>
+          <div class="essay-answer" id="ea3">
+            <h5>Jawaban</h5>
+            <div class="answer-group">
+              <h6>(a) Metode Ekuitas</h6>
+              <ul>
+                <li>Saat akuisisi: Dr. Investasi di PT H 400 / Cr. Kas 400</li>
+                <li>Pengakuan laba: Dr. Investasi di PT H 40 / Cr. Pendapatan dari PT H 40 (80% × 50)</li>
+                <li>Penerimaan dividen: Dr. Kas 16 / Cr. Investasi di PT H 16 (80% × 20)</li>
+                <li>Saldo Investasi akhir: 400 + 40 − 16 = <strong>424 juta</strong></li>
+              </ul>
+            </div>
+            <div class="answer-group">
+              <h6>(b) Metode Biaya Perolehan</h6>
+              <ul>
+                <li>Saat akuisisi: Dr. Investasi di PT H 400 / Cr. Kas 400</li>
+                <li>Tidak ada jurnal untuk laba PT H</li>
+                <li>Penerimaan dividen: Dr. Kas 16 / Cr. Pendapatan dividen 16</li>
+                <li>Saldo Investasi akhir: tetap <strong>400 juta</strong></li>
+              </ul>
+            </div>
+            <p>Hasil konsolidasi akhir sama karena dalam kertas kerja eliminasi: metode ekuitas mengeliminasi saldo akun Investasi yang sudah diperbarui (424), sementara metode biaya perolehan mengeliminasi investasi (400) + dividen yang diakui sebagai pendapatan — keduanya menghasilkan nilai yang sama di laporan konsolidasian.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- AI SECTION -->
+    <div class="section" id="ai">
+      <div class="section-header">
+        <span class="section-num">🤖</span>
+        <span class="section-title">Tanya AI — Asisten Belajar</span>
+      </div>
+      <div class="ai-section">
+        <div class="ai-header">
+          <div class="ai-dot"></div>
+          <h3>Asisten BAB 10 — Kombinasi Bisnis &amp; Konsolidasi</h3>
+        </div>
+        <div class="ai-messages" id="aiMessages">
+          <div class="ai-msg ai">
+            <div class="avatar">AI</div>
+            <div class="ai-bubble">Halo! Saya siap membantu kamu memahami BAB 10 tentang Kombinasi Bisnis dan Konsolidasi. Tanya apa saja — mulai dari goodwill, metode akuisisi, jurnal eliminasi, hingga soal hitungan!</div>
+          </div>
+        </div>
+        <div class="ai-suggestions" id="aiSuggestions">
+          <span class="ai-chip" onclick="sendChip(this)">Apa perbedaan goodwill dan bargain purchase?</span>
+          <span class="ai-chip" onclick="sendChip(this)">Bagaimana cara menghitung goodwill pada step acquisition?</span>
+          <span class="ai-chip" onclick="sendChip(this)">Jelaskan jurnal eliminasi metode ekuitas vs biaya perolehan</span>
+          <span class="ai-chip" onclick="sendChip(this)">Apa yang dimaksud transaksi upstream dan downstream?</span>
+          <span class="ai-chip" onclick="sendChip(this)">Bagaimana perlakuan kehilangan pengendalian atas entitas anak?</span>
+        </div>
+        <div class="ai-input-row">
+          <textarea class="ai-input" id="aiInput" rows="1" placeholder="Ketik pertanyaan tentang BAB 10…" onkeydown="handleKey(event)"></textarea>
+          <button class="ai-send" id="aiSendBtn" onclick="sendMessage()">Kirim</button>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<script>
+const answers = {1:'b',2:'b',3:'c',4:'b',5:'c',6:'c',7:'c',8:'b',9:'c',10:'c'};
+function checkMC(el, choice, num) {
+  const item = el.closest('.mc-item');
+  if (item.querySelector('.revealed')) return;
+  const correct = answers[num];
+  item.querySelectorAll('.mc-option').forEach(opt => {
+    opt.classList.add('revealed');
+    const letter = opt.querySelector('.opt-letter').textContent.toLowerCase();
+    if (letter === correct) opt.classList.add('correct');
+    else if (letter === choice && choice !== correct) opt.classList.add('wrong');
+  });
+  const fb = document.getElementById('fb' + num);
+  if (fb) fb.classList.add('show');
+}
+function toggleEssay(id) {
+  const ans = document.getElementById(id);
+  const btn = ans.previousElementSibling;
+  const show = !ans.classList.contains('show');
+  ans.classList.toggle('show', show);
+  btn.textContent = show ? '▼ Sembunyikan Jawaban' : '▶ Lihat Jawaban';
+}
+const sections = document.querySelectorAll('.section, .subsection');
+const tocLinks = document.querySelectorAll('.toc-link');
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { tocLinks.forEach(l => l.classList.remove('active')); const a = document.querySelector(`.toc-link[href="#${e.target.id}"]`); if (a) a.classList.add('active'); } });
+}, { rootMargin: '-20% 0px -70% 0px' });
+sections.forEach(s => { if (s.id) obs.observe(s); });
+
+const SYSTEM_PROMPT = `Kamu adalah asisten belajar untuk mata kuliah CA Indonesia: Pelaporan Korporat, khususnya BAB 10 tentang Kombinasi Bisnis dan Konsolidasi.
+
+Topik yang kamu kuasai:
+- 10.1 Pengertian kombinasi bisnis: definisi PSAK 22, definisi bisnis, definisi pengendalian (PSAK 65 PP02), bentuk KB (merger vs akuisisi), perbedaan entitas tidak sepengendali vs sepengendali
+- 10.2.1 Metode akuisisi (4 langkah PSAK 22 par 05): menentukan pihak pengakuisisi, tanggal akuisisi, mengakui aset/liabilitas/KNP, goodwill/bargain purchase. Pengukuran khusus: hak yang diperoleh kembali, liabilitas kontinjensi, aset indemnifikasi, imbalan kontinjensi. KNP: nilai wajar vs bagian proporsional. Biaya transaksi langsung dibebankan.
+- 10.2.2 Goodwill dan bargain purchase: formula goodwill = (imbalan + KNP + kepentingan sebelumnya) - NW aset bersih. Goodwill tidak diamortisasi (PSAK 19), diuji penurunan nilai (PSAK 48). Bargain purchase = keuntungan di laba rugi. Step acquisition: kepentingan sebelumnya diukur ulang ke NW.
+- 10.3 KB entitas sepengendali (PSAK 38): metode penyatuan kepemilikan, jumlah tercatat (bukan NW), tidak ada goodwill, selisih ke tambahan modal disetor, laporan komparatif seolah penggabungan terjadi sejak awal periode
+- 10.4 Laporan keuangan konsolidasian (PSAK 65): 3 prosedur konsolidasi, metode ekuitas vs biaya perolehan (hasil sama, jurnal eliminasi berbeda), transaksi antar entitas (upstream = proporsi, downstream = seluruhnya), akuisisi interim, laporan keuangan tersendiri (PSAK 4)
+- 10.5 Kehilangan pengendalian: 3 langkah (hentikan pengakuan aset/liabilitas anak, akui sisa investasi di NW, catat keuntungan/kerugian di laba rugi)
+
+Jawab dalam Bahasa Indonesia yang jelas dan ringkas. Gunakan contoh angka konkret dan tabel jurnal bila relevan. Sebutkan nomor PSAK yang relevan dalam jawabanmu.`;
+
+const messagesEl = document.getElementById('aiMessages');
+const inputEl = document.getElementById('aiInput');
+const sendBtn = document.getElementById('aiSendBtn');
+let history = [];
+function addMsg(role, text) {
+  const div = document.createElement('div');
+  div.className = `ai-msg ${role}`;
+  div.innerHTML = `<div class="avatar">${role==='ai'?'AI':'Kamu'}</div><div class="ai-bubble">${text.replace(/\n/g,'<br>')}</div>`;
+  messagesEl.appendChild(div); messagesEl.scrollTop = messagesEl.scrollHeight;
+}
+function addTyping() {
+  const div = document.createElement('div'); div.className = 'ai-msg ai'; div.id = 'typing';
+  div.innerHTML = `<div class="avatar">AI</div><div class="ai-typing"><span></span><span></span><span></span></div>`;
+  messagesEl.appendChild(div); messagesEl.scrollTop = messagesEl.scrollHeight;
+}
+async function sendMessage() {
+  const text = inputEl.value.trim(); if (!text) return;
+  inputEl.value = ''; document.getElementById('aiSuggestions').style.display = 'none';
+  addMsg('user', text); history.push({ role: 'user', content: text }); sendBtn.disabled = true; addTyping();
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ model: 'claude-sonnet-4-20250514', max_tokens: 1000, system: SYSTEM_PROMPT, messages: history }) });
+    const data = await res.json();
+    document.getElementById('typing')?.remove();
+    const reply = data.content?.find(b => b.type === 'text')?.text || 'Maaf, tidak ada respons.';
+    addMsg('ai', reply); history.push({ role: 'assistant', content: reply });
+  } catch { document.getElementById('typing')?.remove(); addMsg('ai', 'Maaf, terjadi kesalahan. Periksa koneksi internet dan coba lagi.'); }
+  sendBtn.disabled = false;
+}
+function sendChip(el) { inputEl.value = el.textContent; sendMessage(); }
+function handleKey(e) { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); } }
+</script>
+</body>
+</html>

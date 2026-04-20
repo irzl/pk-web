@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BAB 9 — Pajak Penghasilan</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #0f0a08; --surface: #1a1208; --surface2: #241a0a; --surface3: #2e2010;
+  --accent: #fb923c; --accent2: #fdba74; --accent3: #ea580c;
+  --yellow: #fbbf24; --green: #4ade80; --teal: #2dd4bf; --blue: #60a5fa; --purple: #a78bfa; --red: #f87171;
+  --text: #fff7ed; --text2: #c4a882; --muted: #6b5a45; --border: rgba(251,146,60,0.1); --border2: rgba(255,255,255,0.06);
+}
+html { scroll-behavior: smooth; }
+body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; min-height: 100vh; }
+
+.chapter-header { background: linear-gradient(135deg, #0f0a08 0%, #1a1208 50%, #0f0a08 100%); border-bottom: 1px solid var(--border); padding: 2.5rem 2rem 2rem; position: relative; overflow: hidden; }
+.chapter-header::before { content: '9'; position: absolute; right: -0.5rem; top: -1rem; font-family: 'Playfair Display', serif; font-size: 12rem; font-weight: 900; color: rgba(251,146,60,0.04); line-height: 1; pointer-events: none; user-select: none; }
+.chapter-eyebrow { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent3); margin-bottom: 0.5rem; }
+.chapter-title { font-family: 'Playfair Display', serif; font-size: clamp(1.4rem, 3.5vw, 2.2rem); font-weight: 900; line-height: 1.15; background: linear-gradient(135deg, #fb923c, #fdba74); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 1.2rem; }
+.learning-goals { background: rgba(251,146,60,0.05); border: 1px solid var(--border); border-radius: 12px; padding: 1rem 1.2rem; max-width: 700px; }
+.learning-goals h3 { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.6rem; }
+.goals-list { list-style: none; display: flex; flex-direction: column; gap: 0.3rem; }
+.goals-list li { font-size: 0.78rem; color: var(--text2); display: flex; gap: 0.6rem; align-items: flex-start; }
+.goals-list li::before { content: '→'; color: var(--accent3); flex-shrink: 0; font-family: 'DM Mono', monospace; font-size: 0.7rem; margin-top: 0.05rem; }
+
+.page-body { display: grid; grid-template-columns: 220px 1fr; min-height: calc(100vh - 200px); }
+.toc { background: var(--surface); border-right: 1px solid var(--border2); padding: 1.5rem 0; position: sticky; top: 0; height: 100vh; overflow-y: auto; }
+.toc-label { font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); padding: 0 1rem; margin-bottom: 0.8rem; }
+.toc-link { display: block; padding: 0.45rem 1rem; font-size: 0.75rem; color: var(--muted); text-decoration: none; transition: all 0.15s; border-left: 2px solid transparent; line-height: 1.4; }
+.toc-link:hover { color: var(--text); background: rgba(251,146,60,0.04); }
+.toc-link.active { color: var(--accent); border-left-color: var(--accent); background: rgba(251,146,60,0.06); }
+.toc-link.sub { padding-left: 1.8rem; font-size: 0.7rem; }
+.toc-divider { height: 1px; background: var(--border2); margin: 0.6rem 1rem; }
+.main { padding: 2rem 2.5rem 4rem; max-width: 860px; }
+.section { margin-bottom: 3rem; scroll-margin-top: 1.5rem; }
+.section-header { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.2rem; padding-bottom: 0.7rem; border-bottom: 1px solid var(--border2); }
+.section-num { font-family: 'DM Mono', monospace; font-size: 0.65rem; font-weight: 700; background: var(--accent3); color: #fff; padding: 0.2rem 0.5rem; border-radius: 4px; flex-shrink: 0; }
+.section-title { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; color: var(--text); line-height: 1.3; }
+.subsection { margin-bottom: 1.5rem; scroll-margin-top: 1.5rem; }
+.subsection-title { font-size: 0.82rem; font-weight: 600; color: var(--accent2); font-family: 'DM Mono', monospace; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.6rem; }
+
+.card { background: var(--surface); border: 1px solid var(--border2); border-radius: 10px; padding: 1.1rem 1.2rem; margin-bottom: 0.8rem; }
+.card-title { font-size: 0.78rem; font-weight: 600; color: var(--accent); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem; }
+.card-title .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
+.card p, .card li { font-size: 0.8rem; color: var(--text2); line-height: 1.6; }
+.card ul, .card ol { padding-left: 1.1rem; margin-top: 0.4rem; display: flex; flex-direction: column; gap: 0.25rem; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; margin-bottom: 1rem; }
+.grid-3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 0.7rem; margin-bottom: 1rem; }
+.highlight { background: rgba(251,146,60,0.06); border: 1px solid rgba(251,146,60,0.2); border-left: 3px solid var(--accent); border-radius: 8px; padding: 0.9rem 1.1rem; margin-bottom: 1rem; }
+.highlight p { font-size: 0.8rem; color: var(--text2); line-height: 1.6; }
+.highlight strong { color: var(--accent); font-weight: 600; }
+.highlight-blue { background: rgba(96,165,250,0.06); border: 1px solid rgba(96,165,250,0.2); border-left: 3px solid var(--blue); border-radius: 8px; padding: 0.9rem 1.1rem; margin-bottom: 1rem; }
+.highlight-blue p { font-size: 0.8rem; color: var(--text2); line-height: 1.6; }
+.highlight-blue strong { color: var(--blue); }
+.highlight-green { background: rgba(74,222,128,0.06); border: 1px solid rgba(74,222,128,0.2); border-left: 3px solid var(--green); border-radius: 8px; padding: 0.9rem 1.1rem; margin-bottom: 1rem; }
+.highlight-green p { font-size: 0.8rem; color: var(--text2); line-height: 1.6; }
+.highlight-green strong { color: var(--green); }
+.highlight-red { background: rgba(248,113,113,0.06); border: 1px solid rgba(248,113,113,0.2); border-left: 3px solid var(--red); border-radius: 8px; padding: 0.9rem 1.1rem; margin-bottom: 1rem; }
+.highlight-red p { font-size: 0.8rem; color: var(--text2); line-height: 1.6; }
+.highlight-red strong { color: var(--red); }
+.table-wrap { overflow-x: auto; margin-bottom: 1rem; border-radius: 10px; border: 1px solid var(--border2); }
+table { width: 100%; border-collapse: collapse; font-size: 0.76rem; }
+thead tr { background: var(--surface3); }
+th { padding: 0.7rem 0.9rem; text-align: left; font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); font-weight: 500; }
+td { padding: 0.6rem 0.9rem; border-top: 1px solid var(--border2); color: var(--text2); vertical-align: top; line-height: 1.5; }
+tbody tr:hover { background: rgba(255,255,255,0.02); }
+.tag { display: inline-block; font-family: 'DM Mono', monospace; font-size: 0.6rem; padding: 0.15rem 0.5rem; border-radius: 99px; font-weight: 500; }
+.tag-orange { background: rgba(251,146,60,0.12); color: var(--accent); border: 1px solid rgba(251,146,60,0.25); }
+.tag-blue { background: rgba(96,165,250,0.12); color: var(--blue); border: 1px solid rgba(96,165,250,0.25); }
+.tag-green { background: rgba(74,222,128,0.12); color: var(--green); border: 1px solid rgba(74,222,128,0.25); }
+.tag-red { background: rgba(248,113,113,0.12); color: var(--red); border: 1px solid rgba(248,113,113,0.25); }
+.tag-purple { background: rgba(167,139,250,0.12); color: var(--purple); border: 1px solid rgba(167,139,250,0.25); }
+.psak-ref { display: inline-flex; align-items: center; gap: 0.35rem; font-family: 'DM Mono', monospace; font-size: 0.62rem; background: var(--surface3); border: 1px solid var(--border2); color: var(--text2); padding: 0.15rem 0.55rem; border-radius: 99px; margin-bottom: 0.5rem; }
+.psak-ref span { color: var(--accent); }
+
+/* Formula */
+.formula-box { background: var(--surface3); border: 1px solid var(--border2); border-radius: 10px; padding: 1rem 1.2rem; margin-bottom: 1rem; font-family: 'DM Mono', monospace; }
+.formula-title { font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.6rem; }
+.formula-eq { font-size: 0.78rem; color: var(--text); padding: 0.5rem; background: rgba(251,146,60,0.05); border-radius: 6px; margin-bottom: 0.4rem; line-height: 1.7; }
+.formula-item { display: flex; justify-content: space-between; font-size: 0.72rem; color: var(--text2); padding: 0.2rem 0; border-bottom: 1px solid rgba(255,255,255,0.04); }
+.formula-item:last-child { border-bottom: none; }
+.formula-item.total { color: var(--accent); font-weight: 700; border-top: 1px solid var(--border2); margin-top: 0.3rem; padding-top: 0.3rem; }
+
+/* Flow */
+.flow-container { background: var(--surface); border: 1px solid var(--border2); border-radius: 10px; padding: 1rem; margin-bottom: 1rem; }
+.flow-step { background: var(--surface3); border: 1px solid var(--border2); border-radius: 8px; padding: 0.6rem 0.9rem; font-size: 0.76rem; color: var(--text2); text-align: center; margin-bottom: 0.3rem; line-height: 1.4; }
+.flow-step.key { border-color: rgba(251,146,60,0.3); background: rgba(251,146,60,0.06); color: var(--text); font-weight: 600; }
+.flow-arrow { text-align: center; color: var(--muted); font-size: 0.9rem; margin: 0.1rem 0; }
+.flow-result { display: flex; gap: 0.6rem; margin-top: 0.4rem; }
+.flow-yes { flex: 1; background: rgba(74,222,128,0.08); border: 1px solid rgba(74,222,128,0.25); border-radius: 8px; padding: 0.5rem 0.8rem; font-size: 0.72rem; color: var(--green); text-align: center; font-family: 'DM Mono', monospace; }
+.flow-no { flex: 1; background: rgba(248,113,113,0.08); border: 1px solid rgba(248,113,113,0.25); border-radius: 8px; padding: 0.5rem 0.8rem; font-size: 0.72rem; color: var(--red); text-align: center; font-family: 'DM Mono', monospace; }
+
+/* DPP Comparison Table */
+.dpp-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.6rem; margin-bottom: 1rem; }
+.dpp-cell { background: var(--surface); border: 1px solid var(--border2); border-radius: 8px; padding: 0.7rem 0.9rem; text-align: center; }
+.dpp-cell.header { background: var(--surface3); font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); }
+.dpp-cell p { font-size: 0.76rem; color: var(--text2); }
+.dpp-cell .result-dta { font-size: 0.82rem; font-weight: 700; color: var(--green); font-family: 'DM Mono', monospace; }
+.dpp-cell .result-dtl { font-size: 0.82rem; font-weight: 700; color: var(--red); font-family: 'DM Mono', monospace; }
+
+/* Jurnal Table */
+.jurnal-box { background: var(--surface3); border: 1px solid var(--border2); border-radius: 10px; padding: 1rem 1.2rem; margin-bottom: 1rem; }
+.jurnal-title { font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--yellow); margin-bottom: 0.7rem; }
+.jurnal-row { display: flex; justify-content: space-between; align-items: baseline; padding: 0.25rem 0; border-bottom: 1px solid rgba(255,255,255,0.04); font-size: 0.76rem; }
+.jurnal-row:last-child { border-bottom: none; }
+.jurnal-row .account { color: var(--text2); }
+.jurnal-row .account.indent { padding-left: 1.5rem; color: var(--muted); }
+.jurnal-row .debit { color: var(--green); font-family: 'DM Mono', monospace; font-size: 0.7rem; min-width: 50px; text-align: right; }
+.jurnal-row .kredit { color: var(--accent2); font-family: 'DM Mono', monospace; font-size: 0.7rem; min-width: 50px; text-align: right; }
+.jurnal-divider { height: 1px; background: var(--border2); margin: 0.5rem 0; }
+.jurnal-header-row { display: flex; justify-content: space-between; font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); padding-bottom: 0.3rem; margin-bottom: 0.2rem; border-bottom: 1px solid var(--border2); }
+
+/* Beda table */
+.beda-table { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; margin-bottom: 1rem; }
+.beda-card { background: var(--surface); border: 1px solid var(--border2); border-radius: 10px; padding: 0.9rem 1rem; }
+.beda-label { font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.25rem; }
+.beda-name { font-size: 0.9rem; font-weight: 700; margin-bottom: 0.5rem; }
+.beda-card ul { list-style: none; display: flex; flex-direction: column; gap: 0.25rem; }
+.beda-card li { font-size: 0.73rem; color: var(--text2); display: flex; gap: 0.5rem; line-height: 1.4; }
+.beda-card li::before { content: '▸'; color: var(--accent); flex-shrink: 0; font-size: 0.6rem; margin-top: 0.1rem; }
+
+/* Latihan */
+.exercise-section { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; margin-bottom: 1.5rem; }
+.exercise-header { background: rgba(251,146,60,0.08); padding: 0.9rem 1.2rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 0.6rem; }
+.exercise-header h3 { font-family: 'DM Mono', monospace; font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); }
+.exercise-badge { font-family: 'DM Mono', monospace; font-size: 0.58rem; background: rgba(251,146,60,0.15); color: var(--accent); padding: 0.15rem 0.5rem; border-radius: 99px; }
+.mc-item { padding: 1rem 1.2rem; border-bottom: 1px solid var(--border2); }
+.mc-item:last-child { border-bottom: none; }
+.mc-question { font-size: 0.8rem; color: var(--text); font-weight: 500; margin-bottom: 0.6rem; line-height: 1.55; }
+.mc-sub { font-size: 0.74rem; color: var(--text2); background: var(--surface3); border-radius: 8px; padding: 0.6rem 0.9rem; margin-bottom: 0.7rem; line-height: 1.6; }
+.mc-options { display: flex; flex-direction: column; gap: 0.3rem; }
+.mc-option { display: flex; gap: 0.6rem; align-items: flex-start; padding: 0.4rem 0.6rem; border-radius: 6px; cursor: pointer; transition: background 0.15s; font-size: 0.76rem; color: var(--text2); line-height: 1.4; border: 1px solid transparent; }
+.mc-option:hover { background: rgba(255,255,255,0.03); border-color: var(--border2); }
+.mc-option.correct { background: rgba(74,222,128,0.1); color: var(--green); border-color: rgba(74,222,128,0.3); }
+.mc-option.wrong { background: rgba(248,113,113,0.08); color: var(--red); border-color: rgba(248,113,113,0.2); }
+.mc-option.revealed { pointer-events: none; }
+.opt-letter { font-family: 'DM Mono', monospace; font-size: 0.65rem; font-weight: 700; background: var(--surface3); padding: 0.15rem 0.4rem; border-radius: 4px; flex-shrink: 0; margin-top: 0.05rem; }
+.mc-feedback { margin-top: 0.5rem; font-size: 0.72rem; color: var(--muted); display: none; padding: 0.4rem 0.6rem; background: var(--surface3); border-radius: 6px; line-height: 1.5; }
+.mc-feedback.show { display: block; }
+.mc-feedback .correct-ans { color: var(--green); font-weight: 600; }
+.essay-item { padding: 1rem 1.2rem; border-bottom: 1px solid var(--border2); }
+.essay-item:last-child { border-bottom: none; }
+.essay-q { font-size: 0.8rem; color: var(--text); font-weight: 500; margin-bottom: 0.8rem; line-height: 1.55; }
+.essay-sub { font-size: 0.74rem; color: var(--text2); background: var(--surface3); border-radius: 8px; padding: 0.7rem 1rem; margin-bottom: 0.8rem; line-height: 1.6; }
+.essay-toggle { display: flex; align-items: center; gap: 0.5rem; font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent3); background: rgba(251,146,60,0.07); border: 1px solid rgba(251,146,60,0.2); padding: 0.4rem 0.8rem; border-radius: 6px; cursor: pointer; transition: all 0.15s; width: fit-content; }
+.essay-toggle:hover { background: rgba(251,146,60,0.12); color: var(--accent); }
+.essay-answer { margin-top: 0.8rem; display: none; background: var(--surface3); border-radius: 8px; padding: 0.9rem 1rem; }
+.essay-answer.show { display: block; }
+.essay-answer h5 { font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent3); margin-bottom: 0.6rem; }
+.essay-answer p, .essay-answer li { font-size: 0.77rem; color: var(--text2); line-height: 1.6; }
+.essay-answer ul { padding-left: 0; list-style: none; display: flex; flex-direction: column; gap: 0.3rem; margin-top: 0.3rem; }
+.essay-answer li { display: flex; gap: 0.5rem; }
+.essay-answer li::before { content: '▸'; color: var(--accent); flex-shrink: 0; font-size: 0.6rem; margin-top: 0.1rem; }
+.answer-group { margin-bottom: 0.7rem; }
+.answer-group h6 { font-size: 0.74rem; font-weight: 600; color: var(--text); margin-bottom: 0.35rem; }
+.calc-table { width: 100%; font-size: 0.72rem; border-collapse: collapse; margin-top: 0.4rem; }
+.calc-table th { background: var(--surface2); padding: 0.4rem 0.6rem; text-align: center; color: var(--accent2); font-weight: 600; border: 1px solid var(--border2); }
+.calc-table td { padding: 0.35rem 0.6rem; border: 1px solid var(--border2); color: var(--text2); }
+.calc-table tr.total td { background: var(--surface2); color: var(--accent); font-weight: 700; }
+
+/* AI */
+.ai-section { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; }
+.ai-header { background: rgba(96,165,250,0.07); padding: 0.9rem 1.2rem; border-bottom: 1px solid rgba(96,165,250,0.15); display: flex; align-items: center; gap: 0.6rem; }
+.ai-header h3 { font-family: 'DM Mono', monospace; font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--blue); }
+.ai-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--blue); }
+.ai-messages { padding: 1rem 1.2rem; min-height: 80px; max-height: 360px; overflow-y: auto; display: flex; flex-direction: column; gap: 0.7rem; }
+.ai-msg { display: flex; gap: 0.6rem; align-items: flex-start; font-size: 0.78rem; line-height: 1.6; animation: fadeUp 0.25s ease; }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+.ai-msg.user { flex-direction: row-reverse; }
+.ai-msg .avatar { width: 26px; height: 26px; border-radius: 6px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 0.65rem; font-weight: 700; margin-top: 0.1rem; }
+.ai-msg.ai .avatar { background: rgba(96,165,250,0.15); color: var(--blue); }
+.ai-msg.user .avatar { background: rgba(251,146,60,0.15); color: var(--accent); }
+.ai-bubble { padding: 0.6rem 0.85rem; border-radius: 10px; max-width: 85%; }
+.ai-msg.ai .ai-bubble { background: var(--surface3); color: var(--text2); }
+.ai-msg.user .ai-bubble { background: rgba(251,146,60,0.09); color: var(--text); text-align: right; }
+.ai-typing { display: flex; gap: 4px; align-items: center; padding: 0.6rem 0.85rem; background: var(--surface3); border-radius: 10px; width: fit-content; }
+.ai-typing span { width: 5px; height: 5px; border-radius: 50%; background: var(--blue); animation: typing 1.2s infinite; }
+.ai-typing span:nth-child(2) { animation-delay: 0.2s; }
+.ai-typing span:nth-child(3) { animation-delay: 0.4s; }
+@keyframes typing { 0%,60%,100% { opacity: 0.2; transform: scale(0.8); } 30% { opacity: 1; transform: scale(1); } }
+.ai-suggestions { padding: 0 1.2rem 0.75rem; display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.ai-chip { font-family: 'DM Mono', monospace; font-size: 0.62rem; background: var(--surface3); border: 1px solid var(--border2); color: var(--text2); padding: 0.3rem 0.7rem; border-radius: 99px; cursor: pointer; transition: all 0.15s; }
+.ai-chip:hover { border-color: rgba(96,165,250,0.35); color: var(--blue); }
+.ai-input-row { padding: 0.75rem 1.2rem; border-top: 1px solid var(--border2); display: flex; gap: 0.5rem; }
+.ai-input { flex: 1; background: var(--surface3); border: 1px solid var(--border2); border-radius: 8px; padding: 0.5rem 0.8rem; font-size: 0.78rem; color: var(--text); font-family: 'DM Sans', sans-serif; outline: none; resize: none; max-height: 100px; transition: border-color 0.2s; }
+.ai-input:focus { border-color: rgba(96,165,250,0.35); }
+.ai-input::placeholder { color: var(--muted); }
+.ai-send { background: var(--blue); color: #000; border: none; border-radius: 8px; padding: 0.5rem 1rem; font-family: 'DM Mono', monospace; font-size: 0.68rem; font-weight: 700; cursor: pointer; transition: opacity 0.15s; }
+.ai-send:hover { opacity: 0.85; }
+.ai-send:disabled { opacity: 0.4; cursor: not-allowed; }
+</style>
+</head>
+<body>
+
+<header class="chapter-header">
+  <div class="chapter-eyebrow">Pelaporan Korporat · CA Indonesia · PSAK 46</div>
+  <h1 class="chapter-title">BAB 9 — Pajak Penghasilan</h1>
+  <div class="learning-goals">
+    <h3>Tujuan Pembelajaran</h3>
+    <ul class="goals-list">
+      <li>Menerapkan akuntansi pajak penghasilan kini dan tangguhan</li>
+      <li>Menerapkan akuntansi atas rugi pajak yang belum dikompensasi</li>
+    </ul>
+  </div>
+</header>
+
+<div class="page-body">
+  <nav class="toc">
+    <div class="toc-label">Daftar Isi</div>
+    <a class="toc-link" href="#s1">9.1 Terminologi</a>
+    <a class="toc-link sub" href="#s1-1">Definisi Kunci</a>
+    <div class="toc-divider"></div>
+    <a class="toc-link" href="#s2">9.2 Pajak dalam LK</a>
+    <a class="toc-link sub" href="#s2-1">9.2.1 Pajak Penghasilan</a>
+    <a class="toc-link sub" href="#s2-2">9.2.2 Pajak Lainnya</a>
+    <a class="toc-link sub" href="#s2-3">9.2.3 Jurnal Standar</a>
+    <a class="toc-link sub" href="#s2-4">9.2.4 Beda Komersial & Fiskal</a>
+    <div class="toc-divider"></div>
+    <a class="toc-link" href="#s3">9.3 Dasar Pengenaan Pajak</a>
+    <a class="toc-link sub" href="#s3-1">9.3.1 DTA & DTL</a>
+    <a class="toc-link sub" href="#s3-2">9.3.2 Perhitungan DTA/DTL</a>
+    <a class="toc-link sub" href="#s3-3">9.3.3 DTA dari Kompensasi Kerugian</a>
+    <a class="toc-link sub" href="#s3-4">9.3.4 Nilai Wajar</a>
+    <a class="toc-link sub" href="#s3-5">9.3.5 Perubahan Status Pajak</a>
+    <div class="toc-divider"></div>
+    <a class="toc-link" href="#latihan">Latihan Soal</a>
+    <a class="toc-link sub" href="#pilgan">Pilihan Ganda</a>
+    <a class="toc-link sub" href="#esai">Esai</a>
+    <div class="toc-divider"></div>
+    <a class="toc-link" href="#ai-tutor">AI Tutor</a>
+  </nav>
+
+  <main class="main">
+
+    <!-- SECTION 9.1 -->
+    <section class="section" id="s1">
+      <div class="section-header">
+        <span class="section-num">9.1</span>
+        <h2 class="section-title">Definisi Terminologi dalam Akuntansi Pajak Penghasilan</h2>
+      </div>
+      <div class="psak-ref"><span>PSAK</span> 46 — Pajak Penghasilan</div>
+
+      <div class="subsection" id="s1-1">
+        <div class="grid-2">
+          <div class="card">
+            <div class="card-title"><span class="dot"></span>Aset Pajak Tangguhan (DTA)</div>
+            <p>Jumlah pajak penghasilan yang <strong style="color:var(--green)">dapat dipulihkan</strong> pada periode masa depan akibat: (i) beda temporer dapat dikurangkan; (ii) akumulasi rugi pajak belum dikompensasi; (iii) kredit pajak belum dimanfaatkan.</p>
+          </div>
+          <div class="card">
+            <div class="card-title"><span class="dot" style="background:var(--red)"></span>Liabilitas Pajak Tangguhan (DTL)</div>
+            <p>Jumlah pajak penghasilan yang <strong style="color:var(--red)">terutang</strong> pada periode masa depan sebagai akibat adanya <strong style="color:var(--red)">beda temporer kena pajak</strong>.</p>
+          </div>
+          <div class="card">
+            <div class="card-title"><span class="dot" style="background:var(--blue)"></span>Laba Akuntansi vs Laba Fiskal</div>
+            <ul>
+              <li><strong style="color:var(--blue)">Laba akuntansi:</strong> laba/rugi sebelum dikurangi beban pajak (berdasarkan PSAK)</li>
+              <li><strong style="color:var(--yellow)">Laba fiskal (laba kena pajak):</strong> laba/rugi berdasarkan UU Pajak untuk menghitung PPh terutang</li>
+            </ul>
+          </div>
+          <div class="card">
+            <div class="card-title"><span class="dot" style="background:var(--yellow)"></span>Pajak Kini vs Pajak Tangguhan</div>
+            <ul>
+              <li><strong style="color:var(--yellow)">Pajak kini:</strong> jumlah PPh terutang/(dipulihkan) atas laba kena pajak periode berjalan</li>
+              <li><strong style="color:var(--accent)">Beban pajak:</strong> jumlah gabungan pajak kini + pajak tangguhan</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="card" style="border-top:2px solid var(--green)">
+            <div class="card-title" style="color:var(--green)"><span class="dot" style="background:var(--green)"></span>Beda Temporer Dapat Dikurangkan</div>
+            <p>Menimbulkan jumlah <strong style="color:var(--green)">yang dapat dikurangkan</strong> dalam penentuan laba kena pajak masa depan ketika jumlah tercatat aset/liabilitas dipulihkan/diselesaikan.</p>
+            <p style="margin-top:0.4rem;font-size:0.73rem;color:var(--green)">→ Menghasilkan Aset Pajak Tangguhan (DTA)</p>
+          </div>
+          <div class="card" style="border-top:2px solid var(--red)">
+            <div class="card-title" style="color:var(--red)"><span class="dot" style="background:var(--red)"></span>Beda Temporer Kena Pajak</div>
+            <p>Menimbulkan jumlah <strong style="color:var(--red)">kena pajak</strong> dalam penentuan laba kena pajak masa depan ketika jumlah tercatat aset/liabilitas dipulihkan/diselesaikan.</p>
+            <p style="margin-top:0.4rem;font-size:0.73rem;color:var(--red)">→ Menghasilkan Liabilitas Pajak Tangguhan (DTL)</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 9.2 -->
+    <section class="section" id="s2">
+      <div class="section-header">
+        <span class="section-num">9.2</span>
+        <h2 class="section-title">Pajak dalam Laporan Keuangan</h2>
+      </div>
+
+      <div class="subsection" id="s2-1">
+        <div class="subsection-title">9.2.1 Pajak Penghasilan</div>
+        <div class="highlight">
+          <p>Pajak penghasilan tersebar di <strong>seluruh laporan keuangan</strong>: Laporan Laba Rugi (beban pajak kini & tangguhan), Laporan Posisi Keuangan (DTA, DTL, PPh Dibayar Dimuka, Utang PPh 29), dan Laporan Arus Kas (kas keluar untuk membayar pajak).</p>
+        </div>
+
+        <div class="card">
+          <div class="card-title"><span class="dot"></span>Penyajian dalam Laporan Laba Rugi (Contoh 9.1)</div>
+          <div style="font-size:0.76rem;color:var(--text2);margin-top:0.5rem;">
+            <div style="display:flex;justify-content:space-between;padding:0.2rem 0;border-bottom:1px solid var(--border2)"><span>Laba sebelum pajak</span><span style="color:var(--text)">XXX</span></div>
+            <div style="display:flex;justify-content:space-between;padding:0.2rem 0;border-bottom:1px solid var(--border2)"><span style="color:var(--red)">Pajak kini (<em>current tax</em>)</span><span style="color:var(--red)">(XXX)</span></div>
+            <div style="display:flex;justify-content:space-between;padding:0.2rem 0;border-bottom:1px solid var(--border2)"><span style="color:var(--red)">Pajak tangguhan (<em>deferred tax</em>)</span><span style="color:var(--red)">(XXX)</span></div>
+            <div style="display:flex;justify-content:space-between;padding:0.2rem 0;border-bottom:1px solid var(--border2)"><span>Laba tahun berjalan dari operasi dilanjutkan</span><span style="color:var(--text)">XXX</span></div>
+            <div style="display:flex;justify-content:space-between;padding:0.2rem 0;border-bottom:1px solid var(--border2)"><span>Laba bersih tahun berjalan</span><span style="color:var(--text)">XXX</span></div>
+            <div style="display:flex;justify-content:space-between;padding:0.2rem 0;border-bottom:1px solid var(--border2)"><span style="color:var(--accent)">Pendapatan komprehensif lain</span><span style="color:var(--accent)">XXX</span></div>
+            <div style="display:flex;justify-content:space-between;padding:0.2rem 0;border-bottom:1px solid var(--border2)"><span style="color:var(--red)">Pajak penghasilan terkait</span><span style="color:var(--red)">(XXX)</span></div>
+            <div style="display:flex;justify-content:space-between;padding:0.2rem 0;font-weight:600"><span style="color:var(--text)">Total laba komprehensif</span><span style="color:var(--text)">XXX</span></div>
+          </div>
+        </div>
+
+        <div class="grid-3">
+          <div class="card" style="border-top:2px solid var(--blue)">
+            <div class="card-title" style="color:var(--blue)"><span class="dot" style="background:var(--blue)"></span>DTA / DTL (Posisi Keuangan)</div>
+            <p>Boleh disajikan saling hapus (<em>off-set</em>) dalam LK tersendiri. <strong style="color:var(--red)">Dilarang</strong> saling hapus dalam laporan keuangan konsolidasian.</p>
+          </div>
+          <div class="card" style="border-top:2px solid var(--yellow)">
+            <div class="card-title" style="color:var(--yellow)"><span class="dot" style="background:var(--yellow)"></span>PPh Dibayar Dimuka (Aset)</div>
+            <p>PPh 25 (angsuran bulanan), PPh 22, PPh 23 yang dipotong pihak lain — disajikan sebagai <em>prepaid tax</em> di Posisi Keuangan.</p>
+          </div>
+          <div class="card" style="border-top:2px solid var(--red)">
+            <div class="card-title" style="color:var(--red)"><span class="dot" style="background:var(--red)"></span>Utang PPh 29 (Liabilitas)</div>
+            <p>Kurang bayar PPh Badan yang belum dilunasi. Bila lebih bayar → <strong style="color:var(--green)">Piutang Restitusi PPh</strong>.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="subsection" id="s2-2">
+        <div class="subsection-title">9.2.2 Pajak Lainnya (PPN & Pajak Daerah)</div>
+        <div class="grid-2">
+          <div class="card">
+            <div class="card-title"><span class="dot" style="background:var(--teal)"></span>Pajak Daerah (PBB, dll.)</div>
+            <p>Dilaporkan langsung sebagai <strong style="color:var(--teal)">beban</strong> dalam Laporan Laba Rugi — di luar pos Beban Pajak Penghasilan.</p>
+          </div>
+          <div class="card">
+            <div class="card-title"><span class="dot" style="background:var(--purple)"></span>PPN Masukan & Keluaran</div>
+            <ul>
+              <li>PPN Masukan dari perolehan BKP/JKP → dicatat sebagai <em>prepaid tax</em></li>
+              <li>PPN Keluaran dari penyerahan BKP/JKP → dicatat sebagai utang pajak</li>
+              <li>Selisih akhir masa pajak → Utang PPN (kurang bayar) / Piutang PPN (lebih bayar)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="subsection" id="s2-3">
+        <div class="subsection-title">9.2.3 Jurnal Standar Akuntansi Pajak Penghasilan</div>
+
+        <div class="jurnal-box">
+          <div class="jurnal-title">① Saat Mengakui Beban (Membayar Penghasilan ke Pihak Lain)</div>
+          <div class="jurnal-header-row"><span>Akun</span><span>Db</span><span>Kr</span></div>
+          <div class="jurnal-row"><span class="account">Beban (Gaji, Sewa, Jasa)</span><span class="debit">XXX</span><span class="kredit"></span></div>
+          <div class="jurnal-row"><span class="account indent">Utang PPh (Ps. 21/23/26)</span><span class="debit"></span><span class="kredit">XXX</span></div>
+          <div class="jurnal-row"><span class="account indent">Kas / Utang Usaha</span><span class="debit"></span><span class="kredit">XXX</span></div>
+        </div>
+
+        <div class="jurnal-box">
+          <div class="jurnal-title">② Saat Mengakui Pendapatan (Menerima Penghasilan)</div>
+          <div class="jurnal-header-row"><span>Akun</span><span>Db</span><span>Kr</span></div>
+          <div class="jurnal-row"><span class="account">Kas</span><span class="debit">XXX</span><span class="kredit"></span></div>
+          <div class="jurnal-row"><span class="account">PPh Dibayar Dimuka (Ps. 22/23)</span><span class="debit">XXX</span><span class="kredit"></span></div>
+          <div class="jurnal-row"><span class="account indent">Pendapatan</span><span class="debit"></span><span class="kredit">XXX</span></div>
+        </div>
+
+        <div class="jurnal-box">
+          <div class="jurnal-title">③ Saat Membayar Angsuran PPh 25</div>
+          <div class="jurnal-header-row"><span>Akun</span><span>Db</span><span>Kr</span></div>
+          <div class="jurnal-row"><span class="account">PPh Dibayar Dimuka (Ps. 25)</span><span class="debit">XXX</span><span class="kredit"></span></div>
+          <div class="jurnal-row"><span class="account indent">Kas</span><span class="debit"></span><span class="kredit">XXX</span></div>
+        </div>
+
+        <div class="jurnal-box">
+          <div class="jurnal-title">④ Perhitungan PPh Badan Akhir Tahun (SPT 1771)</div>
+          <div class="jurnal-header-row"><span>Akun</span><span>Db</span><span>Kr</span></div>
+          <div class="jurnal-row"><span class="account" style="color:var(--green)">Piutang Restitusi PPh</span><span class="debit" style="color:var(--green)">XXX*</span><span class="kredit"></span></div>
+          <div class="jurnal-row"><span class="account">Beban Pajak Penghasilan — KINI</span><span class="debit">XXX</span><span class="kredit"></span></div>
+          <div class="jurnal-row"><span class="account indent">PPh Dibayar Dimuka (Ps. 22/23)</span><span class="debit"></span><span class="kredit">XXX</span></div>
+          <div class="jurnal-row"><span class="account indent">PPh Dibayar Dimuka (Ps. 25)</span><span class="debit"></span><span class="kredit">XXX</span></div>
+          <div class="jurnal-row"><span class="account indent" style="color:var(--red)">Utang PPh 29</span><span class="debit"></span><span class="kredit" style="color:var(--red)">XXX*</span></div>
+          <div class="jurnal-divider"></div>
+          <div style="font-size:0.68rem;color:var(--muted);margin-top:0.3rem">* Piutang Restitusi = lebih bayar; Utang PPh 29 = kurang bayar (salah satu saja)</div>
+        </div>
+
+        <div class="jurnal-box">
+          <div class="jurnal-title">⑤ Pengakuan Pajak Tangguhan</div>
+          <div class="jurnal-header-row"><span>Akun</span><span>Db</span><span>Kr</span></div>
+          <div class="jurnal-row"><span class="account">Beban Pajak Penghasilan — TANGGUHAN</span><span class="debit">XXX</span><span class="kredit"></span></div>
+          <div class="jurnal-row"><span class="account">Aset Pajak Tangguhan (DTA)</span><span class="debit">XXX</span><span class="kredit"></span></div>
+          <div class="jurnal-row"><span class="account indent">Liabilitas Pajak Tangguhan (DTL)</span><span class="debit"></span><span class="kredit">XXX</span></div>
+          <div class="jurnal-row"><span class="account indent" style="color:var(--green)">Manfaat Pajak Penghasilan — TANGGUHAN</span><span class="debit"></span><span class="kredit" style="color:var(--green)">XXX</span></div>
+        </div>
+      </div>
+
+      <div class="subsection" id="s2-4">
+        <div class="subsection-title">9.2.4 Perbedaan Penghitungan Pajak Komersial vs Fiskal</div>
+        <div class="flow-container">
+          <div style="display:grid;grid-template-columns:1fr auto 1fr;gap:0.5rem;align-items:center;margin-bottom:0.6rem">
+            <div class="flow-step key">PSAK → Akuntansi Komersial<br><small style="font-size:0.65rem;font-weight:400">Laba Akuntansi (EBT)</small></div>
+            <div style="text-align:center;color:var(--muted);font-size:1.2rem">⟷</div>
+            <div class="flow-step key">UU Pajak → Fiskal<br><small style="font-size:0.65rem;font-weight:400">Laba Kena Pajak (Laba Fiskal)</small></div>
+          </div>
+          <div class="flow-arrow">↓ PERBEDAAN ↓</div>
+          <div class="flow-result">
+            <div class="flow-yes"><strong>PERMANEN</strong><br><span style="font-size:0.65rem">Tidak ada konsekuensi pajak tangguhan</span><br><span style="font-size:0.62rem;opacity:0.8">PPh final, non-objek pajak, biaya non-deductible</span></div>
+            <div class="flow-no"><strong>TEMPORER</strong><br><span style="font-size:0.65rem">→ DTA atau DTL</span><br><span style="font-size:0.62rem;opacity:0.8">Depresiasi, estimasi biaya (penyisihan piutang, garansi, pensiun)</span></div>
+          </div>
+        </div>
+
+        <div class="highlight">
+          <p><strong>4 Sumber Koreksi Fiskal (UU PPh Indonesia):</strong></p>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;margin-top:0.5rem">
+            <div style="background:rgba(248,113,113,0.08);border:1px solid rgba(248,113,113,0.2);border-radius:6px;padding:0.5rem 0.7rem">
+              <div style="font-size:0.65rem;font-family:'DM Mono',monospace;color:var(--red);margin-bottom:0.2rem">PERMANEN (3 sumber)</div>
+              <div style="font-size:0.72rem;color:var(--text2)">① Penghasilan objek PPh final<br>② Penghasilan bukan objek pajak<br>③ Biaya non-deductible (Ps. 9 Ay. 1)</div>
+            </div>
+            <div style="background:rgba(96,165,250,0.08);border:1px solid rgba(96,165,250,0.2);border-radius:6px;padding:0.5rem 0.7rem">
+              <div style="font-size:0.65rem;font-family:'DM Mono',monospace;color:var(--blue);margin-bottom:0.2rem">TEMPORER (1 sumber)</div>
+              <div style="font-size:0.72rem;color:var(--text2)">④ Penyesuaian cara pengukuran komersial vs fiskal<br><em style="font-size:0.68rem;color:var(--blue)">(depresiasi, amortisasi, estimasi biaya)</em></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 9.3 -->
+    <section class="section" id="s3">
+      <div class="section-header">
+        <span class="section-num">9.3</span>
+        <h2 class="section-title">Dasar Pengenaan Pajak (DPP)</h2>
+      </div>
+
+      <div class="highlight-blue">
+        <p><strong>DPP (Fiskal):</strong> total jumlah yang dikalikan tarif pajak untuk memperoleh nilai pajak terutang.<br>
+        <strong>DPP (Akuntansi Komersial / PSAK 46):</strong> nilai buku fiskal (<em>fiscal book value</em>) dari suatu aset atau liabilitas — dapat berbeda dengan nilai buku komersial (<em>accounting book value</em>).<br><br>
+        PSAK 46 membandingkan <strong>DPP vs Jumlah Tercatat</strong> untuk menghitung beda temporer yang menimbulkan pajak tangguhan.</p>
+      </div>
+
+      <div class="subsection" id="s3-1">
+        <div class="subsection-title">9.3.1 Aset dan Liabilitas Pajak Tangguhan</div>
+        <div class="card">
+          <div class="card-title"><span class="dot"></span>Tabel Penentuan DTA/DTL (Tabel 9.1)</div>
+          <div class="dpp-grid" style="margin-top:0.6rem">
+            <div class="dpp-cell header"></div>
+            <div class="dpp-cell header">ASET</div>
+            <div class="dpp-cell header">LIABILITAS</div>
+            <div class="dpp-cell" style="background:var(--surface3);font-family:'DM Mono',monospace;font-size:0.68rem;color:var(--text2);">DPP > Jumlah Tercatat</div>
+            <div class="dpp-cell"><span class="result-dta">DTA ✓</span><div style="font-size:0.65rem;color:var(--muted);margin-top:0.2rem">Beda temporer dapat dikurangkan</div></div>
+            <div class="dpp-cell"><span class="result-dtl">DTL ✓</span><div style="font-size:0.65rem;color:var(--muted);margin-top:0.2rem">Beda temporer kena pajak</div></div>
+            <div class="dpp-cell" style="background:var(--surface3);font-family:'DM Mono',monospace;font-size:0.68rem;color:var(--text2);">DPP < Jumlah Tercatat</div>
+            <div class="dpp-cell"><span class="result-dtl">DTL ✓</span><div style="font-size:0.65rem;color:var(--muted);margin-top:0.2rem">Beda temporer kena pajak</div></div>
+            <div class="dpp-cell"><span class="result-dta">DTA ✓</span><div style="font-size:0.65rem;color:var(--muted);margin-top:0.2rem">Beda temporer dapat dikurangkan</div></div>
+          </div>
+        </div>
+
+        <div class="highlight-red">
+          <p><strong>Pengecualian — Tidak ada pajak tangguhan saat pengakuan awal aset/liabilitas jika:</strong><br>
+          Bukan dari transaksi kombinasi bisnis DAN pada saat transaksi tidak mempengaruhi laba/rugi secara komersial maupun fiskal. (Contoh: pembelian aset biasa atau pencairan pinjaman.)<br><br>
+          <strong>Goodwill:</strong> Di Indonesia, goodwill muncul di laporan konsolidasi saja. Perbedaan komersial vs fiskal atas goodwill = <strong>beda permanen</strong> (impairment goodwill tidak deductible).</p>
+        </div>
+      </div>
+
+      <div class="subsection" id="s3-2">
+        <div class="subsection-title">9.3.2 Perhitungan Aset dan Liabilitas Pajak Tangguhan</div>
+
+        <div class="card">
+          <div class="card-title"><span class="dot" style="background:var(--green)"></span>Ilustrasi: DTA dari Penyisihan Piutang Tak Tertagih (Contoh 9.3)</div>
+          <p style="font-size:0.76rem;color:var(--text2);margin-bottom:0.6rem">Komersial: metode <em>allowance</em>; Fiskal: metode <em>direct write-off</em>. Tarif pajak 25%.</p>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Keterangan</th><th>20X1</th><th>20X2</th><th>20X3</th><th>20X4</th><th>20X5</th></tr></thead>
+              <tbody>
+                <tr><td>Beban piutang (komersial)</td><td>100</td><td>200</td><td>300</td><td>400</td><td>500</td></tr>
+                <tr><td>Beban piutang (fiskal)</td><td>–</td><td>–</td><td>–</td><td>–</td><td>800</td></tr>
+                <tr><td>Koreksi fiskal positif</td><td>100</td><td>200</td><td>300</td><td>400</td><td>(300)</td></tr>
+                <tr><td>Jumlah tercatat (akumulasi)</td><td>(100)</td><td>(300)</td><td>(600)</td><td>(1.000)</td><td>(1.500)</td></tr>
+                <tr><td>DPP</td><td>–</td><td>–</td><td>–</td><td>–</td><td>(800)</td></tr>
+                <tr style="background:rgba(74,222,128,0.06)"><td style="color:var(--green);font-weight:600">DTA (×25%)</td><td style="color:var(--green)">25</td><td style="color:var(--green)">75</td><td style="color:var(--green)">150</td><td style="color:var(--green)">250</td><td style="color:var(--green)">175</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top:0.5rem">
+          <div class="card-title"><span class="dot" style="background:var(--red)"></span>Ilustrasi: DTL dari Perbedaan Depresiasi (Contoh 9.4)</div>
+          <p style="font-size:0.76rem;color:var(--text2);margin-bottom:0.6rem">Biaya perolehan Rp1.000. Komersial: 5 tahun. Fiskal: 4 tahun. Tarif pajak 25%.</p>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Keterangan</th><th>20X1</th><th>20X2</th><th>20X3</th><th>20X4</th><th>20X5</th></tr></thead>
+              <tbody>
+                <tr><td>Depresiasi komersial</td><td>200</td><td>200</td><td>200</td><td>200</td><td>200</td></tr>
+                <tr><td>Depresiasi fiskal</td><td>250</td><td>250</td><td>250</td><td>250</td><td>–</td></tr>
+                <tr><td>Koreksi fiskal negatif</td><td>(50)</td><td>(50)</td><td>(50)</td><td>(50)</td><td>200</td></tr>
+                <tr><td>Jumlah tercatat (nilai buku)</td><td>800</td><td>600</td><td>400</td><td>200</td><td>–</td></tr>
+                <tr><td>DPP</td><td>750</td><td>500</td><td>250</td><td>–</td><td>–</td></tr>
+                <tr style="background:rgba(248,113,113,0.06)"><td style="color:var(--red);font-weight:600">DTL (×25%)</td><td style="color:var(--red)">12,50</td><td style="color:var(--red)">25</td><td style="color:var(--red)">37,50</td><td style="color:var(--red)">50</td><td style="color:var(--green)">DTA –50</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="subsection" id="s3-3">
+        <div class="subsection-title">9.3.3 Aset Pajak Tangguhan dari Kompensasi Kerugian</div>
+        <div class="highlight-green">
+          <p><strong>Tax Loss Carry-Forward:</strong> Rugi fiskal dapat dikompensasi hingga <strong>5 tahun ke depan</strong> (atau 10 tahun jika memenuhi kriteria tertentu). Rugi fiskal → DTA = rugi fiskal × tarif pajak.<br><br>
+          <strong>Syarat pengakuan DTA:</strong> Besar kemungkinan laba kena pajak masa depan akan memadai untuk memanfaatkan rugi tersebut.<br><br>
+          <strong>Penilaian kembali setiap akhir periode:</strong> DTA yang sebelumnya tidak diakui dapat diakui bila kondisi berubah (laba masa depan diperkirakan meningkat).</p>
+        </div>
+
+        <div class="card">
+          <div class="card-title"><span class="dot" style="background:var(--yellow)"></span>Ilustrasi Kompensasi Kerugian (Contoh 9.5)</div>
+          <p style="font-size:0.76rem;color:var(--text2);margin-bottom:0.6rem">Saldo awal kompensasi kerugian 20X0: Rp800. Tarif pajak 25%.</p>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Keterangan</th><th>20X0</th><th>20X1</th><th>20X2</th><th>20X3</th><th>20X4</th><th>20X5</th></tr></thead>
+              <tbody>
+                <tr><td>Laba komersial</td><td>–</td><td>50</td><td>100</td><td>200</td><td>400</td><td>550</td></tr>
+                <tr><td>Kompensasi kerugian (dipakai)</td><td>–</td><td>(50)</td><td>(100)</td><td>(200)</td><td>(400)</td><td>(50)</td></tr>
+                <tr><td>Laba fiskal / PPh terutang</td><td>–</td><td>–</td><td>–</td><td>–</td><td>–</td><td>500/125</td></tr>
+                <tr><td>Saldo kompensasi (Jumlah Tercatat)</td><td>800</td><td>750</td><td>650</td><td>450</td><td>50</td><td>–</td></tr>
+                <tr style="background:rgba(74,222,128,0.06)"><td style="color:var(--green);font-weight:600">DTA (×25%)</td><td style="color:var(--green)">200</td><td style="color:var(--green)">187,50</td><td style="color:var(--green)">162,50</td><td style="color:var(--green)">112,50</td><td style="color:var(--green)">12,50</td><td style="color:var(--muted)">–</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="subsection" id="s3-4">
+        <div class="subsection-title">9.3.4 Pajak Tangguhan untuk Aset Dinilai pada Nilai Wajar (Revaluasi)</div>
+        <div class="grid-2">
+          <div class="card" style="border-top:2px solid var(--yellow)">
+            <div class="card-title" style="color:var(--yellow)"><span class="dot" style="background:var(--yellow)"></span>Revaluasi Tanpa Penyesuaian DPP</div>
+            <p>DPP tetap = harga perolehan. Jumlah tercatat naik ke nilai wajar. <strong style="color:var(--red)">→ Muncul DTL</strong> karena DPP &lt; jumlah tercatat (beda temporer kena pajak).</p>
+          </div>
+          <div class="card" style="border-top:2px solid var(--green)">
+            <div class="card-title" style="color:var(--green)"><span class="dot" style="background:var(--green)"></span>Revaluasi dengan Penyesuaian DPP</div>
+            <p>DPP disesuaikan ke nilai wajar bersama jumlah tercatat. Tidak ada beda temporer → <strong style="color:var(--green)">tidak ada pajak tangguhan</strong>. Di Indonesia: revaluasi dalam kombinasi bisnis biasanya dilaporkan ke otoritas fiskal.</p>
+          </div>
+        </div>
+        <div class="highlight">
+          <p><strong>Tarif pajak berganda:</strong> Tarif yang diterapkan harus mencerminkan <em>tujuan penggunaan aset</em>. Properti investasi yang dipulihkan melalui penjualan → pakai tarif pajak penjualan (mis. 20%). Yang akan dipakai sendiri → tarif pajak umum (mis. 30%).</p>
+        </div>
+      </div>
+
+      <div class="subsection" id="s3-5">
+        <div class="subsection-title">9.3.5 Perubahan Status Pajak Entitas atau Para Pemegang Sahamnya (ISAK 20)</div>
+        <div class="highlight-blue">
+          <p><strong>ISAK 20</strong> mengatur pencatatan konsekuensi pajak atas perubahan status pajak. Contoh: perusahaan <em>go public</em> (40% saham di bursa) → tarif PPh Badan turun dari 25% menjadi 20%.<br><br>
+          Konsekuensi perubahan status pajak harus dicatat <strong>terpisah</strong> sesuai bagiannya: ke laba rugi, ke ekuitas, atau ke penghasilan komprehensif lain — <strong>tidak boleh digabung</strong>.</p>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="dot" style="background:var(--purple)"></span>Contoh Perubahan Status Pajak</div>
+          <ul>
+            <li>Pendaftaran instrumen ekuitas di bursa (IPO)</li>
+            <li>Restrukturisasi ekuitas entitas</li>
+            <li>Pemegang saham pengendali pindah ke negara asing</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- LATIHAN SOAL -->
+    <section class="section" id="latihan">
+      <div class="section-header">
+        <span class="section-num">✎</span>
+        <h2 class="section-title">Latihan Soal BAB 9</h2>
+      </div>
+
+      <div class="exercise-section" id="pilgan">
+        <div class="exercise-header">
+          <h3>Pilihan Ganda</h3>
+          <span class="exercise-badge">10 Soal</span>
+        </div>
+
+        <!-- Q1 -->
+        <div class="mc-item">
+          <div class="mc-question">1. Jumlah pajak penghasilan terutang pada periode masa depan sebagai akibat adanya perbedaan temporer kena pajak adalah definisi dari:</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',1)"><span class="opt-letter">A</span> Aset pajak tangguhan</div>
+            <div class="mc-option" onclick="checkMC(this,'b',1)"><span class="opt-letter">B</span> Liabilitas pajak tangguhan</div>
+            <div class="mc-option" onclick="checkMC(this,'c',1)"><span class="opt-letter">C</span> Aset pajak kini</div>
+            <div class="mc-option" onclick="checkMC(this,'d',1)"><span class="opt-letter">D</span> Liabilitas pajak kini</div>
+          </div>
+          <div class="mc-feedback" id="fb1"><span class="correct-ans">B. Liabilitas pajak tangguhan</span> — Sesuai definisi PSAK 46: DTL timbul dari beda temporer kena pajak. DTA timbul dari beda temporer dapat dikurangkan, rugi pajak belum dikompensasi, atau kredit pajak belum dimanfaatkan.</div>
+        </div>
+
+        <!-- Q2 -->
+        <div class="mc-item">
+          <div class="mc-question">2. Di bawah ini yang merupakan perbedaan permanen dalam pajak adalah:</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',2)"><span class="opt-letter">A</span> Pendapatan yang dikenakan pajak final</div>
+            <div class="mc-option" onclick="checkMC(this,'b',2)"><span class="opt-letter">B</span> Biaya yang dapat diestimasi seperti penyisihan piutang dan penyisihan persediaan</div>
+            <div class="mc-option" onclick="checkMC(this,'c',2)"><span class="opt-letter">C</span> Penyusutan secara akuntansi yang berbeda dengan penyusutan menurut pajak</div>
+            <div class="mc-option" onclick="checkMC(this,'d',2)"><span class="opt-letter">D</span> Biaya pengembangan yang dikapitalisasi</div>
+          </div>
+          <div class="mc-feedback" id="fb2"><span class="correct-ans">A. Pendapatan yang dikenakan pajak final</span> — Beda permanen timbul ketika suatu pos hanya diakui secara akuntansi namun tidak secara fiskal (atau sebaliknya). B, C, D adalah beda temporer karena keduanya (komersial & fiskal) mengakui pos tersebut, hanya berbeda cara pengakuannya.</div>
+        </div>
+
+        <!-- Q3 -->
+        <div class="mc-item">
+          <div class="mc-question">3. Akumulasi rugi pajak belum dikompensasi dan kredit pajak belum dimanfaatkan diakui sebagai aset pajak tangguhan, apabila:</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',3)"><span class="opt-letter">A</span> Nilai aset pajak tangguhan lebih besar dari liabilitas pajak tangguhan</div>
+            <div class="mc-option" onclick="checkMC(this,'b',3)"><span class="opt-letter">B</span> Pajak penghasilan kini menunjukkan nilai negatif</div>
+            <div class="mc-option" onclick="checkMC(this,'c',3)"><span class="opt-letter">C</span> Besar kemungkinan laba kena pajak masa depan akan memadai</div>
+            <div class="mc-option" onclick="checkMC(this,'d',3)"><span class="opt-letter">D</span> Perusahaan mengajukan keberatan atau banding</div>
+          </div>
+          <div class="mc-feedback" id="fb3"><span class="correct-ans">C. Besar kemungkinan laba kena pajak masa depan akan memadai</span> — PSAK 46 mensyaratkan DTA dari kompensasi kerugian hanya diakui bila besar kemungkinan laba fiskal masa depan akan tersedia untuk memanfaatkan kompensasi tersebut.</div>
+        </div>
+
+        <!-- Q4 -->
+        <div class="mc-item">
+          <div class="mc-question">4. Entitas mengakui liabilitas Rp60 untuk biaya garansi produk yang masih harus dibayar. Untuk tujuan pajak, biaya garansi tidak akan dikurangkan hingga entitas membayar klaim. Tarif pajak 25%. Pajak tangguhan yang dicatat adalah:</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',4)"><span class="opt-letter">A</span> Nihil</div>
+            <div class="mc-option" onclick="checkMC(this,'b',4)"><span class="opt-letter">B</span> Rp15 – Aset pajak tangguhan</div>
+            <div class="mc-option" onclick="checkMC(this,'c',4)"><span class="opt-letter">C</span> Rp25 – Liabilitas pajak tangguhan</div>
+            <div class="mc-option" onclick="checkMC(this,'d',4)"><span class="opt-letter">D</span> Rp60 – Aset pajak tangguhan</div>
+          </div>
+          <div class="mc-feedback" id="fb4"><span class="correct-ans">B. Rp15 – Aset pajak tangguhan</span> — DPP liabilitas = 0 (belum boleh dikurang secara fiskal). Jumlah tercatat liabilitas = Rp60. DPP &lt; jumlah tercatat untuk liabilitas = beda temporer dapat dikurangkan → DTA = Rp60 × 25% = <strong>Rp15</strong>.</div>
+        </div>
+
+        <!-- Q5 -->
+        <div class="mc-item">
+          <div class="mc-question">5. Sebuah aset dengan biaya perolehan Rp100 dan jumlah tercatat sebesar Rp80 telah dinilai kembali menjadi Rp150. Akumulasi penyusutan untuk tujuan pajak adalah Rp30 dan tarif pajak 30%. Maka akan terdapat:</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',5)"><span class="opt-letter">A</span> Perbedaan temporer kena pajak Rp70</div>
+            <div class="mc-option" onclick="checkMC(this,'b',5)"><span class="opt-letter">B</span> Perbedaan temporer dapat dikurangkan Rp70</div>
+            <div class="mc-option" onclick="checkMC(this,'c',5)"><span class="opt-letter">C</span> Perbedaan temporer kena pajak Rp80</div>
+            <div class="mc-option" onclick="checkMC(this,'d',5)"><span class="opt-letter">D</span> Perbedaan temporer dapat dikurangkan Rp80</div>
+          </div>
+          <div class="mc-feedback" id="fb5"><span class="correct-ans">C. Perbedaan temporer kena pajak Rp80</span> — DPP aset = Rp100 − Rp30 = Rp70. Jumlah tercatat setelah revaluasi = Rp150. Selisih: Rp150 − Rp70 = <strong>Rp80</strong>. DPP &lt; jumlah tercatat untuk aset = beda temporer kena pajak → DTL.</div>
+        </div>
+
+        <!-- Q6 -->
+        <div class="mc-item">
+          <div class="mc-question">6. Sebuah aset dengan biaya perolehan Rp100 dan jumlah tercatat Rp80 telah dinilai kembali menjadi Rp50. Akumulasi penyusutan untuk tujuan pajak adalah Rp30 dan tarif pajak 30%.</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',6)"><span class="opt-letter">A</span> Liabilitas pajak tangguhan Rp6</div>
+            <div class="mc-option" onclick="checkMC(this,'b',6)"><span class="opt-letter">B</span> Aset pajak tangguhan Rp6</div>
+            <div class="mc-option" onclick="checkMC(this,'c',6)"><span class="opt-letter">C</span> Liabilitas pajak tangguhan Rp9</div>
+            <div class="mc-option" onclick="checkMC(this,'d',6)"><span class="opt-letter">D</span> Aset pajak tangguhan Rp9</div>
+          </div>
+          <div class="mc-feedback" id="fb6"><span class="correct-ans">B. Aset pajak tangguhan Rp6</span> — DPP aset = Rp100 − Rp30 = Rp70. Jumlah tercatat setelah revaluasi turun = Rp50. Selisih: Rp70 − Rp50 = Rp20. DPP > jumlah tercatat untuk aset = beda temporer dapat dikurangkan → DTA = Rp20 × 30% = <strong>Rp6</strong>.</div>
+        </div>
+
+        <!-- Q7 -->
+        <div class="mc-item">
+          <div class="mc-question">7. Kenaikan nilai aset tetap karena revaluasi dikenakan pajak final. Hal ini akan menyebabkan:</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',7)"><span class="opt-letter">A</span> Munculnya aset pajak tangguhan</div>
+            <div class="mc-option" onclick="checkMC(this,'b',7)"><span class="opt-letter">B</span> Munculnya liabilitas pajak tangguhan</div>
+            <div class="mc-option" onclick="checkMC(this,'c',7)"><span class="opt-letter">C</span> Tidak menyebabkan munculnya pajak tangguhan</div>
+            <div class="mc-option" onclick="checkMC(this,'d',7)"><span class="opt-letter">D</span> Pajak tangguhan muncul jika aset akan dijual</div>
+          </div>
+          <div class="mc-feedback" id="fb7"><span class="correct-ans">C. Tidak menyebabkan munculnya pajak tangguhan</span> — Pajak final merupakan beda permanen. Tidak ada konsekuensi pajak tangguhan karena perbedaan tersebut tidak akan terpulihkan melalui laba kena pajak masa depan.</div>
+        </div>
+
+        <!-- Q8 -->
+        <div class="mc-item">
+          <div class="mc-question">8. Pengakuan awal aset dan liabilitas pajak tangguhan dalam kombinasi bisnis:</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',8)"><span class="opt-letter">A</span> Hanya akan memengaruhi laporan laba rugi konsolidasi</div>
+            <div class="mc-option" onclick="checkMC(this,'b',8)"><span class="opt-letter">B</span> Hanya akan memengaruhi laporan posisi keuangan konsolidasi</div>
+            <div class="mc-option" onclick="checkMC(this,'c',8)"><span class="opt-letter">C</span> Hanya memengaruhi laporan perubahan ekuitas konsolidasi</div>
+            <div class="mc-option" onclick="checkMC(this,'d',8)"><span class="opt-letter">D</span> Memengaruhi seluruh laporan keuangan konsolidasi</div>
+          </div>
+          <div class="mc-feedback" id="fb8"><span class="correct-ans">B. Hanya akan memengaruhi laporan posisi keuangan konsolidasi</span> — Aset dan liabilitas pajak tangguhan berkaitan dengan penyajian di Laporan Posisi Keuangan. Dalam kombinasi bisnis, pengakuan awal DTA/DTL hanya berdampak pada neraca konsolidasi.</div>
+        </div>
+
+        <!-- Q9 -->
+        <div class="mc-item">
+          <div class="mc-question">9. Berikut ini permasalahan yang dibahas dalam ISAK 20:</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',9)"><span class="opt-letter">A</span> Bagaimana cara menghitung aset dan liabilitas pajak tangguhan perusahaan <em>go public</em></div>
+            <div class="mc-option" onclick="checkMC(this,'b',9)"><span class="opt-letter">B</span> Bagaimana entitas mencatat konsekuensi pajak atas perubahan dalam status pajak entitas atau status pajak para pemegang sahamnya</div>
+            <div class="mc-option" onclick="checkMC(this,'c',9)"><span class="opt-letter">C</span> Bagaimana menghitung aset dan liabilitas pajak kini dan pajak tangguhan atas perubahan peraturan perpajakan</div>
+            <div class="mc-option" onclick="checkMC(this,'d',9)"><span class="opt-letter">D</span> Bagaimana entitas mencatat konsekuensi pajak atas perubahan bisnis utama perusahaan</div>
+          </div>
+          <div class="mc-feedback" id="fb9"><span class="correct-ans">B.</span> — ISAK 20 secara spesifik mengatur pencatatan konsekuensi pajak atas perubahan dalam status pajak entitas atau para pemegang sahamnya (misalnya IPO, restrukturisasi ekuitas).</div>
+        </div>
+
+        <!-- Q10 -->
+        <div class="mc-item">
+          <div class="mc-question">10. Diantara berikut ini: I. Pendaftaran instrumen ekuitas di bursa; II. Pemecahan jumlah saham (<em>stock split</em>); III. Pembagian dividen saham (<em>stock dividend</em>). Contoh perubahan dalam status pajak entitas dalam ISAK 20 adalah:</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',10)"><span class="opt-letter">A</span> I</div>
+            <div class="mc-option" onclick="checkMC(this,'b',10)"><span class="opt-letter">B</span> II</div>
+            <div class="mc-option" onclick="checkMC(this,'c',10)"><span class="opt-letter">C</span> III</div>
+            <div class="mc-option" onclick="checkMC(this,'d',10)"><span class="opt-letter">D</span> I, II, dan III</div>
+          </div>
+          <div class="mc-feedback" id="fb10"><span class="correct-ans">A. I saja</span> — Pendaftaran instrumen ekuitas di bursa (IPO) mengubah status pajak entitas (tarif PPh bisa turun 5%). Stock split dan stock dividend tidak mengubah status pajak karena hanya merupakan perubahan internal dalam struktur ekuitas.</div>
+        </div>
+      </div>
+
+      <!-- ESAI -->
+      <div class="exercise-section" id="esai">
+        <div class="exercise-header">
+          <h3>Esai</h3>
+          <span class="exercise-badge">2 Soal</span>
+        </div>
+
+        <div class="essay-item">
+          <div class="essay-q">1. Sebuah aset tetap memiliki biaya perolehan Rp100. Akumulasi penyusutan untuk tujuan pajak Rp20 sementara akumulasi penyusutan komersial Rp30. Aset tetap tersebut dinilai kembali (revaluasi) menjadi Rp150 tanpa melakukan penyesuaian untuk tujuan pajak. Tarif pajak umum 30%, namun jika aset dijual melebihi biaya perolehan maka selisih harga jual dengan biaya perolehan tidak dikenakan pajak.</div>
+          <div class="essay-sub">Hitunglah aset atau liabilitas pajak tangguhan dari transaksi tersebut bila aset tetap akan terus digunakan dan bila aset tetap akan dijual pada nilai wajar setelah revaluasi.</div>
+          <button class="essay-toggle" onclick="toggleEssay('ea1')">▶ Lihat Jawaban</button>
+          <div class="essay-answer" id="ea1">
+            <h5>Pembahasan</h5>
+            <div class="answer-group">
+              <h6>Data yang diketahui:</h6>
+              <table class="calc-table">
+                <tr><td>Biaya perolehan</td><td>Rp100</td></tr>
+                <tr><td>Akumulasi penyusutan pajak</td><td>Rp20</td></tr>
+                <tr><td>Akumulasi penyusutan komersial</td><td>Rp30</td></tr>
+                <tr><td>DPP aset = Rp100 − Rp20</td><td><strong>Rp80</strong></td></tr>
+                <tr><td>Jumlah tercatat setelah revaluasi</td><td><strong>Rp150</strong></td></tr>
+                <tr><td>Beda temporer (DPP &lt; Jumlah Tercatat → kena pajak)</td><td><strong>Rp70</strong></td></tr>
+              </table>
+            </div>
+            <div class="answer-group">
+              <h6>Bila aset tetap akan terus digunakan (dipulihkan melalui penggunaan):</h6>
+              <p>Tarif pajak = 30% (tarif umum)</p>
+              <p><strong style="color:var(--red)">DTL = Rp70 × 30% = Rp21</strong></p>
+            </div>
+            <div class="answer-group">
+              <h6>Bila aset tetap akan dijual pada nilai wajar (dipulihkan melalui penjualan):</h6>
+              <p>Harga jual = Rp150 (nilai wajar). Biaya perolehan = Rp100.</p>
+              <ul>
+                <li>Selisih sampai biaya perolehan: (Rp100 − Rp80) × 30% = Rp6 → kena tarif umum</li>
+                <li>Selisih di atas biaya perolehan: (Rp150 − Rp100) × 0% = Rp0 → tidak kena pajak</li>
+              </ul>
+              <p><strong style="color:var(--red)">DTL = Rp6</strong></p>
+            </div>
+          </div>
+        </div>
+
+        <div class="essay-item">
+          <div class="essay-q">2. Pada awal 20X1, sebuah perusahaan membeli mesin dengan biaya perolehan Rp6.000 dan masa manfaat komersial 3 tahun serta masa manfaat fiskal 2 tahun tanpa nilai sisa. Mesin disusutkan dengan metode garis lurus baik secara komersial maupun fiskal. Selain itu, selama 20X1 perusahaan juga memperoleh pendapatan sebesar Rp5.000 dan biaya garansi diestimasi 10% dari pendapatan. Biaya garansi secara fiskal dibebankan saat dibayarkan yaitu pada tahun 20X3. Tarif pajak umum 40%.</div>
+          <div class="essay-sub">Hitunglah aset atau liabilitas pajak tangguhan dari kedua transaksi tersebut pada akhir tahun 20X1.</div>
+          <button class="essay-toggle" onclick="toggleEssay('ea2')">▶ Lihat Jawaban</button>
+          <div class="essay-answer" id="ea2">
+            <h5>Pembahasan</h5>
+            <div class="answer-group">
+              <h6>Transaksi 1: Mesin (Perbedaan Masa Manfaat Depresiasi)</h6>
+              <table class="calc-table">
+                <tr><th>Keterangan</th><th>Nilai</th></tr>
+                <tr><td>DPP mesin = (1/2) × Rp6.000</td><td>Rp3.000</td></tr>
+                <tr><td>Jumlah tercatat = (2/3) × Rp6.000</td><td>Rp4.000</td></tr>
+                <tr><td>Beda temporer kena pajak (DPP &lt; Jumlah Tercatat)</td><td>Rp1.000</td></tr>
+                <tr class="total"><td><strong>DTL Mesin = Rp1.000 × 40%</strong></td><td><strong>Rp400</strong></td></tr>
+              </table>
+            </div>
+            <div class="answer-group">
+              <h6>Transaksi 2: Estimasi Biaya Garansi (Beda Temporer Dapat Dikurangkan)</h6>
+              <table class="calc-table">
+                <tr><th>Keterangan</th><th>Nilai</th></tr>
+                <tr><td>DPP liabilitas garansi = 0 (belum boleh dikurangkan fiskal)</td><td>Rp0</td></tr>
+                <tr><td>Jumlah tercatat = 10% × Rp5.000</td><td>Rp500</td></tr>
+                <tr><td>Beda temporer dapat dikurangkan (DPP &lt; Jumlah Tercatat liabilitas)</td><td>Rp500</td></tr>
+                <tr class="total"><td><strong>DTA Garansi = Rp500 × 40%</strong></td><td><strong>Rp200</strong></td></tr>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- AI TUTOR -->
+    <section class="section" id="ai-tutor">
+      <div class="section-header">
+        <span class="section-num" style="background:var(--blue)">AI</span>
+        <h2 class="section-title">Tanya AI Tutor — BAB 9</h2>
+      </div>
+      <div class="ai-section">
+        <div class="ai-header">
+          <div class="ai-dot"></div>
+          <h3>Asisten Belajar Pajak Penghasilan</h3>
+        </div>
+        <div class="ai-messages" id="aiMessages">
+          <div class="ai-msg ai">
+            <div class="avatar">AI</div>
+            <div class="ai-bubble">Halo! Saya siap membantu kamu memahami BAB 9 tentang Pajak Penghasilan (PSAK 46). Tanyakan apapun tentang DTA, DTL, beda temporer, atau jurnal pajak tangguhan!</div>
+          </div>
+        </div>
+        <div class="ai-suggestions" id="aiSuggestions">
+          <span class="ai-chip" onclick="sendChip(this)">Apa perbedaan beda temporer dan beda permanen?</span>
+          <span class="ai-chip" onclick="sendChip(this)">Bagaimana cara menghitung DTA dari kompensasi kerugian?</span>
+          <span class="ai-chip" onclick="sendChip(this)">Jelaskan pendekatan DPP vs jumlah tercatat</span>
+          <span class="ai-chip" onclick="sendChip(this)">Kapan DTL muncul dari revaluasi aset tetap?</span>
+        </div>
+        <div class="ai-input-row">
+          <textarea class="ai-input" id="aiInput" rows="1" placeholder="Ketik pertanyaan tentang BAB 9…" onkeydown="handleKey(event)"></textarea>
+          <button class="ai-send" id="aiSendBtn" onclick="sendMessage()">Kirim</button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script>
+const answers = {1:'b',2:'a',3:'c',4:'b',5:'c',6:'b',7:'c',8:'b',9:'b',10:'a'};
+function checkMC(el, choice, num) {
+  const item = el.closest('.mc-item');
+  if (item.querySelector('.revealed')) return;
+  const correct = answers[num];
+  item.querySelectorAll('.mc-option').forEach(opt => {
+    opt.classList.add('revealed');
+    const letter = opt.querySelector('.opt-letter').textContent.toLowerCase();
+    if (letter === correct) opt.classList.add('correct');
+    else if (letter === choice && choice !== correct) opt.classList.add('wrong');
+  });
+  const fb = document.getElementById('fb' + num);
+  if (fb) fb.classList.add('show');
+}
+function toggleEssay(id) {
+  const ans = document.getElementById(id);
+  const btn = ans.previousElementSibling;
+  const show = !ans.classList.contains('show');
+  ans.classList.toggle('show', show);
+  btn.textContent = show ? '▼ Sembunyikan Jawaban' : '▶ Lihat Jawaban';
+}
+const sections = document.querySelectorAll('.section, .subsection');
+const tocLinks = document.querySelectorAll('.toc-link');
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { tocLinks.forEach(l => l.classList.remove('active')); const a = document.querySelector(`.toc-link[href="#${e.target.id}"]`); if (a) a.classList.add('active'); } });
+}, { rootMargin: '-20% 0px -70% 0px' });
+sections.forEach(s => { if (s.id) obs.observe(s); });
+
+const SYSTEM_PROMPT = `Kamu adalah asisten belajar untuk mata kuliah CA Indonesia: Pelaporan Korporat, khususnya BAB 9 tentang Pajak Penghasilan (PSAK 46).
+
+Topik yang kamu kuasai:
+- Terminologi: DTA (Aset Pajak Tangguhan), DTL (Liabilitas Pajak Tangguhan), laba akuntansi vs laba fiskal, pajak kini vs pajak tangguhan, beda temporer dapat dikurangkan vs beda temporer kena pajak
+- Pajak dalam laporan keuangan: penyajian di laba rugi (pajak kini + pajak tangguhan), posisi keuangan (DTA, DTL, PPh Dibayar Dimuka, Utang PPh 29, Piutang Restitusi), arus kas
+- Jurnal standar: saat mengakui beban (memotong PPh 21/23/26), saat menerima pendapatan (PPh 22/23 dibayar dimuka), saat membayar angsuran PPh 25, saat perhitungan PPh Badan akhir tahun (SPT 1771), saat pengakuan pajak tangguhan
+- Beda komersial vs fiskal: 4 sumber koreksi fiskal (PPh final, non-objek pajak, biaya non-deductible/Ps.9 Ay.1, perbedaan pengukuran). Beda permanen tidak menghasilkan pajak tangguhan. Beda temporer menghasilkan DTA atau DTL.
+- Dasar Pengenaan Pajak (DPP): DPP vs jumlah tercatat. Tabel: aset (DPP > tercatat → DTA; DPP < tercatat → DTL). Liabilitas (DPP > tercatat → DTL; DPP < tercatat → DTA).
+- Pengecualian pajak tangguhan: goodwill, pengakuan awal aset dari transaksi bukan kombinasi bisnis
+- Ilustrasi DTA: penyisihan piutang tak tertagih (komersial allowance vs fiskal direct write-off)
+- Ilustrasi DTL: depresiasi berbeda masa manfaat komersial vs fiskal
+- Kompensasi kerugian (tax loss carry-forward): DTA = rugi fiskal × tarif; maks 5 tahun (10 tahun kondisi tertentu); syarat pengakuan: kemungkinan laba masa depan memadai; penilaian ulang setiap akhir periode
+- Revaluasi aset: revaluasi tanpa penyesuaian DPP → DTL; revaluasi dengan DPP disesuaikan → tidak ada pajak tangguhan; tarif pajak mengikuti tujuan penggunaan aset
+- ISAK 20: perubahan status pajak entitas (IPO, restrukturisasi ekuitas) → konsekuensi dicatat terpisah sesuai bagiannya (laba rugi/ekuitas/OCI)
+- PPN: masukan sebagai prepaid tax, keluaran sebagai utang pajak; Pajak Daerah (PBB) dibebankan langsung
+
+Jawab dalam Bahasa Indonesia yang jelas dan ringkas. Gunakan contoh angka konkret dan tabel bila relevan.`;
+
+const messagesEl = document.getElementById('aiMessages');
+const inputEl = document.getElementById('aiInput');
+const sendBtn = document.getElementById('aiSendBtn');
+let history = [];
+function addMsg(role, text) {
+  const div = document.createElement('div');
+  div.className = `ai-msg ${role}`;
+  div.innerHTML = `<div class="avatar">${role==='ai'?'AI':'Kamu'}</div><div class="ai-bubble">${text.replace(/\n/g,'<br>')}</div>`;
+  messagesEl.appendChild(div); messagesEl.scrollTop = messagesEl.scrollHeight;
+}
+function addTyping() {
+  const div = document.createElement('div'); div.className = 'ai-msg ai'; div.id = 'typing';
+  div.innerHTML = `<div class="avatar">AI</div><div class="ai-typing"><span></span><span></span><span></span></div>`;
+  messagesEl.appendChild(div); messagesEl.scrollTop = messagesEl.scrollHeight;
+}
+async function sendMessage() {
+  const text = inputEl.value.trim(); if (!text) return;
+  inputEl.value = ''; document.getElementById('aiSuggestions').style.display = 'none';
+  addMsg('user', text); history.push({ role: 'user', content: text }); sendBtn.disabled = true; addTyping();
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ model: 'claude-sonnet-4-20250514', max_tokens: 1000, system: SYSTEM_PROMPT, messages: history }) });
+    const data = await res.json();
+    document.getElementById('typing')?.remove();
+    const reply = data.content?.find(b => b.type === 'text')?.text || 'Maaf, tidak ada respons.';
+    addMsg('ai', reply); history.push({ role: 'assistant', content: reply });
+  } catch { document.getElementById('typing')?.remove(); addMsg('ai', 'Maaf, terjadi kesalahan. Periksa koneksi internet dan coba lagi.'); }
+  sendBtn.disabled = false;
+}
+function sendChip(el) { inputEl.value = el.textContent; sendMessage(); }
+function handleKey(e) { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); } }
+</script>
+</body>
+</html>
