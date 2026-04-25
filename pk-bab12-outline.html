@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BAB 12 — Pendapatan</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #0f0a08; --surface: #1a1208; --surface2: #241a0a; --surface3: #2e2010;
+  --accent: #fb923c; --accent2: #fdba74; --accent3: #ea580c;
+  --yellow: #fbbf24; --green: #4ade80; --teal: #2dd4bf; --blue: #60a5fa; --purple: #a78bfa; --red: #f87171;
+  --text: #fff7ed; --text2: #c4a882; --muted: #6b5a45; --border: rgba(251,146,60,0.1); --border2: rgba(255,255,255,0.06);
+}
+html { scroll-behavior: smooth; }
+body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; min-height: 100vh; }
+
+.chapter-header { background: linear-gradient(135deg, #0f0a08 0%, #1a1208 50%, #0f0a08 100%); border-bottom: 1px solid var(--border); padding: 2.5rem 2rem 2rem; position: relative; overflow: hidden; }
+.chapter-header::before { content: '12'; position: absolute; right: -0.5rem; top: -1rem; font-family: 'Playfair Display', serif; font-size: 12rem; font-weight: 900; color: rgba(251,146,60,0.04); line-height: 1; pointer-events: none; user-select: none; }
+.chapter-eyebrow { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent3); margin-bottom: 0.5rem; }
+.chapter-title { font-family: 'Playfair Display', serif; font-size: clamp(1.4rem, 3.5vw, 2.2rem); font-weight: 900; line-height: 1.15; background: linear-gradient(135deg, #fb923c, #fdba74); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 1.2rem; }
+.learning-goals { background: rgba(251,146,60,0.05); border: 1px solid var(--border); border-radius: 12px; padding: 1rem 1.2rem; max-width: 700px; }
+.learning-goals h3 { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.6rem; }
+.goals-list { list-style: none; display: flex; flex-direction: column; gap: 0.3rem; }
+.goals-list li { font-size: 0.78rem; color: var(--text2); display: flex; gap: 0.6rem; align-items: flex-start; }
+.goals-list li::before { content: '→'; color: var(--accent3); flex-shrink: 0; font-family: 'DM Mono', monospace; font-size: 0.7rem; margin-top: 0.05rem; }
+
+.page-body { display: grid; grid-template-columns: 220px 1fr; min-height: calc(100vh - 200px); }
+.toc { background: var(--surface); border-right: 1px solid var(--border2); padding: 1.5rem 0; position: sticky; top: 0; height: 100vh; overflow-y: auto; }
+.toc-label { font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); padding: 0 1rem; margin-bottom: 0.8rem; }
+.toc-link { display: block; padding: 0.45rem 1rem; font-size: 0.75rem; color: var(--muted); text-decoration: none; transition: all 0.15s; border-left: 2px solid transparent; line-height: 1.4; }
+.toc-link:hover { color: var(--text); background: rgba(251,146,60,0.04); }
+.toc-link.active { color: var(--accent); border-left-color: var(--accent); background: rgba(251,146,60,0.06); }
+.toc-link.sub { padding-left: 1.8rem; font-size: 0.7rem; }
+.toc-divider { height: 1px; background: var(--border2); margin: 0.6rem 1rem; }
+.main { padding: 2rem 2.5rem 4rem; max-width: 860px; }
+.section { margin-bottom: 3rem; scroll-margin-top: 1.5rem; }
+.section-header { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.2rem; padding-bottom: 0.7rem; border-bottom: 1px solid var(--border2); }
+.section-num { font-family: 'DM Mono', monospace; font-size: 0.65rem; font-weight: 700; background: var(--accent3); color: #fff; padding: 0.2rem 0.5rem; border-radius: 4px; flex-shrink: 0; }
+.section-title { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; color: var(--text); line-height: 1.3; }
+.subsection { margin-bottom: 1.5rem; scroll-margin-top: 1.5rem; }
+.subsection-title { font-size: 0.82rem; font-weight: 600; color: var(--accent2); font-family: 'DM Mono', monospace; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.6rem; }
+
+.card { background: var(--surface); border: 1px solid var(--border2); border-radius: 10px; padding: 1.1rem 1.2rem; margin-bottom: 0.8rem; }
+.card-title { font-size: 0.78rem; font-weight: 600; color: var(--accent); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem; }
+.card-title .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
+.card p, .card li { font-size: 0.8rem; color: var(--text2); line-height: 1.6; }
+.card ul { padding-left: 1.1rem; margin-top: 0.4rem; display: flex; flex-direction: column; gap: 0.25rem; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; margin-bottom: 1rem; }
+.grid-3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 0.7rem; margin-bottom: 1rem; }
+.highlight { background: rgba(251,146,60,0.06); border: 1px solid rgba(251,146,60,0.2); border-left: 3px solid var(--accent); border-radius: 8px; padding: 0.9rem 1.1rem; margin-bottom: 1rem; }
+.highlight p { font-size: 0.8rem; color: var(--text2); line-height: 1.6; }
+.highlight strong { color: var(--accent); font-weight: 600; }
+.highlight-blue { background: rgba(96,165,250,0.06); border: 1px solid rgba(96,165,250,0.2); border-left: 3px solid var(--blue); border-radius: 8px; padding: 0.9rem 1.1rem; margin-bottom: 1rem; }
+.highlight-blue p { font-size: 0.8rem; color: var(--text2); line-height: 1.6; }
+.highlight-blue strong { color: var(--blue); }
+.highlight-green { background: rgba(74,222,128,0.06); border: 1px solid rgba(74,222,128,0.2); border-left: 3px solid var(--green); border-radius: 8px; padding: 0.9rem 1.1rem; margin-bottom: 1rem; }
+.highlight-green p { font-size: 0.8rem; color: var(--text2); line-height: 1.6; }
+.highlight-green strong { color: var(--green); }
+.highlight-purple { background: rgba(167,139,250,0.06); border: 1px solid rgba(167,139,250,0.2); border-left: 3px solid var(--purple); border-radius: 8px; padding: 0.9rem 1.1rem; margin-bottom: 1rem; }
+.highlight-purple p { font-size: 0.8rem; color: var(--text2); line-height: 1.6; }
+.highlight-purple strong { color: var(--purple); }
+.highlight-yellow { background: rgba(251,191,36,0.06); border: 1px solid rgba(251,191,36,0.2); border-left: 3px solid var(--yellow); border-radius: 8px; padding: 0.9rem 1.1rem; margin-bottom: 1rem; }
+.highlight-yellow p { font-size: 0.8rem; color: var(--text2); line-height: 1.6; }
+.highlight-yellow strong { color: var(--yellow); }
+.table-wrap { overflow-x: auto; margin-bottom: 1rem; border-radius: 10px; border: 1px solid var(--border2); }
+table { width: 100%; border-collapse: collapse; font-size: 0.76rem; }
+thead tr { background: var(--surface3); }
+th { padding: 0.7rem 0.9rem; text-align: left; font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); font-weight: 500; }
+td { padding: 0.6rem 0.9rem; border-top: 1px solid var(--border2); color: var(--text2); vertical-align: top; line-height: 1.5; }
+tbody tr:hover { background: rgba(255,255,255,0.02); }
+.tag { display: inline-block; font-family: 'DM Mono', monospace; font-size: 0.6rem; padding: 0.15rem 0.5rem; border-radius: 99px; font-weight: 500; }
+.tag-orange { background: rgba(251,146,60,0.12); color: var(--accent); border: 1px solid rgba(251,146,60,0.25); }
+.tag-blue { background: rgba(96,165,250,0.12); color: var(--blue); border: 1px solid rgba(96,165,250,0.25); }
+.tag-green { background: rgba(74,222,128,0.12); color: var(--green); border: 1px solid rgba(74,222,128,0.25); }
+.tag-red { background: rgba(248,113,113,0.12); color: var(--red); border: 1px solid rgba(248,113,113,0.25); }
+.tag-purple { background: rgba(167,139,250,0.12); color: var(--purple); border: 1px solid rgba(167,139,250,0.25); }
+.psak-ref { display: inline-flex; align-items: center; gap: 0.35rem; font-family: 'DM Mono', monospace; font-size: 0.62rem; background: var(--surface3); border: 1px solid var(--border2); color: var(--text2); padding: 0.15rem 0.55rem; border-radius: 99px; margin-bottom: 0.5rem; margin-right: 0.3rem; }
+.psak-ref span { color: var(--accent); }
+
+/* 5-step pipeline */
+.pipeline { display: flex; gap: 0; margin-bottom: 1.2rem; }
+.pipe-step { flex: 1; background: var(--surface); border: 1px solid var(--border2); padding: 0.75rem 0.6rem; text-align: center; position: relative; }
+.pipe-step:not(:last-child)::after { content: '›'; position: absolute; right: -0.7rem; top: 50%; transform: translateY(-50%); color: var(--accent3); font-size: 1.1rem; z-index: 2; }
+.pipe-step:first-child { border-radius: 8px 0 0 8px; }
+.pipe-step:last-child { border-radius: 0 8px 8px 0; }
+.pipe-num { font-family: 'DM Mono', monospace; font-size: 0.6rem; font-weight: 700; color: var(--accent3); display: block; margin-bottom: 0.2rem; }
+.pipe-label { font-size: 0.68rem; color: var(--text2); line-height: 1.3; font-weight: 500; }
+.pipe-step.active { background: rgba(251,146,60,0.08); border-color: rgba(251,146,60,0.3); }
+.pipe-step.active .pipe-label { color: var(--accent); }
+
+/* Step list */
+.step-list { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1rem; }
+.step-item { display: flex; gap: 0.75rem; align-items: flex-start; background: var(--surface); border: 1px solid var(--border2); border-radius: 8px; padding: 0.7rem 0.9rem; }
+.step-num { font-family: 'DM Mono', monospace; font-size: 0.65rem; font-weight: 700; background: var(--accent3); color: #fff; padding: 0.2rem 0.45rem; border-radius: 4px; flex-shrink: 0; margin-top: 0.05rem; }
+.step-item p { font-size: 0.78rem; color: var(--text2); line-height: 1.5; }
+.step-item strong { color: var(--text); }
+
+/* Flowchart */
+.flow-container { background: var(--surface); border: 1px solid var(--border2); border-radius: 10px; padding: 1rem; margin-bottom: 1rem; }
+.flow-step { background: var(--surface3); border: 1px solid var(--border2); border-radius: 8px; padding: 0.6rem 0.9rem; font-size: 0.75rem; color: var(--text2); text-align: center; margin-bottom: 0.3rem; line-height: 1.4; }
+.flow-step.key { border-color: rgba(251,146,60,0.3); background: rgba(251,146,60,0.06); color: var(--text); font-weight: 600; }
+.flow-arrow { text-align: center; color: var(--muted); font-size: 0.9rem; margin: 0.15rem 0; }
+.flow-result { display: flex; gap: 0.6rem; margin-top: 0.4rem; }
+.flow-yes { flex: 1; background: rgba(74,222,128,0.08); border: 1px solid rgba(74,222,128,0.25); border-radius: 8px; padding: 0.5rem 0.8rem; font-size: 0.71rem; color: var(--green); text-align: center; font-family: 'DM Mono', monospace; line-height: 1.4; }
+.flow-no { flex: 1; background: rgba(248,113,113,0.08); border: 1px solid rgba(248,113,113,0.25); border-radius: 8px; padding: 0.5rem 0.8rem; font-size: 0.71rem; color: var(--red); text-align: center; font-family: 'DM Mono', monospace; line-height: 1.4; }
+.flow-neutral { flex: 1; background: rgba(96,165,250,0.08); border: 1px solid rgba(96,165,250,0.25); border-radius: 8px; padding: 0.5rem 0.8rem; font-size: 0.71rem; color: var(--blue); text-align: center; font-family: 'DM Mono', monospace; line-height: 1.4; }
+
+/* Latihan */
+.exercise-section { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; margin-bottom: 1.5rem; }
+.exercise-header { background: rgba(251,146,60,0.08); padding: 0.9rem 1.2rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 0.6rem; }
+.exercise-header h3 { font-family: 'DM Mono', monospace; font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); }
+.exercise-badge { font-family: 'DM Mono', monospace; font-size: 0.58rem; background: rgba(251,146,60,0.15); color: var(--accent); padding: 0.15rem 0.5rem; border-radius: 99px; }
+.mc-item { padding: 1rem 1.2rem; border-bottom: 1px solid var(--border2); }
+.mc-item:last-child { border-bottom: none; }
+.mc-question { font-size: 0.8rem; color: var(--text); font-weight: 500; margin-bottom: 0.6rem; line-height: 1.55; }
+.mc-sub { font-size: 0.74rem; color: var(--text2); background: var(--surface3); border-radius: 8px; padding: 0.6rem 0.9rem; margin-bottom: 0.7rem; line-height: 1.6; }
+.mc-options { display: flex; flex-direction: column; gap: 0.3rem; }
+.mc-option { display: flex; gap: 0.6rem; align-items: flex-start; padding: 0.4rem 0.6rem; border-radius: 6px; cursor: pointer; transition: background 0.15s; font-size: 0.76rem; color: var(--text2); line-height: 1.4; border: 1px solid transparent; }
+.mc-option:hover { background: rgba(255,255,255,0.03); border-color: var(--border2); }
+.mc-option.correct { background: rgba(74,222,128,0.1); color: var(--green); border-color: rgba(74,222,128,0.3); }
+.mc-option.wrong { background: rgba(248,113,113,0.08); color: var(--red); border-color: rgba(248,113,113,0.2); }
+.mc-option.revealed { pointer-events: none; }
+.opt-letter { font-family: 'DM Mono', monospace; font-size: 0.65rem; font-weight: 700; background: var(--surface3); padding: 0.15rem 0.4rem; border-radius: 4px; flex-shrink: 0; margin-top: 0.05rem; }
+.mc-feedback { margin-top: 0.5rem; font-size: 0.72rem; color: var(--muted); display: none; padding: 0.4rem 0.6rem; background: var(--surface3); border-radius: 6px; line-height: 1.5; }
+.mc-feedback.show { display: block; }
+.mc-feedback .correct-ans { color: var(--green); font-weight: 600; }
+.essay-item { padding: 1rem 1.2rem; border-bottom: 1px solid var(--border2); }
+.essay-item:last-child { border-bottom: none; }
+.essay-q { font-size: 0.8rem; color: var(--text); font-weight: 500; margin-bottom: 0.8rem; line-height: 1.55; }
+.essay-sub { font-size: 0.74rem; color: var(--text2); background: var(--surface3); border-radius: 8px; padding: 0.7rem 1rem; margin-bottom: 0.8rem; line-height: 1.6; }
+.essay-toggle { display: flex; align-items: center; gap: 0.5rem; font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent3); background: rgba(251,146,60,0.07); border: 1px solid rgba(251,146,60,0.2); padding: 0.4rem 0.8rem; border-radius: 6px; cursor: pointer; transition: all 0.15s; width: fit-content; }
+.essay-toggle:hover { background: rgba(251,146,60,0.12); color: var(--accent); }
+.essay-answer { margin-top: 0.8rem; display: none; background: var(--surface3); border-radius: 8px; padding: 0.9rem 1rem; }
+.essay-answer.show { display: block; }
+.essay-answer h5 { font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent3); margin-bottom: 0.6rem; }
+.essay-answer p, .essay-answer li { font-size: 0.77rem; color: var(--text2); line-height: 1.6; }
+.essay-answer ul { padding-left: 0; list-style: none; display: flex; flex-direction: column; gap: 0.3rem; margin-top: 0.3rem; }
+.essay-answer li { display: flex; gap: 0.5rem; }
+.essay-answer li::before { content: '▸'; color: var(--accent); flex-shrink: 0; font-size: 0.6rem; margin-top: 0.1rem; }
+.answer-group { margin-bottom: 0.7rem; }
+.answer-group h6 { font-size: 0.74rem; font-weight: 600; color: var(--text); margin-bottom: 0.35rem; }
+
+/* AI */
+.ai-section { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; }
+.ai-header { background: rgba(96,165,250,0.07); padding: 0.9rem 1.2rem; border-bottom: 1px solid rgba(96,165,250,0.15); display: flex; align-items: center; gap: 0.6rem; }
+.ai-header h3 { font-family: 'DM Mono', monospace; font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--blue); }
+.ai-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--blue); }
+.ai-messages { padding: 1rem 1.2rem; min-height: 80px; max-height: 360px; overflow-y: auto; display: flex; flex-direction: column; gap: 0.7rem; }
+.ai-msg { display: flex; gap: 0.6rem; align-items: flex-start; font-size: 0.78rem; line-height: 1.6; animation: fadeUp 0.25s ease; }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+.ai-msg.user { flex-direction: row-reverse; }
+.ai-msg .avatar { width: 26px; height: 26px; border-radius: 6px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 0.65rem; font-weight: 700; margin-top: 0.1rem; }
+.ai-msg.ai .avatar { background: rgba(96,165,250,0.15); color: var(--blue); }
+.ai-msg.user .avatar { background: rgba(251,146,60,0.15); color: var(--accent); }
+.ai-bubble { padding: 0.6rem 0.85rem; border-radius: 10px; max-width: 85%; }
+.ai-msg.ai .ai-bubble { background: var(--surface3); color: var(--text2); }
+.ai-msg.user .ai-bubble { background: rgba(251,146,60,0.09); color: var(--text); text-align: right; }
+.ai-typing { display: flex; gap: 4px; align-items: center; padding: 0.6rem 0.85rem; background: var(--surface3); border-radius: 10px; width: fit-content; }
+.ai-typing span { width: 5px; height: 5px; border-radius: 50%; background: var(--blue); animation: typing 1.2s infinite; }
+.ai-typing span:nth-child(2) { animation-delay: 0.2s; }
+.ai-typing span:nth-child(3) { animation-delay: 0.4s; }
+@keyframes typing { 0%,60%,100% { opacity: 0.2; transform: scale(0.8); } 30% { opacity: 1; transform: scale(1); } }
+.ai-suggestions { padding: 0 1.2rem 0.75rem; display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.ai-chip { font-family: 'DM Mono', monospace; font-size: 0.62rem; background: var(--surface3); border: 1px solid var(--border2); color: var(--text2); padding: 0.3rem 0.7rem; border-radius: 99px; cursor: pointer; transition: all 0.15s; }
+.ai-chip:hover { border-color: rgba(96,165,250,0.35); color: var(--blue); }
+.ai-input-row { padding: 0.75rem 1.2rem; border-top: 1px solid var(--border2); display: flex; gap: 0.5rem; }
+.ai-input { flex: 1; background: var(--surface3); border: 1px solid var(--border2); border-radius: 8px; padding: 0.5rem 0.8rem; font-size: 0.78rem; color: var(--text); font-family: 'DM Sans', sans-serif; outline: none; resize: none; max-height: 100px; transition: border-color 0.2s; }
+.ai-input:focus { border-color: rgba(96,165,250,0.35); }
+.ai-input::placeholder { color: var(--muted); }
+.ai-send { background: var(--blue); color: #000; border: none; border-radius: 8px; padding: 0.5rem 1rem; font-family: 'DM Mono', monospace; font-size: 0.68rem; font-weight: 700; cursor: pointer; transition: opacity 0.15s; }
+.ai-send:hover { opacity: 0.85; }
+.ai-send:disabled { opacity: 0.4; cursor: not-allowed; }
+</style>
+</head>
+<body>
+
+<div class="chapter-header">
+  <div class="chapter-eyebrow">Pelaporan Korporat — CA Indonesia</div>
+  <div class="chapter-title">BAB 12 — Pendapatan</div>
+  <div class="learning-goals">
+    <h3>Tujuan Pembelajaran</h3>
+    <ul class="goals-list">
+      <li>Menerapkan dan menganalisis akuntansi penjualan barang dan jasa, kontrak konstruksi, dan real estat</li>
+      <li>Mengevaluasi kebijakan akuntansi pendapatan yang diterapkan oleh perusahaan</li>
+      <li>Menjelaskan perkembangan terkini akuntansi pendapatan</li>
+    </ul>
+  </div>
+</div>
+
+<div class="page-body">
+  <nav class="toc">
+    <div class="toc-label">Daftar Isi</div>
+    <a href="#s1" class="toc-link">12.1 Kontrak dengan Pelanggan</a>
+    <a href="#s2" class="toc-link">12.2 Model 5 Tahap PSAK 72</a>
+    <a href="#t1" class="toc-link sub">Tahap 1: Identifikasi Kontrak</a>
+    <a href="#t2" class="toc-link sub">Tahap 2: Kewajiban Pelaksanaan</a>
+    <a href="#t3" class="toc-link sub">Tahap 3: Harga Transaksi</a>
+    <a href="#t4" class="toc-link sub">Tahap 4: Alokasi Harga</a>
+    <a href="#t5" class="toc-link sub">Tahap 5: Pengakuan Pendapatan</a>
+    <div class="toc-divider"></div>
+    <a href="#prinsipal" class="toc-link">Prinsipal vs Agen</a>
+    <a href="#biaya" class="toc-link">Biaya Kontrak</a>
+    <div class="toc-divider"></div>
+    <a href="#latihan" class="toc-link">Latihan Soal</a>
+    <a href="#ai" class="toc-link">Tanya AI</a>
+  </nav>
+
+  <main class="main">
+
+    <!-- SECTION 12.1 -->
+    <div class="section" id="s1">
+      <div class="section-header">
+        <span class="section-num">12.1</span>
+        <span class="section-title">Kontrak dengan Pelanggan</span>
+      </div>
+
+      <span class="psak-ref"><span>PSAK</span> 72 — Pendapatan dari Kontrak dengan Pelanggan</span>
+
+      <div class="highlight">
+        <p><strong>Pelanggan</strong> = pihak yang berkontrak dengan entitas untuk memperoleh barang atau jasa yang merupakan output dari aktivitas normal entitas dalam pertukaran dengan imbalan. Pihak yang berkolaborasi berbagi risiko/manfaat (bukan output) <strong>bukan</strong> pelanggan.</p>
+      </div>
+
+      <div class="subsection-title">Pengecualian Ruang Lingkup PSAK 72</div>
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-title"><span class="dot"></span>Dikecualikan dari PSAK 72</div>
+          <ul>
+            <li>Kontrak sewa — <span class="tag tag-blue">PSAK 73</span></li>
+            <li>Kontrak asuransi — <span class="tag tag-blue">PSAK 62</span></li>
+            <li>Instrumen keuangan — <span class="tag tag-blue">PSAK 71</span></li>
+            <li>LK Konsolidasian, Pengaturan Bersama, LK Tersendiri, Investasi Asosiasi — <span class="tag tag-blue">PSAK 65/66/4/15</span></li>
+            <li>Pertukaran nonmoneter antar entitas dalam lini bisnis yang sama</li>
+          </ul>
+        </div>
+        <div class="card" style="border-top:2px solid var(--accent)">
+          <div class="card-title"><span class="dot"></span>5 Kriteria Mencatat Kontrak (Tahap 1)</div>
+          <ul>
+            <li>Para pihak <strong>menyetujui</strong> kontrak (tertulis, lisan, atau praktik bisnis)</li>
+            <li>Dapat diidentifikasi <strong>hak setiap pihak</strong> atas barang/jasa</li>
+            <li>Dapat diidentifikasi <strong>jangka waktu pembayaran</strong></li>
+            <li>Kontrak memiliki <strong>substansi komersial</strong></li>
+            <li>Kemungkinan besar (<em>probable</em>) entitas akan <strong>menagih imbalan</strong></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="highlight-blue">
+        <p><strong>Penggabungan kontrak:</strong> Dua atau lebih kontrak dengan pelanggan yang sama dapat digabung menjadi satu kontrak jika: (1) dinegosiasikan satu paket tujuan komersial tunggal, (2) imbalan satu kontrak bergantung pada harga/pelaksanaan kontrak lain, atau (3) barang/jasa merupakan kewajiban pelaksanaan tunggal.</p>
+      </div>
+      <div class="highlight-yellow">
+        <p><strong>Modifikasi kontrak</strong> = perubahan ruang lingkup atau harga yang disetujui kedua pihak. Dicatat sebagai <strong>kontrak terpisah</strong> jika: (1) ruang lingkup meningkat karena tambahan barang/jasa yang <em>distinct</em> DAN (2) harga meningkat sebesar harga jual berdiri sendiri. Jika tidak → dicatat sebagai terminasi + kontrak baru (prospektif) atau penyesuaian kumulatif (<em>catch-up</em>).</p>
+      </div>
+    </div>
+
+    <!-- SECTION 12.2 -->
+    <div class="section" id="s2">
+      <div class="section-header">
+        <span class="section-num">12.2</span>
+        <span class="section-title">Pengakuan Pendapatan — Model 5 Tahap PSAK 72</span>
+      </div>
+
+      <div class="pipeline">
+        <div class="pipe-step"><span class="pipe-num">01</span><span class="pipe-label">Identifikasi Kontrak</span></div>
+        <div class="pipe-step"><span class="pipe-num">02</span><span class="pipe-label">Identifikasi Kewajiban Pelaksanaan</span></div>
+        <div class="pipe-step"><span class="pipe-num">03</span><span class="pipe-label">Tentukan Harga Transaksi</span></div>
+        <div class="pipe-step"><span class="pipe-num">04</span><span class="pipe-label">Alokasikan Harga Transaksi</span></div>
+        <div class="pipe-step"><span class="pipe-num">05</span><span class="pipe-label">Akui Pendapatan</span></div>
+      </div>
+
+      <!-- TAHAP 1 -->
+      <div class="subsection" id="t1">
+        <div class="subsection-title">Tahap 1 — Mengidentifikasi Kontrak dengan Pelanggan</div>
+        <p style="font-size:0.8rem;color:var(--text2);margin-bottom:0.8rem">Lihat kriteria 5 poin di atas (bagian 12.1). Jika kontrak tidak memenuhi kriteria tetapi entitas telah menerima imbalan, pendapatan baru diakui ketika: (a) tidak ada sisa kewajiban dan imbalan sudah diterima dan tidak dapat dikembalikan, atau (b) kontrak telah diakhiri dan imbalan tidak dapat dikembalikan.</p>
+      </div>
+
+      <!-- TAHAP 2 -->
+      <div class="subsection" id="t2">
+        <div class="subsection-title">Tahap 2 — Mengidentifikasi Kewajiban Pelaksanaan</div>
+        <div class="highlight">
+          <p><strong>Kewajiban pelaksanaan</strong> = janji untuk menyerahkan barang atau jasa yang berbeda (<em>distinct</em>) atau serangkaian barang/jasa yang secara substansi sama. Barang/jasa <em>distinct</em> jika memenuhi <strong>dua kriteria</strong>:</p>
+        </div>
+        <div class="grid-2">
+          <div class="card" style="border-top:2px solid var(--green)">
+            <div class="card-title" style="color:var(--green)"><span class="dot" style="background:var(--green)"></span>Kriteria 1 — Manfaat Mandiri</div>
+            <p>Pelanggan dapat memperoleh manfaat dari barang/jasa itu sendiri atau bersama dengan sumber daya lain yang siap tersedia (<em>capable of being distinct</em>).</p>
+          </div>
+          <div class="card" style="border-top:2px solid var(--blue)">
+            <div class="card-title" style="color:var(--blue)"><span class="dot" style="background:var(--blue)"></span>Kriteria 2 — Dapat Diidentifikasi Terpisah</div>
+            <p>Janji untuk mengalihkan barang/jasa dapat diidentifikasi secara terpisah dari janji lain dalam kontrak (<em>distinct within the context of the contract</em>).</p>
+          </div>
+        </div>
+        <div class="highlight-purple">
+          <p><strong>Indikator TIDAK distinct (digabung jadi satu KP):</strong> (1) Jasa integrasi signifikan — entitas mengintegrasikan barang/jasa sebagai input untuk output yang ditetapkan pelanggan; (2) Barang/jasa secara signifikan memodifikasi atau dimodifikasi satu sama lain; (3) Barang/jasa sangat saling bergantung.</p>
+        </div>
+        <div class="highlight-green">
+          <p><strong>Contoh 12.2 (PT Muza — Perangkat Lunak):</strong> Kontrak mencakup lisensi PL, instalasi, pembaruan PL, dan dukungan teknis. Keempatnya bersifat <em>distinct</em> karena: PL dapat berfungsi tanpa pembaruan/dukungan, instalasi dapat dilakukan pihak lain, tidak ada integrasi signifikan. → <strong>4 kewajiban pelaksanaan terpisah.</strong></p>
+        </div>
+      </div>
+
+      <!-- TAHAP 3 -->
+      <div class="subsection" id="t3">
+        <div class="subsection-title">Tahap 3 — Menentukan Harga Transaksi</div>
+        <div class="highlight-blue">
+          <p><strong>Harga transaksi</strong> = jumlah imbalan yang diharapkan menjadi hak entitas dalam pertukaran untuk mengalihkan barang/jasa kepada pelanggan. <strong>Tidak termasuk</strong> jumlah yang ditagih atas nama pihak ketiga (pajak, dll).</p>
+        </div>
+
+        <div class="subsection-title" style="margin-top:0.5rem">Faktor-faktor Penentuan Harga Transaksi</div>
+        <div class="step-list">
+          <div class="step-item">
+            <span class="step-num">A</span>
+            <p><strong>Imbalan Variabel</strong>: Diskon, rabat, kredit, retur, penalti, bonus kinerja, dsb. Diestimasi menggunakan: (a) <em>Nilai yang diharapkan</em> (probability-weighted) — cocok untuk portofolio kontrak besar; atau (b) <em>Jumlah paling mungkin</em> — cocok jika hanya dua kemungkinan hasil. Tunduk pada <strong>pembatasan imbalan variabel</strong>: hanya diakui jika kemungkinan besar tidak ada pembalikan signifikan.</p>
+          </div>
+          <div class="step-item">
+            <span class="step-num">B</span>
+            <p><strong>Hak Pengembalian Produk</strong>: Entitas hanya mengakui pendapatan atas produk yang diestimasi <strong>tidak</strong> akan dikembalikan. Untuk produk yang diestimasi dikembalikan → akui <strong>liabilitas pengembalian</strong> (<em>refund liability</em>). Jika tidak ada data historis → tunda pengakuan pendapatan.</p>
+          </div>
+          <div class="step-item">
+            <span class="step-num">C</span>
+            <p><strong>Komponen Pendanaan Signifikan</strong>: Jika ada perbedaan waktu pembayaran dan pengalihan barang/jasa yang signifikan, imbalan disesuaikan dengan nilai waktu uang (suku bunga implisit). <strong>Pengecualian</strong>: tidak perlu disesuaikan jika periode antara pengalihan dan pembayaran ≤ 12 bulan.</p>
+          </div>
+          <div class="step-item">
+            <span class="step-num">D</span>
+            <p><strong>Imbalan Non-Kas</strong>: Diukur sebesar nilai wajar imbalan non-kas. Jika NW tidak dapat diestimasi andal → gunakan harga jual berdiri sendiri barang/jasa.</p>
+          </div>
+          <div class="step-item">
+            <span class="step-num">E</span>
+            <p><strong>Utang Imbalan kepada Pelanggan</strong>: Pembayaran dari entitas ke pelanggan (misal: biaya slotting fee) mengurangi harga transaksi, kecuali merupakan pembayaran untuk barang/jasa <em>distinct</em> yang diterima dari pelanggan.</p>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="card" style="border-top:2px solid var(--yellow)">
+            <div class="card-title" style="color:var(--yellow)"><span class="dot" style="background:var(--yellow)"></span>Nilai yang Diharapkan</div>
+            <p>Jumlah probabilitas-jumlah tertimbang dalam rentang kemungkinan. Cocok untuk portofolio banyak kontrak serupa.<br><br><strong>Contoh 12.4:</strong> Penalti Rp500 juta → imbalan tetap Rp4,5 M + variabel Rp500 juta.</p>
+          </div>
+          <div class="card" style="border-top:2px solid var(--teal)">
+            <div class="card-title" style="color:var(--teal)"><span class="dot" style="background:var(--teal)"></span>Jumlah Paling Mungkin</div>
+            <p>Jumlah tunggal paling mungkin. Cocok jika hanya ada dua kemungkinan hasil (ya/tidak).<br><br><strong>Contoh 12.5:</strong> Bonus Rp200 juta atau Rp0 → gunakan metode jumlah paling mungkin.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAHAP 4 -->
+      <div class="subsection" id="t4">
+        <div class="subsection-title">Tahap 4 — Mengalokasikan Harga Transaksi terhadap Kewajiban Pelaksanaan</div>
+        <div class="highlight">
+          <p>Harga transaksi dialokasikan ke setiap kewajiban pelaksanaan berdasarkan <strong>harga jual berdiri sendiri relatif</strong> (<em>relative stand-alone selling price</em>). Bukti terbaik = harga yang dapat diobservasi langsung dari penjualan terpisah.</p>
+        </div>
+
+        <div class="subsection-title" style="margin-top:0.5rem">Estimasi Harga Jual Berdiri Sendiri (jika tidak tersedia)</div>
+        <div class="grid-3">
+          <div class="card">
+            <div class="card-title"><span class="dot"></span>1. Pasar Disesuaikan</div>
+            <p>Evaluasi pasar dan estimasi harga yang pelanggan bersedia bayar. Bisa mengacu harga pesaing lalu disesuaikan.</p>
+          </div>
+          <div class="card">
+            <div class="card-title"><span class="dot"></span>2. Biaya + Marjin</div>
+            <p>Estimasi biaya memenuhi KP + tambahkan marjin yang sesuai untuk barang/jasa tersebut.</p>
+          </div>
+          <div class="card">
+            <div class="card-title"><span class="dot"></span>3. Residual</div>
+            <p>Harga transaksi total dikurangi harga jual berdiri sendiri yang dapat diobservasi untuk KP lain. Hanya jika harga sangat bervariasi atau belum pernah dijual terpisah.</p>
+          </div>
+        </div>
+
+        <div class="highlight-blue">
+          <p><strong>Alokasi Diskon:</strong> Diskon dialokasikan secara proporsional ke semua KP, <strong>kecuali</strong> terdapat bukti bahwa diskon hanya berkaitan dengan satu atau lebih (bukan seluruh) KP. Contoh 12.12: Produk B dan C secara reguler dijual paket → diskon hanya dialokasikan ke B dan C.</p>
+        </div>
+      </div>
+
+      <!-- TAHAP 5 -->
+      <div class="subsection" id="t5">
+        <div class="subsection-title">Tahap 5 — Mengakui Pendapatan ketika (atau selama) Entitas Memenuhi Kewajiban Pelaksanaan</div>
+
+        <div class="flow-container">
+          <div class="flow-step key">Apakah KP diselesaikan sepanjang waktu?</div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-result">
+            <div class="flow-yes">
+              <strong>YA — Sepanjang waktu</strong><br>jika memenuhi ≥1 kriteria:<br>
+              (1) Pelanggan serentak menerima & mengkonsumsi manfaat<br>
+              (2) Kinerja menciptakan/meningkatkan aset yang dikendalikan pelanggan<br>
+              (3) Tidak ada penggunaan alternatif + entitas punya hak atas pembayaran yang dapat dipaksakan<br><br>
+              → Ukur kemajuan: <strong>Metode Output</strong> atau <strong>Metode Input</strong>
+            </div>
+            <div class="flow-no">
+              <strong>TIDAK — Pada suatu titik waktu</strong><br>Akui pendapatan saat pengendalian beralih ke pelanggan<br><br>
+              Indikator: hak pembayaran saat ini, kepemilikan legal, pemilikan fisik, risiko & manfaat, penerimaan pelanggan
+            </div>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="card" style="border-top:2px solid var(--green)">
+            <div class="card-title" style="color:var(--green)"><span class="dot" style="background:var(--green)"></span>Metode Output</div>
+            <p>Berdasarkan pengukuran langsung nilai barang/jasa yang telah dialihkan. Termasuk: survei kinerja, <em>appraisal</em>, tonggak (<em>milestones</em>), waktu berlalu, unit diproduksi/dikirimkan.</p>
+          </div>
+          <div class="card" style="border-top:2px solid var(--blue)">
+            <div class="card-title" style="color:var(--blue)"><span class="dot" style="background:var(--blue)"></span>Metode Input</div>
+            <p>Berdasarkan usaha/input entitas relatif terhadap total input yang diharapkan: sumber daya dikonsumsi, jam kerja, biaya terjadi, waktu berlalu, jam mesin. Pembelian bahan baku untuk tahun mendatang dikecualikan dari pengukuran kemajuan.</p>
+          </div>
+        </div>
+
+        <div class="highlight">
+          <p><strong>Contoh 12.14 — Konstruksi (Metode Input):</strong> PT Berkah, kontrak 3 tahun, total pendapatan Rp1.000 juta, total biaya Rp900 juta. Tahun 1: biaya terjadi Rp300 juta termasuk pembelian bahan baku untuk tahun 2 Rp50 juta. Biaya relevan = 300 − 50 = Rp250 juta. % selesai = 250/900 = 28%. Pendapatan diakui = 28% × 1.000 = <strong>Rp280 juta</strong>.</p>
+        </div>
+
+        <div class="highlight-green">
+          <p><strong>Contoh 12.13 — Real Estat:</strong> PT Graha pengembang real estat. Pendapatan diakui <em>sepanjang waktu</em> jika: aset yang diciptakan tidak memiliki penggunaan alternatif (unit spesifik sudah diidentifikasi di kontrak) DAN entitas memiliki hak atas pembayaran yang dapat dipaksakan atas kinerja yang diselesaikan. Jika tidak terpenuhi → pendapatan diakui <em>pada titik waktu</em> saat serah terima.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- PRINSIPAL vs AGEN -->
+    <div class="section" id="prinsipal">
+      <div class="section-header">
+        <span class="section-num">+</span>
+        <span class="section-title">Prinsipal vs Agen</span>
+      </div>
+      <div class="grid-2">
+        <div class="card" style="border-top:2px solid var(--accent)">
+          <div class="card-title"><span class="dot"></span>Prinsipal</div>
+          <ul>
+            <li>Mengendalikan barang/jasa <strong>sebelum</strong> dialihkan ke pelanggan</li>
+            <li>Menanggung risiko inventaris</li>
+            <li>Pendapatan diakui sebesar <strong>jumlah bruto imbalan</strong></li>
+          </ul>
+        </div>
+        <div class="card" style="border-top:2px solid var(--purple)">
+          <div class="card-title" style="color:var(--purple)"><span class="dot" style="background:var(--purple)"></span>Agen</div>
+          <ul>
+            <li>Hanya <strong>mengatur</strong> barang/jasa yang disediakan pihak lain</li>
+            <li>Tidak menanggung risiko inventaris</li>
+            <li>Pendapatan diakui sebesar <strong>fee atau komisi</strong> neto</li>
+          </ul>
+        </div>
+      </div>
+      <div class="highlight-purple">
+        <p><strong>Contoh Soal 7:</strong> PT A menjual mesin atas nama PT B. Pelanggan bayar Rp1 juta ke PT A → PT A serahkan Rp900 ribu ke PT B (PT A menahan Rp100 ribu komisi) → PT A beri insentif Rp5 ribu ke pelanggan. PT A adalah <strong>agen</strong> → pendapatan = komisi Rp100 ribu − insentif Rp5 ribu = <strong>Rp95 ribu</strong>.</p>
+      </div>
+    </div>
+
+    <!-- BIAYA KONTRAK -->
+    <div class="section" id="biaya">
+      <div class="section-header">
+        <span class="section-num">+</span>
+        <span class="section-title">Biaya Kontrak</span>
+      </div>
+      <div class="grid-2">
+        <div class="card" style="border-top:2px solid var(--green)">
+          <div class="card-title" style="color:var(--green)"><span class="dot" style="background:var(--green)"></span>Biaya Inkremental Mendapatkan Kontrak</div>
+          <ul>
+            <li>Diakui sebagai <strong>aset</strong> jika dapat dipulihkan (disusutkan sesuai pola pengalihan barang/jasa)</li>
+            <li>Dapat langsung dibebankan jika masa amortisasi ≤ 1 tahun</li>
+            <li>Contoh yang memenuhi: <strong>komisi penjualan</strong> yang terkait langsung perolehan kontrak</li>
+            <li>Tidak memenuhi: bonus berdasarkan kriteria lain (tidak terkait langsung perolehan kontrak)</li>
+          </ul>
+        </div>
+        <div class="card" style="border-top:2px solid var(--accent)">
+          <div class="card-title"><span class="dot"></span>Biaya Pemenuhan Kontrak</div>
+          <ul>
+            <li>Diakui sebagai aset jika: (1) terkait langsung kontrak, (2) menghasilkan/meningkatkan sumber daya untuk memenuhi KP, (3) dapat dipulihkan</li>
+            <li>Biaya yang dikecualikan: biaya administrasi umum, biaya pemborosan, biaya untuk KP yang telah dipenuhi</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- LATIHAN -->
+    <div class="section" id="latihan">
+      <div class="section-header">
+        <span class="section-num">✎</span>
+        <span class="section-title">Latihan Soal</span>
+      </div>
+
+      <div class="exercise-section">
+        <div class="exercise-header">
+          <h3>Pilihan Ganda</h3>
+          <span class="exercise-badge">10 Soal</span>
+        </div>
+
+        <div class="mc-item">
+          <div class="mc-question">1. Ruang lingkup PSAK 72 tidak mencakup hal-hal berikut, <u>kecuali</u>:</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',1)"><span class="opt-letter">A</span> Kontrak asuransi (PSAK 62)</div>
+            <div class="mc-option" onclick="checkMC(this,'b',1)"><span class="opt-letter">B</span> Instrumen keuangan (PSAK 71)</div>
+            <div class="mc-option" onclick="checkMC(this,'c',1)"><span class="opt-letter">C</span> Kontrak sewa (PSAK 73)</div>
+            <div class="mc-option" onclick="checkMC(this,'d',1)"><span class="opt-letter">D</span> Kontrak konstruksi (PSAK 34 — dicabut, digantikan PSAK 72)</div>
+          </div>
+          <div class="mc-feedback" id="fb1"><span class="correct-ans">D — Kontrak konstruksi.</span> PSAK 34 tentang Kontrak Konstruksi dicabut dengan berlakunya PSAK 72, sehingga kontrak konstruksi kini berada dalam ruang lingkup PSAK 72. Sementara PSAK 62, 71, dan 73 secara eksplisit dikecualikan dari PSAK 72.</div>
+        </div>
+
+        <div class="mc-item">
+          <div class="mc-question">2. Manakah kriteria untuk mencatat kontrak dengan pelanggan yang <u>kurang tepat</u>?</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',2)"><span class="opt-letter">A</span> Para pihak dalam kontrak telah menyetujui kontrak secara tertulis</div>
+            <div class="mc-option" onclick="checkMC(this,'b',2)"><span class="opt-letter">B</span> Entitas dapat mengidentifikasi hak setiap pihak mengenai barang atau jasa yang akan dialihkan</div>
+            <div class="mc-option" onclick="checkMC(this,'c',2)"><span class="opt-letter">C</span> Entitas dapat mengidentifikasi jangka waktu pembayaran barang atau jasa yang akan dialihkan</div>
+            <div class="mc-option" onclick="checkMC(this,'d',2)"><span class="opt-letter">D</span> Kontrak memiliki substansi komersial</div>
+          </div>
+          <div class="mc-feedback" id="fb2"><span class="correct-ans">A — Kontrak tidak harus berbentuk tertulis.</span> PSAK 72 menyatakan kontrak dapat berupa tertulis, lisan, atau sesuai dengan praktik bisnis pada umumnya. Syaratnya adalah para pihak telah <em>menyetujui</em> kontrak, bukan harus dalam bentuk tertulis.</div>
+        </div>
+
+        <div class="mc-item">
+          <div class="mc-question">3. Dua atau lebih kontrak dapat digabungkan menjadi satu kontrak, jika memenuhi kriteria berikut, <u>kecuali</u>:</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',3)"><span class="opt-letter">A</span> Disepakati pada waktu yang sama atau berdekatan</div>
+            <div class="mc-option" onclick="checkMC(this,'b',3)"><span class="opt-letter">B</span> Dinegosiasikan sebagai satu paket dengan tujuan komersial tunggal</div>
+            <div class="mc-option" onclick="checkMC(this,'c',3)"><span class="opt-letter">C</span> Jumlah imbalan yang dibayarkan untuk satu kontrak tidak terkait dengan harga di kontrak lain</div>
+            <div class="mc-option" onclick="checkMC(this,'d',3)"><span class="opt-letter">D</span> Pihak lawan transaksi adalah pelanggan yang sama</div>
+          </div>
+          <div class="mc-feedback" id="fb3"><span class="correct-ans">C — Justru sebaliknya yang benar.</span> Syarat penggabungan kontrak termasuk: jumlah imbalan BERGANTUNG pada harga atau pelaksanaan dari kontrak lain — bukan tidak terkait. Jika tidak terkait satu sama lain, tidak ada alasan untuk menggabungkan kontrak.</div>
+        </div>
+
+        <div class="mc-item">
+          <div class="mc-question">4. PT ABC menjual produk dengan harga Rp10 juta. Jika pelanggan membayar dalam 30 hari (dari termin normal 90 hari), mendapat diskon 10%. 40% pelanggan diestimasi akan memanfaatkan diskon. Berapa pendapatan yang diakui PT ABC?</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',4)"><span class="opt-letter">A</span> Rp10 juta</div>
+            <div class="mc-option" onclick="checkMC(this,'b',4)"><span class="opt-letter">B</span> Rp9,6 juta</div>
+            <div class="mc-option" onclick="checkMC(this,'c',4)"><span class="opt-letter">C</span> Rp9 juta</div>
+            <div class="mc-option" onclick="checkMC(this,'d',4)"><span class="opt-letter">D</span> Rp4 juta</div>
+          </div>
+          <div class="mc-feedback" id="fb4"><span class="correct-ans">B — Rp9,6 juta.</span> Menggunakan metode nilai yang diharapkan (karena banyak kontrak serupa): (60% × Rp10 juta) + (40% × Rp9 juta) = Rp6 juta + Rp3,6 juta = Rp9,6 juta.</div>
+        </div>
+
+        <div class="mc-item">
+          <div class="mc-question">5. PT ABC menandatangani 1.000 kontrak penjualan mesin @ Rp5 juta. Total harga transaksi = Rp5.000 juta. PT ABC memberikan hak pengembalian 30 hari dan mengestimasi 50 mesin akan dikembalikan. Berapa pendapatan dan liabilitas pengembalian yang harus dicatat?</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',5)"><span class="opt-letter">A</span> Pendapatan Rp5.000 juta dan liabilitas Rp0</div>
+            <div class="mc-option" onclick="checkMC(this,'b',5)"><span class="opt-letter">B</span> Pendapatan Rp0 dan liabilitas Rp5.000 juta</div>
+            <div class="mc-option" onclick="checkMC(this,'c',5)"><span class="opt-letter">C</span> Pendapatan Rp4.750 juta dan liabilitas Rp250 juta</div>
+            <div class="mc-option" onclick="checkMC(this,'d',5)"><span class="opt-letter">D</span> Pendapatan Rp0 dan liabilitas Rp0</div>
+          </div>
+          <div class="mc-feedback" id="fb5"><span class="correct-ans">C — Pendapatan Rp4.750 juta dan liabilitas Rp250 juta.</span> Estimasi tidak dikembalikan = 950 mesin × Rp5 juta = Rp4.750 juta (diakui sebagai pendapatan). Estimasi dikembalikan = 50 mesin × Rp5 juta = Rp250 juta (diakui sebagai liabilitas pengembalian).</div>
+        </div>
+
+        <div class="mc-item">
+          <div class="mc-question">6. Apabila periode antara pengalihan barang/jasa kepada pelanggan dan pembayaran imbalan dalam setahun atau kurang, bagaimana perlakuan komponen pendanaan dalam kontrak tersebut?</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',6)"><span class="opt-letter">A</span> Harus menyesuaikan jumlah imbalan terhadap dampak komponen pendanaan</div>
+            <div class="mc-option" onclick="checkMC(this,'b',6)"><span class="opt-letter">B</span> Tidak boleh melakukan penyesuaian jumlah imbalan terhadap dampak komponen pendanaan</div>
+            <div class="mc-option" onclick="checkMC(this,'c',6)"><span class="opt-letter">C</span> Tidak diharuskan menyesuaikan jumlah imbalan terhadap dampak komponen pendanaan</div>
+            <div class="mc-option" onclick="checkMC(this,'d',6)"><span class="opt-letter">D</span> Tidak diatur dalam PSAK 72</div>
+          </div>
+          <div class="mc-feedback" id="fb6"><span class="correct-ans">C — Tidak diharuskan (pengecualian praktis).</span> PSAK 72 paragraf 63 memberikan pengecualian praktis: entitas tidak diharuskan menyesuaikan harga transaksi terhadap dampak komponen pendanaan jika pada awal kontrak periode antara pengalihan dan pembayaran ≤ 12 bulan.</div>
+        </div>
+
+        <div class="mc-item">
+          <div class="mc-question">7. PT A menjual mesin atas nama PT B. Pelanggan membayar Rp1 juta ke PT A. PT A menyerahkan Rp900 ribu ke PT B. PT A memberi insentif Rp5 ribu ke pelanggan akhir. Berapa pendapatan yang diakui PT A?</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',7)"><span class="opt-letter">A</span> Rp1 juta</div>
+            <div class="mc-option" onclick="checkMC(this,'b',7)"><span class="opt-letter">B</span> Rp900 ribu</div>
+            <div class="mc-option" onclick="checkMC(this,'c',7)"><span class="opt-letter">C</span> Rp100 ribu</div>
+            <div class="mc-option" onclick="checkMC(this,'d',7)"><span class="opt-letter">D</span> Rp95 ribu</div>
+          </div>
+          <div class="mc-feedback" id="fb7"><span class="correct-ans">D — Rp95 ribu.</span> PT A adalah agen (menjual atas nama PT B, tidak mengendalikan barang). Pendapatan = komisi bersih = Rp100 ribu − insentif Rp5 ribu = Rp95 ribu.</div>
+        </div>
+
+        <div class="mc-item">
+          <div class="mc-sub">
+            <strong>Untuk soal 8:</strong> PT Sevia memproduksi biskuit kaleng. Kontrak 1 tahun, janji beli minimum Rp500 juta. PT Sevia harus membayar Rp50 juta (<em>non-refundable</em>) ke pelanggan pada awal kontrak untuk mengkompensasi biaya perubahan rak pajang. Di bulan pertama, penjualan Rp60 juta.
+          </div>
+          <div class="mc-question">8. Berapa pendapatan yang diakui PT Sevia di bulan pertama?</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',8)"><span class="opt-letter">A</span> Rp500 juta</div>
+            <div class="mc-option" onclick="checkMC(this,'b',8)"><span class="opt-letter">B</span> Rp60 juta</div>
+            <div class="mc-option" onclick="checkMC(this,'c',8)"><span class="opt-letter">C</span> Rp54 juta</div>
+            <div class="mc-option" onclick="checkMC(this,'d',8)"><span class="opt-letter">D</span> Rp10 juta</div>
+          </div>
+          <div class="mc-feedback" id="fb8"><span class="correct-ans">C — Rp54 juta.</span> Pembayaran Rp50 juta ke pelanggan bukan untuk barang/jasa distinct → mengurangi harga transaksi sebesar 10% (Rp50 juta / Rp500 juta). Di bulan pertama: Rp60 juta − (10% × Rp60 juta) = Rp60 juta − Rp6 juta = Rp54 juta.</div>
+        </div>
+
+        <div class="mc-item">
+          <div class="mc-sub">
+            <strong>Untuk soal 9:</strong> PT Medanjaya menjual A, B, C terpisah @ Rp40 ribu, Rp55 ribu, Rp45 ribu. B dan C dijual paket @ Rp90 ribu. Kontrak baru: menjual A+B+C paket @ Rp130 ribu.
+          </div>
+          <div class="mc-question">9. Berapa alokasi harga transaksi untuk masing-masing produk?</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',9)"><span class="opt-letter">A</span> Produk A Rp37 ribu, Produk B Rp51 ribu, Produk C Rp42 ribu</div>
+            <div class="mc-option" onclick="checkMC(this,'b',9)"><span class="opt-letter">B</span> Produk A Rp20 ribu, Produk B Rp55 ribu, Produk C Rp45 ribu</div>
+            <div class="mc-option" onclick="checkMC(this,'c',9)"><span class="opt-letter">C</span> Produk A Rp40 ribu, Produk B Rp49,5 ribu, Produk C Rp40,5 ribu</div>
+            <div class="mc-option" onclick="checkMC(this,'d',9)"><span class="opt-letter">D</span> Produk A Rp43,3 ribu, Produk B Rp43,3 ribu, Produk C Rp43,3 ribu</div>
+          </div>
+          <div class="mc-feedback" id="fb9"><span class="correct-ans">C — A: Rp40 ribu, B: Rp49,5 ribu, C: Rp40,5 ribu.</span> B dan C reguler dijual paket Rp90 ribu → diskon hanya untuk B dan C. A = harga jual sendiri Rp40 ribu. Sisa untuk B dan C = Rp130 ribu − Rp40 ribu = Rp90 ribu. B = (55/100) × 90 = Rp49,5 ribu. C = (45/100) × 90 = Rp40,5 ribu.</div>
+        </div>
+
+        <div class="mc-item">
+          <div class="mc-question">10. PT Haiteh menandatangani kontrak lisensi 5 tahun. Pelanggan membayar Rp1 miliar non-refundable pada awal dan menerima kode akses pada 1 Jan 2018 untuk 4 modul (dari 5). Modul kelima tersedia kapan saja atas permintaan. Kapan pengendalian atas lisensi berpindah ke pelanggan?</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',10)"><span class="opt-letter">A</span> Tanggal 1 Januari 2018</div>
+            <div class="mc-option" onclick="checkMC(this,'b',10)"><span class="opt-letter">B</span> Setelah empat modul selesai di-install</div>
+            <div class="mc-option" onclick="checkMC(this,'c',10)"><span class="opt-letter">C</span> Setelah modul 5 selesai di-install</div>
+            <div class="mc-option" onclick="checkMC(this,'d',10)"><span class="opt-letter">D</span> Setelah masa perjanjian lisensi berakhir</div>
+          </div>
+          <div class="mc-feedback" id="fb10"><span class="correct-ans">A — Tanggal 1 Januari 2018.</span> Pelanggan telah membayar non-refundable fee, telah menerima perangkat lunak (dapat meninjau dan menyetujui), masa lisensi telah dimulai, dan kode akses untuk modul kelima tersedia kapan saja. Keterbatasan instalasi adalah masalah teknis di pihak pelanggan, bukan kendali entitas → pengendalian telah berpindah pada 1 Jan 2018.</div>
+        </div>
+      </div>
+
+      <!-- ESAI -->
+      <div class="exercise-section">
+        <div class="exercise-header">
+          <h3>Soal Esai</h3>
+          <span class="exercise-badge">2 Soal</span>
+        </div>
+
+        <div class="essay-item">
+          <div class="essay-q">1. PT SRA menandatangani kontrak untuk menyediakan peralatan dan jasa instalasi. Peralatan dapat dioperasikan tanpa modifikasi; jasa instalasi bersifat sederhana dan dapat dilakukan pihak lain. (a) Evaluasi kewajiban pelaksanaan. (b) Bagaimana jika pelanggan secara kontraktual harus menggunakan jasa instalasi dari PT SRA saja? (c) Bagaimana jika sebagai bagian dari jasa instalasi, peralatan dimodifikasi secara signifikan untuk menambah fungsi baru dan instalasi tersebut dapat dilakukan entitas lain?</div>
+          <button class="essay-toggle" onclick="toggleEssay('ea1')">▶ Lihat Jawaban</button>
+          <div class="essay-answer" id="ea1">
+            <h5>Jawaban</h5>
+            <div class="answer-group">
+              <h6>(a) Kewajiban Pelaksanaan</h6>
+              <p>Terdapat <strong>2 kewajiban pelaksanaan terpisah</strong>: (1) peralatan dan (2) jasa instalasi. Keduanya distinct karena memenuhi dua kriteria: pelanggan dapat memperoleh manfaat dari masing-masing secara terpisah (peralatan berfungsi tanpa instalasi; instalasi dapat dilakukan pihak lain), dan janji keduanya dapat diidentifikasi secara terpisah.</p>
+            </div>
+            <div class="answer-group">
+              <h6>(b) Pelanggan wajib menggunakan instalasi PT SRA</h6>
+              <p>Jawaban <strong>tidak berubah</strong> — tetap 2 kewajiban pelaksanaan. Kewajiban kontraktual pelanggan untuk menggunakan instalasi dari PT SRA tidak mengubah sifat distinktif peralatan dan jasa instalasi itu sendiri.</p>
+            </div>
+            <div class="answer-group">
+              <h6>(c) Instalasi memodifikasi peralatan secara signifikan</h6>
+              <p>Jawaban <strong>berubah menjadi 1 kewajiban pelaksanaan tunggal</strong>. Janji instalasi memberikan jasa integrasi signifikan atas peralatan untuk menghasilkan output gabungan (peralatan yang terintegrasi dan siap digunakan). Karena ada integrasi signifikan, barang dan jasa tersebut tidak dapat dibedakan dalam konteks kontrak tersebut.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="essay-item">
+          <div class="essay-q">2. PT Raja menandatangani kontrak produksi mesin. Skedul pembayaran: 10% uang muka, 50% berkala selama produksi, 40% setelah selesai dan lulus uji. Pembayaran non-refundable kecuali PT Raja gagal menyerahkan mesin. Jika pelanggan batalkan kontrak, PT Raja hanya menahan pembayaran kemajuan yang sudah dibayar (tidak berhak kompensasi lebih lanjut). Apakah kewajiban pelaksanaan memenuhi kriteria diselesaikan sepanjang waktu atau pada titik waktu tertentu?</div>
+          <button class="essay-toggle" onclick="toggleEssay('ea2')">▶ Lihat Jawaban</button>
+          <div class="essay-answer" id="ea2">
+            <h5>Jawaban — Kewajiban Pelaksanaan pada TITIK WAKTU TERTENTU</h5>
+            <div class="answer-group">
+              <h6>Analisis 3 Kriteria Sepanjang Waktu</h6>
+              <ul>
+                <li><strong>(a) Pelanggan serentak menerima dan mengonsumsi manfaat</strong> → Tidak terpenuhi. Pelanggan tidak menerima manfaat selama proses produksi.</li>
+                <li><strong>(b) Kinerja menciptakan aset yang dikendalikan pelanggan</strong> → Perlu dianalisis bersama (c).</li>
+                <li><strong>(c) Tidak ada penggunaan alternatif + hak atas pembayaran yang dapat dipaksakan</strong> → Walaupun pembayaran non-refundable, jumlah kumulatif pembayaran kemajuan <em>tidak</em> sama dengan biaya yang dikeluarkan PT Raja sampai saat itu. Dengan demikian, entitas tidak memiliki hak atas pembayaran yang dapat dipaksakan atas kinerja yang diselesaikan. Persyaratan (a) dan (b) juga tidak terpenuhi.</li>
+              </ul>
+            </div>
+            <p>Kesimpulan: Karena tidak ada satupun kriteria sepanjang waktu yang terpenuhi, <strong>kewajiban pelaksanaan dipenuhi pada titik waktu tertentu</strong> (saat serah terima mesin yang lulus uji kelayakan).</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- AI -->
+    <div class="section" id="ai">
+      <div class="section-header">
+        <span class="section-num">🤖</span>
+        <span class="section-title">Tanya AI — Asisten Belajar</span>
+      </div>
+      <div class="ai-section">
+        <div class="ai-header">
+          <div class="ai-dot"></div>
+          <h3>Asisten BAB 12 — Pendapatan (PSAK 72)</h3>
+        </div>
+        <div class="ai-messages" id="aiMessages">
+          <div class="ai-msg ai">
+            <div class="avatar">AI</div>
+            <div class="ai-bubble">Halo! Saya siap membantu kamu memahami BAB 12 tentang Pendapatan (PSAK 72). Tanya apa saja — mulai dari model 5 tahap, kewajiban pelaksanaan distinct, imbalan variabel, pengakuan sepanjang waktu vs titik waktu, prinsipal vs agen, atau contoh kasus konstruksi dan real estat!</div>
+          </div>
+        </div>
+        <div class="ai-suggestions" id="aiSuggestions">
+          <span class="ai-chip" onclick="sendChip(this)">Jelaskan model 5 tahap PSAK 72 secara ringkas</span>
+          <span class="ai-chip" onclick="sendChip(this)">Kapan barang atau jasa dianggap distinct?</span>
+          <span class="ai-chip" onclick="sendChip(this)">Apa perbedaan metode nilai ekspektasian vs jumlah paling mungkin?</span>
+          <span class="ai-chip" onclick="sendChip(this)">Bagaimana mengakui pendapatan konstruksi metode input?</span>
+          <span class="ai-chip" onclick="sendChip(this)">Apa perbedaan prinsipal dan agen dalam PSAK 72?</span>
+        </div>
+        <div class="ai-input-row">
+          <textarea class="ai-input" id="aiInput" rows="1" placeholder="Ketik pertanyaan tentang BAB 12…" onkeydown="handleKey(event)"></textarea>
+          <button class="ai-send" id="aiSendBtn" onclick="sendMessage()">Kirim</button>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<script>
+const answers = {1:'d',2:'a',3:'c',4:'b',5:'c',6:'c',7:'d',8:'c',9:'c',10:'a'};
+function checkMC(el, choice, num) {
+  const item = el.closest('.mc-item');
+  if (item.querySelector('.revealed')) return;
+  const correct = answers[num];
+  item.querySelectorAll('.mc-option').forEach(opt => {
+    opt.classList.add('revealed');
+    const letter = opt.querySelector('.opt-letter').textContent.toLowerCase();
+    if (letter === correct) opt.classList.add('correct');
+    else if (letter === choice && choice !== correct) opt.classList.add('wrong');
+  });
+  const fb = document.getElementById('fb' + num);
+  if (fb) fb.classList.add('show');
+}
+function toggleEssay(id) {
+  const ans = document.getElementById(id);
+  const btn = ans.previousElementSibling;
+  const show = !ans.classList.contains('show');
+  ans.classList.toggle('show', show);
+  btn.textContent = show ? '▼ Sembunyikan Jawaban' : '▶ Lihat Jawaban';
+}
+const sections = document.querySelectorAll('.section, .subsection');
+const tocLinks = document.querySelectorAll('.toc-link');
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { tocLinks.forEach(l => l.classList.remove('active')); const a = document.querySelector(`.toc-link[href="#${e.target.id}"]`); if (a) a.classList.add('active'); } });
+}, { rootMargin: '-20% 0px -70% 0px' });
+sections.forEach(s => { if (s.id) obs.observe(s); });
+
+const SYSTEM_PROMPT = `Kamu adalah asisten belajar untuk mata kuliah CA Indonesia: Pelaporan Korporat, khususnya BAB 12 tentang Pendapatan (PSAK 72: Pendapatan dari Kontrak dengan Pelanggan).
+
+Topik yang kamu kuasai:
+- 12.1 Kontrak dengan pelanggan: definisi pelanggan, pengecualian ruang lingkup PSAK 72 (PSAK 73 sewa, PSAK 62 asuransi, PSAK 71/65/66/4/15), 5 kriteria mencatat kontrak, penggabungan kontrak (3 kriteria), modifikasi kontrak (kontrak terpisah vs prospektif vs catch-up kumulatif)
+- 12.2 Model 5 Tahap PSAK 72:
+  Tahap 1 — Identifikasi kontrak: 5 kriteria, imbalan yang diterima jika kontrak tidak memenuhi kriteria
+  Tahap 2 — Identifikasi kewajiban pelaksanaan: distinct (2 kriteria: manfaat mandiri + dapat diidentifikasi terpisah), indikator tidak distinct (integrasi signifikan, saling memodifikasi, sangat bergantung)
+  Tahap 3 — Menentukan harga transaksi: imbalan variabel (metode nilai ekspektasian vs jumlah paling mungkin), pembatasan imbalan variabel, hak pengembalian produk + liabilitas pengembalian, komponen pendanaan signifikan (pengecualian ≤12 bulan), imbalan non-kas, utang imbalan kepada pelanggan
+  Tahap 4 — Alokasi harga transaksi: relative stand-alone selling price, estimasi (pendekatan pasar disesuaikan, biaya+marjin, residual), alokasi diskon (proporsional vs ke KP spesifik)
+  Tahap 5 — Pengakuan pendapatan: sepanjang waktu (3 kriteria), pada titik waktu, metode output vs input, pengukuran kemajuan konstruksi
+- Prinsipal vs Agen: kontrol sebelum dialihkan = prinsipal (bruto), hanya mengatur = agen (neto/komisi)
+- Biaya kontrak: inkremental mendapatkan kontrak (dikapitalisasi jika dapat dipulihkan), biaya pemenuhan
+
+Jawab dalam Bahasa Indonesia yang jelas dan ringkas. Gunakan contoh angka konkret dan ilustrasi bila relevan. Sebutkan nomor PSAK dan paragraf yang relevan.`;
+
+const messagesEl = document.getElementById('aiMessages');
+const inputEl = document.getElementById('aiInput');
+const sendBtn = document.getElementById('aiSendBtn');
+let history = [];
+function addMsg(role, text) {
+  const div = document.createElement('div');
+  div.className = `ai-msg ${role}`;
+  div.innerHTML = `<div class="avatar">${role==='ai'?'AI':'Kamu'}</div><div class="ai-bubble">${text.replace(/\n/g,'<br>')}</div>`;
+  messagesEl.appendChild(div); messagesEl.scrollTop = messagesEl.scrollHeight;
+}
+function addTyping() {
+  const div = document.createElement('div'); div.className = 'ai-msg ai'; div.id = 'typing';
+  div.innerHTML = `<div class="avatar">AI</div><div class="ai-typing"><span></span><span></span><span></span></div>`;
+  messagesEl.appendChild(div); messagesEl.scrollTop = messagesEl.scrollHeight;
+}
+async function sendMessage() {
+  const text = inputEl.value.trim(); if (!text) return;
+  inputEl.value = ''; document.getElementById('aiSuggestions').style.display = 'none';
+  addMsg('user', text); history.push({ role: 'user', content: text }); sendBtn.disabled = true; addTyping();
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ model: 'claude-sonnet-4-20250514', max_tokens: 1000, system: SYSTEM_PROMPT, messages: history }) });
+    const data = await res.json();
+    document.getElementById('typing')?.remove();
+    const reply = data.content?.find(b => b.type === 'text')?.text || 'Maaf, tidak ada respons.';
+    addMsg('ai', reply); history.push({ role: 'assistant', content: reply });
+  } catch { document.getElementById('typing')?.remove(); addMsg('ai', 'Maaf, terjadi kesalahan. Periksa koneksi internet dan coba lagi.'); }
+  sendBtn.disabled = false;
+}
+function sendChip(el) { inputEl.value = el.textContent; sendMessage(); }
+function handleKey(e) { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); } }
+</script>
+</body>
+</html>

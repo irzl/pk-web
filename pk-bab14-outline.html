@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BAB 14 — Pelaporan Berkelanjutan &amp; Terintegrasi</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #080c14; --surface: #0d1520; --surface2: #121e2e; --surface3: #17273a;
+  --accent: #60a5fa; --accent2: #93c5fd; --accent3: #2563eb;
+  --yellow: #fbbf24; --green: #4ade80; --teal: #2dd4bf; --orange: #fb923c; --purple: #a78bfa; --red: #f87171;
+  --text: #f0f9ff; --text2: #94b8d4; --muted: #3d5a73; --border: rgba(96,165,250,0.12); --border2: rgba(255,255,255,0.06);
+}
+html { scroll-behavior: smooth; }
+body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; min-height: 100vh; }
+
+.chapter-header { background: linear-gradient(135deg, #080c14 0%, #0d1520 50%, #080c14 100%); border-bottom: 1px solid var(--border); padding: 2.5rem 2rem 2rem; position: relative; overflow: hidden; }
+.chapter-header::before { content: '14'; position: absolute; right: -0.5rem; top: -1rem; font-family: 'Playfair Display', serif; font-size: 12rem; font-weight: 900; color: rgba(96,165,250,0.04); line-height: 1; pointer-events: none; user-select: none; }
+.chapter-eyebrow { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent3); margin-bottom: 0.5rem; }
+.chapter-title { font-family: 'Playfair Display', serif; font-size: clamp(1.3rem, 3vw, 2rem); font-weight: 900; line-height: 1.2; background: linear-gradient(135deg, #60a5fa, #93c5fd); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 1.2rem; }
+.learning-goals { background: rgba(96,165,250,0.05); border: 1px solid var(--border); border-radius: 12px; padding: 1rem 1.2rem; max-width: 700px; }
+.learning-goals h3 { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.6rem; }
+.goals-list { list-style: none; display: flex; flex-direction: column; gap: 0.3rem; }
+.goals-list li { font-size: 0.78rem; color: var(--text2); display: flex; gap: 0.6rem; align-items: flex-start; }
+.goals-list li::before { content: '→'; color: var(--accent3); flex-shrink: 0; font-family: 'DM Mono', monospace; font-size: 0.7rem; margin-top: 0.05rem; }
+
+.page-body { display: grid; grid-template-columns: 220px 1fr; min-height: calc(100vh - 200px); }
+.toc { background: var(--surface); border-right: 1px solid var(--border2); padding: 1.5rem 0; position: sticky; top: 0; height: 100vh; overflow-y: auto; }
+.toc-label { font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); padding: 0 1rem; margin-bottom: 0.8rem; }
+.toc-link { display: block; padding: 0.45rem 1rem; font-size: 0.75rem; color: var(--muted); text-decoration: none; transition: all 0.15s; border-left: 2px solid transparent; line-height: 1.4; }
+.toc-link:hover { color: var(--text); background: rgba(96,165,250,0.04); }
+.toc-link.active { color: var(--accent); border-left-color: var(--accent); background: rgba(96,165,250,0.06); }
+.toc-link.sub { padding-left: 1.8rem; font-size: 0.7rem; }
+.toc-divider { height: 1px; background: var(--border2); margin: 0.6rem 1rem; }
+.main { padding: 2rem 2.5rem 4rem; max-width: 860px; }
+.section { margin-bottom: 3rem; scroll-margin-top: 1.5rem; }
+.section-header { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.2rem; padding-bottom: 0.7rem; border-bottom: 1px solid var(--border2); }
+.section-num { font-family: 'DM Mono', monospace; font-size: 0.65rem; font-weight: 700; background: var(--accent3); color: #fff; padding: 0.2rem 0.5rem; border-radius: 4px; flex-shrink: 0; }
+.section-title { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; color: var(--text); line-height: 1.3; }
+.subsection { margin-bottom: 1.5rem; scroll-margin-top: 1.5rem; }
+.subsection-title { font-size: 0.82rem; font-weight: 600; color: var(--accent2); font-family: 'DM Mono', monospace; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.6rem; }
+
+.card { background: var(--surface); border: 1px solid var(--border2); border-radius: 10px; padding: 1.1rem 1.2rem; margin-bottom: 0.8rem; }
+.card-title { font-size: 0.78rem; font-weight: 600; color: var(--accent); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem; }
+.card-title .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
+.card p, .card li { font-size: 0.8rem; color: var(--text2); line-height: 1.6; }
+.card ul { padding-left: 1.1rem; margin-top: 0.4rem; display: flex; flex-direction: column; gap: 0.25rem; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; margin-bottom: 1rem; }
+.grid-3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 0.7rem; margin-bottom: 1rem; }
+.highlight { background: rgba(96,165,250,0.06); border: 1px solid rgba(96,165,250,0.2); border-left: 3px solid var(--accent); border-radius: 8px; padding: 0.9rem 1.1rem; margin-bottom: 1rem; }
+.highlight p { font-size: 0.8rem; color: var(--text2); line-height: 1.6; }
+.highlight strong { color: var(--accent); font-weight: 600; }
+.highlight-green { background: rgba(74,222,128,0.06); border: 1px solid rgba(74,222,128,0.2); border-left: 3px solid var(--green); border-radius: 8px; padding: 0.9rem 1.1rem; margin-bottom: 1rem; }
+.highlight-green p { font-size: 0.8rem; color: var(--text2); line-height: 1.6; }
+.highlight-green strong { color: var(--green); }
+.highlight-yellow { background: rgba(251,191,36,0.06); border: 1px solid rgba(251,191,36,0.2); border-left: 3px solid var(--yellow); border-radius: 8px; padding: 0.9rem 1.1rem; margin-bottom: 1rem; }
+.highlight-yellow p { font-size: 0.8rem; color: var(--text2); line-height: 1.6; }
+.highlight-yellow strong { color: var(--yellow); }
+.highlight-purple { background: rgba(167,139,250,0.06); border: 1px solid rgba(167,139,250,0.2); border-left: 3px solid var(--purple); border-radius: 8px; padding: 0.9rem 1.1rem; margin-bottom: 1rem; }
+.highlight-purple p { font-size: 0.8rem; color: var(--text2); line-height: 1.6; }
+.highlight-purple strong { color: var(--purple); }
+.highlight-teal { background: rgba(45,212,191,0.06); border: 1px solid rgba(45,212,191,0.2); border-left: 3px solid var(--teal); border-radius: 8px; padding: 0.9rem 1.1rem; margin-bottom: 1rem; }
+.highlight-teal p { font-size: 0.8rem; color: var(--text2); line-height: 1.6; }
+.highlight-teal strong { color: var(--teal); }
+.table-wrap { overflow-x: auto; margin-bottom: 1rem; border-radius: 10px; border: 1px solid var(--border2); }
+table { width: 100%; border-collapse: collapse; font-size: 0.76rem; }
+thead tr { background: var(--surface3); }
+th { padding: 0.7rem 0.9rem; text-align: left; font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); font-weight: 500; }
+td { padding: 0.6rem 0.9rem; border-top: 1px solid var(--border2); color: var(--text2); vertical-align: top; line-height: 1.5; }
+tbody tr:hover { background: rgba(255,255,255,0.02); }
+.tag { display: inline-block; font-family: 'DM Mono', monospace; font-size: 0.6rem; padding: 0.15rem 0.5rem; border-radius: 99px; font-weight: 500; }
+.tag-blue { background: rgba(96,165,250,0.12); color: var(--accent); border: 1px solid rgba(96,165,250,0.25); }
+.tag-green { background: rgba(74,222,128,0.12); color: var(--green); border: 1px solid rgba(74,222,128,0.25); }
+.tag-yellow { background: rgba(251,191,36,0.12); color: var(--yellow); border: 1px solid rgba(251,191,36,0.25); }
+.tag-teal { background: rgba(45,212,191,0.12); color: var(--teal); border: 1px solid rgba(45,212,191,0.25); }
+.tag-purple { background: rgba(167,139,250,0.12); color: var(--purple); border: 1px solid rgba(167,139,250,0.25); }
+.tag-orange { background: rgba(251,146,60,0.12); color: var(--orange); border: 1px solid rgba(251,146,60,0.25); }
+
+/* Step pipeline */
+.pipeline { display: flex; gap: 0; margin-bottom: 1.2rem; }
+.pipe-step { flex: 1; background: var(--surface); border: 1px solid var(--border2); padding: 0.75rem 0.5rem; text-align: center; position: relative; }
+.pipe-step:not(:last-child)::after { content: '›'; position: absolute; right: -0.7rem; top: 50%; transform: translateY(-50%); color: var(--accent3); font-size: 1.1rem; z-index: 2; }
+.pipe-step:first-child { border-radius: 8px 0 0 8px; }
+.pipe-step:last-child { border-radius: 0 8px 8px 0; }
+.pipe-num { font-family: 'DM Mono', monospace; font-size: 0.58rem; font-weight: 700; color: var(--accent3); display: block; margin-bottom: 0.2rem; }
+.pipe-label { font-size: 0.65rem; color: var(--text2); line-height: 1.3; font-weight: 500; font-style: italic; }
+
+/* Capital cards */
+.capital-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.7rem; margin-bottom: 1rem; }
+.capital-card { background: var(--surface); border: 1px solid var(--border2); border-radius: 10px; padding: 0.85rem 0.9rem; border-top: 2px solid; }
+.capital-label { font-family: 'DM Mono', monospace; font-size: 0.58rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.2rem; }
+.capital-name { font-size: 0.82rem; font-weight: 700; margin-bottom: 0.4rem; }
+.capital-card p { font-size: 0.72rem; color: var(--text2); line-height: 1.5; }
+
+/* Principle cards */
+.principle-list { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1rem; }
+.principle-item { display: flex; gap: 0.75rem; align-items: flex-start; background: var(--surface); border: 1px solid var(--border2); border-radius: 8px; padding: 0.7rem 0.9rem; }
+.principle-num { font-family: 'DM Mono', monospace; font-size: 0.65rem; font-weight: 700; background: var(--accent3); color: #fff; padding: 0.2rem 0.45rem; border-radius: 4px; flex-shrink: 0; margin-top: 0.05rem; min-width: 26px; text-align: center; }
+.principle-item p { font-size: 0.78rem; color: var(--text2); line-height: 1.5; }
+.principle-item strong { color: var(--text); }
+
+/* Compare table SR vs IR */
+.compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; margin-bottom: 1rem; }
+.compare-card { background: var(--surface); border: 1px solid var(--border2); border-radius: 10px; padding: 1rem; border-top: 2px solid; }
+.compare-label { font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.25rem; }
+.compare-name { font-size: 0.9rem; font-weight: 700; margin-bottom: 0.5rem; }
+.compare-card ul { list-style: none; display: flex; flex-direction: column; gap: 0.25rem; }
+.compare-card li { font-size: 0.73rem; color: var(--text2); display: flex; gap: 0.5rem; line-height: 1.4; }
+.compare-card li::before { content: '▸'; flex-shrink: 0; font-size: 0.6rem; margin-top: 0.1rem; }
+
+/* Latihan */
+.exercise-section { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; margin-bottom: 1.5rem; }
+.exercise-header { background: rgba(96,165,250,0.08); padding: 0.9rem 1.2rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 0.6rem; }
+.exercise-header h3 { font-family: 'DM Mono', monospace; font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); }
+.exercise-badge { font-family: 'DM Mono', monospace; font-size: 0.58rem; background: rgba(96,165,250,0.15); color: var(--accent); padding: 0.15rem 0.5rem; border-radius: 99px; }
+.mc-item { padding: 1rem 1.2rem; border-bottom: 1px solid var(--border2); }
+.mc-item:last-child { border-bottom: none; }
+.mc-question { font-size: 0.8rem; color: var(--text); font-weight: 500; margin-bottom: 0.6rem; line-height: 1.55; }
+.mc-options { display: flex; flex-direction: column; gap: 0.3rem; }
+.mc-option { display: flex; gap: 0.6rem; align-items: flex-start; padding: 0.4rem 0.6rem; border-radius: 6px; cursor: pointer; transition: background 0.15s; font-size: 0.76rem; color: var(--text2); line-height: 1.4; border: 1px solid transparent; }
+.mc-option:hover { background: rgba(255,255,255,0.03); border-color: var(--border2); }
+.mc-option.correct { background: rgba(74,222,128,0.1); color: var(--green); border-color: rgba(74,222,128,0.3); }
+.mc-option.wrong { background: rgba(248,113,113,0.08); color: var(--red); border-color: rgba(248,113,113,0.2); }
+.mc-option.revealed { pointer-events: none; }
+.opt-letter { font-family: 'DM Mono', monospace; font-size: 0.65rem; font-weight: 700; background: var(--surface3); padding: 0.15rem 0.4rem; border-radius: 4px; flex-shrink: 0; margin-top: 0.05rem; }
+.mc-feedback { margin-top: 0.5rem; font-size: 0.72rem; color: var(--muted); display: none; padding: 0.4rem 0.6rem; background: var(--surface3); border-radius: 6px; line-height: 1.5; }
+.mc-feedback.show { display: block; }
+.mc-feedback .correct-ans { color: var(--green); font-weight: 600; }
+.essay-item { padding: 1rem 1.2rem; border-bottom: 1px solid var(--border2); }
+.essay-item:last-child { border-bottom: none; }
+.essay-q { font-size: 0.8rem; color: var(--text); font-weight: 500; margin-bottom: 0.8rem; line-height: 1.55; }
+.essay-toggle { display: flex; align-items: center; gap: 0.5rem; font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent3); background: rgba(96,165,250,0.07); border: 1px solid rgba(96,165,250,0.2); padding: 0.4rem 0.8rem; border-radius: 6px; cursor: pointer; transition: all 0.15s; width: fit-content; }
+.essay-toggle:hover { background: rgba(96,165,250,0.12); color: var(--accent); }
+.essay-answer { margin-top: 0.8rem; display: none; background: var(--surface3); border-radius: 8px; padding: 0.9rem 1rem; }
+.essay-answer.show { display: block; }
+.essay-answer h5 { font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent3); margin-bottom: 0.6rem; }
+.essay-answer p, .essay-answer li { font-size: 0.77rem; color: var(--text2); line-height: 1.6; }
+.essay-answer ul { padding-left: 0; list-style: none; display: flex; flex-direction: column; gap: 0.3rem; margin-top: 0.3rem; }
+.essay-answer li { display: flex; gap: 0.5rem; }
+.essay-answer li::before { content: '▸'; color: var(--accent); flex-shrink: 0; font-size: 0.6rem; margin-top: 0.1rem; }
+.answer-group { margin-bottom: 0.7rem; }
+.answer-group h6 { font-size: 0.74rem; font-weight: 600; color: var(--text); margin-bottom: 0.35rem; }
+
+/* AI */
+.ai-section { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; }
+.ai-header { background: rgba(96,165,250,0.07); padding: 0.9rem 1.2rem; border-bottom: 1px solid rgba(96,165,250,0.15); display: flex; align-items: center; gap: 0.6rem; }
+.ai-header h3 { font-family: 'DM Mono', monospace; font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); }
+.ai-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); }
+.ai-messages { padding: 1rem 1.2rem; min-height: 80px; max-height: 360px; overflow-y: auto; display: flex; flex-direction: column; gap: 0.7rem; }
+.ai-msg { display: flex; gap: 0.6rem; align-items: flex-start; font-size: 0.78rem; line-height: 1.6; animation: fadeUp 0.25s ease; }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+.ai-msg.user { flex-direction: row-reverse; }
+.ai-msg .avatar { width: 26px; height: 26px; border-radius: 6px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 0.65rem; font-weight: 700; margin-top: 0.1rem; }
+.ai-msg.ai .avatar { background: rgba(96,165,250,0.15); color: var(--accent); }
+.ai-msg.user .avatar { background: rgba(96,165,250,0.1); color: var(--accent2); }
+.ai-bubble { padding: 0.6rem 0.85rem; border-radius: 10px; max-width: 85%; }
+.ai-msg.ai .ai-bubble { background: var(--surface3); color: var(--text2); }
+.ai-msg.user .ai-bubble { background: rgba(96,165,250,0.09); color: var(--text); text-align: right; }
+.ai-typing { display: flex; gap: 4px; align-items: center; padding: 0.6rem 0.85rem; background: var(--surface3); border-radius: 10px; width: fit-content; }
+.ai-typing span { width: 5px; height: 5px; border-radius: 50%; background: var(--accent); animation: typing 1.2s infinite; }
+.ai-typing span:nth-child(2) { animation-delay: 0.2s; }
+.ai-typing span:nth-child(3) { animation-delay: 0.4s; }
+@keyframes typing { 0%,60%,100% { opacity: 0.2; transform: scale(0.8); } 30% { opacity: 1; transform: scale(1); } }
+.ai-suggestions { padding: 0 1.2rem 0.75rem; display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.ai-chip { font-family: 'DM Mono', monospace; font-size: 0.62rem; background: var(--surface3); border: 1px solid var(--border2); color: var(--text2); padding: 0.3rem 0.7rem; border-radius: 99px; cursor: pointer; transition: all 0.15s; }
+.ai-chip:hover { border-color: rgba(96,165,250,0.35); color: var(--accent); }
+.ai-input-row { padding: 0.75rem 1.2rem; border-top: 1px solid var(--border2); display: flex; gap: 0.5rem; }
+.ai-input { flex: 1; background: var(--surface3); border: 1px solid var(--border2); border-radius: 8px; padding: 0.5rem 0.8rem; font-size: 0.78rem; color: var(--text); font-family: 'DM Sans', sans-serif; outline: none; resize: none; max-height: 100px; transition: border-color 0.2s; }
+.ai-input:focus { border-color: rgba(96,165,250,0.35); }
+.ai-input::placeholder { color: var(--muted); }
+.ai-send { background: var(--accent); color: #000; border: none; border-radius: 8px; padding: 0.5rem 1rem; font-family: 'DM Mono', monospace; font-size: 0.68rem; font-weight: 700; cursor: pointer; transition: opacity 0.15s; }
+.ai-send:hover { opacity: 0.85; }
+.ai-send:disabled { opacity: 0.4; cursor: not-allowed; }
+</style>
+</head>
+<body>
+
+<div class="chapter-header">
+  <div class="chapter-eyebrow">Pelaporan Korporat — CA Indonesia</div>
+  <div class="chapter-title">BAB 14 — Pelaporan Berkelanjutan &amp;<br>Pelaporan Terintegrasi</div>
+  <div class="learning-goals">
+    <h3>Tujuan Pembelajaran</h3>
+    <ul class="goals-list">
+      <li>Menjelaskan definisi pelaporan berkelanjutan dan manfaatnya</li>
+      <li>Menerapkan standar pelaporan berkelanjutan dan mempersiapkan laporan berkelanjutan</li>
+      <li>Menjelaskan konsep pelaporan terintegrasi dan manfaatnya</li>
+      <li>Menjelaskan kerangka prinsip pelaporan terintegrasi dan perbedaannya dengan pelaporan berkelanjutan</li>
+    </ul>
+  </div>
+</div>
+
+<div class="page-body">
+  <nav class="toc">
+    <div class="toc-label">Daftar Isi</div>
+    <a href="#s1" class="toc-link">14.1 Pelaporan Berkelanjutan (SR)</a>
+    <a href="#s1-1" class="toc-link sub">Latar Belakang &amp; Regulasi</a>
+    <a href="#s1-2" class="toc-link sub">Definisi &amp; Manfaat SR</a>
+    <a href="#s1-3" class="toc-link sub">5 Langkah Penyusunan GRI</a>
+    <a href="#s1-4" class="toc-link sub">Standar GRI (GRIS)</a>
+    <a href="#s1-5" class="toc-link sub">Prinsip-Prinsip GRI</a>
+    <a href="#s1-6" class="toc-link sub">Standar SR Lain (ISO, AA1000)</a>
+    <a href="#s1-7" class="toc-link sub">Praktik SR di Indonesia</a>
+    <div class="toc-divider"></div>
+    <a href="#s2" class="toc-link">14.2 Pelaporan Terintegrasi (IR)</a>
+    <a href="#s2-1" class="toc-link sub">Latar Belakang &amp; Definisi IR</a>
+    <a href="#s2-2" class="toc-link sub">Perbedaan IR vs SR</a>
+    <a href="#s2-3" class="toc-link sub">Kerangka Prinsip IR (IIRC)</a>
+    <a href="#s2-4" class="toc-link sub">6 Jenis Modal Entitas</a>
+    <div class="toc-divider"></div>
+    <a href="#latihan" class="toc-link">Latihan Soal</a>
+    <a href="#ai" class="toc-link">Tanya AI</a>
+  </nav>
+
+  <main class="main">
+
+    <!-- SECTION 14.1 -->
+    <div class="section" id="s1">
+      <div class="section-header">
+        <span class="section-num">14.1</span>
+        <span class="section-title">Pelaporan Berkelanjutan (<em>Sustainability Reporting</em>)</span>
+      </div>
+
+      <div class="subsection" id="s1-1">
+        <div class="subsection-title">Latar Belakang &amp; Regulasi di Indonesia</div>
+        <div class="highlight">
+          <p><strong>Sustainable Development</strong> (Brundtland Commission, PBB 1987): "Development that meets the needs of the present without compromising the ability of future generations to meet their own needs." Konsep ini mendorong lahirnya <em>triple bottom line</em> oleh John Elkington (1994) — entitas diukur dari tanggung jawabnya terhadap <strong>Profit, People, dan Planet</strong>.</p>
+        </div>
+
+        <div class="grid-2">
+          <div class="card" style="border-top:2px solid var(--accent)">
+            <div class="card-title"><span class="dot"></span>Regulasi Indonesia</div>
+            <ul>
+              <li><strong>UU No. 40/2007</strong> (UU PT) — PT yang berkaitan SDA wajib melaksanakan tanggung jawab sosial &amp; lingkungan dan melaporkannya di laporan tahunan</li>
+              <li><strong>PP No. 47/2012</strong> — Pelaksanaan Tanggung Jawab Sosial Lingkungan Perseroan; dilaporkan di laporan tahunan dan dipertanggungjawabkan ke RUPS</li>
+              <li><strong>POJK No. 29/POJK.04/2016</strong> — Tanggung jawab sosial dan lingkungan sebagai komponen minimum laporan tahunan Emiten/Perusahaan Publik</li>
+              <li><strong>SEOJK No. 30/SEOJK.04/2016</strong> — Dapat disajikan di laporan tersendiri, tidak wajib ada di laporan tahunan</li>
+              <li><strong>POJK No. 51/POJK.03/2017</strong> — Wajib menyusun Laporan Keberlanjutan bagi LJK, Emiten, dan Perusahaan Publik</li>
+            </ul>
+          </div>
+          <div class="card" style="border-top:2px solid var(--yellow)">
+            <div class="card-title" style="color:var(--yellow)"><span class="dot" style="background:var(--yellow)"></span>Entitas Wajib SR di Indonesia</div>
+            <ul>
+              <li>Perseroan Terbatas (PT) yang kegiatan usahanya berkaitan dengan SDA</li>
+              <li>Lembaga Jasa Keuangan (LJK)</li>
+              <li>Emiten (perusahaan yang sahamnya diperdagangkan di pasar modal)</li>
+              <li>Perusahaan Publik (yang menerbitkan efek di pasar modal)</li>
+              <li><strong>Pengecualian</strong>: Perusahaan berbadan hukum persekutuan <span class="tag tag-yellow">Tidak Wajib</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="subsection" id="s1-2">
+        <div class="subsection-title">Definisi &amp; Manfaat Laporan Keberlanjutan (SR)</div>
+        <div class="highlight-green">
+          <p><strong>SR (Elkington, 1997)</strong>: Laporan yang memuat tidak hanya informasi kinerja keuangan tetapi juga informasi non-keuangan berupa aktivitas sosial dan lingkungan yang memungkinkan entitas bertumbuh secara berkesinambungan (<em>sustainable performance</em>).</p>
+        </div>
+        <div class="highlight">
+          <p><strong>SR (WBCSD, 2002)</strong>: Laporan publik di mana entitas memberikan gambaran posisi dan aktivitas entitas pada aspek ekonomi, lingkungan, dan sosial kepada <em>stakeholder</em> internal dan eksternal.</p>
+        </div>
+
+        <div class="subsection-title" style="margin-top:0.5rem">Manfaat SR — 3 Aspek (Gambar 14.1)</div>
+        <div class="grid-3">
+          <div class="card" style="border-top:2px solid var(--accent)">
+            <div class="card-title"><span class="dot"></span>Aspek Ekonomi</div>
+            <ul>
+              <li>Mengurangi biaya <em>life cycle</em></li>
+              <li>Meminimalisir risiko bisnis</li>
+              <li>Keunggulan dalam sewa, hunian, dan penilaian (<em>superior rent, occupancy and valuation</em>)</li>
+            </ul>
+          </div>
+          <div class="card" style="border-top:2px solid var(--purple)">
+            <div class="card-title" style="color:var(--purple)"><span class="dot" style="background:var(--purple)"></span>Aspek Sosial</div>
+            <ul>
+              <li>Meningkatnya citra entitas</li>
+              <li>Meningkatnya transparansi</li>
+              <li>Meningkatnya kolaborasi/hubungan dengan pemangku kepentingan</li>
+            </ul>
+          </div>
+          <div class="card" style="border-top:2px solid var(--green)">
+            <div class="card-title" style="color:var(--green)"><span class="dot" style="background:var(--green)"></span>Aspek Lingkungan</div>
+            <ul>
+              <li>Mengurangi penggunaan energi, air, dan emisi gas</li>
+              <li>Mengurangi risiko lingkungan</li>
+              <li>Penggunaan lebih tinggi sumber energi terbarukan</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="subsection" id="s1-3">
+        <div class="subsection-title">5 Langkah Penyusunan SR menurut GRI</div>
+        <div class="pipeline">
+          <div class="pipe-step"><span class="pipe-num">1</span><span class="pipe-label">Prepare</span></div>
+          <div class="pipe-step"><span class="pipe-num">2</span><span class="pipe-label">Connect</span></div>
+          <div class="pipe-step"><span class="pipe-num">3</span><span class="pipe-label">Define</span></div>
+          <div class="pipe-step"><span class="pipe-num">4</span><span class="pipe-label">Monitor</span></div>
+          <div class="pipe-step"><span class="pipe-num">5</span><span class="pipe-label">Report</span></div>
+        </div>
+        <div class="principle-list">
+          <div class="principle-item"><span class="principle-num">1</span><p><strong>Prepare</strong>: Manajemen mempersiapkan dan merencanakan informasi yang sebaiknya dilaporkan, dampaknya terhadap entitas, serta langkah-langkah yang akan dilaksanakan. Membuat <em>action plan</em> dan <em>Kick Off Meeting</em>.</p></div>
+          <div class="principle-item"><span class="principle-num">2</span><p><strong>Connect</strong>: Mengidentifikasi pemangku kepentingan utama (<em>key stakeholders</em>). Berdiskusi untuk mengidentifikasi informasi yang penting bagi pemangku kepentingan dan kegiatan untuk bisnis &amp; lingkungan yang berkelanjutan.</p></div>
+          <div class="principle-item"><span class="principle-num">3</span><p><strong>Define</strong>: Melakukan <em>assessment</em> internal berdasarkan diskusi dengan pemangku kepentingan. Mempertimbangkan ruang lingkup dan besarnya pengaruh entitas, kapasitas, dan komitmen entitas.</p></div>
+          <div class="principle-item"><span class="principle-num">4</span><p><strong>Monitor</strong>: Memonitor proses dan data untuk memastikan kualitas informasi yang akan dilaporkan. Menetapkan target-target capaian dan menindaklanjuti (<em>follow up</em>) jika ada target yang belum tercapai.</p></div>
+          <div class="principle-item"><span class="principle-num">5</span><p><strong>Report</strong>: Penulisan informasi yang telah dikumpulkan dan disusun sebagai laporan SR. Dikomunikasikan kepada para pemangku kepentingan untuk mendapatkan masukan dan dimutakhirkan.</p></div>
+        </div>
+      </div>
+
+      <div class="subsection" id="s1-4">
+        <div class="subsection-title">Standar GRI — GRI Sustainability Reporting Standards (GRIS, 2018)</div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Kelompok Standar</th><th>Standar</th><th>Isi</th></tr></thead>
+            <tbody>
+              <tr><td rowspan="3"><strong>Standar Universal</strong></td><td>GRI 101 — <em>Foundation</em></td><td>Prinsip pelaporan untuk isi dan kualitas. Cara menggunakan GRIS. Dua opsi: <strong>"core"</strong> atau <strong>"comprehensive"</strong></td></tr>
+              <tr><td>GRI 102 — <em>General Disclosures</em></td><td>Pengungkapan umum: profil organisasi, strategi, etika &amp; integrasi, tata kelola, <em>stakeholder engagement</em>, profil laporan</td></tr>
+              <tr><td>GRI 103 — <em>Management Approach</em></td><td>Pendekatan manajemen: penjelasan topik material, pendekatan manajemen &amp; komponennya, evaluasi</td></tr>
+              <tr><td rowspan="3"><strong>Standar Topik-Spesifik</strong></td><td>GRI 200 — <em>Economic</em></td><td>Kinerja ekonomi, kehadiran pasar, dampak ekonomi tidak langsung, praktik perolehan/pembelian, anti-korupsi, perilaku anti-persaingan</td></tr>
+              <tr><td>GRI 300 — <em>Environmental</em></td><td>Material, energi, air &amp; limbah cair, keanekaragaman hayati, emisi, limbah &amp; sampah, kepatuhan lingkungan, penilaian kinerja pemasok</td></tr>
+              <tr><td>GRI 400 — <em>Social</em></td><td>Pekerjaan, hub. buruh/manajemen, K3, pelatihan, keanekaragaman, non-diskriminasi, pekerja anak, kerja paksa, komunitas lokal, HAM, privasi pelanggan, dll</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="highlight-yellow">
+          <p><strong>Opsi "Core" vs "Comprehensive" (GRI 101):</strong> Perbedaan terletak pada penerapan GRI 102 dan GRI Topik-Spesifik. Pada <em>core</em>, beberapa pengungkapan GRI 102 hanya wajib jika memilih <em>comprehensive</em>. Untuk GRI Topik-Spesifik, <em>core</em> cukup minimal 1 pengungkapan topik-spesifik; <em>comprehensive</em> harus menetapkan seluruh pengungkapan. Pilihan opsi tidak dipengaruhi oleh jenis/ukuran perusahaan.</p>
+        </div>
+      </div>
+
+      <div class="subsection" id="s1-5">
+        <div class="subsection-title">Prinsip-Prinsip Pelaporan GRI (GRI 101)</div>
+        <div class="grid-2">
+          <div class="card" style="border-top:2px solid var(--accent)">
+            <div class="card-title"><span class="dot"></span>Prinsip untuk Menentukan ISI Laporan (4 prinsip)</div>
+            <ul>
+              <li><strong>Stakeholder inclusiveness</strong> — mengidentifikasi pemangku kepentingan dan merespon ekspektasi mereka</li>
+              <li><strong>Sustainable context</strong> — menyajikan kinerja dalam konteks keberlanjutan yang lebih luas</li>
+              <li><strong>Materiality</strong> — mencakup aspek yang mencerminkan dampak ESG signifikan atau berpengaruh pada keputusan pemangku kepentingan</li>
+              <li><strong>Completeness</strong> — mencakup aspek material dan ruang lingkupnya secara memadai</li>
+            </ul>
+          </div>
+          <div class="card" style="border-top:2px solid var(--teal)">
+            <div class="card-title" style="color:var(--teal)"><span class="dot" style="background:var(--teal)"></span>Prinsip untuk Menentukan KUALITAS Laporan (6 prinsip)</div>
+            <ul>
+              <li><strong>Accuracy</strong> — informasi cukup akurat dan detail</li>
+              <li><strong>Balance</strong> — mencerminkan aspek positif DAN negatif kinerja</li>
+              <li><strong>Clarity</strong> — disajikan dalam format yang mudah dipahami</li>
+              <li><strong>Comparability</strong> — konsisten, mendukung analisis perubahan dari waktu ke waktu dan perbandingan antar entitas</li>
+              <li><strong>Reliability</strong> — dapat dievaluasi dan menunjukkan kualitas &amp; materialitas informasi</li>
+              <li><strong>Timeliness</strong> — tersedia tepat waktu untuk pengambilan keputusan</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="subsection" id="s1-6">
+        <div class="subsection-title">Standar SR Lain Selain GRI</div>
+        <div class="grid-3">
+          <div class="card" style="border-top:2px solid var(--green)">
+            <div class="card-title" style="color:var(--green)"><span class="dot" style="background:var(--green)"></span>ISO 14001:2004</div>
+            <p>Standar internasional tentang sistem manajemen lingkungan. Menetapkan kerangka membangun sistem manajemen lingkungan yang efektif. Manfaat: kurangi biaya pengelolaan sampah, hemat energi, biaya distribusi lebih rendah, tingkatkan citra.</p>
+          </div>
+          <div class="card" style="border-top:2px solid var(--purple)">
+            <div class="card-title" style="color:var(--purple)"><span class="dot" style="background:var(--purple)"></span>ISO 26000</div>
+            <p>Pedoman tanggung jawab sosial untuk bisnis dan organisasi. Membantu menjelaskan tanggung jawab sosial dan menerjemahkan prinsip-prinsip keberlanjutan ke dalam tindakan. Berlaku untuk semua jenis organisasi (2010).</p>
+          </div>
+          <div class="card" style="border-top:2px solid var(--orange)">
+            <div class="card-title" style="color:var(--orange)"><span class="dot" style="background:var(--orange)"></span>AA1000 (3 standar)</div>
+            <ul>
+              <li><strong>AA1000APS</strong>: Kerangka mengidentifikasi, memprioritaskan, dan menanggapi tantangan keberlanjutan</li>
+              <li><strong>AA1000AS</strong>: Metodologi evaluasi kepatuhan terhadap Prinsip Akuntabilitas</li>
+              <li><strong>AA1000SES</strong>: Kerangka untuk proses pelibatan pemangku kepentingan yang efektif</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="subsection" id="s1-7">
+        <div class="subsection-title">Praktik SR di Indonesia — NCSR &amp; SRA</div>
+        <div class="highlight-teal">
+          <p><strong>NCSR (National Center for Sustainability Reporting)</strong>: Lembaga independen pengembangan, pembinaan, pengukuran, dan pelaporan implementasi CSR/keberlanjutan entitas. Dideklarasikan 23 Juni 2005. Menyelenggarakan <strong>Sustainability Reporting Awards (SRA)</strong> setiap tahun — 3 kriteria penilaian: <strong>Completeness</strong> (kelengkapan), <strong>Credibility</strong> (kepercayaan), <strong>Communication</strong> (komunikasi). PT Kaltim Prima Coal adalah perusahaan Indonesia pertama yang membuat SR (2005).</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 14.2 -->
+    <div class="section" id="s2">
+      <div class="section-header">
+        <span class="section-num">14.2</span>
+        <span class="section-title">Laporan Terintegrasi (<em>Integrated Reporting</em>)</span>
+      </div>
+
+      <div class="subsection" id="s2-1">
+        <div class="subsection-title">Latar Belakang &amp; Definisi IR</div>
+        <div class="highlight">
+          <p>Laporan keuangan tradisional berfokus pada transaksi masa lalu. Laporan manajemen menambahkan prospek masa depan. SR menambahkan aspek sosial &amp; lingkungan. Namun ketiga laporan ini terpisah sehingga membuat laporan tahunan semakin tebal dan pembaca kehilangan gambaran utuh. Inilah yang coba dijawab oleh <strong>Integrated Reporting (IR)</strong>.</p>
+        </div>
+        <div class="highlight-green">
+          <p><strong>IR (IIRC)</strong>: Proses yang didasarkan pada pemikiran yang terintegrasi yang menghasilkan laporan terintegrasi secara berkala oleh sebuah organisasi tentang penciptaan nilai dari waktu ke waktu. IR adalah komunikasi yang ringkas dan terintegrasi tentang <strong>strategi, tata kelola, remunerasi, kinerja, dan prospek</strong> suatu organisasi dalam menghasilkan penciptaan nilai jangka pendek, menengah, dan panjang.</p>
+        </div>
+        <div class="highlight-yellow">
+          <p><strong>Catatan penting:</strong> IR <strong>bukan</strong> sekedar penggabungan laporan keuangan dengan laporan berkelanjutan. IR juga <strong>bukan</strong> pengganti SR. IR adalah konsep baru pelaporan tahunan yang berfokus pada upaya entitas menciptakan nilai untuk keberlanjutan entitas di masa depan. Tujuan utama IR: menjelaskan kepada penyedia modal keuangan upaya organisasi menciptakan nilai dari waktu ke waktu.</p>
+        </div>
+
+        <div class="subsection-title" style="margin-top:0.5rem">Keunggulan IR (10 Manfaat)</div>
+        <div class="grid-2">
+          <div class="card">
+            <div class="card-title"><span class="dot"></span>Manfaat Utama</div>
+            <ul>
+              <li>Menunjukkan komitmen terhadap keberlanjutan bisnis kepada pemangku kepentingan</li>
+              <li>Membantu mengintegrasikan sustainabilitas bisnis ke dalam strategi dan operasi</li>
+              <li>Meningkatkan relasi dengan para pemangku kepentingan utama</li>
+              <li>Meningkatkan transparansi dan akuntabilitas entitas</li>
+              <li>Menyederhanakan pelaporan eksternal (LK, laporan manajemen, SR)</li>
+            </ul>
+          </div>
+          <div class="card">
+            <div class="card-title"><span class="dot"></span>Manfaat Lainnya</div>
+            <ul>
+              <li>Menunjukkan posisi entitas sebagai <em>leader</em> dan <em>inovator</em></li>
+              <li>Meningkatkan relasi dengan komunitas investor, kreditur, mitra usaha</li>
+              <li>Meningkatkan akses modal/pendanaan</li>
+              <li>Meningkatkan reputasi dan memperkuat citra (<em>brand</em>) entitas</li>
+              <li>Patuh terhadap regulasi</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="subsection" id="s2-2">
+        <div class="subsection-title">Perbedaan SR dan IR</div>
+        <div class="compare-grid">
+          <div class="compare-card" style="border-top-color:var(--green)">
+            <div class="compare-label">Pelaporan Berkelanjutan</div>
+            <div class="compare-name" style="color:var(--green)">SR — Sustainability Report</div>
+            <ul>
+              <li style="color:var(--text2)"><span style="color:var(--green)">▸</span> Bertujuan membantu organisasi menetapkan tujuan, mengukur kinerja, dan mengelola perubahan menuju ekonomi global yang berkelanjutan</li>
+              <li style="color:var(--text2)"><span style="color:var(--green)">▸</span> Menggabungkan keuntungan jangka panjang dengan tanggung jawab sosial dan peduli lingkungan</li>
+              <li style="color:var(--text2)"><span style="color:var(--green)▸</span> SR adalah bagian intrinsik/fondasi dalam pembuatan IR</li>
+              <li style="color:var(--text2)"><span style="color:var(--green)">▸</span> Standar: GRI, ISO 14001, ISO 26000, AA1000</li>
+              <li style="color:var(--text2)"><span style="color:var(--green)">▸</span> Sumber informasi untuk menyusun IR</li>
+            </ul>
+          </div>
+          <div class="compare-card" style="border-top-color:var(--accent)">
+            <div class="compare-label">Pelaporan Terintegrasi</div>
+            <div class="compare-name" style="color:var(--accent)">IR — Integrated Report</div>
+            <ul>
+              <li style="color:var(--text2)"><span style="color:var(--accent)">▸</span> Berfokus pada melaporkan penciptaan nilai entitas dan membuat semua jenis pelaporan menjadi terpadu</li>
+              <li style="color:var(--text2)"><span style="color:var(--accent)">▸</span> IR adalah konsep baru penyusunan laporan tahunan</li>
+              <li style="color:var(--text2)"><span style="color:var(--accent)">▸</span> Hubungan IR dan SR seperti hubungan SR dengan laporan tahunan</li>
+              <li style="color:var(--text2)"><span style="color:var(--accent)">▸</span> Standar: Kerangka Prinsip IIRC (2013)</li>
+              <li style="color:var(--text2)"><span style="color:var(--accent)">▸</span> Mengintegrasikan semua laporan (LK, laporan manajemen, SR) menjadi satu</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="subsection" id="s2-3">
+        <div class="subsection-title">Kerangka Prinsip IR — IIRC International Framework (2013)</div>
+        <div class="highlight">
+          <p>IIRC mengeluarkan kerangka prinsip yang bersifat <strong>principle-based</strong> — tidak mengatur secara detail isi IR. Tujuan: membangun panduan prinsip dan elemen-elemen yang mengatur keseluruhan isi IR dan menjelaskan konsep dasar yang mendukungnya.</p>
+        </div>
+
+        <div class="subsection-title" style="margin-top:0.5rem">7 Prinsip Panduan IR (IIRC)</div>
+        <div class="principle-list">
+          <div class="principle-item"><span class="principle-num">1</span><p><strong>Fokus strategi dan orientasi masa depan</strong>: IR harus memuat informasi mengenai strategi entitas dan mekanisme strategi tersebut dalam menciptakan nilai untuk jangka pendek, menengah, dan panjang.</p></div>
+          <div class="principle-item"><span class="principle-num">2</span><p><strong>Konektivitas informasi</strong>: IR harus menunjukkan gambaran menyeluruh kombinasi, keterhubungan, dan ketergantungan dari faktor-faktor yang mempengaruhi penciptaan nilai.</p></div>
+          <div class="principle-item"><span class="principle-num">3</span><p><strong>Keterhubungan para pemangku kepentingan</strong>: IR harus menyediakan informasi tentang kualitas hubungan entitas dengan para pemangku kepentingan utama dan bagaimana entitas memahami dan merespon kebutuhan mereka.</p></div>
+          <div class="principle-item"><span class="principle-num">4</span><p><strong>Materialitas</strong>: IR harus menunjukkan informasi hal-hal material yang secara substantif mempengaruhi proses penciptaan nilai jangka pendek, menengah, dan panjang.</p></div>
+          <div class="principle-item"><span class="principle-num">5</span><p><strong>Keringkasan</strong>: IR harus ringkas.</p></div>
+          <div class="principle-item"><span class="principle-num">6</span><p><strong>Keandalan dan kelengkapan</strong>: IR lengkap memuat hal-hal yang bersifat material dan bebas dari kesalahan material.</p></div>
+          <div class="principle-item"><span class="principle-num">7</span><p><strong>Konsistensi dan keterbandingan</strong>: Informasi yang dimuat dalam IR harus konsisten dari waktu ke waktu dan dapat dibandingkan dengan laporan entitas lain.</p></div>
+        </div>
+
+        <div class="subsection-title" style="margin-top:0.5rem">8 Elemen Isi Laporan Terintegrasi (IIRC)</div>
+        <div class="grid-2">
+          <div class="card">
+            <div class="card-title"><span class="dot"></span>Elemen 1–4</div>
+            <ul>
+              <li><strong>1. Ikhtisar organisasi &amp; lingkungan eksternal</strong> — kegiatan dan keadaan lingkungan operasi</li>
+              <li><strong>2. Tata kelola (<em>governance</em>)</strong> — tata kelola dalam mendukung penciptaan nilai</li>
+              <li><strong>3. Model bisnis</strong> — menggambarkan model bisnis entitas</li>
+              <li><strong>4. Risiko dan peluang</strong> — jenis risiko dan peluang dalam penciptaan nilai</li>
+            </ul>
+          </div>
+          <div class="card">
+            <div class="card-title"><span class="dot"></span>Elemen 5–8</div>
+            <ul>
+              <li><strong>5. Strategi dan alokasi sumber daya</strong> — arah tujuan dan cara mencapainya</li>
+              <li><strong>6. Kinerja</strong> — sejauh mana entitas mencapai tujuan strategis dan dampaknya pada modal</li>
+              <li><strong>7. <em>Outlook</em></strong> — tantangan dan ketidakpastian yang mungkin dihadapi di masa depan</li>
+              <li><strong>8. Dasar-dasar penyajian</strong> — mekanisme memutuskan informasi material yang dilaporkan dan metode pengukurannya</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="subsection" id="s2-4">
+        <div class="subsection-title">6 Jenis Modal Entitas dalam Kerangka IR</div>
+        <div class="highlight-teal">
+          <p>Modal entitas untuk menciptakan nilai <strong>bukan hanya</strong> dari modal keuangan, tetapi bersumber dari <strong>enam jenis modal</strong>. Proses bisnis mengubah input (modal) melalui aktivitas bisnis menjadi output dan <em>outcome</em> yang mempengaruhi kembali nilai modal-modal tersebut.</p>
+        </div>
+        <div class="capital-grid">
+          <div class="capital-card" style="border-top-color:var(--yellow)">
+            <div class="capital-label">Modal 1</div>
+            <div class="capital-name" style="color:var(--yellow)">Financial Capital</div>
+            <p>Sumber dana yang tersedia/dimiliki entitas untuk produksi barang/jasa. Diperoleh melalui utang, ekuitas, hibah, atau dari operasi/investasi.</p>
+          </div>
+          <div class="capital-card" style="border-top-color:var(--orange)">
+            <div class="capital-label">Modal 2</div>
+            <div class="capital-name" style="color:var(--orange)">Manufactured Capital</div>
+            <p>Benda-benda fisik untuk mendukung proses produksi/jasa: bangunan, peralatan, mesin, infrastruktur, sistem pengolahan.</p>
+          </div>
+          <div class="capital-card" style="border-top-color:var(--purple)">
+            <div class="capital-label">Modal 3</div>
+            <div class="capital-name" style="color:var(--purple)">Intellectual Capital</div>
+            <p>Pengetahuan organisasi yang tak berwujud: hak cipta, lisensi, sistem, prosedur, protokol, dan <em>tacit knowledge</em>.</p>
+          </div>
+          <div class="capital-card" style="border-top-color:var(--accent)">
+            <div class="capital-label">Modal 4</div>
+            <div class="capital-name" style="color:var(--accent)">Human Capital</div>
+            <p>Kemampuan, kompetensi, pengalaman karyawan, dan motivasi untuk berinovasi. Termasuk loyalitas dan kemampuan memimpin, mengelola, berkolaborasi.</p>
+          </div>
+          <div class="capital-card" style="border-top-color:var(--teal)">
+            <div class="capital-label">Modal 5</div>
+            <div class="capital-name" style="color:var(--teal)">Social &amp; Relationship Capital</div>
+            <p>Lembaga-lembaga dan hubungan diantara masyarakat, kelompok pemangku kepentingan, serta kemampuan berbagi informasi. Termasuk merek, reputasi, dan lisensi sosial untuk beroperasi.</p>
+          </div>
+          <div class="capital-card" style="border-top-color:var(--green)">
+            <div class="capital-label">Modal 6</div>
+            <div class="capital-name" style="color:var(--green)">Natural Capital</div>
+            <p>Sumber daya alam di lingkungan: air, tanah, mineral, udara, hutan, keanekaragaman hayati, dan ekosistem — baik yang dapat diperbarui maupun tidak.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- LATIHAN -->
+    <div class="section" id="latihan">
+      <div class="section-header">
+        <span class="section-num">✎</span>
+        <span class="section-title">Latihan Soal</span>
+      </div>
+
+      <div class="exercise-section">
+        <div class="exercise-header">
+          <h3>Pilihan Ganda</h3>
+          <span class="exercise-badge">10 Soal</span>
+        </div>
+
+        <div class="mc-item">
+          <div class="mc-question">1. Pengungkapan informasi tentang tanggung jawab sosial dan lingkungan bersifat wajib bagi perusahaan di Indonesia, <u>kecuali</u>:</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',1)"><span class="opt-letter">A</span> Perusahaan di industri perbankan</div>
+            <div class="mc-option" onclick="checkMC(this,'b',1)"><span class="opt-letter">B</span> Perusahaan yang sahamnya diperdagangkan di pasar modal</div>
+            <div class="mc-option" onclick="checkMC(this,'c',1)"><span class="opt-letter">C</span> Perusahaan yang menerbitkan efek/surat berharga di pasar modal</div>
+            <div class="mc-option" onclick="checkMC(this,'d',1)"><span class="opt-letter">D</span> Perusahaan yang berbadan hukum persekutuan</div>
+          </div>
+          <div class="mc-feedback" id="fb1"><span class="correct-ans">D — Perusahaan berbadan hukum persekutuan.</span> Regulasi Indonesia (UU PT, PP 47/2012, POJK 29/2016, SEOJK 30/2016, POJK 51/2017) mewajibkan PT, LJK, Emiten, dan Perusahaan Publik. Tidak ada regulasi yang mewajibkan perusahaan berbadan hukum persekutuan untuk melaksanakan dan mengungkapkan tanggung jawab sosial dan lingkungan.</div>
+        </div>
+
+        <div class="mc-item">
+          <div class="mc-question">2. Berikut adalah urutan langkah-langkah penyusunan laporan keberlanjutan menurut GRI:</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',2)"><span class="opt-letter">A</span> <em>Prepare, Connect, Define, Report, Monitor</em></div>
+            <div class="mc-option" onclick="checkMC(this,'b',2)"><span class="opt-letter">B</span> <em>Prepare, Define, Connect, Monitor, Report</em></div>
+            <div class="mc-option" onclick="checkMC(this,'c',2)"><span class="opt-letter">C</span> <em>Prepare, Connect, Define, Monitor, Report</em></div>
+            <div class="mc-option" onclick="checkMC(this,'d',2)"><span class="opt-letter">D</span> <em>Prepare, Define, Connect, Report, Monitor</em></div>
+          </div>
+          <div class="mc-feedback" id="fb2"><span class="correct-ans">C — Prepare, Connect, Define, Monitor, Report.</span> Urutan 5 langkah GRI: (1) Prepare — rencanakan, (2) Connect — identifikasi stakeholder, (3) Define — assessment internal, (4) Monitor — pantau dan tetapkan target, (5) Report — tulis dan komunikasikan laporan SR.</div>
+        </div>
+
+        <div class="mc-item">
+          <div class="mc-question">3. Berikut adalah prinsip-prinsip pelaporan keberlanjutan untuk menentukan <u>isi laporan</u> (<em>reporting principles for defining report content</em>) menurut GRI Standards:</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',3)"><span class="opt-letter">A</span> <em>Stakeholder inclusiveness, balance,</em> dan <em>completeness</em></div>
+            <div class="mc-option" onclick="checkMC(this,'b',3)"><span class="opt-letter">B</span> <em>Sustainable context, materiality,</em> dan <em>conciseness</em></div>
+            <div class="mc-option" onclick="checkMC(this,'c',3)"><span class="opt-letter">C</span> <em>Stakeholder inclusiveness, materiality,</em> dan <em>completeness</em></div>
+            <div class="mc-option" onclick="checkMC(this,'d',3)"><span class="opt-letter">D</span> <em>Accuracy, balance,</em> dan <em>comparability</em></div>
+          </div>
+          <div class="mc-feedback" id="fb3"><span class="correct-ans">C — Stakeholder inclusiveness, materiality, dan completeness (+ sustainable context).</span> GRI 101 menyebutkan 4 prinsip untuk menentukan isi laporan: (1) Stakeholder inclusiveness, (2) Sustainable context, (3) Materiality, dan (4) Completeness. Balance, accuracy, comparability adalah prinsip kualitas laporan. Conciseness bukan prinsip GRI.</div>
+        </div>
+
+        <div class="mc-item">
+          <div class="mc-question">4. Berikut adalah prinsip-prinsip pelaporan keberlanjutan untuk menentukan <u>kualitas laporan</u> menurut GRI Standards:</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',4)"><span class="opt-letter">A</span> <em>Reliability, Balance, Clarity,</em> dan <em>Accuracy</em></div>
+            <div class="mc-option" onclick="checkMC(this,'b',4)"><span class="opt-letter">B</span> <em>Accuracy, Balance, Clarity,</em> dan <em>Materiality</em></div>
+            <div class="mc-option" onclick="checkMC(this,'c',4)"><span class="opt-letter">C</span> <em>Clarity, Comparability, Reliability,</em> dan <em>Completeness</em></div>
+            <div class="mc-option" onclick="checkMC(this,'d',4)"><span class="opt-letter">D</span> <em>Balance, Comparability, Materiality,</em> dan <em>Completeness</em></div>
+          </div>
+          <div class="mc-feedback" id="fb4"><span class="correct-ans">A — Reliability, Balance, Clarity, dan Accuracy (+ Comparability + Timeliness).</span> 6 prinsip kualitas laporan GRI: Accuracy, Balance, Clarity, Comparability, Reliability, dan Timeliness. Materiality dan Completeness adalah prinsip isi laporan, bukan kualitas.</div>
+        </div>
+
+        <div class="mc-item">
+          <div class="mc-question">5. PT X melakukan pencemaran lingkungan di salah satu lokasi operasinya. PT X mengungkapkan dalam laporan keberlanjutannya upaya-upaya manajemen risiko kedepan untuk mencegah hal yang sama terulang. PT X tidak mengungkapkan dampak dan penyebab pencemaran lingkungan yang sudah terjadi. Kondisi tersebut menunjukkan pelaporan keberlanjutan PT X tidak memenuhi prinsip:</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',5)"><span class="opt-letter">A</span> <em>Reliability</em></div>
+            <div class="mc-option" onclick="checkMC(this,'b',5)"><span class="opt-letter">B</span> <em>Balance</em></div>
+            <div class="mc-option" onclick="checkMC(this,'c',5)"><span class="opt-letter">C</span> <em>Accuracy</em></div>
+            <div class="mc-option" onclick="checkMC(this,'d',5)"><span class="opt-letter">D</span> <em>Clarity</em></div>
+          </div>
+          <div class="mc-feedback" id="fb5"><span class="correct-ans">B — Balance.</span> Prinsip Balance mensyaratkan laporan mencerminkan aspek positif DAN negatif dari kinerja perusahaan. PT X hanya mengungkapkan rencana mitigasi (positif) namun menyembunyikan dampak negatif yang sudah terjadi — ini melanggar prinsip Balance.</div>
+        </div>
+
+        <div class="mc-item">
+          <div class="mc-question">6. Manakah pernyataan di bawah ini yang tepat mengenai opsi "<em>core</em>" dan "<em>comprehensive</em>" dalam GRI Standards?</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',6)"><span class="opt-letter">A</span> Penerapan opsi "<em>core</em>" dan "<em>comprehensive</em>" tidak dipengaruhi oleh ukuran perusahaan</div>
+            <div class="mc-option" onclick="checkMC(this,'b',6)"><span class="opt-letter">B</span> Opsi "<em>comprehensive</em>" wajib diterapkan oleh perusahaan yang berkaitan dengan pemanfaatan SDA</div>
+            <div class="mc-option" onclick="checkMC(this,'c',6)"><span class="opt-letter">C</span> Perusahaan yang memilih opsi "<em>comprehensive</em>" lebih baik dari yang menerapkan opsi "<em>core</em>"</div>
+            <div class="mc-option" onclick="checkMC(this,'d',6)"><span class="opt-letter">D</span> Perusahaan dapat memilih menggabungkan sebagian pengungkapan opsi "<em>core</em>" dengan opsi "<em>comprehensive</em>"</div>
+          </div>
+          <div class="mc-feedback" id="fb6"><span class="correct-ans">A — Penerapan opsi "core" dan "comprehensive" tidak dipengaruhi oleh ukuran perusahaan.</span> GRI 101 menyatakan pilihan opsi didasarkan pada stakeholder inclusiveness dan cost-benefit analysis — bukan jenis, ukuran, atau sektor perusahaan. Tidak ada aturan yang mewajibkan comprehensive untuk perusahaan SDA, dan keduanya bukan ukuran kualitas.</div>
+        </div>
+
+        <div class="mc-item">
+          <div class="mc-question">7. Berikut ini adalah komponen dari pengungkapan umum menurut GRI 102 GRI Standards:</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',7)"><span class="opt-letter">A</span> Profil organisasi, strategi, manajemen risiko, etika dan integritas</div>
+            <div class="mc-option" onclick="checkMC(this,'b',7)"><span class="opt-letter">B</span> Profil organisasi, tata kelola, <em>stakeholder engagement</em>, kinerja ekonomi</div>
+            <div class="mc-option" onclick="checkMC(this,'c',7)"><span class="opt-letter">C</span> Profil organisasi, strategi, profil laporan, pendekatan manajemen</div>
+            <div class="mc-option" onclick="checkMC(this,'d',7)"><span class="opt-letter">D</span> Profil organisasi, tata kelola, profil laporan, <em>stakeholder engagement</em></div>
+          </div>
+          <div class="mc-feedback" id="fb7"><span class="correct-ans">D — Profil organisasi, tata kelola, profil laporan, stakeholder engagement.</span> GRI 102 mencakup 6 komponen pengungkapan umum: (1) Profil organisasi, (2) Strategi, (3) Etika dan integritas, (4) Tata kelola, (5) Stakeholder engagement, dan (6) Profil laporan. Kinerja ekonomi dan pendekatan manajemen bukan bagian dari GRI 102 (kinerja ekonomi = GRI 200; pendekatan manajemen = GRI 103).</div>
+        </div>
+
+        <div class="mc-item">
+          <div class="mc-question">8. Manakah dari pernyataan di bawah ini yang paling tepat mengenai Pelaporan Terintegrasi?</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',8)"><span class="opt-letter">A</span> Pelaporan terintegrasi adalah konsep yang menggantikan pelaporan keberlanjutan</div>
+            <div class="mc-option" onclick="checkMC(this,'b',8)"><span class="opt-letter">B</span> Pelaporan terintegrasi adalah informasi baru yang menjadi bagian dari laporan tahunan</div>
+            <div class="mc-option" onclick="checkMC(this,'c',8)"><span class="opt-letter">C</span> Pelaporan terintegrasi adalah penggabungan laporan keberlanjutan dengan laporan tahunan</div>
+            <div class="mc-option" onclick="checkMC(this,'d',8)"><span class="opt-letter">D</span> Pelaporan keberlanjutan adalah sumber informasi dalam menyusun laporan terintegrasi</div>
+          </div>
+          <div class="mc-feedback" id="fb8"><span class="correct-ans">D — Pelaporan keberlanjutan adalah sumber informasi dalam menyusun laporan terintegrasi.</span> SR merupakan bagian intrinsik/fondasi dari IR. Laporan keuangan, laporan manajemen, SR, dll adalah sumber informasi untuk menyusun IR. IR bukan pengganti SR (A salah), bukan sekadar informasi baru di laporan tahunan (B tidak tepat), dan bukan sekadar penggabungan (C salah).</div>
+        </div>
+
+        <div class="mc-item">
+          <div class="mc-question">9. Berikut ini merupakan tiga prinsip khas pelaporan terintegrasi menurut kerangka prinsip IR yang diterbitkan oleh IIRC:</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',9)"><span class="opt-letter">A</span> Fokus strategi dan orientasi masa depan, konektivitas informasi, materialitas</div>
+            <div class="mc-option" onclick="checkMC(this,'b',9)"><span class="opt-letter">B</span> Fokus strategi dan orientasi masa depan, konektivitas informasi, keringkasan</div>
+            <div class="mc-option" onclick="checkMC(this,'c',9)"><span class="opt-letter">C</span> Fokus strategi dan orientasi masa depan, keringkasan, keandalan</div>
+            <div class="mc-option" onclick="checkMC(this,'d',9)"><span class="opt-letter">D</span> Fokus strategi dan orientasi masa depan, keringkasan, kelengkapan</div>
+          </div>
+          <div class="mc-feedback" id="fb9"><span class="correct-ans">B — Fokus strategi dan orientasi masa depan, konektivitas informasi, keringkasan.</span> Ketiga prinsip ini adalah prinsip yang khas dan unik dalam IR yang membedakannya dari SR dan laporan lain. Fokus pada masa depan, konektivitas (keterhubungan antar informasi), dan keringkasan adalah ciri pembeda utama IR dibandingkan laporan keberlanjutan.</div>
+        </div>
+
+        <div class="mc-item">
+          <div class="mc-question">10. Berikut adalah elemen isi laporan terintegrasi menurut kerangka prinsip IR yang diterbitkan oleh IIRC:</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',10)"><span class="opt-letter">A</span> Tata kelola, model bisnis, risiko dan peluang</div>
+            <div class="mc-option" onclick="checkMC(this,'b',10)"><span class="opt-letter">B</span> Organisasi dan lingkungan eksternal, strategi dan alokasi sumber daya, etika dan integritas</div>
+            <div class="mc-option" onclick="checkMC(this,'c',10)"><span class="opt-letter">C</span> <em>Stakeholder engagement</em>, kinerja, <em>outlook</em></div>
+            <div class="mc-option" onclick="checkMC(this,'d',10)"><span class="opt-letter">D</span> Tata kelola, etika dan integritas, dasar-dasar penyajian</div>
+          </div>
+          <div class="mc-feedback" id="fb10"><span class="correct-ans">D — Tata kelola, etika dan integritas, dasar-dasar penyajian.</span> 8 elemen isi laporan IR: (1) Ikhtisar organisasi &amp; lingkungan eksternal, (2) Tata kelola, (3) Model bisnis, (4) Risiko dan peluang, (5) Strategi dan alokasi sumber daya, (6) Kinerja, (7) Outlook, (8) Dasar-dasar penyajian. Opsi D berisi 3 elemen yang valid dari 8 elemen tersebut. Opsi A dan B tidak mencakup semua elemen yang valid. "Stakeholder engagement" bukan salah satu dari 8 elemen isi IR (C salah). "Etika dan integritas" bukan elemen IR melainkan komponen GRI 102.</div>
+        </div>
+      </div>
+
+      <!-- ESAI -->
+      <div class="exercise-section">
+        <div class="exercise-header">
+          <h3>Soal Esai</h3>
+          <span class="exercise-badge">2 Soal</span>
+        </div>
+
+        <div class="essay-item">
+          <div class="essay-q">1. Jelaskan latar belakang lahirnya tuntutan penyajian informasi tanggung jawab sosial dan lingkungan atau keberlanjutan oleh perusahaan!</div>
+          <button class="essay-toggle" onclick="toggleEssay('ea1')">▶ Lihat Jawaban</button>
+          <div class="essay-answer" id="ea1">
+            <h5>Jawaban</h5>
+            <ul>
+              <li>Adanya permasalahan sosial dan lingkungan yang nyata di sekitar kegiatan bisnis perusahaan</li>
+              <li>Fakta bahwa bisnis/pelaku usaha adalah pihak yang banyak berkontribusi menimbulkan permasalahan sosial dan lingkungan karena orientasi laba dengan mengesampingkan aspek sosial dan lingkungan</li>
+              <li>Bisnis berpotensi melakukan tindakan untuk mengurangi dampak negatif dan/atau melakukan inovasi bisnis yang lebih ramah sosial dan lingkungan</li>
+              <li>Belum ada pelaporan yang mengungkapkan peran bisnis tersebut kepada publik</li>
+              <li>Lahirlah laporan keberlanjutan (<em>sustainability report</em>) atau laporan tanggung jawab sosial dan lingkungan sebagai jawaban atas kebutuhan tersebut</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="essay-item">
+          <div class="essay-q">2. Jelaskan keunggulan yang dimiliki oleh pelaporan terintegrasi dibandingkan dengan konsep pelaporan tahunan yang berjalan saat ini!</div>
+          <button class="essay-toggle" onclick="toggleEssay('ea2')">▶ Lihat Jawaban</button>
+          <div class="essay-answer" id="ea2">
+            <h5>Jawaban — Keunggulan IR vs Konsep Laporan Tahunan Konvensional</h5>
+            <p>Laporan tahunan konvensional memisahkan laporan keuangan, laporan manajemen, dan laporan keberlanjutan sehingga membuat laporan semakin tebal dan pembaca kehilangan gambaran utuh tentang nilai tambah entitas. IR menawarkan keunggulan:</p>
+            <ul>
+              <li>Menunjukkan <strong>komitmen terhadap keberlanjutan bisnis</strong> kepada para pemangku kepentingan</li>
+              <li>Membantu mengintegrasikan <strong>sustainabilitas bisnis ke dalam strategi dan operasi</strong></li>
+              <li>Meningkatkan relasi dengan para pemangku kepentingan utama</li>
+              <li>Meningkatkan <strong>transparansi dan akuntabilitas entitas</strong></li>
+              <li><strong>Menyederhanakan pelaporan eksternal</strong> (laporan keuangan, laporan manajemen, sustainability report menjadi satu)</li>
+              <li>Menunjukkan posisi entitas sebagai <em>leader</em> dan <em>inovator</em></li>
+              <li>Meningkatkan relasi dengan komunitas investor, kreditur, dan mitra usaha</li>
+              <li>Meningkatkan <strong>akses modal/pendanaan</strong></li>
+              <li>Meningkatkan <strong>reputasi dan memperkuat citra (<em>brand</em>) entitas</strong></li>
+              <li>Patuh terhadap regulasi</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- AI -->
+    <div class="section" id="ai">
+      <div class="section-header">
+        <span class="section-num">🤖</span>
+        <span class="section-title">Tanya AI — Asisten Belajar</span>
+      </div>
+      <div class="ai-section">
+        <div class="ai-header">
+          <div class="ai-dot"></div>
+          <h3>Asisten BAB 14 — Pelaporan Berkelanjutan &amp; Terintegrasi</h3>
+        </div>
+        <div class="ai-messages" id="aiMessages">
+          <div class="ai-msg ai">
+            <div class="avatar">AI</div>
+            <div class="ai-bubble">Halo! Saya siap membantu kamu memahami BAB 14 tentang Pelaporan Berkelanjutan dan Pelaporan Terintegrasi. Tanya tentang GRI Standards, prinsip SR vs IR, 6 modal entitas, kerangka IIRC, atau regulasi Indonesia!</div>
+          </div>
+        </div>
+        <div class="ai-suggestions" id="aiSuggestions">
+          <span class="ai-chip" onclick="sendChip(this)">Apa perbedaan utama SR dan IR?</span>
+          <span class="ai-chip" onclick="sendChip(this)">Jelaskan 4 prinsip isi laporan dan 6 prinsip kualitas GRI</span>
+          <span class="ai-chip" onclick="sendChip(this)">Apa saja 6 jenis modal dalam kerangka IR IIRC?</span>
+          <span class="ai-chip" onclick="sendChip(this)">Apa itu triple bottom line dan hubungannya dengan SR?</span>
+          <span class="ai-chip" onclick="sendChip(this)">Perusahaan apa saja yang wajib membuat SR di Indonesia?</span>
+        </div>
+        <div class="ai-input-row">
+          <textarea class="ai-input" id="aiInput" rows="1" placeholder="Ketik pertanyaan tentang BAB 14…" onkeydown="handleKey(event)"></textarea>
+          <button class="ai-send" id="aiSendBtn" onclick="sendMessage()">Kirim</button>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<script>
+const answers = {1:'d',2:'c',3:'c',4:'a',5:'b',6:'a',7:'d',8:'d',9:'b',10:'d'};
+function checkMC(el, choice, num) {
+  const item = el.closest('.mc-item');
+  if (item.querySelector('.revealed')) return;
+  const correct = answers[num];
+  item.querySelectorAll('.mc-option').forEach(opt => {
+    opt.classList.add('revealed');
+    const letter = opt.querySelector('.opt-letter').textContent.toLowerCase();
+    if (letter === correct) opt.classList.add('correct');
+    else if (letter === choice && choice !== correct) opt.classList.add('wrong');
+  });
+  const fb = document.getElementById('fb' + num);
+  if (fb) fb.classList.add('show');
+}
+function toggleEssay(id) {
+  const ans = document.getElementById(id);
+  const btn = ans.previousElementSibling;
+  const show = !ans.classList.contains('show');
+  ans.classList.toggle('show', show);
+  btn.textContent = show ? '▼ Sembunyikan Jawaban' : '▶ Lihat Jawaban';
+}
+const sections = document.querySelectorAll('.section, .subsection');
+const tocLinks = document.querySelectorAll('.toc-link');
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { tocLinks.forEach(l => l.classList.remove('active')); const a = document.querySelector(`.toc-link[href="#${e.target.id}"]`); if (a) a.classList.add('active'); } });
+}, { rootMargin: '-20% 0px -70% 0px' });
+sections.forEach(s => { if (s.id) obs.observe(s); });
+
+const SYSTEM_PROMPT = `Kamu adalah asisten belajar untuk mata kuliah CA Indonesia: Pelaporan Korporat, khususnya BAB 14 tentang Pelaporan Berkelanjutan (Sustainability Reporting/SR) dan Pelaporan Terintegrasi (Integrated Reporting/IR).
+
+Topik yang kamu kuasai:
+- 14.1 Pelaporan Berkelanjutan (SR):
+  Latar belakang: sustainable development (Brundtland 1987), triple bottom line (Elkington 1994) — profit, people, planet, CSR
+  Regulasi Indonesia: UU PT No.40/2007, PP 47/2012, POJK 29/POJK.04/2016, SEOJK 30/SEOJK.04/2016, POJK 51/POJK.03/2017. Yang wajib: PT berkaitan SDA, LJK, Emiten, Perusahaan Publik. Yang tidak wajib: perusahaan berbadan hukum persekutuan
+  Definisi SR: Elkington 1997 (keuangan + non-keuangan sosial&lingkungan untuk sustainable performance), WBCSD 2002 (laporan publik aspek ekonomi, lingkungan, sosial untuk stakeholder)
+  Manfaat SR: aspek ekonomi (kurangi life cycle cost, minimalisir risiko bisnis, superior rent/occupancy/valuation), aspek sosial (citra, transparansi, kolaborasi stakeholder), aspek lingkungan (kurangi energi/air/emisi, kurangi risiko lingkungan, energi terbarukan)
+  5 langkah GRI: Prepare → Connect → Define → Monitor → Report
+  Standar GRIS (2018): Standar Universal (GRI 101 Foundation, GRI 102 General Disclosures, GRI 103 Management Approach); Standar Topik-Spesifik (GRI 200 Ekonomi, GRI 300 Lingkungan, GRI 400 Sosial)
+  GRI 101 — Prinsip ISI laporan (4): Stakeholder inclusiveness, Sustainable context, Materiality, Completeness
+  GRI 101 — Prinsip KUALITAS laporan (6): Accuracy, Balance, Clarity, Comparability, Reliability, Timeliness
+  Opsi core vs comprehensive: tidak dipengaruhi jenis/ukuran perusahaan; didasarkan stakeholder inclusiveness & cost-benefit analysis
+  GRI 102 — Pengungkapan umum: Profil organisasi, Strategi, Etika dan Integritas, Tata kelola, Stakeholder engagement, Profil laporan
+  Standar lain: ISO 14001:2004 (sistem manajemen lingkungan), ISO 26000 (tanggung jawab sosial, 2010), AA1000 (AA1000APS, AA1000AS, AA1000SES)
+  NCSR Indonesia: lembaga independen SR, dideklarasikan 23 Juni 2005, SRA (3 kriteria: completeness, credibility, communication), PT Kaltim Prima Coal — perusahaan SR pertama Indonesia (2005)
+- 14.2 Pelaporan Terintegrasi (IR):
+  Latar belakang: laporan keuangan (masa lalu) + laporan manajemen (prospek masa depan) + SR (sosial&lingkungan) → semakin tebal, kehilangan gambaran utuh nilai tambah → lahirlah IR
+  Definisi IR (IIRC): proses pemikiran terintegrasi menghasilkan laporan berkala tentang penciptaan nilai. IR adalah komunikasi ringkas dan terintegrasi tentang strategi, tata kelola, remunerasi, kinerja, dan prospek organisasi
+  IR BUKAN pengganti SR, BUKAN penggabungan LK + SR, BUKAN sekadar informasi baru di laporan tahunan
+  Hubungan IR & SR: SR = bagian intrinsik/fondasi IR; SR = sumber informasi IR; seperti hubungan SR dengan laporan tahunan
+  10 keunggulan IR vs laporan tahunan konvensional
+  Perbedaan SR vs IR: SR fokus pada keberlanjutan sosial-lingkungan-ekonomi jangka panjang; IR fokus pada penciptaan nilai (value creation) yang ringkas dan terintegrasi. Tujuan IR: menjelaskan kepada penyedia modal upaya organisasi menciptakan nilai
+  Kerangka Prinsip IR — IIRC International Framework (2013): principle-based, sektor swasta (dapat disesuaikan untuk sektor publik & nirlaba)
+  7 Prinsip panduan IR: (1) Fokus strategi & orientasi masa depan, (2) Konektivitas informasi, (3) Keterhubungan pemangku kepentingan, (4) Materialitas, (5) Keringkasan, (6) Keandalan & kelengkapan, (7) Konsistensi & keterbandingan. 3 prinsip khas IR: fokus strategi & masa depan, konektivitas informasi, keringkasan
+  8 Elemen isi IR: (1) Ikhtisar organisasi & lingkungan eksternal, (2) Tata kelola, (3) Model bisnis, (4) Risiko dan peluang, (5) Strategi dan alokasi sumber daya, (6) Kinerja, (7) Outlook, (8) Dasar-dasar penyajian
+  6 Jenis Modal Entitas: Financial Capital (dana), Manufactured Capital (aset fisik), Intellectual Capital (pengetahuan tak berwujud), Human Capital (kemampuan/kompetensi SDM), Social & Relationship Capital (hubungan stakeholder, merek, reputasi), Natural Capital (SDA)
+
+Jawab dalam Bahasa Indonesia yang jelas dan ringkas. Berikan contoh konkret dan kaitkan dengan regulasi Indonesia bila relevan.`;
+
+const messagesEl = document.getElementById('aiMessages');
+const inputEl = document.getElementById('aiInput');
+const sendBtn = document.getElementById('aiSendBtn');
+let history = [];
+function addMsg(role, text) {
+  const div = document.createElement('div');
+  div.className = `ai-msg ${role}`;
+  div.innerHTML = `<div class="avatar">${role==='ai'?'AI':'Kamu'}</div><div class="ai-bubble">${text.replace(/\n/g,'<br>')}</div>`;
+  messagesEl.appendChild(div); messagesEl.scrollTop = messagesEl.scrollHeight;
+}
+function addTyping() {
+  const div = document.createElement('div'); div.className = 'ai-msg ai'; div.id = 'typing';
+  div.innerHTML = `<div class="avatar">AI</div><div class="ai-typing"><span></span><span></span><span></span></div>`;
+  messagesEl.appendChild(div); messagesEl.scrollTop = messagesEl.scrollHeight;
+}
+async function sendMessage() {
+  const text = inputEl.value.trim(); if (!text) return;
+  inputEl.value = ''; document.getElementById('aiSuggestions').style.display = 'none';
+  addMsg('user', text); history.push({ role: 'user', content: text }); sendBtn.disabled = true; addTyping();
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ model: 'claude-sonnet-4-20250514', max_tokens: 1000, system: SYSTEM_PROMPT, messages: history }) });
+    const data = await res.json();
+    document.getElementById('typing')?.remove();
+    const reply = data.content?.find(b => b.type === 'text')?.text || 'Maaf, tidak ada respons.';
+    addMsg('ai', reply); history.push({ role: 'assistant', content: reply });
+  } catch { document.getElementById('typing')?.remove(); addMsg('ai', 'Maaf, terjadi kesalahan. Periksa koneksi internet dan coba lagi.'); }
+  sendBtn.disabled = false;
+}
+function sendChip(el) { inputEl.value = el.textContent; sendMessage(); }
+function handleKey(e) { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); } }
+</script>
+</body>
+</html>

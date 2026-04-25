@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BAB 13 — Analisis LK: Financial Shenanigans</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #0a0f0a; --surface: #0f1a0f; --surface2: #162416; --surface3: #1e2e1e;
+  --accent: #4ade80; --accent2: #86efac; --accent3: #16a34a;
+  --yellow: #fbbf24; --orange: #fb923c; --teal: #2dd4bf; --blue: #60a5fa; --purple: #a78bfa; --red: #f87171;
+  --text: #f0fdf4; --text2: #a7c3a7; --muted: #4a6b4a; --border: rgba(74,222,128,0.1); --border2: rgba(255,255,255,0.06);
+}
+html { scroll-behavior: smooth; }
+body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; min-height: 100vh; }
+
+.chapter-header { background: linear-gradient(135deg, #0a0f0a 0%, #0f1a0f 50%, #0a0f0a 100%); border-bottom: 1px solid var(--border); padding: 2.5rem 2rem 2rem; position: relative; overflow: hidden; }
+.chapter-header::before { content: '13'; position: absolute; right: -0.5rem; top: -1rem; font-family: 'Playfair Display', serif; font-size: 12rem; font-weight: 900; color: rgba(74,222,128,0.04); line-height: 1; pointer-events: none; user-select: none; }
+.chapter-eyebrow { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent3); margin-bottom: 0.5rem; }
+.chapter-title { font-family: 'Playfair Display', serif; font-size: clamp(1.2rem, 3vw, 1.9rem); font-weight: 900; line-height: 1.2; background: linear-gradient(135deg, #4ade80, #86efac); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 1.2rem; }
+.learning-goals { background: rgba(74,222,128,0.05); border: 1px solid var(--border); border-radius: 12px; padding: 1rem 1.2rem; max-width: 700px; }
+.learning-goals h3 { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.6rem; }
+.goals-list { list-style: none; display: flex; flex-direction: column; gap: 0.3rem; }
+.goals-list li { font-size: 0.78rem; color: var(--text2); display: flex; gap: 0.6rem; align-items: flex-start; }
+.goals-list li::before { content: '→'; color: var(--accent3); flex-shrink: 0; font-family: 'DM Mono', monospace; font-size: 0.7rem; margin-top: 0.05rem; }
+
+.page-body { display: grid; grid-template-columns: 220px 1fr; min-height: calc(100vh - 200px); }
+.toc { background: var(--surface); border-right: 1px solid var(--border2); padding: 1.5rem 0; position: sticky; top: 0; height: 100vh; overflow-y: auto; }
+.toc-label { font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); padding: 0 1rem; margin-bottom: 0.8rem; }
+.toc-link { display: block; padding: 0.45rem 1rem; font-size: 0.75rem; color: var(--muted); text-decoration: none; transition: all 0.15s; border-left: 2px solid transparent; line-height: 1.4; }
+.toc-link:hover { color: var(--text); background: rgba(74,222,128,0.04); }
+.toc-link.active { color: var(--accent); border-left-color: var(--accent); background: rgba(74,222,128,0.06); }
+.toc-link.sub { padding-left: 1.8rem; font-size: 0.7rem; }
+.toc-divider { height: 1px; background: var(--border2); margin: 0.6rem 1rem; }
+.main { padding: 2rem 2.5rem 4rem; max-width: 860px; }
+.section { margin-bottom: 3rem; scroll-margin-top: 1.5rem; }
+.section-header { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.2rem; padding-bottom: 0.7rem; border-bottom: 1px solid var(--border2); }
+.section-num { font-family: 'DM Mono', monospace; font-size: 0.65rem; font-weight: 700; background: var(--accent3); color: #fff; padding: 0.2rem 0.5rem; border-radius: 4px; flex-shrink: 0; }
+.section-title { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; color: var(--text); line-height: 1.3; }
+.subsection { margin-bottom: 1.5rem; scroll-margin-top: 1.5rem; }
+.subsection-title { font-size: 0.82rem; font-weight: 600; color: var(--accent2); font-family: 'DM Mono', monospace; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.6rem; }
+
+.card { background: var(--surface); border: 1px solid var(--border2); border-radius: 10px; padding: 1.1rem 1.2rem; margin-bottom: 0.8rem; }
+.card-title { font-size: 0.78rem; font-weight: 600; color: var(--accent); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem; }
+.card-title .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
+.card p, .card li { font-size: 0.8rem; color: var(--text2); line-height: 1.6; }
+.card ul { padding-left: 1.1rem; margin-top: 0.4rem; display: flex; flex-direction: column; gap: 0.25rem; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; margin-bottom: 1rem; }
+.grid-3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 0.7rem; margin-bottom: 1rem; }
+.highlight { background: rgba(74,222,128,0.06); border: 1px solid rgba(74,222,128,0.2); border-left: 3px solid var(--accent); border-radius: 8px; padding: 0.9rem 1.1rem; margin-bottom: 1rem; }
+.highlight p { font-size: 0.8rem; color: var(--text2); line-height: 1.6; }
+.highlight strong { color: var(--accent); font-weight: 600; }
+.highlight-red { background: rgba(248,113,113,0.06); border: 1px solid rgba(248,113,113,0.2); border-left: 3px solid var(--red); border-radius: 8px; padding: 0.9rem 1.1rem; margin-bottom: 1rem; }
+.highlight-red p { font-size: 0.8rem; color: var(--text2); line-height: 1.6; }
+.highlight-red strong { color: var(--red); }
+.highlight-yellow { background: rgba(251,191,36,0.06); border: 1px solid rgba(251,191,36,0.2); border-left: 3px solid var(--yellow); border-radius: 8px; padding: 0.9rem 1.1rem; margin-bottom: 1rem; }
+.highlight-yellow p { font-size: 0.8rem; color: var(--text2); line-height: 1.6; }
+.highlight-yellow strong { color: var(--yellow); }
+.highlight-blue { background: rgba(96,165,250,0.06); border: 1px solid rgba(96,165,250,0.2); border-left: 3px solid var(--blue); border-radius: 8px; padding: 0.9rem 1.1rem; margin-bottom: 1rem; }
+.highlight-blue p { font-size: 0.8rem; color: var(--text2); line-height: 1.6; }
+.highlight-blue strong { color: var(--blue); }
+.highlight-orange { background: rgba(251,146,60,0.06); border: 1px solid rgba(251,146,60,0.2); border-left: 3px solid var(--orange); border-radius: 8px; padding: 0.9rem 1.1rem; margin-bottom: 1rem; }
+.highlight-orange p { font-size: 0.8rem; color: var(--text2); line-height: 1.6; }
+.highlight-orange strong { color: var(--orange); }
+.table-wrap { overflow-x: auto; margin-bottom: 1rem; border-radius: 10px; border: 1px solid var(--border2); }
+table { width: 100%; border-collapse: collapse; font-size: 0.76rem; }
+thead tr { background: var(--surface3); }
+th { padding: 0.7rem 0.9rem; text-align: left; font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); font-weight: 500; }
+td { padding: 0.6rem 0.9rem; border-top: 1px solid var(--border2); color: var(--text2); vertical-align: top; line-height: 1.5; }
+tbody tr:hover { background: rgba(255,255,255,0.02); }
+.tag { display: inline-block; font-family: 'DM Mono', monospace; font-size: 0.6rem; padding: 0.15rem 0.5rem; border-radius: 99px; font-weight: 500; }
+.tag-green { background: rgba(74,222,128,0.12); color: var(--accent); border: 1px solid rgba(74,222,128,0.25); }
+.tag-red { background: rgba(248,113,113,0.12); color: var(--red); border: 1px solid rgba(248,113,113,0.25); }
+.tag-yellow { background: rgba(251,191,36,0.12); color: var(--yellow); border: 1px solid rgba(251,191,36,0.25); }
+.tag-blue { background: rgba(96,165,250,0.12); color: var(--blue); border: 1px solid rgba(96,165,250,0.25); }
+.tag-orange { background: rgba(251,146,60,0.12); color: var(--orange); border: 1px solid rgba(251,146,60,0.25); }
+.tag-purple { background: rgba(167,139,250,0.12); color: var(--purple); border: 1px solid rgba(167,139,250,0.25); }
+
+/* Shenanigan type cards */
+.shen-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.7rem; margin-bottom: 1rem; }
+.shen-card { background: var(--surface); border: 1px solid var(--border2); border-radius: 10px; padding: 0.9rem 1rem; border-left: 3px solid; }
+.shen-num { font-family: 'DM Mono', monospace; font-size: 0.58rem; color: var(--muted); margin-bottom: 0.2rem; letter-spacing: 0.1em; text-transform: uppercase; }
+.shen-title { font-size: 0.82rem; font-weight: 700; margin-bottom: 0.4rem; }
+.shen-card ul { list-style: none; display: flex; flex-direction: column; gap: 0.2rem; }
+.shen-card li { font-size: 0.72rem; color: var(--text2); display: flex; gap: 0.5rem; line-height: 1.4; }
+.shen-card li::before { content: '▸'; flex-shrink: 0; font-size: 0.58rem; margin-top: 0.1rem; }
+
+/* Rasio box */
+.rasio-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.7rem; margin-bottom: 1rem; }
+.rasio-group { background: var(--surface); border: 1px solid var(--border2); border-radius: 10px; padding: 0.9rem 1rem; }
+.rasio-group-title { font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent2); margin-bottom: 0.7rem; }
+.rasio-item { display: flex; justify-content: space-between; align-items: baseline; padding: 0.25rem 0; border-bottom: 1px solid rgba(255,255,255,0.04); }
+.rasio-item:last-child { border-bottom: none; }
+.rasio-name { font-size: 0.74rem; color: var(--text2); font-style: italic; }
+.rasio-formula { font-family: 'DM Mono', monospace; font-size: 0.67rem; color: var(--accent); text-align: right; max-width: 60%; }
+
+/* Warning sign table — compact */
+.warn-table { width: 100%; border-collapse: collapse; font-size: 0.73rem; margin-bottom: 1rem; }
+.warn-table thead tr { background: var(--surface3); }
+.warn-table th { padding: 0.6rem 0.8rem; font-family: 'DM Mono', monospace; font-size: 0.62rem; color: var(--accent); text-transform: uppercase; letter-spacing: 0.06em; }
+.warn-table td { padding: 0.5rem 0.8rem; border-top: 1px solid rgba(255,255,255,0.04); vertical-align: top; line-height: 1.4; color: var(--text2); }
+.warn-table .sign { color: var(--yellow); }
+.warn-table .problem { color: var(--red); }
+.warn-table tbody tr:hover { background: rgba(255,255,255,0.015); }
+
+/* Checklist */
+.checklist { background: var(--surface3); border-radius: 10px; padding: 1rem 1.2rem; margin-bottom: 1rem; }
+.checklist-title { font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--yellow); margin-bottom: 0.7rem; }
+.check-row { display: flex; justify-content: space-between; align-items: center; padding: 0.25rem 0; border-bottom: 1px solid rgba(255,255,255,0.04); font-size: 0.74rem; gap: 1rem; }
+.check-row:last-child { border-bottom: none; }
+.check-action { color: var(--text2); flex: 1; }
+.check-result { font-family: 'DM Mono', monospace; font-size: 0.65rem; text-align: right; flex-shrink: 0; }
+.check-result.over { color: var(--red); }
+.check-result.under { color: var(--yellow); }
+.check-result.risk { color: var(--orange); }
+.check-result.future { color: var(--blue); }
+
+/* Latihan */
+.exercise-section { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; margin-bottom: 1.5rem; }
+.exercise-header { background: rgba(74,222,128,0.08); padding: 0.9rem 1.2rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 0.6rem; }
+.exercise-header h3 { font-family: 'DM Mono', monospace; font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); }
+.exercise-badge { font-family: 'DM Mono', monospace; font-size: 0.58rem; background: rgba(74,222,128,0.15); color: var(--accent); padding: 0.15rem 0.5rem; border-radius: 99px; }
+.mc-item { padding: 1rem 1.2rem; border-bottom: 1px solid var(--border2); }
+.mc-item:last-child { border-bottom: none; }
+.mc-question { font-size: 0.8rem; color: var(--text); font-weight: 500; margin-bottom: 0.6rem; line-height: 1.55; }
+.mc-sub { font-size: 0.74rem; color: var(--text2); background: var(--surface3); border-radius: 8px; padding: 0.6rem 0.9rem; margin-bottom: 0.7rem; line-height: 1.6; }
+.mc-options { display: flex; flex-direction: column; gap: 0.3rem; }
+.mc-option { display: flex; gap: 0.6rem; align-items: flex-start; padding: 0.4rem 0.6rem; border-radius: 6px; cursor: pointer; transition: background 0.15s; font-size: 0.76rem; color: var(--text2); line-height: 1.4; border: 1px solid transparent; }
+.mc-option:hover { background: rgba(255,255,255,0.03); border-color: var(--border2); }
+.mc-option.correct { background: rgba(74,222,128,0.1); color: var(--accent); border-color: rgba(74,222,128,0.3); }
+.mc-option.wrong { background: rgba(248,113,113,0.08); color: var(--red); border-color: rgba(248,113,113,0.2); }
+.mc-option.revealed { pointer-events: none; }
+.opt-letter { font-family: 'DM Mono', monospace; font-size: 0.65rem; font-weight: 700; background: var(--surface3); padding: 0.15rem 0.4rem; border-radius: 4px; flex-shrink: 0; margin-top: 0.05rem; }
+.mc-feedback { margin-top: 0.5rem; font-size: 0.72rem; color: var(--muted); display: none; padding: 0.4rem 0.6rem; background: var(--surface3); border-radius: 6px; line-height: 1.5; }
+.mc-feedback.show { display: block; }
+.mc-feedback .correct-ans { color: var(--accent); font-weight: 600; }
+.essay-item { padding: 1rem 1.2rem; border-bottom: 1px solid var(--border2); }
+.essay-item:last-child { border-bottom: none; }
+.essay-q { font-size: 0.8rem; color: var(--text); font-weight: 500; margin-bottom: 0.8rem; line-height: 1.55; }
+.essay-toggle { display: flex; align-items: center; gap: 0.5rem; font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent3); background: rgba(74,222,128,0.07); border: 1px solid rgba(74,222,128,0.2); padding: 0.4rem 0.8rem; border-radius: 6px; cursor: pointer; transition: all 0.15s; width: fit-content; }
+.essay-toggle:hover { background: rgba(74,222,128,0.12); color: var(--accent); }
+.essay-answer { margin-top: 0.8rem; display: none; background: var(--surface3); border-radius: 8px; padding: 0.9rem 1rem; }
+.essay-answer.show { display: block; }
+.essay-answer h5 { font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent3); margin-bottom: 0.6rem; }
+.essay-answer p, .essay-answer li { font-size: 0.77rem; color: var(--text2); line-height: 1.6; }
+.essay-answer ul { padding-left: 0; list-style: none; display: flex; flex-direction: column; gap: 0.3rem; margin-top: 0.3rem; }
+.essay-answer li { display: flex; gap: 0.5rem; }
+.essay-answer li::before { content: '▸'; color: var(--accent); flex-shrink: 0; font-size: 0.6rem; margin-top: 0.1rem; }
+
+/* AI */
+.ai-section { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; }
+.ai-header { background: rgba(96,165,250,0.07); padding: 0.9rem 1.2rem; border-bottom: 1px solid rgba(96,165,250,0.15); display: flex; align-items: center; gap: 0.6rem; }
+.ai-header h3 { font-family: 'DM Mono', monospace; font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--blue); }
+.ai-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--blue); }
+.ai-messages { padding: 1rem 1.2rem; min-height: 80px; max-height: 360px; overflow-y: auto; display: flex; flex-direction: column; gap: 0.7rem; }
+.ai-msg { display: flex; gap: 0.6rem; align-items: flex-start; font-size: 0.78rem; line-height: 1.6; animation: fadeUp 0.25s ease; }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+.ai-msg.user { flex-direction: row-reverse; }
+.ai-msg .avatar { width: 26px; height: 26px; border-radius: 6px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 0.65rem; font-weight: 700; margin-top: 0.1rem; }
+.ai-msg.ai .avatar { background: rgba(96,165,250,0.15); color: var(--blue); }
+.ai-msg.user .avatar { background: rgba(74,222,128,0.15); color: var(--accent); }
+.ai-bubble { padding: 0.6rem 0.85rem; border-radius: 10px; max-width: 85%; }
+.ai-msg.ai .ai-bubble { background: var(--surface3); color: var(--text2); }
+.ai-msg.user .ai-bubble { background: rgba(74,222,128,0.09); color: var(--text); text-align: right; }
+.ai-typing { display: flex; gap: 4px; align-items: center; padding: 0.6rem 0.85rem; background: var(--surface3); border-radius: 10px; width: fit-content; }
+.ai-typing span { width: 5px; height: 5px; border-radius: 50%; background: var(--blue); animation: typing 1.2s infinite; }
+.ai-typing span:nth-child(2) { animation-delay: 0.2s; }
+.ai-typing span:nth-child(3) { animation-delay: 0.4s; }
+@keyframes typing { 0%,60%,100% { opacity: 0.2; transform: scale(0.8); } 30% { opacity: 1; transform: scale(1); } }
+.ai-suggestions { padding: 0 1.2rem 0.75rem; display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.ai-chip { font-family: 'DM Mono', monospace; font-size: 0.62rem; background: var(--surface3); border: 1px solid var(--border2); color: var(--text2); padding: 0.3rem 0.7rem; border-radius: 99px; cursor: pointer; transition: all 0.15s; }
+.ai-chip:hover { border-color: rgba(96,165,250,0.35); color: var(--blue); }
+.ai-input-row { padding: 0.75rem 1.2rem; border-top: 1px solid var(--border2); display: flex; gap: 0.5rem; }
+.ai-input { flex: 1; background: var(--surface3); border: 1px solid var(--border2); border-radius: 8px; padding: 0.5rem 0.8rem; font-size: 0.78rem; color: var(--text); font-family: 'DM Sans', sans-serif; outline: none; resize: none; max-height: 100px; transition: border-color 0.2s; }
+.ai-input:focus { border-color: rgba(96,165,250,0.35); }
+.ai-input::placeholder { color: var(--muted); }
+.ai-send { background: var(--blue); color: #000; border: none; border-radius: 8px; padding: 0.5rem 1rem; font-family: 'DM Mono', monospace; font-size: 0.68rem; font-weight: 700; cursor: pointer; transition: opacity 0.15s; }
+.ai-send:hover { opacity: 0.85; }
+.ai-send:disabled { opacity: 0.4; cursor: not-allowed; }
+</style>
+</head>
+<body>
+
+<div class="chapter-header">
+  <div class="chapter-eyebrow">Pelaporan Korporat — CA Indonesia</div>
+  <div class="chapter-title">BAB 13 — Analisis LK: Financial Shenanigans<br>Mendeteksi Fraud dan Gimmick Akuntansi</div>
+  <div class="learning-goals">
+    <h3>Tujuan Pembelajaran</h3>
+    <ul class="goals-list">
+      <li>Menjelaskan jenis-jenis <em>financial shenanigans</em> dan perlakuan akuntansi yang mencerminkannya</li>
+      <li>Menjelaskan identifikasi awal adanya <em>financial shenanigans</em> dalam laporan keuangan dan laporan tahunan</li>
+      <li>Menjelaskan dampak pilihan kebijakan akuntansi perusahaan terhadap kemungkinan terjadinya <em>financial shenanigans</em></li>
+      <li>Menjelaskan area utama dalam laporan keuangan yang memiliki potensi tinggi terjadi <em>financial shenanigans</em></li>
+      <li>Menerapkan analisis rasio keuangan</li>
+    </ul>
+  </div>
+</div>
+
+<div class="page-body">
+  <nav class="toc">
+    <div class="toc-label">Daftar Isi</div>
+    <a href="#cases" class="toc-link">Kasus Nyata di AS</a>
+    <a href="#s1" class="toc-link">13.1–2 Jenis Shenanigans</a>
+    <a href="#t1" class="toc-link sub">Tipe 1: Pendapatan Terlalu Cepat</a>
+    <a href="#t2" class="toc-link sub">Tipe 2: Pendapatan Fiktif</a>
+    <a href="#t3" class="toc-link sub">Tipe 3: Laba Insidental</a>
+    <a href="#t4" class="toc-link sub">Tipe 4: Geser Beban ke Depan</a>
+    <a href="#t5" class="toc-link sub">Tipe 5: Sembunyikan Liabilitas</a>
+    <a href="#t6" class="toc-link sub">Tipe 6: Tunda Pendapatan</a>
+    <a href="#t7" class="toc-link sub">Tipe 7: Geser Beban ke Belakang</a>
+    <div class="toc-divider"></div>
+    <a href="#s3" class="toc-link">13.3 Mendeteksi Shenanigans</a>
+    <a href="#s4" class="toc-link">13.4 Analisis LK</a>
+    <a href="#s5" class="toc-link">13.5 Area Permasalahan</a>
+    <a href="#s6" class="toc-link">13.6 Rasio Keuangan</a>
+    <div class="toc-divider"></div>
+    <a href="#latihan" class="toc-link">Latihan Soal</a>
+    <a href="#ai" class="toc-link">Tanya AI</a>
+  </nav>
+
+  <main class="main">
+
+    <!-- KASUS NYATA -->
+    <div class="section" id="cases">
+      <div class="section-header">
+        <span class="section-num">📌</span>
+        <span class="section-title">Kasus Nyata Financial Shenanigans di Amerika</span>
+      </div>
+      <div class="grid-2">
+        <div class="card" style="border-top:2px solid var(--red)">
+          <div class="card-title" style="color:var(--red)"><span class="dot" style="background:var(--red)"></span>Cendant/CUC (1983–2000)</div>
+          <ul>
+            <li>Pengakuan pendapatan keanggotaan secara agresif tanpa memperhitungkan pembatalan</li>
+            <li>Penggunaan merger dan akuisisi untuk meningkatkan laba</li>
+          </ul>
+        </div>
+        <div class="card" style="border-top:2px solid var(--orange)">
+          <div class="card-title" style="color:var(--orange)"><span class="dot" style="background:var(--orange)"></span>Informix (1996–1998)</div>
+          <ul><li>Pengakuan pendapatan secara agresif</li></ul>
+        </div>
+        <div class="card" style="border-top:2px solid var(--yellow)">
+          <div class="card-title" style="color:var(--yellow)"><span class="dot" style="background:var(--yellow)"></span>Waste Management (1995–1999)</div>
+          <ul>
+            <li>Kapitalisasi beban sebagai aset</li>
+            <li>Independensi auditor yang dipertanyakan</li>
+          </ul>
+        </div>
+        <div class="card" style="border-top:2px solid var(--purple)">
+          <div class="card-title" style="color:var(--purple)"><span class="dot" style="background:var(--purple)"></span>Lucent (1999–2001)</div>
+          <ul><li>Perubahan kebijakan akuntansi</li></ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 7 JENIS SHENANIGANS -->
+    <div class="section" id="s1">
+      <div class="section-header">
+        <span class="section-num">13.1–2</span>
+        <span class="section-title">7 Jenis Financial Shenanigans</span>
+      </div>
+      <div class="highlight-red">
+        <p><strong>Financial shenanigans</strong> adalah tindakan atau kelalaian yang dimaksudkan untuk menyesatkan para investor dan analis dengan menggunakan angka-angka dalam laporan keuangan, baik melalui manipulasi laba yang berlebihan (overstated) maupun penggeseran beban antar periode.</p>
+      </div>
+
+      <!-- TIPE 1 -->
+      <div class="subsection" id="t1">
+        <div class="subsection-title">Tipe 1 — Mengakui Pendapatan Sebelum Waktunya / Kualitas Dipertanyakan</div>
+        <div class="card" style="border-left:3px solid var(--red)">
+          <div class="card-title" style="color:var(--red)"><span class="dot" style="background:var(--red)"></span>6 Teknik</div>
+          <ul>
+            <li>Mengakui pendapatan saat masih ada <strong>jasa yang belum diserahkan</strong></li>
+            <li>Mengakui pendapatan <strong>sebelum pengiriman</strong> barang atau sebelum diterima dengan sah oleh konsumen</li>
+            <li>Mengakui pendapatan meskipun konsumen <strong>tidak wajib membayar</strong></li>
+            <li>Melakukan transaksi penjualan pada <strong>pihak afiliasi</strong></li>
+            <li>Menyerahkan sesuatu yang berharga kepada konsumen sebagai <strong>"quid-pro-quo"</strong> — pertukaran yang seimbang</li>
+            <li>Melakukan <strong>gross-up</strong> atas pendapatan</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- TIPE 2 -->
+      <div class="subsection" id="t2">
+        <div class="subsection-title">Tipe 2 — Mengakui Pendapatan Palsu sebagai Pendapatan</div>
+        <div class="card" style="border-left:3px solid var(--red)">
+          <div class="card-title" style="color:var(--red)"><span class="dot" style="background:var(--red)"></span>5 Teknik</div>
+          <ul>
+            <li>Mengakui penjualan yang <strong>tidak memiliki substansi ekonomis</strong></li>
+            <li>Mengakui <strong>kas dari pinjaman</strong> sebagai pendapatan</li>
+            <li>Mengakui <strong>laba investasi</strong> sebagai pendapatan operasi</li>
+            <li>Mengakui <strong>potongan harga dari pemasok</strong> atas pembelian masa depan sebagai pendapatan</li>
+            <li>Mencatatkan pendapatan yang <strong>sengaja tidak diakui dalam proses merger</strong></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- TIPE 3 -->
+      <div class="subsection" id="t3">
+        <div class="subsection-title">Tipe 3 — Meningkatkan Laba dengan Keuntungan Insidental</div>
+        <div class="card" style="border-left:3px solid var(--orange)">
+          <div class="card-title" style="color:var(--orange)"><span class="dot" style="background:var(--orange)"></span>4 Teknik</div>
+          <ul>
+            <li>Meningkatkan laba dengan <strong>menjual aset yang undervalued</strong></li>
+            <li>Menyertakan <strong>keuntungan investasi sebagai bagian dari pendapatan</strong> operasi</li>
+            <li>Melaporkan keuntungan investasi sebagai <strong>pengurang beban operasi</strong></li>
+            <li>Memunculkan laba dengan melakukan <strong>reklasifikasi akun</strong> laporan posisi keuangan</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- TIPE 4 -->
+      <div class="subsection" id="t4">
+        <div class="subsection-title">Tipe 4 — Merubah Periode Pencatatan Beban ke Periode Sebelum atau Setelahnya</div>
+        <div class="card" style="border-left:3px solid var(--yellow)">
+          <div class="card-title" style="color:var(--yellow)"><span class="dot" style="background:var(--yellow)"></span>5 Teknik</div>
+          <ul>
+            <li><strong>Mengkapitalisasi biaya operasional</strong>, khususnya yang sebelumnya langsung dibebankan</li>
+            <li>Merubah kebijakan akuntansi untuk <strong>menggeser beban berjalan ke periode sebelumnya</strong></li>
+            <li>Mengakui amortisasi dengan <strong>sangat lambat</strong>, masa manfaat diperpanjang</li>
+            <li><strong>Tidak melakukan pencatatan penurunan nilai</strong> pada aset yang telah turun nilainya</li>
+            <li>Mengurangi <strong>cadangan aset</strong></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- TIPE 5 -->
+      <div class="subsection" id="t5">
+        <div class="subsection-title">Tipe 5 — Tidak Mencatat atau Sengaja Mengurangi Nilai Liabilitas</div>
+        <div class="card" style="border-left:3px solid var(--yellow)">
+          <div class="card-title" style="color:var(--yellow)"><span class="dot" style="background:var(--yellow)"></span>5 Teknik</div>
+          <ul>
+            <li>Tidak mencatat beban dan liabilitas terkait ketika <strong>kewajiban masa depan masih ada</strong></li>
+            <li>Mengurangi nilai liabilitas dengan <strong>merubah asumsi akuntansi</strong></li>
+            <li>Mencatatkan <strong>cadangan yang diragukan</strong> dalam laporan laba rugi</li>
+            <li>Menciptakan <strong>rebat (potongan harga) palsu</strong></li>
+            <li>Mencatatkan pendapatan ketika kas diterima meskipun <strong>masih ada kewajiban masa depan</strong></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- TIPE 6 -->
+      <div class="subsection" id="t6">
+        <div class="subsection-title">Tipe 6 — Memindahkan Pendapatan Periode Berjalan ke Periode Akan Datang</div>
+        <div class="card" style="border-left:3px solid var(--blue)">
+          <div class="card-title" style="color:var(--blue)"><span class="dot" style="background:var(--blue)"></span>2 Teknik (Income Smoothing)</div>
+          <ul>
+            <li>Menciptakan cadangan dan mencatatkannya sebagai <strong>laba di periode yang akan datang</strong></li>
+            <li>Dengan sengaja <strong>menunda pencatatan pendapatan</strong> sampai dengan proses akuisisi selesai</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- TIPE 7 -->
+      <div class="subsection" id="t7">
+        <div class="subsection-title">Tipe 7 — Memindahkan Beban Masa Depan ke Periode Berjalan sebagai Kerugian Insidental</div>
+        <div class="card" style="border-left:3px solid var(--blue)">
+          <div class="card-title" style="color:var(--blue)"><span class="dot" style="background:var(--blue)"></span>3 Teknik (<em>Big Bath</em>)</div>
+          <ul>
+            <li>Dengan sengaja <strong>memperbesar nilai kerugian insidental</strong></li>
+            <li>Dengan sengaja <strong>menghapuskan biaya R&amp;D yang masih berjalan</strong> dari perhitungan akuisisi</li>
+            <li><strong>Mempercepat beban diskresioner</strong> pada periode berjalan</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- RINGKASAN 7 TIPE -->
+      <div class="subsection-title" style="margin-top:1rem">Ringkasan — Dampak terhadap Laba</div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Tipe</th><th>Tindakan Utama</th><th>Dampak Laba</th><th>Arah Manipulasi</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td>Pengakuan pendapatan terlalu cepat</td><td class="sign" style="color:var(--red)">Overstated</td><td><span class="tag tag-red">↑ Laba Naik</span></td></tr>
+            <tr><td>2</td><td>Pengakuan pendapatan fiktif</td><td style="color:var(--red)">Overstated</td><td><span class="tag tag-red">↑ Laba Naik</span></td></tr>
+            <tr><td>3</td><td>Masukkan keuntungan insidental ke pendapatan</td><td style="color:var(--red)">Overstated</td><td><span class="tag tag-red">↑ Laba Naik</span></td></tr>
+            <tr><td>4</td><td>Kapitalisasi beban / perlambat amortisasi</td><td style="color:var(--red)">Overstated</td><td><span class="tag tag-red">↑ Laba Naik</span></td></tr>
+            <tr><td>5</td><td>Sembunyikan liabilitas</td><td style="color:var(--red)">Overstated</td><td><span class="tag tag-red">↑ Laba Naik</span></td></tr>
+            <tr><td>6</td><td>Tunda pencatatan pendapatan (<em>income smoothing</em>)</td><td style="color:var(--yellow)">Understated (saat ini)</td><td><span class="tag tag-yellow">↓ Tunda ke depan</span></td></tr>
+            <tr><td>7</td><td>Percepat beban ke saat ini (<em>big bath</em>)</td><td style="color:var(--yellow)">Understated (saat ini)</td><td><span class="tag tag-yellow">↓ Bersihkan ke depan</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- SECTION 13.3 -->
+    <div class="section" id="s3">
+      <div class="section-header">
+        <span class="section-num">13.3</span>
+        <span class="section-title">Mendeteksi Financial Shenanigans</span>
+      </div>
+
+      <div class="subsection-title">Ukuran Indikasi Awal (Kuantitatif)</div>
+      <div class="grid-2">
+        <div class="card" style="border-top:2px solid var(--red)">
+          <div class="card-title" style="color:var(--red)"><span class="dot" style="background:var(--red)"></span>Sinyal Kualitas Laba</div>
+          <ul>
+            <li>Arus Kas Operasi <strong>jauh lebih rendah</strong> dari laba bersih</li>
+            <li>Pertumbuhan penjualan tinggi kemudian diikuti <strong>penurunan tajam</strong></li>
+            <li>Pertumbuhan <strong>piutang jauh lebih tinggi</strong> dari penjualan → gunakan Rasio Perputaran Piutang</li>
+            <li>Tingkat persediaan tinggi relatif terhadap penjualan → gunakan <strong>Rasio Perputaran Persediaan</strong></li>
+            <li>Laba kotor tidak stabil / terlalu rendah atau tinggi</li>
+            <li><strong>Peningkatan signifikan aset tak berwujud</strong></li>
+            <li>Nilai <strong>pendapatan tangguhan yang tinggi</strong></li>
+          </ul>
+        </div>
+        <div class="card" style="border-top:2px solid var(--yellow)">
+          <div class="card-title" style="color:var(--yellow)"><span class="dot" style="background:var(--yellow)"></span>Sinyal Kualitatif (Kata Kunci Penyaringan)</div>
+          <ul>
+            <li>Perubahan prinsip / estimasi / kebijakan akuntansi</li>
+            <li>Pendanaan oleh konsumen atau perpanjangan kredit</li>
+            <li>Perubahan klasifikasi akun</li>
+            <li>Perubahan <strong>auditor eksternal (KAP)</strong></li>
+            <li>Perpanjangan termin pembayaran</li>
+            <li><em>Bill and hold</em>, <em>insider stock sales</em></li>
+            <li>Transaksi hubungan istimewa</li>
+            <li><em>Decline in backlog</em>, <em>layaway sales</em></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="subsection-title" style="margin-top:0.5rem">Langkah Lanjutan jika Indikasi Awal Ditemukan</div>
+      <div class="grid-3">
+        <div class="card">
+          <div class="card-title"><span class="dot"></span>1. Laporan Auditor</div>
+          <ul>
+            <li>Opini audit WTP vs non-WTP</li>
+            <li>Reputasi dan <strong>independensi auditor</strong></li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="dot"></span>2. Catatan LK</div>
+          <ul>
+            <li>Kebijakan &amp; perubahan akuntansi</li>
+            <li>Transaksi hubungan istimewa</li>
+            <li>Kontinjensi &amp; komitmen</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="dot"></span>3. Laporan Tahunan</div>
+          <ul>
+            <li>Laporan direksi — fokus atau pengalih perhatian?</li>
+            <li>Diskusi &amp; analisis manajemen</li>
+            <li>Remunerasi direksi, litigasi</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="highlight-yellow">
+        <p><strong>Hal lain yang perlu diperhatikan:</strong> Keberadaan dan independensi Komite Audit, kebijakan akuntansi yang agresif, tuntutan hukum material, komitmen pembelian jangka panjang yang merugikan, perubahan estimasi/prinsip akuntansi, dan penjelasan CEO — apakah merupakan pengalih perhatian dari kondisi keuangan sebenarnya?</p>
+      </div>
+    </div>
+
+    <!-- SECTION 13.4 -->
+    <div class="section" id="s4">
+      <div class="section-header">
+        <span class="section-num">13.4</span>
+        <span class="section-title">Analisis atas Laporan Keuangan</span>
+      </div>
+
+      <div class="highlight">
+        <p><strong>3 Langkah Analisis LK:</strong> (1) <em>Common size analysis</em> atas LPK dan L/R; (2) Baca CALK dan penjelasan kualitatif; (3) Bandingkan Arus Kas Operasi dengan Laba Bersih.</p>
+      </div>
+
+      <div class="subsection-title"><em>Common Size Analysis</em></div>
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-title"><span class="dot"></span>Vertikal (satu periode)</div>
+          <ul>
+            <li>LPK: komponen / <strong>Total Aset</strong></li>
+            <li>L/R: komponen / <strong>Total Pendapatan</strong></li>
+            <li>Memungkinkan melihat struktur dan perubahan proporsi</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="card-title"><span class="dot"></span>Horizontal (antar periode)</div>
+          <ul>
+            <li>Membandingkan beberapa periode dengan satu periode sebagai <strong>dasar</strong></li>
+            <li>Melihat tren pertumbuhan / perubahan pola</li>
+            <li>Aturan: struktur relatif stabil; perubahan pendapatan tercermin di beban dan modal kerja</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="subsection-title" style="margin-top:0.5rem">Warning Signs — Laporan Posisi Keuangan &amp; Laba Rugi (Pilihan Kunci)</div>
+      <div class="table-wrap">
+        <table class="warn-table">
+          <thead><tr><th>Tanda-tanda</th><th>Potensi Shenanigans</th></tr></thead>
+          <tbody>
+            <tr><td class="sign">Nilai Kas turun lebih rendah dari penurunan Total Aset</td><td class="problem">Masalah likuiditas / perlu pinjaman</td></tr>
+            <tr><td class="sign">Piutang tumbuh lebih cepat dari Penjualan</td><td class="problem">Pengakuan pendapatan agresif / perpanjangan waktu piutang</td></tr>
+            <tr><td class="sign">Pencadangan piutang menurun relatif terhadap nilai piutang</td><td class="problem">Kemungkinan penggelembungan laba</td></tr>
+            <tr><td class="sign">Persediaan tumbuh lebih cepat dari penjualan, HPP, atau utang usaha</td><td class="problem">Persediaan usang, penghapusan perlu, atau HPP tidak dicatat penuh</td></tr>
+            <tr><td class="sign">% Beban Dibayar Dimuka / Total Aset meningkat tajam</td><td class="problem">Kapitalisasi tidak wajar atas beban operasi</td></tr>
+            <tr><td class="sign">% Aset Lainnya / Total Aset meningkat signifikan</td><td class="problem">Kapitalisasi beban operasi</td></tr>
+            <tr><td class="sign">Akumulasi Penyusutan turun saat Harga Perolehan AT naik</td><td class="problem">Kelalaian pengakuan penyusutan wajar — penggelembungan laba</td></tr>
+            <tr><td class="sign">% Goodwill / Total Aset meningkat tajam</td><td class="problem">Aset berwujud diklasifikasikan sebagai goodwill untuk hindari penyusutan</td></tr>
+            <tr><td class="sign">Pendapatan Ditangguhkan turun saat Pendapatan meningkat</td><td class="problem">Penurunan bisnis atau penggelembungan pendapatan</td></tr>
+            <tr><td class="sign">% HPP/Penjualan fluktuatif signifikan secara periodik</td><td class="problem">Laba kotor tidak stabil — indikasi <em>accounting irregularities</em></td></tr>
+            <tr><td class="sign">% Beban Operasi/Pendapatan turun tajam</td><td class="problem">Kemungkinan kapitalisasi tidak wajar beban operasi</td></tr>
+            <tr><td class="sign">Sebagian besar Laba Bersih sebelum Pajak dari keuntungan insidental</td><td class="problem">Bisnis utama mengalami penurunan</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="subsection-title">Warning Signs — Laporan Arus Kas</div>
+      <div class="grid-3">
+        <div class="card" style="border-top:2px solid var(--red)">
+          <div class="card-title" style="color:var(--red)"><span class="dot" style="background:var(--red)"></span>AKO &lt;&lt; Laba Bersih</div>
+          <p>Kualitas laba dipertanyakan atau pengeluaran modal kerja terlalu tinggi.</p>
+        </div>
+        <div class="card" style="border-top:2px solid var(--orange)">
+          <div class="card-title" style="color:var(--orange)"><span class="dot" style="background:var(--orange)"></span>Tidak Ada Rincian AKO</div>
+          <p>Kemungkinan entitas berusaha menyembunyikan sumber masalah arus kas operasi.</p>
+        </div>
+        <div class="card" style="border-top:2px solid var(--yellow)">
+          <div class="card-title" style="color:var(--yellow)"><span class="dot" style="background:var(--yellow)"></span>Penerimaan Kas dari Jual Aset / Pinjaman</div>
+          <p>Tanda-tanda kelemahan — jika penerimaan kas <em>hanya</em> berasal dari sumber non-operasi.</p>
+        </div>
+      </div>
+
+      <div class="subsection-title" style="margin-top:0.5rem">Checklist — Tanda-tanda LK yang Menyesatkan</div>
+      <div class="checklist">
+        <div class="checklist-title">Checklist 13.1: Indikator &amp; Dampaknya</div>
+        <div class="check-row"><span class="check-action">Pemilihan kebijakan akuntansi terlalu liberal</span><span class="check-result over">Laba Overstated</span></div>
+        <div class="check-row"><span class="check-action">Merubah kebijakan akuntansi tanpa dasar jelas</span><span class="check-result over">Laba Overstated</span></div>
+        <div class="check-row"><span class="check-action">Menangguhkan biaya yang seharusnya langsung dibebankan</span><span class="check-result over">Laba Overstated</span></div>
+        <div class="check-row"><span class="check-action">Melakukan <em>income smoothing</em></span><span class="check-result under">Laba Understated</span></div>
+        <div class="check-row"><span class="check-action">Mengakui pendapatan lebih cepat</span><span class="check-result over">Laba Overstated</span></div>
+        <div class="check-row"><span class="check-action">Kurang menyisihkan cadangan untuk beban</span><span class="check-result over">Laba Overstated</span></div>
+        <div class="check-row"><span class="check-action">Merubah biaya diskresioner</span><span class="check-result risk">Manipulasi laba</span></div>
+        <div class="check-row"><span class="check-action">Kualitas pengendalian yang rendah</span><span class="check-result risk">Risiko shenanigans</span></div>
+        <div class="check-row"><span class="check-action">Mengganti KAP</span><span class="check-result risk">Risiko shenanigans</span></div>
+        <div class="check-row"><span class="check-action">Melakukan <em>big bath</em></span><span class="check-result future">Laba masa depan naik</span></div>
+      </div>
+    </div>
+
+    <!-- SECTION 13.5 -->
+    <div class="section" id="s5">
+      <div class="section-header">
+        <span class="section-num">13.5</span>
+        <span class="section-title">Area Permasalahan Utama</span>
+      </div>
+      <div class="highlight-red">
+        <p>Financial shenanigans berasal dari <strong>2 area permasalahan utama</strong>: (1) Akuntansi untuk akuisisi, dan (2) Akuntansi untuk pengakuan pendapatan.</p>
+      </div>
+
+      <div class="grid-2">
+        <div class="card" style="border-top:2px solid var(--red)">
+          <div class="card-title" style="color:var(--red)"><span class="dot" style="background:var(--red)"></span>Shenanigans terkait Akuisisi (7 teknik)</div>
+          <ul>
+            <li>Akuisisi perusahaan yang <strong>tidak menghasilkan laba</strong> — meningkatkan laba jangka pendek saja</li>
+            <li>Menggeser kerugian ke <strong>periode "stub"</strong> (celah periode pelaporan)</li>
+            <li>Melakukan <strong>write-off sebelum &amp; sesudah</strong> akuisisi</li>
+            <li>Melepaskan cadangan yang tercipta akibat write-off</li>
+            <li>Merubah alokasi harga akuisisi setelah akuisisi terjadi → <strong>tingkatkan alokasi ke goodwill</strong></li>
+            <li>Akuisisi dengan meminta potongan harga yang kemudian diakui sebagai <strong>pendapatan pihak pengakuisisi</strong></li>
+            <li>Memberikan waran saham sebagai pemanis komitmen pembelian masa depan</li>
+          </ul>
+        </div>
+        <div class="card" style="border-top:2px solid var(--orange)">
+          <div class="card-title" style="color:var(--orange)"><span class="dot" style="background:var(--orange)"></span>Shenanigans terkait Pengakuan Pendapatan (4 area)</div>
+          <ul>
+            <li><strong>Kontrak konstruksi jangka panjang</strong> — metode % penyelesaian berisiko tinggi karena melibatkan estimasi; waspada bila piutang belum ditagih tumbuh lebih cepat dari piutang atau penjualan</li>
+            <li><strong>Penjualan konsinyasi</strong> — perhatikan apakah <em>consignor</em> mencatat pendapatan saat pengiriman ke <em>consignee</em></li>
+            <li><strong>Penjualan cicilan</strong></li>
+            <li><strong>Pendapatan leasing</strong> — perhatikan perubahan dari operating lease ke <em>finance lease</em> dan perubahan asumsi tingkat diskonto/nilai sisa</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 13.6 -->
+    <div class="section" id="s6">
+      <div class="section-header">
+        <span class="section-num">13.6</span>
+        <span class="section-title">Analisis Menggunakan Rasio Keuangan</span>
+      </div>
+
+      <div class="rasio-grid">
+        <div class="rasio-group" style="border-top:2px solid var(--accent)">
+          <div class="rasio-group-title">Rasio Profitabilitas</div>
+          <div class="rasio-item"><span class="rasio-name">Gross profit margin</span><span class="rasio-formula">Laba kotor / Penjualan</span></div>
+          <div class="rasio-item"><span class="rasio-name">Operating margin</span><span class="rasio-formula">Laba operasi / Penjualan</span></div>
+          <div class="rasio-item"><span class="rasio-name">Net profit margin</span><span class="rasio-formula">LBSP / Penjualan</span></div>
+          <div class="rasio-item"><span class="rasio-name">ROA</span><span class="rasio-formula">LBSP / Total Aset</span></div>
+          <div class="rasio-item"><span class="rasio-name">ROE</span><span class="rasio-formula">LBSP / Total Ekuitas</span></div>
+          <div class="rasio-item"><span class="rasio-name">EPS</span><span class="rasio-formula">LBSP / Jml Saham Beredar</span></div>
+        </div>
+        <div class="rasio-group" style="border-top:2px solid var(--blue)">
+          <div class="rasio-group-title">Rasio Likuiditas</div>
+          <div class="rasio-item"><span class="rasio-name">Current ratio</span><span class="rasio-formula">Aset Lancar / Liab. Lancar</span></div>
+          <div class="rasio-item"><span class="rasio-name">Working capital</span><span class="rasio-formula">Aset Lancar − Liab. Lancar</span></div>
+          <div class="rasio-item"><span class="rasio-name">Quick ratio</span><span class="rasio-formula">(Kas + Piutang) / Liab. Lancar</span></div>
+          <div style="height:0.4rem"></div>
+          <div class="rasio-group-title" style="margin-top:0.5rem">Rasio Solvency</div>
+          <div class="rasio-item"><span class="rasio-name">Debt to asset</span><span class="rasio-formula">Total Debt / Total Aset</span></div>
+          <div class="rasio-item"><span class="rasio-name">Debt to equity</span><span class="rasio-formula">Total Debt / Total Ekuitas</span></div>
+          <div class="rasio-item"><span class="rasio-name">Long-term D/E</span><span class="rasio-formula">Debt JP / Total Ekuitas</span></div>
+          <div class="rasio-item"><span class="rasio-name">Interest coverage</span><span class="rasio-formula">Laba Operasi / Beban Bunga</span></div>
+        </div>
+        <div class="rasio-group" style="border-top:2px solid var(--yellow); grid-column: 1 / -1;">
+          <div class="rasio-group-title">Rasio Aktivitas (Efisiensi)</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.3rem">
+            <div class="rasio-item"><span class="rasio-name">Inventory turnover</span><span class="rasio-formula">HPP / Rerata Persediaan</span></div>
+            <div class="rasio-item"><span class="rasio-name">Avg. days inventory</span><span class="rasio-formula">365 / Inventory Turnover</span></div>
+            <div class="rasio-item"><span class="rasio-name">Receivable turnover</span><span class="rasio-formula">Penjualan / Rerata Piutang</span></div>
+            <div class="rasio-item"><span class="rasio-name">Avg. collection period</span><span class="rasio-formula">365 / Receivable Turnover</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="highlight-yellow">
+        <p><strong>Keterbatasan rasio keuangan:</strong> (1) Hanya cerminan ukuran tertentu — bukan ukuran paling tepat; (2) Jika terjadi manipulasi LK, rasio tidak akan akurat; (3) Rasio hanya melibatkan informasi kuantitatif dalam LK.</p>
+      </div>
+
+      <div class="highlight">
+        <p><strong>7 Prinsip Dasar Pelaporan Keuangan yang Akurat:</strong> (1) Pendapatan diakui setelah proses perolehan selesai; (2) Biaya dikapitalisasi jika ada manfaat masa depan; (3) Manfaat aset diakui sebagai beban saat diterima; (4) Penurunan nilai tiba-tiba dan signifikan diakui segera; (5) Catat liabilitas saat kewajiban muncul; (6) Pendapatan dicatat pada periode terjadinya; (7) Beban dicatat pada periode ketika perusahaan menerima manfaat.</p>
+      </div>
+    </div>
+
+    <!-- LATIHAN -->
+    <div class="section" id="latihan">
+      <div class="section-header">
+        <span class="section-num">✎</span>
+        <span class="section-title">Latihan Soal</span>
+      </div>
+
+      <div class="exercise-section">
+        <div class="exercise-header">
+          <h3>Pilihan Ganda</h3>
+          <span class="exercise-badge">10 Soal</span>
+        </div>
+
+        <div class="mc-item">
+          <div class="mc-sub">
+            <strong>Untuk soal 1–7:</strong> Berikut adalah beberapa indikasi yang dapat mengarah pada financial shenanigans:<br>
+            I. Nilai arus kas dari aktivitas operasi jauh lebih kecil dibandingkan laba bersih.<br>
+            II. Mencatat penerimaan kas dari kreditor sebagai pendapatan.<br>
+            III. Pertumbuhan piutang (terutama piutang jangka panjang) jauh lebih tinggi dibandingkan penjualan.<br>
+            IV. Pertumbuhan pendapatan jauh lebih tinggi dibandingkan piutang usaha.
+          </div>
+          <div class="mc-question">1. Indikasi yang dapat mengarah pada pengakuan pendapatan <u>terlalu cepat</u>, khususnya pada non-institusi keuangan, adalah:</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',1)"><span class="opt-letter">A</span> I, II, III</div>
+            <div class="mc-option" onclick="checkMC(this,'b',1)"><span class="opt-letter">B</span> I dan III</div>
+            <div class="mc-option" onclick="checkMC(this,'c',1)"><span class="opt-letter">C</span> II dan IV</div>
+            <div class="mc-option" onclick="checkMC(this,'d',1)"><span class="opt-letter">D</span> IV</div>
+          </div>
+          <div class="mc-feedback" id="fb1"><span class="correct-ans">B — I dan III.</span> Arus kas operasi jauh lebih rendah dari laba bersih menandakan kualitas laba yang dipertanyakan. Piutang tumbuh lebih cepat dari penjualan menandakan pengakuan pendapatan agresif atau pemberian termin kredit yang lebih panjang. Indikasi II (kas dari kreditor sebagai pendapatan) adalah pendapatan fiktif. Indikasi IV justru sebaliknya — pendapatan lebih tinggi dari piutang, bukan sinyal percepatan pengakuan.</div>
+        </div>
+
+        <div class="mc-item">
+          <div class="mc-question">2. Indikasi yang dapat mengarah pada pengakuan <u>pendapatan fiktif</u> adalah:</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',2)"><span class="opt-letter">A</span> I, II, III</div>
+            <div class="mc-option" onclick="checkMC(this,'b',2)"><span class="opt-letter">B</span> I dan III</div>
+            <div class="mc-option" onclick="checkMC(this,'c',2)"><span class="opt-letter">C</span> II dan IV</div>
+            <div class="mc-option" onclick="checkMC(this,'d',2)"><span class="opt-letter">D</span> IV</div>
+          </div>
+          <div class="mc-feedback" id="fb2"><span class="correct-ans">C — II dan IV.</span> Indikasi II (mengakui kas dari pinjaman sebagai pendapatan) adalah contoh langsung pendapatan fiktif. Indikasi IV (pendapatan tumbuh lebih tinggi dari piutang) juga dapat mengindikasikan pendapatan fiktif karena seharusnya penjualan yang meningkat diikuti kenaikan piutang.</div>
+        </div>
+
+        <div class="mc-item">
+          <div class="mc-sub">
+            <strong>Untuk soal 3–7:</strong><br>
+            I. Menggeser kerugian dari operasi yang dilanjutkan ke operasi yang dihentikan.<br>
+            II. Mencatat penerimaan dari operasi yang dihentikan sebagai pendapatan operasi.<br>
+            III. Pertumbuhan laba operasi jauh lebih tinggi dibandingkan penjualan.<br>
+            IV. Melakukan kapitalisasi atas beban operasi normal.
+          </div>
+          <div class="mc-question">3. Indikasi yang dapat mengarah pada memperbesar laba secara tidak wajar dengan menggunakan <u>aktivitas non-rutin</u> adalah:</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',3)"><span class="opt-letter">A</span> I, II, III</div>
+            <div class="mc-option" onclick="checkMC(this,'b',3)"><span class="opt-letter">B</span> I dan III</div>
+            <div class="mc-option" onclick="checkMC(this,'c',3)"><span class="opt-letter">C</span> II dan IV</div>
+            <div class="mc-option" onclick="checkMC(this,'d',3)"><span class="opt-letter">D</span> IV</div>
+          </div>
+          <div class="mc-feedback" id="fb3"><span class="correct-ans">A — I, II, III.</span> Menggeser kerugian ke operasi dihentikan (I), mencatat penerimaan operasi dihentikan sebagai pendapatan operasi (II), dan pertumbuhan laba operasi melebihi penjualan (III) — semuanya merupakan teknik memperbesar laba melalui aktivitas non-rutin. IV (kapitalisasi beban) adalah tipe 4 shenanigans (menggeser beban ke depan), bukan aktivitas non-rutin.</div>
+        </div>
+
+        <div class="mc-item">
+          <div class="mc-sub">
+            <strong>Untuk soal 4–6:</strong><br>
+            I. Tidak mengakui beban penurunan nilai aset.<br>
+            II. Pertumbuhan aset takberwujud jauh lebih tinggi dibandingkan penjualan.<br>
+            III. Pertumbuhan persediaan jauh lebih tinggi dibandingkan harga pokok penjualan.<br>
+            IV. Nilai <em>vendor financing</em> yang sangat besar.
+          </div>
+          <div class="mc-question">4. Indikasi yang dapat mengarah pada <u>menggeser beban periode berjalan ke periode berikutnya</u> adalah:</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',4)"><span class="opt-letter">A</span> I, II, III</div>
+            <div class="mc-option" onclick="checkMC(this,'b',4)"><span class="opt-letter">B</span> I dan III</div>
+            <div class="mc-option" onclick="checkMC(this,'c',4)"><span class="opt-letter">C</span> II dan IV</div>
+            <div class="mc-option" onclick="checkMC(this,'d',4)"><span class="opt-letter">D</span> IV</div>
+          </div>
+          <div class="mc-feedback" id="fb4"><span class="correct-ans">A — I, II, III.</span> Tidak mengakui beban penurunan nilai (I), pertumbuhan aset tak berwujud tinggi (II = kemungkinan kapitalisasi beban), pertumbuhan persediaan tinggi (III = biaya tidak diakui sebagai HPP) — ketiganya adalah tanda menggeser beban ke periode mendatang. IV (vendor financing) adalah indikasi pendapatan fiktif.</div>
+        </div>
+
+        <div class="mc-item">
+          <div class="mc-question">5. Indikasi yang dapat mengarah pada penggunaan teknik tertentu untuk <u>menyembunyikan beban atau kerugian</u> adalah:</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',5)"><span class="opt-letter">A</span> I, II, III</div>
+            <div class="mc-option" onclick="checkMC(this,'b',5)"><span class="opt-letter">B</span> I dan III</div>
+            <div class="mc-option" onclick="checkMC(this,'c',5)"><span class="opt-letter">C</span> II dan IV</div>
+            <div class="mc-option" onclick="checkMC(this,'d',5)"><span class="opt-letter">D</span> IV</div>
+          </div>
+          <div class="mc-feedback" id="fb5"><span class="correct-ans">D — IV.</span> Nilai vendor financing yang sangat besar merupakan tanda khusus bahwa perusahaan membiayai pembelian konsumen, yang dapat menyembunyikan kenyataan bahwa konsumen tidak mampu membayar — menggelembungkan pendapatan dan menyembunyikan kerugian kredit. Indikasi I, II, III lebih mengarah pada penggeseran beban, bukan penyembunyian beban/kerugian.</div>
+        </div>
+
+        <div class="mc-item">
+          <div class="mc-sub">
+            <strong>Untuk soal 6:</strong><br>
+            I. Tidak mengakui beban penurunan nilai aset.<br>
+            II. Pertumbuhan aset takberwujud jauh lebih tinggi dibandingkan penjualan.<br>
+            III. Pertumbuhan persediaan jauh lebih tinggi dibandingkan harga pokok penjualan.<br>
+            IV. Penghapusan aset secara tidak tepat pada periode berjalan untuk menghindari beban di masa depan.
+          </div>
+          <div class="mc-question">6. Indikasi yang dapat mengarah pada <u>menggeser beban masa depan ke periode berjalan</u> adalah:</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',6)"><span class="opt-letter">A</span> I, II, III</div>
+            <div class="mc-option" onclick="checkMC(this,'b',6)"><span class="opt-letter">B</span> I dan III</div>
+            <div class="mc-option" onclick="checkMC(this,'c',6)"><span class="opt-letter">C</span> II dan IV</div>
+            <div class="mc-option" onclick="checkMC(this,'d',6)"><span class="opt-letter">D</span> IV</div>
+          </div>
+          <div class="mc-feedback" id="fb6"><span class="correct-ans">D — IV.</span> Penghapusan aset secara tidak tepat di periode berjalan untuk menghindari beban masa depan adalah definisi tepat dari tipe 7 shenanigans (<em>big bath</em>) — menggeser beban masa depan ke periode berjalan. I, II, III semuanya merupakan indikasi menggeser beban ke depan (bukan menarik beban ke belakang).</div>
+        </div>
+
+        <div class="mc-item">
+          <div class="mc-sub">
+            <strong>Untuk soal 7:</strong><br>
+            I. Menggeser kerugian dari operasi yang dilanjutkan ke operasi yang dihentikan.<br>
+            II. Mencatat penerimaan dari operasi yang dihentikan sebagai pendapatan operasi.<br>
+            III. Pertumbuhan laba operasi jauh lebih tinggi dibandingkan penjualan.<br>
+            IV. Pertumbuhan utang usaha jauh lebih tinggi dibandingkan harga pokok penjualan.
+          </div>
+          <div class="mc-question">7. Indikasi yang dapat mengarah pada memperbesar <u>arus kas dari aktivitas operasi</u> menggunakan aktivitas non-rutin adalah:</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',7)"><span class="opt-letter">A</span> I, II, III</div>
+            <div class="mc-option" onclick="checkMC(this,'b',7)"><span class="opt-letter">B</span> I dan III</div>
+            <div class="mc-option" onclick="checkMC(this,'c',7)"><span class="opt-letter">C</span> II dan IV</div>
+            <div class="mc-option" onclick="checkMC(this,'d',7)"><span class="opt-letter">D</span> IV</div>
+          </div>
+          <div class="mc-feedback" id="fb7"><span class="correct-ans">D — IV.</span> Pertumbuhan utang usaha jauh lebih tinggi dari HPP mengindikasikan perusahaan menunda pembayaran — sehingga arus kas operasi tampak lebih besar dari seharusnya. Ini adalah manipulasi arus kas, bukan laba. Indikasi I, II, III lebih terkait manipulasi laba operasi.</div>
+        </div>
+
+        <div class="mc-item">
+          <div class="mc-sub">
+            <strong>Untuk soal 8:</strong><br>
+            I. Tidak mencatat dan mengungkapkan transaksi penjualan piutang (anjak piutang).<br>
+            II. Mengubah piutang usaha menjadi wesel tagih.<br>
+            III. Pertumbuhan yang jauh lebih tinggi pada akun piutang selain piutang usaha.<br>
+            IV. Pertumbuhan utang usaha jauh lebih tinggi dibandingkan harga pokok penjualan.
+          </div>
+          <div class="mc-question">8. Indikasi yang dapat mengarah pada teknik <u>manipulasi laporan posisi keuangan untuk menyembunyikan kondisi keuangan yang buruk</u> adalah:</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',8)"><span class="opt-letter">A</span> I, II, III</div>
+            <div class="mc-option" onclick="checkMC(this,'b',8)"><span class="opt-letter">B</span> I dan III</div>
+            <div class="mc-option" onclick="checkMC(this,'c',8)"><span class="opt-letter">C</span> II dan IV</div>
+            <div class="mc-option" onclick="checkMC(this,'d',8)"><span class="opt-letter">D</span> IV</div>
+          </div>
+          <div class="mc-feedback" id="fb8"><span class="correct-ans">A — I, II, III.</span> Tidak mengungkapkan penjualan piutang (I — menyembunyikan pengurangan aset), mengubah piutang ke wesel tagih (II — reklasifikasi untuk tampak lebih baik), dan pertumbuhan piutang non-usaha (III — menyembunyikan piutang bermasalah) semuanya adalah teknik manipulasi laporan posisi keuangan.</div>
+        </div>
+
+        <div class="mc-item">
+          <div class="mc-question">9. Berikut ini yang merupakan potensi <em>financial shenanigans</em> dari nilai kas dan setara kas yang turun jauh lebih besar dari penurunan nilai total aset adalah:</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',9)"><span class="opt-letter">A</span> Kemungkinan adanya pengakuan pendapatan yang agresif</div>
+            <div class="mc-option" onclick="checkMC(this,'b',9)"><span class="opt-letter">B</span> Kemungkinan terjadinya masalah likuiditas</div>
+            <div class="mc-option" onclick="checkMC(this,'c',9)"><span class="opt-letter">C</span> Kemungkinan penggelembungan laba</div>
+            <div class="mc-option" onclick="checkMC(this,'d',9)"><span class="opt-letter">D</span> Kemungkinan terjadinya kapitalisasi beban yang tidak wajar</div>
+          </div>
+          <div class="mc-feedback" id="fb9"><span class="correct-ans">B — Masalah likuiditas.</span> Sesuai Tabel 13.1 baris 1: Jika kas turun lebih rendah dari penurunan total aset, ini mengindikasikan masalah likuiditas dan kemungkinan perusahaan perlu melakukan pinjaman untuk memenuhi kewajibannya.</div>
+        </div>
+
+        <div class="mc-item">
+          <div class="mc-question">10. Berikut ini yang merupakan potensi <em>financial shenanigans</em> dari penurunan beban piutang taktertagih yang jauh lebih besar dari penurunan nilai piutang adalah:</div>
+          <div class="mc-options">
+            <div class="mc-option" onclick="checkMC(this,'a',10)"><span class="opt-letter">A</span> Kemungkinan adanya pengakuan pendapatan yang agresif</div>
+            <div class="mc-option" onclick="checkMC(this,'b',10)"><span class="opt-letter">B</span> Kemungkinan terjadinya masalah likuiditas</div>
+            <div class="mc-option" onclick="checkMC(this,'c',10)"><span class="opt-letter">C</span> Kemungkinan penggelembungan laba</div>
+            <div class="mc-option" onclick="checkMC(this,'d',10)"><span class="opt-letter">D</span> Kemungkinan terjadinya kapitalisasi beban yang tidak wajar</div>
+          </div>
+          <div class="mc-feedback" id="fb10"><span class="correct-ans">C — Penggelembungan laba.</span> Sesuai Tabel 13.1 baris 4: Jika pencadangan (penurunan nilai) piutang menurun secara relatif terhadap nilai piutang, perusahaan kemungkinan sengaja mengurangi cadangan piutang tak tertagih — ini menggelembungkan laba karena beban cadangan terlalu rendah.</div>
+        </div>
+      </div>
+
+      <!-- ESAI -->
+      <div class="exercise-section">
+        <div class="exercise-header">
+          <h3>Soal Esai</h3>
+          <span class="exercise-badge">2 Soal</span>
+        </div>
+
+        <div class="essay-item">
+          <div class="essay-q">1. Sebutkan cara-cara <em>financial shenanigans</em> untuk mengakui adanya pendapatan sebelum waktunya.</div>
+          <button class="essay-toggle" onclick="toggleEssay('ea1')">▶ Lihat Jawaban</button>
+          <div class="essay-answer" id="ea1">
+            <h5>Jawaban — Tipe 1: Pendapatan Sebelum Waktunya</h5>
+            <ul>
+              <li>Mengakui pendapatan saat masih ada <strong>jasa yang belum diserahkan</strong> kepada pelanggan</li>
+              <li>Mengakui pendapatan <strong>sebelum pengiriman barang</strong> atau sebelum barang diterima dengan sah oleh konsumen</li>
+              <li>Mengakui pendapatan meskipun atas transaksi tersebut konsumen <strong>tidak wajib melakukan pembayaran</strong></li>
+              <li>Melakukan transaksi penjualan pada <strong>pihak afiliasi</strong> (yang tidak mencerminkan transaksi arms-length)</li>
+              <li>Menyerahkan sesuatu yang berharga kepada konsumen sebagai <strong>"quid-pro-quo"</strong> — pada dasarnya transaksi yang terjadi adalah pertukaran yang seimbang, bukan penjualan sesungguhnya</li>
+              <li>Melakukan <strong>gross-up</strong> atas pendapatan — mengakui pendapatan secara bruto meskipun sebenarnya hanya bertindak sebagai agen</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="essay-item">
+          <div class="essay-q">2. Jelaskan indikator-indikator dalam laporan arus kas beserta potensi <em>financial shenanigans</em> yang dapat dijelaskan oleh indikator-indikator tersebut.</div>
+          <button class="essay-toggle" onclick="toggleEssay('ea2')">▶ Lihat Jawaban</button>
+          <div class="essay-answer" id="ea2">
+            <h5>Jawaban — Warning Signs dalam Laporan Arus Kas (Tabel 13.2)</h5>
+            <ul>
+              <li><strong>Indikator 1 — Arus Kas Operasi jauh lebih rendah dari Laba Bersih:</strong> Dapat mengindikasikan kualitas laba yang dipertanyakan atau pengeluaran untuk modal kerja yang terlalu tinggi. Perbedaan besar antara laba akrual dan arus kas riil adalah sinyal utama bahwa laba mungkin digelembungkan.</li>
+              <li><strong>Indikator 2 — Perusahaan lalai mengungkapkan rincian Arus Kas dari Kegiatan Operasi:</strong> Perusahaan kemungkinan berusaha untuk menyembunyikan sumber dari masalah arus kas operasional — dengan tidak mengungkapkan rincian, analis sulit mendeteksi komponen mana yang bermasalah.</li>
+              <li><strong>Indikator 3 — Penerimaan kas perusahaan sebagian besar berasal dari penjualan aset, pinjaman, atau tambahan modal:</strong> Ini adalah tanda-tanda kelemahan perusahaan, khususnya apabila penerimaan kas hanya berasal dari sumber non-operasional. Menunjukkan bahwa operasi inti tidak menghasilkan kas yang cukup.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- AI -->
+    <div class="section" id="ai">
+      <div class="section-header">
+        <span class="section-num">🤖</span>
+        <span class="section-title">Tanya AI — Asisten Belajar</span>
+      </div>
+      <div class="ai-section">
+        <div class="ai-header">
+          <div class="ai-dot"></div>
+          <h3>Asisten BAB 13 — Financial Shenanigans &amp; Analisis LK</h3>
+        </div>
+        <div class="ai-messages" id="aiMessages">
+          <div class="ai-msg ai">
+            <div class="avatar">AI</div>
+            <div class="ai-bubble">Halo! Saya siap membantu kamu memahami BAB 13 tentang Financial Shenanigans. Tanya tentang 7 jenis shenanigans, cara mendeteksi lewat rasio keuangan, warning signs dalam laporan keuangan, atau kasus nyata manipulasi akuntansi!</div>
+          </div>
+        </div>
+        <div class="ai-suggestions" id="aiSuggestions">
+          <span class="ai-chip" onclick="sendChip(this)">Jelaskan 7 jenis financial shenanigans secara ringkas</span>
+          <span class="ai-chip" onclick="sendChip(this)">Apa itu big bath dan bagaimana cara mendeteksinya?</span>
+          <span class="ai-chip" onclick="sendChip(this)">Mengapa arus kas operasi jauh lebih rendah dari laba bersih menjadi sinyal bahaya?</span>
+          <span class="ai-chip" onclick="sendChip(this)">Apa saja warning signs dari common size analysis laporan posisi keuangan?</span>
+          <span class="ai-chip" onclick="sendChip(this)">Bagaimana akuisisi bisa digunakan untuk melakukan shenanigans?</span>
+        </div>
+        <div class="ai-input-row">
+          <textarea class="ai-input" id="aiInput" rows="1" placeholder="Ketik pertanyaan tentang BAB 13…" onkeydown="handleKey(event)"></textarea>
+          <button class="ai-send" id="aiSendBtn" onclick="sendMessage()">Kirim</button>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<script>
+const answers = {1:'b',2:'c',3:'a',4:'a',5:'d',6:'d',7:'d',8:'a',9:'b',10:'c'};
+function checkMC(el, choice, num) {
+  const item = el.closest('.mc-item');
+  if (item.querySelector('.revealed')) return;
+  const correct = answers[num];
+  item.querySelectorAll('.mc-option').forEach(opt => {
+    opt.classList.add('revealed');
+    const letter = opt.querySelector('.opt-letter').textContent.toLowerCase();
+    if (letter === correct) opt.classList.add('correct');
+    else if (letter === choice && choice !== correct) opt.classList.add('wrong');
+  });
+  const fb = document.getElementById('fb' + num);
+  if (fb) fb.classList.add('show');
+}
+function toggleEssay(id) {
+  const ans = document.getElementById(id);
+  const btn = ans.previousElementSibling;
+  const show = !ans.classList.contains('show');
+  ans.classList.toggle('show', show);
+  btn.textContent = show ? '▼ Sembunyikan Jawaban' : '▶ Lihat Jawaban';
+}
+const sections = document.querySelectorAll('.section, .subsection');
+const tocLinks = document.querySelectorAll('.toc-link');
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { tocLinks.forEach(l => l.classList.remove('active')); const a = document.querySelector(`.toc-link[href="#${e.target.id}"]`); if (a) a.classList.add('active'); } });
+}, { rootMargin: '-20% 0px -70% 0px' });
+sections.forEach(s => { if (s.id) obs.observe(s); });
+
+const SYSTEM_PROMPT = `Kamu adalah asisten belajar untuk mata kuliah CA Indonesia: Pelaporan Korporat, khususnya BAB 13 tentang Analisis Laporan Keuangan: Financial Shenanigans — Mendeteksi Fraud dan Gimmick Akuntansi dalam Laporan Keuangan.
+
+Topik yang kamu kuasai:
+- Kasus nyata: Cendant/CUC, Informix, Waste Management, Lucent — pola shenanigans yang digunakan
+- 13.1-2 Tujuh jenis financial shenanigans:
+  Tipe 1: Pengakuan pendapatan terlalu cepat (6 teknik: jasa belum diserahkan, sebelum pengiriman, konsumen tidak wajib bayar, pihak afiliasi, quid-pro-quo, gross-up)
+  Tipe 2: Pendapatan fiktif (5 teknik: tidak ada substansi ekonomis, kas pinjaman jadi pendapatan, laba investasi jadi pendapatan, potongan harga pemasok, pendapatan sengaja tidak diakui saat merger)
+  Tipe 3: Laba dari keuntungan insidental (4 teknik: jual aset undervalued, keuntungan investasi masuk pendapatan operasi, keuntungan kurangi beban operasi, reklasifikasi akun)
+  Tipe 4: Geser beban ke depan (5 teknik: kapitalisasi beban operasi, ubah kebijakan untuk geser beban, amortisasi lambat, tidak akui penurunan nilai, kurangi cadangan aset)
+  Tipe 5: Sembunyikan liabilitas (5 teknik: tidak catat kewajiban masa depan, ubah asumsi kurangi liabilitas, cadangan diragukan ke L/R, rebat palsu, catat pendapatan saat kas diterima meski masih ada kewajiban)
+  Tipe 6: Tunda pendapatan / income smoothing (2 teknik: buat cadangan untuk laba masa depan, tunda pendapatan sampai akuisisi selesai)
+  Tipe 7: Big bath — geser beban masa depan ke sekarang (3 teknik: perbesar kerugian insidental, hapus R&D dari akuisisi, percepat beban diskresioner)
+- 13.3 Mendeteksi shenanigans: indikator kuantitatif (AKO << laba, piutang tumbuh > penjualan, persediaan tinggi, aset tak berwujud naik, pendapatan tangguhan turun), indikator kualitatif (perubahan KAP, perubahan estimasi, vendor financing, insider stock sales, bill and hold), langkah lanjutan (auditor, CALK, laporan tahunan, prospektus)
+- 13.4 Analisis LK: common size analysis vertikal dan horizontal, Tabel 13.1 warning signs LPK dan L/R (24 tanda), Tabel 13.2 warning signs Arus Kas (3 tanda), Tabel 13.3 warning signs CALK/Laporan Tahunan/Auditor (26 tanda), Checklist 13.1
+- 13.5 Area permasalahan utama: akuisisi (7 teknik shenanigans), pengakuan pendapatan (kontrak konstruksi, konsinyasi, penjualan cicilan, leasing)
+- 13.6 Rasio keuangan: profitabilitas (GPM, operating margin, NPM, ROA, ROE, EPS), likuiditas (current ratio, working capital, quick ratio), solvency (debt to asset, debt to equity, LT debt to equity, interest coverage), aktivitas (inventory turnover, avg days inventory, receivable turnover, avg collection period). Keterbatasan rasio. 7 prinsip dasar pelaporan keuangan yang akurat.
+
+Jawab dalam Bahasa Indonesia yang jelas dan ringkas. Gunakan contoh konkret dan indikator yang jelas bila relevan.`;
+
+const messagesEl = document.getElementById('aiMessages');
+const inputEl = document.getElementById('aiInput');
+const sendBtn = document.getElementById('aiSendBtn');
+let history = [];
+function addMsg(role, text) {
+  const div = document.createElement('div');
+  div.className = `ai-msg ${role}`;
+  div.innerHTML = `<div class="avatar">${role==='ai'?'AI':'Kamu'}</div><div class="ai-bubble">${text.replace(/\n/g,'<br>')}</div>`;
+  messagesEl.appendChild(div); messagesEl.scrollTop = messagesEl.scrollHeight;
+}
+function addTyping() {
+  const div = document.createElement('div'); div.className = 'ai-msg ai'; div.id = 'typing';
+  div.innerHTML = `<div class="avatar">AI</div><div class="ai-typing"><span></span><span></span><span></span></div>`;
+  messagesEl.appendChild(div); messagesEl.scrollTop = messagesEl.scrollHeight;
+}
+async function sendMessage() {
+  const text = inputEl.value.trim(); if (!text) return;
+  inputEl.value = ''; document.getElementById('aiSuggestions').style.display = 'none';
+  addMsg('user', text); history.push({ role: 'user', content: text }); sendBtn.disabled = true; addTyping();
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ model: 'claude-sonnet-4-20250514', max_tokens: 1000, system: SYSTEM_PROMPT, messages: history }) });
+    const data = await res.json();
+    document.getElementById('typing')?.remove();
+    const reply = data.content?.find(b => b.type === 'text')?.text || 'Maaf, tidak ada respons.';
+    addMsg('ai', reply); history.push({ role: 'assistant', content: reply });
+  } catch { document.getElementById('typing')?.remove(); addMsg('ai', 'Maaf, terjadi kesalahan. Periksa koneksi internet dan coba lagi.'); }
+  sendBtn.disabled = false;
+}
+function sendChip(el) { inputEl.value = el.textContent; sendMessage(); }
+function handleKey(e) { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); } }
+</script>
+</body>
+</html>
